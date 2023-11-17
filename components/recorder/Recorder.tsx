@@ -51,12 +51,12 @@ const Recorder = () => {
 
   const startRecording = () => {
     console.log('record');
-    recognition?.start();
+    (recognition as any)?.start();
   };
 
   const stopRecording = () => {
     console.log('stop record');
-    recognition?.stop();
+    (recognition as any)?.stop();
   }
 
   return (
