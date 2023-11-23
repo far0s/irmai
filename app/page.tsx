@@ -8,6 +8,7 @@ export default function Chat() {
   const { messages, input, handleInputChange, handleSubmit, data } = useChat();
   const [tarotCards, setTarotCards] = useState([]);
   const [subject, setSubject] = useState('love life');
+  const [voice, setVoice] = useState('nova');
   const [irmaiIsThinking, setIrmaiIsThinking] = useState(false);
   const [irmaiIsSpeaking, setIrmaiIsSpeaking] = useState(false);
 
@@ -30,7 +31,7 @@ export default function Chat() {
       method: 'POST',
       body: JSON.stringify({
         input: message.content,
-        voice: 'nova', // alloy, echo, fable, onyx, nova, and shimmer
+        voice: voice, // alloy, echo, fable, onyx, nova, and shimmer
       }),
     });
 
@@ -128,6 +129,29 @@ export default function Chat() {
             {input.length === 0 && tarotCards.length > 0 && <button onClick={composeInput} className="absolute right-0 w-30 p-1 m-1 border border-gray-300 rounded shadow-xl cursor z-1">Compose Prompt</button>}
           </form>
       </div>
+
+      <select
+        className="fixed top-0 right-0 w-40 p-2 m-2 border border-gray-300 shadow-xl cursor"
+        onChange={(event) => setVoice(event.target.value)}
+      >
+        <option value="Voice" disabled>Voice</option>
+        <option value="nova">Nova</option>
+        <option value="alloy">Alloy</option>
+        <option value="echo">Echo</option>
+        <option value="fable">Fable</option>
+        <option value="onyx">Onyx</option>
+        <option value="shimmer">Shimmer</option>
+      </select>
+      <select
+        className="fixed top-12 right-0 w-40 p-2 m-2 border border-gray-300 shadow-xl cursor"
+        onChange={(event) => setSubject(event.target.value)}
+      >
+        <option value="Subject" disabled>Subject</option>
+        <option value="love life">Love life</option>
+        <option value="professional career">Professional Career</option>
+        <option value="next obsession">Next obsession</option>
+        <option value="dinner">Dinner</option>
+      </select>
       {/* <Recorder /> */}
     </div>
   );
