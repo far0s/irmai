@@ -17,7 +17,9 @@ export async function POST(req: Request) {
     input: input,
   });
 
-  return new Response(Buffer.from(await mp3.arrayBuffer()), {
+  const buffer = await Buffer.from(await mp3.arrayBuffer());
+
+  return new Response(buffer, {
     headers: {
       "Content-Type": "audio/mpeg",
     },
@@ -29,7 +31,7 @@ export async function GET(req: Request) {
   const mp3 = await openai.audio.speech.create({
     model: "tts-1",
     voice: "nova",
-    input: "Hi!, I'm Nova, and this is a test message.",
+    input: "Hi!, I'm Nova, and this is a test message. Beep! Sorry, I'm not a message machine. I'm a robot. I mean no, I'm not a robot, I'm an AI assistant. Anyway, talk to you soon!",
   });
 
   return new Response(Buffer.from(await mp3.arrayBuffer()), {

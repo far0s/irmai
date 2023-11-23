@@ -37,6 +37,7 @@ export default function Chat() {
 
     const audioBuffer = await whisper.arrayBuffer();
 
+    // FIXME: on Safari the audioContext is defined, but the audio doesn't play
     const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
     audioContext.decodeAudioData(audioBuffer, (buffer) => {
       const source = audioContext.createBufferSource();
@@ -44,6 +45,9 @@ export default function Chat() {
       source.connect(audioContext.destination);
       source.start();
       source.onended = () => setIrmaiIsSpeaking(false);
+    }, (error) => {
+      console.log('error decoding audio data');
+      console.log(error);
     });
   };
 
