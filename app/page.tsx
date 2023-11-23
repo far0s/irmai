@@ -48,9 +48,9 @@ export default function Chat() {
 
   const composeInput = () => {
     // on button click, write a sentence containing the cards' names, and change the inputRef value
-    const cards = tarotCards.map((card) => card.name);
+    const cards = tarotCards.map((card: any) => card.name);
     const sentence = `Give me a tarot reading about my ${subject}. I pulled the following cards from left to right: ${cards.join(', ')}. Keep your response to a maximum of 50 words.`;
-    handleInputChange({ target: { value: sentence } });
+    handleInputChange({ target: { value: sentence } } as any);
   };
 
   const submitPrompt = (event: any) => {
@@ -87,7 +87,7 @@ export default function Chat() {
       {tarotCards.length > 0 && <>
         <div className="w-full block flex-1 text-center">Your cards:</div>
         <div className="flex flex-row justify-center w-full">
-          {tarotCards.map((card) => (
+          {tarotCards.map((card: any) => (
             <div key={card.name_short} className="flex flex-col items-center justify-center w-1/3 p-4">
               {/* <img src={card.image} className="w-32 h-48" /> */}
               <div className="text-center">{card.name}</div>
