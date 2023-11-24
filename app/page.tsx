@@ -165,7 +165,7 @@ export default function Chat() {
         <option value="next obsession">Next obsession</option>
         <option value="dinner">Dinner</option>
       </select>
-      <Recorder />
+      {/* <Recorder /> */}
     </div>
   );
 }
