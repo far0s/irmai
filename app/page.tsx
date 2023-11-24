@@ -26,29 +26,32 @@ export default function Chat() {
   }
 
   const speakLastMessage = async (message: any) => {
-    setIrmaiIsSpeaking(true);
-    const whisper = await fetch('/api/speak', {
-      method: 'POST',
-      body: JSON.stringify({
-        input: message.content,
-        voice: voice, // alloy, echo, fable, onyx, nova, and shimmer
-      }),
-    });
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+      navigator.mediaDevices.getUserMedia({ audio: true })
+        .then(async (stream) => {
+          setIrmaiIsSpeaking(true);
+          const whisper = await fetch('/api/speak', {
+            method: 'POST',
+            body: JSON.stringify({
+              input: message.content,
+              voice: voice, // alloy, echo, fable, onyx, nova, and shimmer
+            }),
+          });
 
-    const audioBuffer = await whisper.arrayBuffer();
-
-    // FIXME: on Safari the audioContext is defined, but the audio doesn't play
-    const audioContext = new (window.AudioContext || (window as any).webkitAudioContext)();
-    audioContext.decodeAudioData(audioBuffer, (buffer) => {
-      const source = audioContext.createBufferSource();
-      source.buffer = buffer;
-      source.connect(audioContext.destination);
-      source.start();
-      source.onended = () => setIrmaiIsSpeaking(false);
-    }, (error) => {
-      console.log('error decoding audio data');
-      console.log(error);
-    });
+          const audioContext = new AudioContext();
+          const audioBuffer = await audioContext.decodeAudioData(await whisper.arrayBuffer());
+          const audioSource = audioContext.createBufferSource();
+          audioSource.buffer = audioBuffer;
+          audioSource.connect(audioContext.destination);
+          audioSource.start();
+          audioSource.onended = () => {
+            setIrmaiIsSpeaking(false);
+          };
+        })
+        .catch((error) => console.log('Something went wrong!', error));
+    } else {
+      console.log('getUserMedia is not supported');
+    }
   };
 
   const composeInput = () => {

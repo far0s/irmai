@@ -22,6 +22,7 @@ export async function POST(req: Request) {
   return new Response(buffer, {
     headers: {
       "Content-Type": "audio/mpeg",
+      "Content-Length": buffer.byteLength.toString(),
     },
   });
 }
@@ -34,9 +35,12 @@ export async function GET(req: Request) {
     input: "Hi!, I'm Nova, and this is a test message. Beep! Sorry, I'm not a message machine. I'm a robot. I mean no, I'm not a robot, I'm an AI assistant. Anyway, talk to you soon!",
   });
 
-  return new Response(Buffer.from(await mp3.arrayBuffer()), {
+  const buffer = await Buffer.from(await mp3.arrayBuffer());
+
+  return new Response(buffer, {
     headers: {
       "Content-Type": "audio/mpeg",
+      "Content-Length": buffer.byteLength.toString(),
     },
   });
 }
