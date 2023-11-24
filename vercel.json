@@ -1,8 +1,0 @@
-{
-  "crons": [
-    {
-      "path": "/api/tarot",
-      "schedule": "0 5 * * *"
-    }
-  ]
-}

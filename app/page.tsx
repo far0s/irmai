@@ -21,8 +21,8 @@ export default function Chat() {
 
   const pickTarotCards = async () => {
     const response = await fetch('/api/tarot');
-    const data = await response.json();
-    setTarotCards(data.cards);
+    const cards = await response.json();
+    setTarotCards(cards);
   }
 
   const speakLastMessage = async (message: any) => {
