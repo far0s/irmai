@@ -30,7 +30,7 @@ export default function Chat() {
       navigator.mediaDevices.getUserMedia({ audio: true })
         .then(async (stream) => {
           setIrmaiIsSpeaking(true);
-          const whisper = await fetch('/api/speak', {
+          const whisper = await fetch('/api/text-to-speech', {
             method: 'POST',
             body: JSON.stringify({
               input: message.content,

@@ -1,3 +1,4 @@
+// ./app/api/text-to-speech/route.ts
 import OpenAI from "openai";
 
 // Create an OpenAI API client (that's edge friendly!)
@@ -27,7 +28,7 @@ export async function POST(req: Request) {
   });
 }
 
-
+// This is just a test route to make sure the API is working
 export async function GET(req: Request) {
   const mp3 = await openai.audio.speech.create({
     model: "tts-1",
