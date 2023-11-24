@@ -50,6 +50,8 @@ export default function Chat() {
           audioSource.start();
           audioSource.onended = () => {
             setIrmaiIsSpeaking(false);
+
+            stream.getTracks().forEach((track: any) => track.stop());
           };
         })
         .catch((error) => console.log('Something went wrong!', error));
@@ -163,7 +165,7 @@ export default function Chat() {
         <option value="next obsession">Next obsession</option>
         <option value="dinner">Dinner</option>
       </select>
-      {/* <Recorder /> */}
+      <Recorder />
     </div>
   );
 }
