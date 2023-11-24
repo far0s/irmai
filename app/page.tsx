@@ -43,6 +43,10 @@ export default function Chat() {
           const audioSource = audioContext.createBufferSource();
           audioSource.buffer = audioBuffer;
           audioSource.connect(audioContext.destination);
+          const gainNode = audioContext.createGain();
+          gainNode.gain.value = 0.5;
+          audioSource.connect(gainNode);
+          gainNode.connect(audioContext.destination);
           audioSource.start();
           audioSource.onended = () => {
             setIrmaiIsSpeaking(false);
