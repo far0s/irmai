@@ -1,8 +1,7 @@
 'use client';
-
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useChat } from 'ai/react';
-import Recorder from '@/components/recorder/Recorder';
+import Recorder from '../components/recorder/Recorder';
 
 export default function Chat() {
   const { messages, input, handleInputChange, handleSubmit, data } = useChat();
@@ -11,6 +10,7 @@ export default function Chat() {
   const [voice, setVoice] = useState('nova');
   const [irmaiIsThinking, setIrmaiIsThinking] = useState(false);
   const [irmaiIsSpeaking, setIrmaiIsSpeaking] = useState(false);
+  const [transcript, setTranscript] = useState('');
 
   // TASKS:
   // [X] speech synthesizer so the browser can talk back (using OpenAI text-to-speech API https://platform.openai.com/docs/guides/text-to-speech)
@@ -59,6 +59,12 @@ export default function Chat() {
       console.log('getUserMedia is not supported');
     }
   };
+
+  useEffect(() => {
+    if (transcript.length > 0) {
+      handleInputChange({ target: { value: transcript } } as any);
+    }
+  }, [transcript])
 
   const composeInput = () => {
     // on button click, write a sentence containing the cards' names, and change the inputRef value
@@ -128,19 +134,20 @@ export default function Chat() {
       )}
 
       <div className="fixed bottom-0 w-full max-w-xl p-2 mb-8 flex flex-col gap-2">
-          <button onClick={pickTarotCards} className="w-full max-w-xl p-2 border border-gray-300 rounded shadow-xl">
-            {tarotCards.length === 0 ? 'Pull three cards' : 'Pick again'}
-          </button>
-          <form onSubmit={submitPrompt} className="relative flex flex-row align-center">
-            <input
-              className="w-full p-2 pr-20 border border-gray-300 rounded shadow-xl"
-              value={input}
-              placeholder="Say something..."
-              onChange={handleInputChange}
-            />
-            {input.length > 5 && <input type="submit" className="absolute right-0 w-30 p-1 m-1 border border-gray-300 rounded shadow-xl cursor z-1" />}
-            {input.length === 0 && tarotCards.length > 0 && <button onClick={composeInput} className="absolute right-0 w-30 p-1 m-1 border border-gray-300 rounded shadow-xl cursor z-1">Compose Prompt</button>}
-          </form>
+        <button onClick={pickTarotCards} className="w-full max-w-xl p-2 border border-gray-300 rounded shadow-xl">
+          {tarotCards.length === 0 ? 'Pull three cards' : 'Pick again'}
+        </button>
+        <Recorder setTranscript={setTranscript} />
+        <form onSubmit={submitPrompt} className="relative flex flex-row align-center">
+          <input
+            className="w-full p-2 pr-20 border border-gray-300 rounded shadow-xl"
+            value={input}
+            placeholder="Say something..."
+            onChange={handleInputChange}
+          />
+          {input.length > 5 && <input type="submit" className="absolute right-0 w-30 p-1 m-1 border border-gray-300 rounded shadow-xl cursor z-1" />}
+          {input.length === 0 && tarotCards.length > 0 && <button onClick={composeInput} className="absolute right-0 w-30 p-1 m-1 border border-gray-300 rounded shadow-xl cursor z-1">Compose Prompt</button>}
+        </form>
       </div>
 
       <select
@@ -165,7 +172,6 @@ export default function Chat() {
         <option value="next obsession">Next obsession</option>
         <option value="dinner">Dinner</option>
       </select>
-      {/* <Recorder /> */}
     </div>
   );
 }

@@ -1,68 +1,40 @@
 // 'use client';
-import { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import useRecorder from './useRecorder';
 
-declare const window: any;
+const Recorder = ({ setTranscript }) => {
+  const { startRecording, stopRecording, audioURL, isRecording, audioFile } = useRecorder();
 
-const Recorder = () => {
-  const [isRecording, setIsRecording] = useState(false);
-  const [confidence, setConfidence] = useState<number>();
-  const [transcript, setTranscript] = useState<number>();
-  const [recognition, setRecognition] = useState(null);
-
-  useEffect(() => {
-    return () => {
-      const speechRecognitionList = (window as any).SpeechGrammarList || (window as any).webkitSpeechGrammarList;
-      const recog = window.SpeechRecognition || window.webkitSpeechRecognition;
-      const recognitionInstance = new recog();
-      const list = new speechRecognitionList();
-      recognitionInstance.grammars = list;
-      recognitionInstance.lang = 'en-US';
-      recognitionInstance.interimResults = true;
-      recognitionInstance.continuous = true;
-      recognitionInstance.maxAlternatives = 1;
-
-      recognitionInstance.onstart = function() {
-        setIsRecording(true);
-        console.log("We are listening. Try speaking into the microphone.");
-      };
-
-      recognitionInstance.onend = function() {
-        // when user is done speaking
-        setIsRecording(false);
-        recognitionInstance.stop();
-      }
-
-      recognitionInstance.onresult = function(event: any) {
-        setTranscript(event.results[0][0].transcript);
-        console.log('Transcript: ' + event.results[0][0].transcript);
-        setConfidence(event.results[0][0].confidence);
-        console.log('Confidence: ' + event.results[0][0].confidence);
-      };
-
-      recognitionInstance.onerror = function(event:any) {
-        console.log(event.error);
-        setIsRecording(false);
-      }
-
-      setRecognition(recognitionInstance);
-
-    };
-  }, [])
-
-  const startRecording = () => {
-    console.log('record');
-    (recognition as any)?.start();
+  const handleStartRecording = () => {
+    startRecording();
   };
 
-  const stopRecording = () => {
-    console.log('stop record');
-    (recognition as any)?.stop();
-  }
+  const handleStopRecording = () => {
+    stopRecording();
+  };
+
+  useEffect(() => {
+    if (audioURL && audioFile) {
+      convertAudioToTranscript(audioFile);
+    }
+  }, [audioURL, audioFile])
+
+  const convertAudioToTranscript = async (audioFile) => {
+    const formData = new FormData();
+    formData.append('file', audioFile);
+    const response = await fetch('/api/speech-to-text', {
+      method: 'POST',
+      body: formData,
+    })
+      .then((res) => res.json())
+      .catch((err) => window.alert(err));
+    setTranscript(response.text);
+  };
 
   return (
-    <div className="fixed bottom-0 w-full max-w-md p-2 mb-20">
-      <button className="border border-gray-300 rounded p-2 hover:bg-gray-100" onClick={startRecording}>Record{isRecording ? 'ing...' : ''}</button>
-      {isRecording && <button className="border border-gray-300 rounded p-2 hover:bg-gray-100" onClick={stopRecording}>Stop</button>}
+    <div>
+      {!isRecording && <button className="w-full z-1 border border-gray-300 rounded p-2 hover:bg-gray-100" onClick={handleStartRecording}>Record</button>}
+      {isRecording && <button className="w-full z-1 border border-gray-300 rounded p-2 hover:bg-gray-100" onClick={handleStopRecording}>Stop</button>}
     </div>
   )
 };
