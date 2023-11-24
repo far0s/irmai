@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 import useRecorder from './useRecorder';
 
-const Recorder = ({ setTranscript }) => {
+const Recorder = ({ setTranscript }: any) => {
   const { startRecording, stopRecording, audioURL, isRecording, audioFile } = useRecorder();
 
   const handleStartRecording = () => {
@@ -19,7 +19,7 @@ const Recorder = ({ setTranscript }) => {
     }
   }, [audioURL, audioFile])
 
-  const convertAudioToTranscript = async (audioFile) => {
+  const convertAudioToTranscript = async (audioFile: any) => {
     const formData = new FormData();
     formData.append('file', audioFile);
     const response = await fetch('/api/speech-to-text', {
