@@ -44,7 +44,7 @@ const useRecorder = (): Recorder => {
 
     mediaRecorderRef.current.ondataavailable = (e) => chunks.push(e.data)
     mediaRecorderRef.current.onstop = () => {
-      const blob = new Blob(chunks, { type: 'audio/webm;codecs=opus' })
+      const blob = new Blob(chunks, { type: 'audio/webm' })
       setBlob(blob)
       setAudioURL(URL.createObjectURL(blob))
 
@@ -58,7 +58,7 @@ const useRecorder = (): Recorder => {
       // https://github.com/fluent-ffmpeg/node-fluent-ffmpeg
 
       const audioFile = new File([blob], 'recorded_audio.webm', {
-        type: 'audio/webm;codecs=opus',
+        type: 'audio/webm',
       })
       setAudioFile(audioFile)
     }
