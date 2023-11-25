@@ -18,7 +18,7 @@ export async function POST(req: Request) {
     });
   }
 
-  if (!(input.type === 'audio/mpeg' || input.type === 'audio/mp3')) {
+  if (!(input.type === 'audio/mpeg' || input.type === 'audio/webm')) {
     return new Response('Invalid input type', {
       status: 400,
     });
