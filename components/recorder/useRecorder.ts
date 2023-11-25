@@ -48,6 +48,15 @@ const useRecorder = (): Recorder => {
       setBlob(blob)
       setAudioURL(URL.createObjectURL(blob))
 
+      // FIXME: on safari, the blob is not playable because of the codec, or a missin moov atom at the end, it's unclear why
+      // some openai forum threads:
+      // https://community.openai.com/t/whisper-api-cannot-read-files-correctly/93420/54?page=2
+      // https://community.openai.com/t/whisper-api-is-not-able-to-transcribe-audios-created-on-ios/457325
+      // https://community.openai.com/t/whisper-api-respnse-issue/81552
+      // potential solution would be to use a polyfill, such as https://github.com/ai/audio-recorder-polyfill
+      // or to reencode the audio file on the server, using ffmpeg
+      // https://github.com/fluent-ffmpeg/node-fluent-ffmpeg
+
       const audioFile = new File([blob], 'recorded_audio.webm', {
         type: 'audio/webm;codecs=opus',
       })
