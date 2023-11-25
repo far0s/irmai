@@ -134,24 +134,24 @@ export default function Chat() {
       )}
 
       <div className="fixed bottom-0 w-full max-w-xl p-2 mb-8 flex flex-col gap-2">
-        <button onClick={pickTarotCards} className="w-full max-w-xl p-2 border border-gray-300 rounded shadow-xl">
+        <button onClick={pickTarotCards} className="w-full max-w-xl p-2 border border-gray-300 rounded hover:bg-gray-100">
           {tarotCards.length === 0 ? 'Pull three cards' : 'Pick again'}
         </button>
         <Recorder setTranscript={setTranscript} />
         <form onSubmit={submitPrompt} className="relative flex flex-row align-center">
           <input
-            className="w-full p-2 pr-20 border border-gray-300 rounded shadow-xl"
+            className="w-full p-2 pr-20 border border-gray-300 rounded"
             value={input}
             placeholder="Say something..."
             onChange={handleInputChange}
           />
-          {input.length > 5 && <input type="submit" className="absolute right-0 w-30 p-1 m-1 border border-gray-300 rounded shadow-xl cursor z-1" />}
-          {input.length === 0 && tarotCards.length > 0 && <button onClick={composeInput} className="absolute right-0 w-30 p-1 m-1 border border-gray-300 rounded shadow-xl cursor z-1">Compose Prompt</button>}
+          {input.length > 5 && <input type="submit" className="absolute right-0 w-30 p-1 m-1 border border-gray-300 rounded hover:bg-gray-100 cursor z-1" />}
+          {input.length === 0 && tarotCards.length > 0 && <button onClick={composeInput} className="absolute right-0 w-30 p-1 m-1 border border-gray-300 rounded hover:bg-gray-100 cursor z-1">Compose Prompt</button>}
         </form>
       </div>
 
       <select
-        className="fixed top-0 right-0 w-40 p-2 m-2 border border-gray-300 shadow-xl cursor"
+        className="fixed top-0 right-0 w-40 p-2 m-2 border border-gray-300 cursor"
         onChange={(event) => setVoice(event.target.value)}
       >
         <option value="Voice" disabled>Voice</option>
@@ -163,7 +163,7 @@ export default function Chat() {
         <option value="shimmer">Shimmer</option>
       </select>
       <select
-        className="fixed top-12 right-0 w-40 p-2 m-2 border border-gray-300 shadow-xl cursor"
+        className="fixed top-12 right-0 w-40 p-2 m-2 border border-gray-300 cursor"
         onChange={(event) => setSubject(event.target.value)}
       >
         <option value="Subject" disabled>Subject</option>

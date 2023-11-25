@@ -11,12 +11,15 @@ export const runtime = 'edge';
 export async function POST(req: Request) {
   const formData = await req.formData();
   const input:any = formData.get('file');
-  console.log('📁', input.type);
-
-  // get mimeType of input
 
   if (!input) {
     return new Response('Missing input', {
+      status: 400,
+    });
+  }
+
+  if (!(input.type === 'audio/mpeg' || input.type === 'audio/mp3')) {
+    return new Response('Invalid input type', {
       status: 400,
     });
   }

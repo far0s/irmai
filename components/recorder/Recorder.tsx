@@ -1,9 +1,8 @@
-// 'use client';
 import React, { useEffect } from 'react';
 import useRecorder from './useRecorder';
 
 const Recorder = ({ setTranscript }: any) => {
-  const { startRecording, stopRecording, audioURL, isRecording, audioFile } = useRecorder();
+  const { startRecording, stopRecording, resetRecording, audioURL, isRecording, audioFile } = useRecorder();
 
   const handleStartRecording = () => {
     startRecording();
@@ -28,7 +27,12 @@ const Recorder = ({ setTranscript }: any) => {
     })
       .then((res) => res.json())
       .catch((err) => window.alert(err));
-    setTranscript(response.text);
+    if (response && response.text) {
+      setTranscript(response.text);
+    }
+    if (resetRecording) {
+      resetRecording();
+    }
   };
 
   return (
