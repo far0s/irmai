@@ -18,7 +18,7 @@ export async function POST(req: Request) {
     });
   }
 
-  if (!(input.type === 'audio/mpeg' || input.type === 'audio/webm')) {
+  if (!(input.type === 'audio/mpeg' || input.type === 'audio/mp3')) {
     return new Response('Invalid input type', {
       status: 400,
     });
@@ -60,6 +60,10 @@ export async function GET(req: Request) {
 
 const reEncodeAudioFile = async (audioFile: any): Promise<File> => {
   console.log('🐛', audioFile);
+  // when the file is initially encoded in Safari/Webkit, the mp3 is detected as invalid by the OpenAI API.
+  // forum threads are saying this is because Safari adds an extra atom at the end of the file, and that the file needs to be re-encoded
+  // https://community.openai.com/t/whisper-api-cannot-read-files-correctly/93420/54?page=2
+
 
   return audioFile;
 };

@@ -44,7 +44,7 @@ const useRecorder = (): Recorder => {
 
     mediaRecorderRef.current.ondataavailable = (e) => chunks.push(e.data)
     mediaRecorderRef.current.onstop = () => {
-      const blob = new Blob(chunks, { type: 'audio/webm' })
+      const blob = new Blob(chunks, { type: 'audio/mp3' })
       setBlob(blob)
       setAudioURL(URL.createObjectURL(blob))
 
@@ -57,8 +57,8 @@ const useRecorder = (): Recorder => {
       // or to reencode the audio file on the server, using ffmpeg
       // https://github.com/fluent-ffmpeg/node-fluent-ffmpeg
 
-      const audioFile = new File([blob], 'recorded_audio.webm', {
-        type: 'audio/webm',
+      const audioFile = new File([blob], 'recorded_audio.mp3', {
+        type: 'audio/mp3',
       })
       setAudioFile(audioFile)
 
