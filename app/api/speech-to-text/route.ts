@@ -1,6 +1,5 @@
 // ./app/api/speech-to-text/route.ts
 import OpenAI from "openai";
-import { File } from "openai/_shims/auto/types";
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY || '',
@@ -11,6 +10,7 @@ export const runtime = 'edge';
 export async function POST(req: Request) {
   const formData = await req.formData();
   const input:any = formData.get('file');
+  const isFromSafari = formData.get('safari') === 'true';
 
   if (!input) {
     return new Response('Missing input', {
@@ -24,9 +24,11 @@ export async function POST(req: Request) {
     });
   }
 
+  const reEncodedInput = isFromSafari ? await reEncodeAudioFile(input) : input;
+
   const res = await openai.audio.transcriptions.create({
     model: "whisper-1",
-    file: input,
+    file: reEncodedInput,
   });
 
   return new Response(JSON.stringify(res), {
@@ -54,3 +56,10 @@ export async function GET(req: Request) {
     },
   });
 }
+
+
+const reEncodeAudioFile = async (audioFile: any): Promise<File> => {
+  console.log('🐛', audioFile);
+
+  return audioFile;
+};
