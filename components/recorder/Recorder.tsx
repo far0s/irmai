@@ -4,14 +4,6 @@ import useRecorder from './useRecorder';
 const Recorder = ({ setTranscript }: any) => {
   const { startRecording, stopRecording, resetRecording, audioURL, isRecording, audioFile } = useRecorder();
 
-  const handleStartRecording = () => {
-    startRecording();
-  };
-
-  const handleStopRecording = () => {
-    stopRecording();
-  };
-
   useEffect(() => {
     if (audioURL && audioFile) {
       convertAudioToTranscript(audioFile);
@@ -37,8 +29,8 @@ const Recorder = ({ setTranscript }: any) => {
 
   return (
     <div>
-      {!isRecording && <button className="w-full z-1 border border-gray-300 rounded p-2 hover:bg-gray-100" onClick={handleStartRecording}>Record</button>}
-      {isRecording && <button className="w-full z-1 border border-gray-300 rounded p-2 hover:bg-gray-100" onClick={handleStopRecording}>Stop</button>}
+      {!isRecording && <button className="w-full z-1 border border-gray-300 rounded p-2 hover:bg-gray-100" onClick={startRecording}>Record</button>}
+      {isRecording && <button className="w-full z-1 border border-gray-300 rounded p-2 hover:bg-gray-100" onClick={stopRecording}>Stop</button>}
     </div>
   )
 };

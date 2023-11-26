@@ -61,6 +61,9 @@ const useRecorder = (): Recorder => {
         type: 'audio/webm',
       })
       setAudioFile(audioFile)
+
+      mediaRecorderRef.current &&
+        mediaRecorderRef.current.stream.getTracks().forEach((track:any) => track.stop());
     }
 
     mediaRecorderRef.current.start()
