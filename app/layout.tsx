@@ -15,6 +15,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <header>
+        <link rel="icon" href="/images/irmai-favicon.png" sizes='any' />
+      </header>
       <body className={inter.className}>{children}</body>
     </html>
   );
