@@ -1,20 +1,32 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
 import { StoreProvider } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
-import { type Viewport } from "next";
+import { type Viewport, Metadata } from "next";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata = {
-  title: "irmai",
-  description: "Ready to embark on a journey of self-discovery?",
-};
+export function generateMetadata(): Metadata {
+  return {
+    title: "irmai",
+    description: "Ready to embark on a journey of self-discovery?",
+    icons: {
+      icon: "/images/irmai-favicon.png",
+      apple: "/images/irmai-favicon.png",
+      shortcut: "/images/irmai-favicon.png",
+    },
+    appleWebApp: {
+      title: "irmai",
+      statusBarStyle: "black-translucent",
+    },
+  };
+}
 
 export function generateViewport(): Viewport {
   return {
     width: "device-width",
     initialScale: 1,
     themeColor: "black",
+    colorScheme: "dark",
   };
 }
 
