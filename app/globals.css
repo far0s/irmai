@@ -41,7 +41,7 @@ ol[role="list"] {
 body {
   --black: #000000;
   --cream: #fffbf2;
-  min-height: 100vh;
+  min-height: 100dvh;
   line-height: 1.5;
   background-color: var(--black);
   color: var(--cream);

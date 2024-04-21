@@ -11,5 +11,6 @@
 .logo {
   position: relative;
   transition: 0.3s ease-out;
-  height: var(--header-height);
+  aspect-ratio: 196 / 50;
+  max-height: min(5dvh, var(--header-height));
 }

@@ -1,6 +1,7 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
 import { StoreProvider } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
+import { type Viewport } from "next";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -9,10 +10,13 @@ export const metadata = {
   description: "Ready to embark on a journey of self-discovery?",
 };
 
-export const viewport = {
-  width: "device-width",
-  initialScale: 1,
-};
+export function generateViewport(): Viewport {
+  return {
+    width: "device-width",
+    initialScale: 1,
+    themeColor: "black",
+  };
+}
 
 export default function RootLayout({
   children,
