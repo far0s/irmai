@@ -1,7 +1,18 @@
 import { createStore } from "zustand";
 import { devtools, persist, createJSONStorage } from "zustand/middleware";
 
-type TGlobalState = "idle" | "standby" | "initiated";
+type TGlobalState =
+  | "splash"
+  | "landing"
+  | "intro1"
+  | "intro2"
+  | "intro3"
+  | "asking-focus"
+  | "asking-tarot"
+  | "asking-question"
+  | "answering"
+  | "answering-followup"
+  | "outro";
 
 interface IStore {
   debug: boolean;
@@ -24,14 +35,14 @@ export type Store = State & Actions;
 
 export const initStore = (): State => {
   return {
-    globalState: "idle",
     debug: process.env.NODE_ENV === "development",
+    globalState: "splash",
   };
 };
 
 export const defaultInitState: State = {
-  globalState: "idle",
   debug: process.env.NODE_ENV === "development",
+  globalState: "splash",
 };
 
 export const createZStore = (initState: State = defaultInitState) => {

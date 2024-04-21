@@ -46,6 +46,6 @@ export const useIrmaiStore = <T,>(selector: (store: Store) => T): T => {
 
   2. get the store and the state you want to use:
   ```tsx
-    const globalState = useIrmaiStore((store) => store.globalState);
+    const { ... } = useIrmaiStore((s) => s);
   ```
  */

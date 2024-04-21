@@ -2,9 +2,7 @@ import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStorePro
 import s from "./debug.module.css";
 
 const Debug = () => {
-  const debug = useIrmaiStore((store) => store.globalState);
-  const globalState = useIrmaiStore((store) => store.globalState);
-  const reset = useIrmaiStore((store) => store.reset);
+  const { globalState, reset, debug } = useIrmaiStore((s) => s);
 
   return (
     debug && (

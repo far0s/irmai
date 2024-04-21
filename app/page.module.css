@@ -11,7 +11,7 @@
   --header-top-height: 50px;
   --header-safe-zone: calc(var(--header-margin) * 2 + var(--header-top-height));
 
-  --footer-margin: 28px;
-  --footer-height: 50px;
+  --footer-margin: calc(28px + 1svh);
+  --footer-height: 44px;
   --footer-safe-zone: calc(var(--footer-margin) * 2 + var(--footer-height));
 }
