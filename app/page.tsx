@@ -30,7 +30,7 @@ const Home = () => {
                     setGlobalState(nextKey || "splash");
                   }}
                 >
-                  go to next key
+                  go to next screen
                 </button>
               )
           )}

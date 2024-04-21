@@ -8,6 +8,7 @@
   justify-content: center;
   height: calc(100dvh - var(--header-safe-zone) - var(--footer-safe-zone));
   width: 100%;
+  padding: 0 min(3svw, 2rem);
 }
 
 .screen {
@@ -26,4 +27,13 @@
 .stage button {
   border: 1px solid rgba(255, 255, 255, 0.5);
   padding: 4px 8px;
+}
+
+.splashTitle {
+  font-size: 3rem;
+  line-height: 3rem;
+  font-weight: 600;
+  margin: auto;
+  text-align: center;
+  text-wrap: balance;
 }
