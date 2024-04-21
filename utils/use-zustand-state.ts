@@ -4,12 +4,14 @@ import { devtools, persist, createJSONStorage } from "zustand/middleware";
 type TGlobalState = "idle" | "standby" | "initiated";
 
 interface IStore {
+  debug: boolean;
   globalState: TGlobalState;
   setGlobalState: (state: TGlobalState) => void;
   reset: () => void;
 }
 
 export type State = {
+  debug: boolean;
   globalState: TGlobalState;
 };
 
@@ -23,11 +25,13 @@ export type Store = State & Actions;
 export const initStore = (): State => {
   return {
     globalState: "idle",
+    debug: process.env.NODE_ENV === "development",
   };
 };
 
 export const defaultInitState: State = {
   globalState: "idle",
+  debug: process.env.NODE_ENV === "development",
 };
 
 export const createZStore = (initState: State = defaultInitState) => {

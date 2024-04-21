@@ -26,7 +26,7 @@ export const StoreProvider = ({ children }: StoreProviderProps) => {
   );
 };
 
-export const useStoreS = <T,>(selector: (store: Store) => T): T => {
+export const useIrmaiStore = <T,>(selector: (store: Store) => T): T => {
   const storeContext = useContext(StoreContext);
 
   if (!storeContext) {
@@ -41,14 +41,11 @@ export const useStoreS = <T,>(selector: (store: Store) => T): T => {
 
   1. add those three imports at the top of the file:
   ```tsx
-    import { useContext } from "react";
-    import { StoreContext } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
-    import { useStore } from "zustand";
+    import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
   ```
 
   2. get the store and the state you want to use:
   ```tsx
-    const store = useContext(StoreContext);
-    const globalState = useStore(store, (s) => s.globalState); // or whatever you like
+    const globalState = useIrmaiStore((store) => store.globalState);
   ```
  */
