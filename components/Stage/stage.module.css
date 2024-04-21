@@ -1,0 +1,11 @@
+.stage {
+  position: fixed;
+  top: var(--header-safe-zone);
+  align-self: flex-end;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: calc(100svh - var(--header-safe-zone) - var(--footer-safe-zone));
+  width: 100%;
+}

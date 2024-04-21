@@ -1,0 +1,15 @@
+.header {
+  position: fixed;
+  top: var(--header-margin);
+}
+
+.title {
+  display: none;
+  visibility: hidden;
+}
+
+.logo {
+  position: relative;
+  transition: 0.3s ease-out;
+  height: var(--header-height);
+}
