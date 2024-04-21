@@ -24,11 +24,6 @@
   display: none;
 }
 
-.stage button {
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  padding: 4px 8px;
-}
-
 .heading {
   font-size: 3rem;
   line-height: 3rem;

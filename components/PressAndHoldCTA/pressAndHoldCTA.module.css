@@ -1,0 +1,58 @@
+.pressAndHoldCTA {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.circleWrapper {
+  position: relative;
+  width: 84px;
+  height: 84px;
+  border: 1px dashed var(--cream);
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.circleGlow {
+  position: absolute;
+  width: 84px;
+  height: 84px;
+  border-radius: 100%;
+  background: #fffbf2;
+  filter: blur(5.60534px);
+  transform: scale3d(0.1, 0.1, 1);
+  transition: transform 0.4s ease-out;
+}
+
+[data-is-pressed="true"] .circleGlow {
+  transform: scale3d(1, 1, 1);
+  transition: transform var(--press-duration) linear;
+}
+
+.copy,
+.copyWhilePress {
+  position: absolute;
+  top: calc(100% + 24px);
+  font-size: 12px;
+  line-height: 15px;
+  transform: translateY(0);
+  transition: 0.5s ease-in-out 0.3s;
+}
+
+.copyWhilePress {
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+[data-is-pressed="true"] .copy {
+  opacity: 0;
+  transform: translateY(-24px);
+}
+
+[data-is-pressed="true"] .copyWhilePress {
+  opacity: 1;
+  transform: translateY(0);
+}

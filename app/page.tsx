@@ -6,6 +6,7 @@ import Stage from "@/components/Stage/Stage";
 import StageScreens from "@/components/Stage/Stage.utils";
 import Footer from "@/components/Footer/Footer";
 import Debug from "@/components/Debug/Debug";
+import PressAndHoldCTA from "@/components/PressAndHoldCTA/PressAndHoldCTA";
 
 const Home = () => {
   const { globalState, setGlobalState } = useIrmaiStore((s) => s);
@@ -22,16 +23,17 @@ const Home = () => {
           {Object.entries(StageScreens).map(
             ([key], i) =>
               globalState === key && (
-                <button
+                <PressAndHoldCTA
                   key={key}
-                  onClick={() => {
+                  onBeginPress={() => {
+                    console.log("onBeginPress", key);
+                  }}
+                  onEndPress={() => {
                     const keys = Object.keys(StageScreens);
                     const nextKey: any = keys[i + 1];
                     setGlobalState(nextKey || "splash");
                   }}
-                >
-                  go to next screen
-                </button>
+                />
               )
           )}
         </div>
