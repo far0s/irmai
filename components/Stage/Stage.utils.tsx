@@ -1,4 +1,5 @@
 import s from "./stage.module.css";
+import TextBubble from "@/components/TextBubble/TextBubble";
 
 const Screen = ({
   isActive,
@@ -17,7 +18,7 @@ const Screen = ({
 const SplashScreen = ({ isActive }: { isActive: boolean }) => {
   return (
     <Screen isActive={isActive}>
-      <h2 className={s.splashTitle}>
+      <h2 className={s.heading}>
         Ready to embark on a journey of self-discovery?
       </h2>
     </Screen>
@@ -27,7 +28,7 @@ const SplashScreen = ({ isActive }: { isActive: boolean }) => {
 const LandingScreen = ({ isActive }: { isActive: boolean }) => {
   return (
     <Screen isActive={isActive}>
-      <h2>There is power within your fingertips</h2>
+      <TextBubble symbol="*">There is power within your fingertips</TextBubble>
     </Screen>
   );
 };
@@ -35,10 +36,10 @@ const LandingScreen = ({ isActive }: { isActive: boolean }) => {
 const Intro1Screen = ({ isActive }: { isActive: boolean }) => {
   return (
     <Screen isActive={isActive}>
-      <h2>
-        Pressing, holding, and speaking, will you connect with your spiritual
-        guide
-      </h2>
+      <TextBubble symbol="&">
+        Pressing, holding, and speaking, will let you connect with your
+        spiritual guide
+      </TextBubble>
     </Screen>
   );
 };
@@ -54,11 +55,11 @@ const Intro2Screen = ({ isActive }: { isActive: boolean }) => {
 const Intro3Screen = ({ isActive }: { isActive: boolean }) => {
   return (
     <Screen isActive={isActive}>
-      <h2>
+      <TextBubble symbol="?">
         Lorem ipsum dolor sit amet consectetur. Eget urna viverra sem felis
         lectus nibh. Leo amet ornare tempor sit nibh tellus pharetra. Senectus
         ipsum purus purus felis. Nec nunc nisl gravida volutpat quisque in.
-      </h2>
+      </TextBubble>
     </Screen>
   );
 };
@@ -106,7 +107,9 @@ const AnsweringFollowupScreen = ({ isActive }: { isActive: boolean }) => {
 const OutroScreen = ({ isActive }: { isActive: boolean }) => {
   return (
     <Screen isActive={isActive}>
-      <h2>I hope you gained some insights from our convo!</h2>
+      <h2 className={s.heading}>
+        I hope you gained some insights from our convo!
+      </h2>
     </Screen>
   );
 };

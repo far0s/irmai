@@ -1,0 +1,25 @@
+.bubble {
+  position: relative;
+  box-sizing: border-box;
+  padding: 1.5rem 2rem;
+  font-size: 0.8rem;
+  max-width: min(70vw, 13rem);
+  border: 1px dashed #fffbf2;
+  border-radius: 21px;
+  margin: auto;
+}
+
+.symbol {
+  position: absolute;
+  top: -6px;
+  left: 0;
+  border: 1px dashed #fffbf2;
+  background: var(--black);
+  border-radius: 5px;
+  font-size: 1rem;
+  padding: 6px 8px;
+  height: 26px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
