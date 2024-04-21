@@ -14,6 +14,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  transform: scale3d(1, 1, 1);
+  transition: 0.3s ease-in-out;
+}
+
+[data-is-pressed="true"] .circleWrapper {
+  transform: scale3d(1.2, 1.2, 1);
 }
 
 .circleGlow {
