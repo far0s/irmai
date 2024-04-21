@@ -2,6 +2,8 @@ import "./globals.css";
 import { Inter } from "next/font/google";
 import { StoreProvider } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
 import { type Viewport, Metadata } from "next";
+import { Analytics } from "@vercel/analytics/react";
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -43,6 +45,7 @@ export default function RootLayout({
       </head>
       <body className={inter.className}>
         <StoreProvider>{children}</StoreProvider>
+        <Analytics />
       </body>
     </html>
   );
