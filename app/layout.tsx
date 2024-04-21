@@ -11,7 +11,6 @@ export function generateMetadata(): Metadata {
     description: "Ready to embark on a journey of self-discovery?",
     icons: {
       icon: "/images/irmai-favicon.png",
-      apple: "/images/irmai-favicon.png",
       shortcut: "/images/irmai-favicon.png",
     },
     appleWebApp: {
@@ -39,6 +38,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <link rel="icon" href="/images/irmai-favicon.png" sizes="any" />
+        <link rel="apple-touch-icon" href="/images/irmai-favicon.png" />
       </head>
       <body className={inter.className}>
         <StoreProvider>{children}</StoreProvider>
