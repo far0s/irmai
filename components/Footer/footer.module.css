@@ -1,6 +1,8 @@
 .footer {
   position: fixed;
   bottom: var(--footer-margin);
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   flex-flow: column nowrap;
   align-items: center;

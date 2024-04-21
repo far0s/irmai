@@ -1,6 +1,8 @@
 .header {
   position: fixed;
   top: var(--header-margin);
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .title {
