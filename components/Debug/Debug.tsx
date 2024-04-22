@@ -2,7 +2,8 @@ import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStorePro
 import s from "./debug.module.css";
 
 const Debug = () => {
-  const { globalState, reset, debug } = useIrmaiStore((s) => s);
+  const { globalState, reset, debug, isSpeaking, isListening, isThinking } =
+    useIrmaiStore((s) => s);
 
   return (
     debug && (
@@ -18,6 +19,9 @@ const Debug = () => {
           </button>
         </p>
         <p>globalState: {globalState}</p>
+        {isSpeaking && <p>irmai isSpeaking</p>}
+        {isListening && <p>irmai isListening</p>}
+        {isThinking && <p>irmai isThinking</p>}
       </div>
     )
   );
