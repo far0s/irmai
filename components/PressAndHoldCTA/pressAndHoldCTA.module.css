@@ -4,6 +4,8 @@
   align-items: center;
   justify-content: center;
   transform: translateY(calc(-2 * var(--footer-margin)));
+  user-select: none !important;
+  -webkit-user-select: none !important;
 }
 
 .circleWrapper {
