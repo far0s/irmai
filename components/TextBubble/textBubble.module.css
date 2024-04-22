@@ -16,6 +16,8 @@
   border: 1px dashed #fffbf2;
   background: var(--black);
   border-radius: 5px;
+  font-family: "Cirka", sans-serif;
+  font-weight: bold;
   font-size: 1rem;
   padding: 6px 8px;
   height: 26px;

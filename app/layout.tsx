@@ -1,11 +1,7 @@
 import "./globals.css";
-import { Inter } from "next/font/google";
 import { StoreProvider } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
 import { type Viewport, Metadata } from "next";
 import { Analytics } from "@vercel/analytics/react";
-
-
-const inter = Inter({ subsets: ["latin"] });
 
 export function generateMetadata(): Metadata {
   return {
@@ -43,7 +39,7 @@ export default function RootLayout({
         <link rel="icon" href="/images/irmai-favicon.png" sizes="any" />
         <link rel="apple-touch-icon" href="/images/irmai-favicon.png" />
       </head>
-      <body className={inter.className}>
+      <body>
         <StoreProvider>{children}</StoreProvider>
         <Analytics />
       </body>
