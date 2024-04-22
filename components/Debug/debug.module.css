@@ -10,3 +10,12 @@
   font-size: 12px;
   font-family: monospace;
 }
+
+.debug select {
+  width: min-content;
+}
+
+.debug select option {
+  font-size: 1rem;
+  padding: initial;
+}

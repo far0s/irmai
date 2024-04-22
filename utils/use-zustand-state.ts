@@ -1,7 +1,7 @@
 import { createStore } from "zustand";
 import { devtools, persist, createJSONStorage } from "zustand/middleware";
 
-type TGlobalState =
+export type TGlobalState =
   | "splash"
   | "landing"
   | "intro1"
