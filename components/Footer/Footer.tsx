@@ -18,14 +18,13 @@ const Footer = () => {
           globalState === key && (
             <PressAndHoldCTA
               key={key}
-              onBeginPress={() => {
-                console.log("onBeginPress", key);
-              }}
+              onBeginPress={null}
               onEndPress={() => {
                 const keys = Object.keys(StageScreens);
                 const nextKey: any = keys[i + 1];
                 setGlobalState(nextKey || "splash");
               }}
+              pressDuration={2000}
             />
           )
       )}
