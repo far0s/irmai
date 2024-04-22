@@ -16,3 +16,18 @@
   aspect-ratio: 196 / 50;
   max-height: min(5dvh, var(--header-height));
 }
+
+.logo path {
+  fill: var(--color-text);
+  animation: fadeInLetter 1s ease-out forwards;
+  animation-delay: 10s;
+  opacity: 0;
+  filter: blur(5px);
+}
+
+@keyframes fadeInLetter {
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}

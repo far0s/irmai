@@ -1,6 +1,22 @@
+import { useEffect, useRef } from "react";
 import s from "./header.module.css";
 
 const Header = () => {
+  const logoRef = useRef<SVGSVGElement>(null);
+
+  const generateRandomDelaysForLetters = () => {
+    const paths = logoRef.current?.querySelectorAll("path");
+    if (!paths) return;
+    paths.forEach((path) => {
+      const rand = (Math.random() + 0.05).toFixed(2);
+      path.style.animationDelay = `${rand}s`;
+    });
+  };
+
+  useEffect(() => {
+    generateRandomDelaysForLetters();
+  }, []);
+
   return (
     <header className={s.header}>
       <h1>
@@ -14,6 +30,7 @@ const Header = () => {
           viewBox="0 0 196 50"
           fill="#FFFBF2"
           xmlns="http://www.w3.org/2000/svg"
+          ref={logoRef}
         >
           <path d="M189.6 41c0 2.1.5 3.6 1.5 4.4 1 .8 2.3 1.2 4 1.2v1.9H176.3v-2c1.7 0 3-.3 4-1 1-.9 1.5-2.4 1.5-4.5V9c0-2.1-.5-3.6-1.5-4.3-1-.8-2.3-1.3-4-1.3V1.6h13.4V41Z" />
           <path d="M162.3 48.5v-14h-.4a25 25 0 0 1-5 10.5c-2.3 2.8-5.8 4.2-10.3 4.2-4.1 0-7.3-1.3-9.7-4-2.3-2.6-3.4-6.7-3.4-12.2 0-3 .4-5.7 1.1-8.4l30.4-3v2l-23 4.1c-.5 1.7-.7 3.7-.7 6 0 3.4.6 6 1.8 8 1.3 1.7 3.3 2.6 6 2.6 2.8 0 5.3-1.1 7.2-3.3 2-2.2 3.3-5.2 4.2-8.8 1-3.8 1.5-8 1.5-12.5 0-4.7-.8-8.4-2.5-11-1.6-2.8-4.3-4.1-8.2-4.1-3 0-5.4.8-7 2.4a7.7 7.7 0 0 0-2.4 5.8c0 .8 0 1.6.3 2.3.3.6.6 1.2 1 1.6v.3l-7.9.9A11.6 11.6 0 0 1 139 4.5c3-2.6 7.3-3.9 13-3.9 5 0 8.9 1.1 11.4 3.4 2.7 2.2 4.3 4.8 5 8 .7 3 1 6.7 1 11v18c0 2.1.5 3.6 1.5 4.4 1 .8 2.3 1.2 4 1.2v1.9h-12.5Z" />
