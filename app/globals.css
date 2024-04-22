@@ -46,6 +46,7 @@ body {
   line-height: 1.5;
   background-color: var(--black);
   color: var(--cream);
+  -webkit-touch-callout: none !important;
 }
 
 /* Set shorter line heights on headings and interactive elements */
@@ -71,6 +72,12 @@ h4 {
 a:not([class]) {
   text-decoration-skip-ink: auto;
   color: currentColor;
+}
+
+a,
+button {
+  -webkit-user-select: none !important;
+  user-select: none !important;
 }
 
 /* Make images easier to work with */
