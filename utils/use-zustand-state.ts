@@ -4,9 +4,7 @@ import { devtools, persist, createJSONStorage } from "zustand/middleware";
 export type TGlobalState =
   | "splash"
   | "landing"
-  | "intro1"
-  | "intro2"
-  | "intro3"
+  | "intro"
   | "asking-focus"
   | "asking-tarot"
   | "asking-question"
@@ -18,6 +16,8 @@ interface IStore {
   debug: boolean;
   globalState: TGlobalState;
   setGlobalState: (state: TGlobalState) => void;
+  hasSeenSplash: boolean;
+  setHasSeenSplash: (hasSeenSplash: boolean) => void;
   isSpeaking: boolean;
   setIsSpeaking: (isSpeaking: boolean) => void;
   isListening: boolean;
@@ -34,6 +34,7 @@ interface IStore {
 export type State = {
   debug: boolean;
   globalState: TGlobalState;
+  hasSeenSplash: boolean;
   isSpeaking: boolean;
   isListening: boolean;
   isThinking: boolean;
@@ -43,6 +44,7 @@ export type State = {
 
 export type Actions = {
   setGlobalState: (state: TGlobalState) => void;
+  setHasSeenSplash: (hasSeenSplash: boolean) => void;
   setIsSpeaking: (isSpeaking: boolean) => void;
   setIsListening: (isListening: boolean) => void;
   setIsThinking: (isThinking: boolean) => void;
@@ -57,6 +59,7 @@ export const initStore = (): State => {
   return {
     debug: process.env.NODE_ENV === "development",
     globalState: "splash",
+    hasSeenSplash: false,
     isSpeaking: false,
     isListening: false,
     isThinking: false,
@@ -68,6 +71,7 @@ export const initStore = (): State => {
 export const defaultInitState: State = {
   debug: process.env.NODE_ENV === "development",
   globalState: "splash",
+  hasSeenSplash: false,
   isSpeaking: false,
   isListening: false,
   isThinking: false,
@@ -82,6 +86,7 @@ export const createZStore = (initState: State = defaultInitState) => {
         (set) => ({
           ...initState,
           setGlobalState: (state: TGlobalState) => set({ globalState: state }),
+          setHasSeenSplash: (hasSeenSplash: boolean) => set({ hasSeenSplash }),
           setIsSpeaking: (isSpeaking: boolean) => set({ isSpeaking }),
           setIsListening: (isListening: boolean) => set({ isListening }),
           setIsThinking: (isThinking: boolean) => set({ isThinking }),

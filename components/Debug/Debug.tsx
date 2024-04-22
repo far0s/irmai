@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
 import s from "./debug.module.css";
 import type { TGlobalState } from "@/utils/use-zustand-state";
@@ -5,9 +6,7 @@ import type { TGlobalState } from "@/utils/use-zustand-state";
 const stateOptions = [
   "splash",
   "landing",
-  "intro1",
-  "intro2",
-  "intro3",
+  "intro",
   "asking-focus",
   "asking-tarot",
   "asking-question",
@@ -61,4 +60,4 @@ const Debug = () => {
   );
 };
 
-export default Debug;
+export default memo(Debug);

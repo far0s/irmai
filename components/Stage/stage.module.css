@@ -31,3 +31,62 @@
   text-align: center;
   text-wrap: balance;
 }
+
+.landing {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+.landing > *:not(.landingCTA) {
+  position: absolute !important;
+}
+
+.landingHeading,
+.landingCopy1,
+.landingCopy2 {
+  opacity: 0;
+  transform: translateY(2rem);
+  animation: hide 0.3s forwards 0s;
+}
+
+[data-show="heading"] .landingHeading {
+  animation: fadeIn 0.5s forwards 0.4s;
+}
+
+[data-show="copy1"] .landingCopy1 {
+  animation: fadeIn 0.5s forwards 0.4s;
+}
+
+[data-show="copy2"] .landingCopy2 {
+  animation: fadeIn 0.5s forwards 0.4s;
+}
+
+[data-show="end"] .landingHeading,
+[data-show="end"] .landingCopy1,
+[data-show="end"] .landingCopy2 {
+  animation: hide 0.3s forwards 0s;
+}
+
+.landingCTA {
+  position: relative !important;
+  margin-top: auto;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hide {
+  to {
+    opacity: 0;
+    transform: translateY(-1rem);
+  }
+}

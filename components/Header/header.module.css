@@ -2,7 +2,9 @@
   position: fixed;
   top: var(--header-margin);
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%) scale(1);
+  transition: 0.8s ease-out;
+  will-change: top, transform;
 }
 
 .title {

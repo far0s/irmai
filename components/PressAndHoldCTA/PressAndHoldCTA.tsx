@@ -4,10 +4,12 @@ import s from "./pressAndHoldCTA.module.css";
 const PressAndHoldCTA = ({
   onBeginPress,
   onEndPress,
+  onRelease,
   pressDuration = 2000,
 }: {
   onBeginPress: (() => void) | null;
   onEndPress: () => void | null;
+  onRelease?: () => void;
   pressDuration?: number;
 }) => {
   const [isPressed, setIsPressed] = useState(false);
@@ -27,6 +29,7 @@ const PressAndHoldCTA = ({
   };
 
   const handleRelease = () => {
+    onRelease && onRelease();
     setIsPressed(false);
     timeout.current && clearTimeout(timeout.current);
   };

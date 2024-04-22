@@ -174,3 +174,9 @@ textarea:not([rows]) {
 :target {
   scroll-margin-block: 5ex;
 }
+
+/* Animate the header when the splash screen is active */
+[class^="stage"]:has(#splash[data-is-active="true"]) ~ [class^="header"] {
+  transform: translateX(-50%) translateY(-50%) scale(1.2);
+  top: 50%;
+}

@@ -12,12 +12,12 @@ const Home = () => {
 
   return (
     <main className={s.page}>
-      <Header />
       <Stage>
         {Object.entries(StageScreens).map(([key, Component]) => (
-          <Component key={key} isActive={globalState === key} />
+          <Component key={key} id={key} isActive={globalState === key} />
         ))}
       </Stage>
+      <Header />
       <Footer />
       <Debug />
     </main>
