@@ -3,7 +3,7 @@ import TextBubble from "@/components/TextBubble/TextBubble";
 import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
 import PressAndHoldCTA from "@/components/PressAndHoldCTA/PressAndHoldCTA";
 import { Screen } from "../Stage.utils";
-import s from "../stage.module.css";
+import s from "./screens.module.css";
 
 const LandingScreen = ({ isActive, id }: { isActive: boolean; id: string }) => {
   const { setGlobalState } = useIrmaiStore((s) => s);
