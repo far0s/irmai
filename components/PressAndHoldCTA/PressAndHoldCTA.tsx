@@ -7,24 +7,20 @@ const PressAndHoldCTA = ({
   onRelease,
   pressDuration = 2000,
 }: {
-  onBeginPress: (() => void) | null;
-  onEndPress: () => void | null;
+  onBeginPress?: () => void;
+  onEndPress?: () => void;
   onRelease?: () => void;
   pressDuration?: number;
 }) => {
   const [isPressed, setIsPressed] = useState(false);
   const timeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const onLongPress = () => {
-    onEndPress();
-  };
-
   const handlePress = () => {
     setIsPressed(true);
     onBeginPress && onBeginPress();
     timeout.current = setTimeout(() => {
       setIsPressed(false);
-      onLongPress();
+      onEndPress && onEndPress();
     }, pressDuration);
   };
 

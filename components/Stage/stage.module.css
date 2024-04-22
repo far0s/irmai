@@ -51,42 +51,36 @@
 .landingCopy2 {
   opacity: 0;
   transform: translateY(2rem);
-  animation: hide 0.3s forwards 0s;
+  transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+  will-change: opacity, transform;
 }
 
 [data-show="heading"] .landingHeading {
-  animation: fadeIn 0.5s forwards 0.4s;
+  opacity: 1;
+  transform: translateY(0rem);
+  transition-delay: 0.4s;
 }
 
 [data-show="copy1"] .landingCopy1 {
-  animation: fadeIn 0.5s forwards 0.4s;
+  opacity: 1;
+  transform: translateY(0rem);
+  transition-delay: 0.4s;
 }
 
 [data-show="copy2"] .landingCopy2 {
-  animation: fadeIn 0.5s forwards 0.4s;
+  opacity: 1;
+  transform: translateY(0rem);
+  transition-delay: 0.4s;
 }
 
 [data-show="end"] .landingHeading,
 [data-show="end"] .landingCopy1,
 [data-show="end"] .landingCopy2 {
-  animation: hide 0.3s forwards 0s;
+  opacity: 0;
+  transform: translateY(2rem);
 }
 
 .landingCTA {
   position: relative !important;
   margin-top: auto;
-}
-
-@keyframes fadeIn {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes hide {
-  to {
-    opacity: 0;
-    transform: translateY(-1rem);
-  }
 }
