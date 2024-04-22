@@ -83,10 +83,10 @@ const LandingScreen = ({ isActive, id }: { isActive: boolean; id: string }) => {
   };
 
   const handleRelease = () => {
-    setPartToShow("heading");
     clearTimeout(timeout1);
     clearTimeout(timeout2);
     clearTimeout(timeout3);
+    setPartToShow("heading");
   };
 
   return (
