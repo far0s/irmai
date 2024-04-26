@@ -3,77 +3,6 @@
 @tailwind utilities;
 /* TODO: remove tailwind once we're sufficiently ready to archive POC */
 
-/* FONTS */
-@font-face {
-  font-family: "Object Sans";
-  src: local("Object Sans Heavy Slanted"), local("PPObjectSans-HeavySlanted"),
-    url("/fonts/subset-PPObjectSans-HeavySlanted.woff2") format("woff2"),
-    url("/fonts/subset-PPObjectSans-HeavySlanted.woff") format("woff");
-  font-weight: 800;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Object Sans";
-  src: local("Object Sans Heavy"), local("PPObjectSans-Heavy"),
-    url("/fonts/subset-PPObjectSans-Heavy.woff2") format("woff2"),
-    url("/fonts/subset-PPObjectSans-Heavy.woff") format("woff");
-  font-weight: 800;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Object Sans";
-  src: local("Object Sans Regular"), local("PPObjectSans-Regular"),
-    url("/fonts/subset-PPObjectSans-Regular.woff2") format("woff2"),
-    url("/fonts/subset-PPObjectSans-Regular.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Object Sans Slanted";
-  src: local("Object Sans Slanted"), local("PPObjectSans-Slanted"),
-    url("/fonts/subset-PPObjectSans-Slanted.woff2") format("woff2"),
-    url("/fonts/subset-PPObjectSans-Slanted.woff") format("woff");
-  font-weight: normal;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Cirka";
-  src: local("Cirka Bold"), local("PPCirka-Bold"),
-    url("/fonts/subset-PPCirka-Bold.woff2") format("woff2"),
-    url("/fonts/subset-PPCirka-Bold.woff") format("woff");
-  font-weight: bold;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Cirka";
-  src: local("Cirka"), local("PPCirka"),
-    url("/fonts/PPCirka.woff2") format("woff2"),
-    url("/fonts/PPCirka.woff") format("woff");
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Cirka";
-  src: local("Cirka Light"), local("PPCirka-Light"),
-    url("/fonts/subset-PPCirka-Light.woff2") format("woff2"),
-    url("/fonts/subset-PPCirka-Light.woff") format("woff");
-  font-weight: 300;
-  font-style: normal;
-  font-display: swap;
-}
-
 /* Box sizing rules */
 *,
 *::before,
@@ -117,7 +46,7 @@ body {
   line-height: 1.5;
   background-color: var(--black);
   color: var(--cream);
-  font-family: "Object Sans", sans-serif;
+  font-family: var(--font-object-sans), sans-serif;
   -webkit-touch-callout: none !important;
 }
 
@@ -138,7 +67,7 @@ h2,
 h3,
 h4 {
   text-wrap: balance;
-  font-family: "Cirka", sans-serif;
+  font-family: var(--font-cirka), sans-serif;
 }
 
 /* A elements that don't have a class get default styles */

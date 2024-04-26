@@ -16,7 +16,7 @@
   border: 1px dashed #fffbf2;
   background: var(--black);
   border-radius: 5px;
-  font-family: "Cirka", sans-serif;
+  font-family: var(--font-cirka), sans-serif;
   font-weight: bold;
   font-size: 1rem;
   padding: 6px 8px;
