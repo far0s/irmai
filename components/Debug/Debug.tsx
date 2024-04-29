@@ -7,11 +7,11 @@ const stateOptions = [
   "splash",
   "landing",
   "intro",
-  "asking-focus",
-  "asking-tarot",
-  "asking-question",
-  "answering",
-  "answering-followup",
+  "focus",
+  "tarot",
+  "question",
+  "reading",
+  "followup",
   "outro",
 ];
 

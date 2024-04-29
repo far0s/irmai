@@ -30,7 +30,7 @@ const IntroScreen = ({ isActive, id }: { isActive: boolean; id: string }) => {
       <p>A reading starts with a small question to irmai.</p>
 
       <PressAndHoldCTA
-        onEndPress={() => setGlobalState("asking-focus")}
+        onEndPress={() => setGlobalState("focus")}
         pressDuration={2000}
       />
     </Screen>
@@ -51,7 +51,7 @@ const AskingFocusScreen = ({
       <h2>What’s your focus of this conversation?</h2>
 
       <PressAndHoldCTA
-        onEndPress={() => setGlobalState("asking-tarot")}
+        onEndPress={() => setGlobalState("tarot")}
         pressDuration={2000}
       />
     </Screen>
@@ -72,7 +72,7 @@ const AskingTarotScreen = ({
       <h2>Shuffle Cards + results</h2>
 
       <PressAndHoldCTA
-        onEndPress={() => setGlobalState("asking-question")}
+        onEndPress={() => setGlobalState("question")}
         pressDuration={2000}
       />
     </Screen>
@@ -93,7 +93,7 @@ const AskingQuestionScreen = ({
       <h2>What is your question?</h2>
 
       <PressAndHoldCTA
-        onEndPress={() => setGlobalState("answering")}
+        onEndPress={() => setGlobalState("reading")}
         pressDuration={2000}
       />
     </Screen>
@@ -114,7 +114,7 @@ const AnsweringScreen = ({
       <h2>Answering...</h2>
 
       <PressAndHoldCTA
-        onEndPress={() => setGlobalState("answering-followup")}
+        onEndPress={() => setGlobalState("followup")}
         pressDuration={2000}
       />
     </Screen>
