@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useChat } from "ai/react";
-import Recorder from "../../components/recorder/Recorder";
+import Recorder from "@/components/_poc/recorder/Recorder";
 
 export default function Chat() {
   const { messages, input, handleInputChange, handleSubmit, data } = useChat();
