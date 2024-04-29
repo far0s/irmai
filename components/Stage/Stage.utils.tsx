@@ -37,13 +37,7 @@ const IntroScreen = ({ isActive, id }: { isActive: boolean; id: string }) => {
   );
 };
 
-const AskingFocusScreen = ({
-  isActive,
-  id,
-}: {
-  isActive: boolean;
-  id: string;
-}) => {
+const FocusScreen = ({ isActive, id }: { isActive: boolean; id: string }) => {
   const { setGlobalState } = useIrmaiStore((s) => s);
 
   return (
@@ -58,13 +52,7 @@ const AskingFocusScreen = ({
   );
 };
 
-const AskingTarotScreen = ({
-  isActive,
-  id,
-}: {
-  isActive: boolean;
-  id: string;
-}) => {
+const TarotScreen = ({ isActive, id }: { isActive: boolean; id: string }) => {
   const { setGlobalState } = useIrmaiStore((s) => s);
 
   return (
@@ -79,7 +67,7 @@ const AskingTarotScreen = ({
   );
 };
 
-const AskingQuestionScreen = ({
+const QuestionScreen = ({
   isActive,
   id,
 }: {
@@ -100,13 +88,7 @@ const AskingQuestionScreen = ({
   );
 };
 
-const AnsweringScreen = ({
-  isActive,
-  id,
-}: {
-  isActive: boolean;
-  id: string;
-}) => {
+const ReadingScreen = ({ isActive, id }: { isActive: boolean; id: string }) => {
   const { setGlobalState } = useIrmaiStore((s) => s);
 
   return (
@@ -121,7 +103,7 @@ const AnsweringScreen = ({
   );
 };
 
-const AnsweringFollowupScreen = ({
+const FollowupScreen = ({
   isActive,
   id,
 }: {
@@ -163,11 +145,11 @@ const StageScreens = {
   splash: SplashScreen,
   landing: LandingScreen,
   intro: IntroScreen,
-  "asking-focus": AskingFocusScreen,
-  "asking-tarot": AskingTarotScreen,
-  "asking-question": AskingQuestionScreen,
-  answering: AnsweringScreen,
-  "answering-followup": AnsweringFollowupScreen,
+  focus: FocusScreen,
+  tarot: TarotScreen,
+  question: QuestionScreen,
+  reading: ReadingScreen,
+  followup: FollowupScreen,
   outro: OutroScreen,
 };
 
