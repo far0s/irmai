@@ -107,6 +107,36 @@ textarea:not([rows]) {
 
 /* Animate the header when the splash screen is active */
 [class^="stage"]:has(#splash[data-is-active="true"]) ~ [class^="header"] {
-  transform: translateX(-50%) translateY(-50%) scale(1.2);
+  transform: translateX(10%) translateY(-50%) scale(1.2);
   top: 50%;
+}
+
+[class^="stage"]:has(#splash[data-is-active="true"])
+  ~ [class^="header"]
+  [class*="headerRow"] {
+  transform: translateX(calc(25% - 14px));
+}
+
+[class^="stage"]:has(#splash[data-is-active="false"])
+  ~ [class^="header"]
+  [class*="audioFeedback"] {
+  animation: appear 0.3s ease-in-out forwards 0.8s;
+}
+
+[class^="stage"]:has(#splash[data-is-active="false"])
+  ~ [class^="header"]
+  [class*="transcriptButton"] {
+  animation: fadeIn 0.3s ease-in-out forwards 0.8s;
+}
+
+@keyframes appear {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
 }

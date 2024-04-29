@@ -7,9 +7,9 @@
   display: grid;
   place-items: center;
 
-  --header-margin: 40px;
-  --header-top-height: 50px;
-  --header-safe-zone: calc(var(--header-margin) * 2 + var(--header-top-height));
+  --header-margin: 35px;
+  --header-height: 35px;
+  --header-safe-zone: calc(var(--header-margin) * 2 + var(--header-height));
 
   --footer-margin: calc(28px + 1svh);
   --footer-height: 44px;

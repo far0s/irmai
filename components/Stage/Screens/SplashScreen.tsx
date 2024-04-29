@@ -17,7 +17,7 @@ const SplashScreen = ({ isActive, id }: { isActive: boolean; id: string }) => {
 
     setHasSeenSplash(true);
 
-    setTimeout(() => setGlobalState("landing"), 1800);
+    setTimeout(() => setGlobalState("landing"), 2400);
   }, [globalState]);
 
   return (

@@ -17,33 +17,20 @@
 .landingCopy2 {
   opacity: 0;
   transform: translateY(2rem);
-  transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+  animation: disappear 0.4s ease-out forwards 0s;
   will-change: opacity, transform;
 }
 
 [data-show="heading"] .landingHeading {
-  opacity: 1;
-  transform: translateY(0rem);
-  transition-delay: 0.4s;
+  animation: appear 0.4s ease-out forwards 0.4s;
 }
 
 [data-show="copy1"] .landingCopy1 {
-  opacity: 1;
-  transform: translateY(0rem);
-  transition-delay: 0.4s;
+  animation: appear 0.4s ease-out forwards 0.4s;
 }
 
 [data-show="copy2"] .landingCopy2 {
-  opacity: 1;
-  transform: translateY(0rem);
-  transition-delay: 0.4s;
-}
-
-[data-show="end"] .landingHeading,
-[data-show="end"] .landingCopy1,
-[data-show="end"] .landingCopy2 {
-  opacity: 0;
-  transform: translateY(2rem);
+  animation: appear 0.4s ease-out forwards 0.4s;
 }
 
 .landing .heading {
@@ -57,4 +44,18 @@
 .landingCTA {
   position: relative !important;
   margin-top: auto;
+}
+
+@keyframes appear {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes disappear {
+  to {
+    opacity: 0;
+    transform: translateY(2rem);
+  }
 }

@@ -24,6 +24,7 @@ const Debug = () => {
     isListening,
     isThinking,
     setGlobalState,
+    showTranscript,
   } = useIrmaiStore((s) => s);
 
   return (
@@ -55,6 +56,7 @@ const Debug = () => {
         {isSpeaking && <p>irmai isSpeaking</p>}
         {isListening && <p>irmai isListening</p>}
         {isThinking && <p>irmai isThinking</p>}
+        {showTranscript && <p>showTranscript</p>}
       </div>
     )
   );
