@@ -1,4 +1,5 @@
 import s from "./textBubble.module.css";
+import { cirka } from "@/utils/fonts";
 
 const TextBubble = ({
   symbol,
@@ -9,7 +10,9 @@ const TextBubble = ({
 }) => {
   return (
     <div className={s.bubble}>
-      {symbol && <span className={s.symbol}>{symbol}</span>}
+      {symbol && (
+        <span className={`${cirka.className} ${s.symbol}`}>{symbol}</span>
+      )}
       {children}
     </div>
   );

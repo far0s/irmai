@@ -4,6 +4,7 @@ import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStorePro
 import PressAndHoldCTA from "@/components/PressAndHoldCTA/PressAndHoldCTA";
 import { Screen } from "../Stage.utils";
 import s from "./screens.module.css";
+import { cirka } from "@/utils/fonts";
 
 const LandingScreen = ({ isActive, id }: { isActive: boolean; id: string }) => {
   const { setGlobalState } = useIrmaiStore((s) => s);
@@ -43,7 +44,7 @@ const LandingScreen = ({ isActive, id }: { isActive: boolean; id: string }) => {
     <Screen isActive={isActive} id={id}>
       <div className={s.landing} data-show={partToShow}>
         <div className={s.landingHeading}>
-          <h2 className={s.heading}>
+          <h2 className={`${cirka.className} ${s.heading}`}>
             Ready to embark on a journey of self-discovery?
           </h2>
         </div>

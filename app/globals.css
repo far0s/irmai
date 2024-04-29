@@ -47,7 +47,6 @@ body {
   line-height: 1.5;
   background-color: var(--black);
   color: var(--cream);
-  font-family: var(--font-object-sans), sans-serif;
   -webkit-touch-callout: none !important;
 }
 
@@ -68,7 +67,6 @@ h2,
 h3,
 h4 {
   text-wrap: balance;
-  font-family: var(--font-cirka), sans-serif;
 }
 
 /* A elements that don't have a class get default styles */
