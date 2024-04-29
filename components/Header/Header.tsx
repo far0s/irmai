@@ -1,18 +1,37 @@
 import { useEffect, useRef } from "react";
+import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
 import s from "./header.module.css";
 import TranscriptButton from "./TranscriptButton";
+import { useAudioLevels } from "@/utils/use-audio-levels";
 
 const Header = () => {
   const logoRef = useRef<SVGSVGElement>(null);
+  const { focus, isListening } = useIrmaiStore((s) => s);
+
+  const audioLevels = useAudioLevels(isListening);
 
   const generateRandomDelaysForLetters = () => {
     const paths = logoRef.current?.querySelectorAll("path");
     if (!paths) return;
     paths.forEach((path) => {
       const rand = (Math.random() + 0.05).toFixed(2);
-      path.style.animationDelay = `${rand}s`;
+      path.style.transitionDelay = `${rand}s`;
+      path.classList.add("isReady");
     });
   };
+
+  useEffect(() => {
+    const spans = document.querySelectorAll(`.${s.userAudioLevels} span`);
+    if (audioLevels && spans.length) {
+      spans.forEach((span: any) => {
+        span.style.transform = `scaleY(${audioLevels / 25})`;
+      });
+    } else {
+      spans.forEach((span: any) => {
+        span.style.transform = `scaleY(0)`;
+      });
+    }
+  }, [audioLevels]);
 
   useEffect(() => {
     generateRandomDelaysForLetters();
@@ -41,9 +60,17 @@ const Header = () => {
             <path d="M14 41c0 2.1.4 3.6 1.4 4.4 1 .8 2.3 1.2 4 1.2v1.9H.6v-2c1.7 0 3-.3 4-1C5.6 44.5 6 43 6 41V9c0-2.1-.5-3.6-1.5-4.3-1-.8-2.3-1.3-4-1.3V1.6H14V41Z" />
           </svg>
         </h1>
-        <TranscriptButton />
+        {focus !== "" && <TranscriptButton />}
       </div>
-      <div className={s.audioFeedback}>{/* audio feedback here */}</div>
+      <div className={s.audioFeedback}>
+        <div className={s.userAudioLevels} data-is-listening={isListening}>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </div>
     </header>
   );
 };

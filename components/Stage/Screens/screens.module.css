@@ -1,61 +1,83 @@
-.landing {
+.wrapper {
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  height: 100%;
   width: 100%;
+  height: 100%;
+  padding: 2rem 0;
 }
 
-.landing > *:not(.landingCTA) {
-  position: absolute !important;
-}
-
-.landingHeading,
-.landingCopy1,
-.landingCopy2 {
+.copy {
+  width: 100%;
   opacity: 0;
   transform: translateY(2rem);
-  animation: disappear 0.4s ease-out forwards 0s;
-  will-change: opacity, transform;
+  filter: blur(10px);
+  will-change: opacity, transform, filter;
+  transition: 0.5s ease-out;
 }
 
-[data-show="heading"] .landingHeading {
-  animation: appear 0.4s ease-out forwards 0.4s;
-}
-
-[data-show="copy1"] .landingCopy1 {
-  animation: appear 0.4s ease-out forwards 0.4s;
-}
-
-[data-show="copy2"] .landingCopy2 {
-  animation: appear 0.4s ease-out forwards 0.4s;
-}
-
-.landing .heading {
-  font-size: 3rem;
-  line-height: 3rem;
-  margin: auto;
-  text-align: center;
+.copy span {
   text-wrap: balance;
+  display: inline-block;
+  font-size: 1.5rem;
+  line-height: 1;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-right: 0.5ch;
 }
 
-.landingCTA {
+.copy p {
+  margin-bottom: 1rem;
+}
+
+.footer {
   position: relative !important;
   margin-top: auto;
+  transition: 0.5s ease-out;
 }
 
-@keyframes appear {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+[data-show="start"] .copy:nth-of-type(1),
+[data-show="copy2"] .copy:nth-of-type(2),
+[data-show="copy3"] .copy:nth-of-type(3) {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+  transition-delay: 0.5s;
 }
 
-@keyframes disappear {
-  to {
-    opacity: 0;
-    transform: translateY(2rem);
-  }
+[data-show="start"] .copy:nth-of-type(1) {
+  transition-delay: 1s !important;
+}
+
+[data-show="end"] > .copy,
+[data-show="end"] > .footer {
+  opacity: 0;
+  transform: translateY(2rem);
+  filter: blur(10px);
+  transition-delay: 0s;
+}
+
+.listening,
+.focusResult {
+  position: absolute;
+  top: 50%;
+  font-style: italic;
+  font-weight: 300;
+  opacity: 0;
+  transform: translateY(2rem);
+  filter: blur(10px);
+  transition: 0.5s ease-out;
+}
+
+[data-show="recording"] > .listening,
+[data-show="result"] > .focusResult {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+.focusResult {
+  font-style: normal;
+  font-weight: 400;
 }

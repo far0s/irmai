@@ -4,7 +4,6 @@ import { devtools, persist, createJSONStorage } from "zustand/middleware";
 export type TGlobalState =
   | "splash"
   | "landing"
-  | "intro"
   | "focus"
   | "tarot"
   | "question"
@@ -26,11 +25,15 @@ interface IStore {
   setIsThinking: (isThinking: boolean) => void;
   transcript: any[];
   setTranscript: (transcript: any[]) => void;
+  focus: string;
+  setFocus: (focus: string) => void;
   selectedCards: string[];
   setSelectedCards: (cards: string[]) => void;
-  reset: () => void;
+  firstQuestion: string;
+  setFirstQuestion: (question: string) => void;
   showTranscript: boolean;
   setShowTranscript: (showTranscript: boolean) => void;
+  reset: () => void;
 }
 
 export type State = {
@@ -41,6 +44,8 @@ export type State = {
   isListening: boolean;
   isThinking: boolean;
   transcript: any[];
+  focus: string;
+  firstQuestion: string;
   showTranscript: boolean;
   selectedCards: any[];
 };
@@ -52,6 +57,8 @@ export type Actions = {
   setIsListening: (isListening: boolean) => void;
   setIsThinking: (isThinking: boolean) => void;
   setTranscript: (transcript: any[]) => void;
+  setFocus: (focus: string) => void;
+  setFirstQuestion: (question: string) => void;
   setShowTranscript: (showTranscript: boolean) => void;
   setSelectedCards: (cards: string[]) => void;
   reset: () => void;
@@ -68,6 +75,8 @@ export const initStore = (): State => {
     isListening: false,
     isThinking: false,
     transcript: [],
+    focus: "",
+    firstQuestion: "",
     showTranscript: false,
     selectedCards: [],
   };
@@ -81,6 +90,8 @@ export const defaultInitState: State = {
   isListening: false,
   isThinking: false,
   transcript: [],
+  focus: "",
+  firstQuestion: "",
   showTranscript: false,
   selectedCards: [],
 };
@@ -97,6 +108,9 @@ export const createZStore = (initState: State = defaultInitState) => {
           setIsListening: (isListening: boolean) => set({ isListening }),
           setIsThinking: (isThinking: boolean) => set({ isThinking }),
           setTranscript: (transcript: any[]) => set({ transcript }),
+          setFocus: (focus: string) => set({ focus }),
+          setFirstQuestion: (question: string) =>
+            set({ firstQuestion: question }),
           setShowTranscript: (showTranscript: boolean) =>
             set({ showTranscript }),
           setSelectedCards: (cards: string[]) => set({ selectedCards: cards }),

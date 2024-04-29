@@ -20,18 +20,7 @@ const SplashScreen = ({ isActive, id }: { isActive: boolean; id: string }) => {
     setTimeout(() => setGlobalState("landing"), 2400);
   }, [globalState]);
 
-  return (
-    <Screen id={id} isActive={isActive}>
-      <span
-        style={{
-          display: "none",
-          visibility: "hidden",
-        }}
-      >
-        irmai welcomes you
-      </span>
-    </Screen>
-  );
+  return <Screen id={id} isActive={isActive}></Screen>;
 };
 
 export default SplashScreen;
