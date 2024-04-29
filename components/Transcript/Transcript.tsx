@@ -51,7 +51,7 @@ const Transcript = () => {
           </div>
           <ul className={s.transcriptTranscript}>
             <li className={s.transcriptItemAi}>
-              <span>irmai</span>
+              <span className={cirka.className}>irmai</span>
               <p>
                 Lorem ipsum dolor sit amet consectetur. Eu feugiat tincidunt
                 tortor posuere iaculis magna dolor dignissim. Cras nullam amet
@@ -61,7 +61,7 @@ const Transcript = () => {
               </p>
             </li>
             <li className={s.transcriptItemUser}>
-              <span>You</span>
+              <span className={cirka.className}>You</span>
               <p>
                 Lorem ipsum dolor sit amet consectetur. Eu feugiat tincidunt
                 tortor posuere iaculis magna dolor dignissim. Cras nullam amet
@@ -69,7 +69,7 @@ const Transcript = () => {
               </p>
             </li>
             <li className={s.transcriptItemAi}>
-              <span>irmai</span>
+              <span className={cirka.className}>irmai</span>
               <p>
                 Lorem ipsum dolor sit amet consectetur. Eu feugiat tincidunt
                 tortor posuere iaculis magna dolor dignissim. Cras nullam amet
@@ -79,7 +79,7 @@ const Transcript = () => {
               </p>
             </li>
             <li className={s.transcriptItemUser}>
-              <span>You</span>
+              <span className={cirka.className}>You</span>
               <p>
                 Lorem ipsum dolor sit amet consectetur. Eu feugiat tincidunt
                 tortor posuere iaculis magna dolor dignissim. Cras nullam amet
@@ -104,7 +104,9 @@ const Transcript = () => {
           </div>
         </article>
 
-        <article className={s.transcriptBlock}>Home</article>
+        <article className={s.transcriptBlock}>
+          <p>[ADD OUTRO ACTIONS HERE]</p>
+        </article>
       </main>
     </div>
   );

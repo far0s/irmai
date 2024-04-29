@@ -117,3 +117,21 @@
   width: calc(100% - 4px);
   text-wrap: pretty;
 }
+
+.transcriptTranscript {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 1rem;
+  margin-bottom: 40px;
+}
+
+.transcriptTranscript span {
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.transcriptItemAi p {
+  font-style: italic;
+  font-weight: 300;
+}

@@ -14,6 +14,8 @@ const Home = () => {
 
   useEffect(() => {
     setShowTranscript(false);
+    const transcriptElem = document.querySelector("[class*='transcriptInner']");
+    transcriptElem && transcriptElem.scrollTo(0, 0);
   }, []);
 
   return (
