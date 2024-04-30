@@ -26,10 +26,6 @@ const FocusScreen = ({ isActive, id }: { isActive: boolean; id: string }) => {
 
   useEffect(() => {
     isActive && setPartToShow("start");
-
-    navigator.mediaDevices.getUserMedia({ audio: true }).catch((err) => {
-      window.alert(`Permission denied. Error: ${err}`);
-    });
   }, [isActive]);
 
   const handlePress = () => {
@@ -51,21 +47,13 @@ const FocusScreen = ({ isActive, id }: { isActive: boolean; id: string }) => {
     timeout1.current && clearTimeout(timeout1.current);
     timeout2.current && clearTimeout(timeout2.current);
     timeout3.current && clearTimeout(timeout3.current);
+  };
 
-    // if recording is ongoing, stop it
-    if (!isRecording) {
-      setPartToShow("start");
-      console.log("Recording was not running");
-    } else {
-      console.log("Recording stopped");
-      stopRecording();
-      return setTimeout(() => {
-        setGlobalState("tarot");
-        // reset the part to show
-        setPartToShow("start");
-        resetRecording?.();
-      }, 2000);
-    }
+  const handleStopRecording = () => {
+    stopRecording();
+    setPartToShow("start");
+    setGlobalState("tarot");
+    resetRecording?.();
   };
 
   const handleEndPress = () => {
@@ -123,7 +111,10 @@ const FocusScreen = ({ isActive, id }: { isActive: boolean; id: string }) => {
           </p>
         </div>
 
-        <div className={s.listening}>"I'm listening"</div>
+        <div className={s.recording}>
+          <p>"I'm listening"</p>
+          <button onClick={handleStopRecording}>Stop recording</button>
+        </div>
 
         <footer className={s.footer}>
           <PressAndHoldCTA

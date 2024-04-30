@@ -58,7 +58,7 @@
   transition-delay: 0s;
 }
 
-.listening {
+.recording {
   position: absolute;
   top: 50%;
   font-style: italic;
@@ -69,7 +69,7 @@
   transition: 0.5s ease-out;
 }
 
-[data-show="recording"] > .listening {
+[data-show="recording"] > .recording {
   opacity: 1;
   transform: translateY(0);
   filter: blur(0);
