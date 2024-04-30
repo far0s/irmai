@@ -6,6 +6,7 @@ import PressAndHoldCTA from "@/components/PressAndHoldCTA/PressAndHoldCTA";
 import SplashScreen from "./Screens/SplashScreen";
 import LandingScreen from "./Screens/LandingScreen";
 import FocusScreen from "./Screens/FocusScreen";
+import TarotScreen from "./Screens/TarotScreen";
 
 export const Screen = ({
   isActive,
@@ -20,21 +21,6 @@ export const Screen = ({
     <div id={id} className={s.screen} data-is-active={isActive}>
       {children}
     </div>
-  );
-};
-
-const TarotScreen = ({ isActive, id }: { isActive: boolean; id: string }) => {
-  const { setGlobalState } = useIrmaiStore((s) => s);
-
-  return (
-    <Screen id={id} isActive={isActive}>
-      <h2>Shuffle Cards + results</h2>
-
-      <PressAndHoldCTA
-        onEndPress={() => setGlobalState("question")}
-        pressDuration={2000}
-      />
-    </Screen>
   );
 };
 

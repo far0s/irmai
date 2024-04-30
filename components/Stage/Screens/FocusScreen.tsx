@@ -7,9 +7,7 @@ import { cirka } from "@/utils/fonts";
 import useRecorder from "@/utils/use-recorder";
 
 const FocusScreen = ({ isActive, id }: { isActive: boolean; id: string }) => {
-  const { setGlobalState, setIsListening, setFocus, focus } = useIrmaiStore(
-    (s) => s
-  );
+  const { setGlobalState, setIsListening, setFocus } = useIrmaiStore((s) => s);
   const [partToShow, setPartToShow] = useState<
     null | "start" | "copy2" | "recording" | "end" | "result"
   >(null);
@@ -28,6 +26,10 @@ const FocusScreen = ({ isActive, id }: { isActive: boolean; id: string }) => {
 
   useEffect(() => {
     isActive && setPartToShow("start");
+
+    navigator.mediaDevices.getUserMedia({ audio: true }).catch((err) => {
+      window.alert(`Permission denied. Error: ${err}`);
+    });
   }, [isActive]);
 
   const handlePress = () => {
@@ -41,8 +43,6 @@ const FocusScreen = ({ isActive, id }: { isActive: boolean; id: string }) => {
 
     timeout3.current = setTimeout(() => {
       setPartToShow("recording");
-      // TODO: start recording
-      // FIXME: check for permission
       startRecording();
     }, 5000);
   };
@@ -53,16 +53,19 @@ const FocusScreen = ({ isActive, id }: { isActive: boolean; id: string }) => {
     timeout3.current && clearTimeout(timeout3.current);
 
     // if recording is ongoing, stop it
-    isRecording && stopRecording();
-    setPartToShow("result");
-
-    // if recording is done, set the global state to "tarot"
-    // wait 1s to allow for the audio to be processed
-    setTimeout(() => {
-      setGlobalState("tarot");
-      // reset the part to show
+    if (!isRecording) {
       setPartToShow("start");
-    }, 2000);
+      console.log("Recording was not running");
+    } else {
+      console.log("Recording stopped");
+      stopRecording();
+      return setTimeout(() => {
+        setGlobalState("tarot");
+        // reset the part to show
+        setPartToShow("start");
+        resetRecording?.();
+      }, 2000);
+    }
   };
 
   const handleEndPress = () => {
@@ -93,6 +96,7 @@ const FocusScreen = ({ isActive, id }: { isActive: boolean; id: string }) => {
       .catch((err) => window.alert(err));
     if (response && response.text) {
       setFocus(response.text);
+      console.log("🎯: ", response.text);
     }
     if (resetRecording) {
       resetRecording();
@@ -120,9 +124,6 @@ const FocusScreen = ({ isActive, id }: { isActive: boolean; id: string }) => {
         </div>
 
         <div className={s.listening}>"I'm listening"</div>
-        <div className={s.focusResult}>
-          <p>Your focus is: {focus}</p>
-        </div>
 
         <footer className={s.footer}>
           <PressAndHoldCTA
