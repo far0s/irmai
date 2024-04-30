@@ -9,7 +9,7 @@ import useRecorder from "@/utils/use-recorder";
 const FocusScreen = ({ isActive, id }: { isActive: boolean; id: string }) => {
   const { setGlobalState, setIsListening, setFocus } = useIrmaiStore((s) => s);
   const [partToShow, setPartToShow] = useState<
-    null | "start" | "copy2" | "recording" | "end" | "result"
+    null | "start" | "copy2" | "end" | "recording"
   >(null);
   const timeout1 = useRef<ReturnType<typeof setTimeout> | null>(null);
   const timeout2 = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -51,14 +51,10 @@ const FocusScreen = ({ isActive, id }: { isActive: boolean; id: string }) => {
 
   const handleStopRecording = () => {
     stopRecording();
-    setPartToShow("start");
-    setGlobalState("tarot");
-    resetRecording?.();
   };
 
   const handleEndPress = () => {
-    // this should not run as the recording will be ongoing
-    // setGlobalState("focus");
+    setPartToShow("recording");
   };
 
   useEffect(() => {
@@ -84,10 +80,9 @@ const FocusScreen = ({ isActive, id }: { isActive: boolean; id: string }) => {
       .catch((err) => window.alert(err));
     if (response && response.text) {
       setFocus(response.text);
-      console.log("🎯: ", response.text);
-    }
-    if (resetRecording) {
-      resetRecording();
+      setPartToShow("start");
+      setGlobalState("tarot");
+      resetRecording?.();
     }
   };
 
@@ -121,7 +116,7 @@ const FocusScreen = ({ isActive, id }: { isActive: boolean; id: string }) => {
             onBeginPress={handlePress}
             onEndPress={handleEndPress}
             onRelease={handleRelease}
-            pressDuration={60000} // put a super long duration to allow for a long audio recording
+            pressDuration={5100}
           />
         </footer>
       </div>

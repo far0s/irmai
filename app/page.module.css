@@ -12,3 +12,9 @@
   --header-safe-zone: calc(var(--header-margin) * 2 + var(--header-height));
   --footer-margin: calc(55px + 1svh);
 }
+
+.page > * {
+  max-width: 768px;
+  margin: auto;
+  box-sizing: border-box;
+}

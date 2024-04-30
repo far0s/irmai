@@ -108,5 +108,5 @@
 }
 
 .userAudioLevels:not([data-is-listening="true"]) span {
-  transform: scaleY(0);
+  transform: scaleY(0) !important;
 }
