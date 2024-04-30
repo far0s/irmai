@@ -10,9 +10,9 @@
   },
   "dependencies": {
     "@vercel/analytics": "^1.2.2",
-    "ai": "3.0.35",
+    "ai": "3.1.0",
     "next": "14.2.3",
-    "openai": "4.38.5",
+    "openai": "4.39.1",
     "react": "18.3.1",
     "react-dom": "^18.3.1",
     "zustand": "^4.5.2"
@@ -25,7 +25,6 @@
     "eslint": "^8.57.0",
     "eslint-config-next": "^14.2.3",
     "postcss": "^8.4.38",
-    "sass": "^1.75.0",
     "tailwindcss": "^3.4.3",
     "typescript": "5.4.5"
   }
