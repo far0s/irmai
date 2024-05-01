@@ -86,6 +86,8 @@ const FocusScreen = ({ isActive, id }: { isActive: boolean; id: string }) => {
     }
   };
 
+  // TODO: make irmai talk
+
   return (
     <Screen isActive={isActive} id={id}>
       <div className={s.wrapper} data-show={partToShow}>

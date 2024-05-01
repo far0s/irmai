@@ -14,6 +14,8 @@ const LandingScreen = ({ isActive, id }: { isActive: boolean; id: string }) => {
   const timeout2 = useRef<ReturnType<typeof setTimeout> | null>(null);
   const timeout3 = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  // TODO: make irmai talk
+
   useEffect(() => {
     isActive && setPartToShow("start");
   }, [isActive]);
@@ -40,7 +42,6 @@ const LandingScreen = ({ isActive, id }: { isActive: boolean; id: string }) => {
   };
 
   const handleEndPress = () => {
-    handleRelease();
     setGlobalState("focus");
   };
 

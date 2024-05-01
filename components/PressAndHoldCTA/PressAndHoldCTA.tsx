@@ -60,7 +60,6 @@ const PressAndHoldCTA = ({
         hold
       </span>
       <span className={s.copyWhilePress}>Keep holding</span>
-      <span></span>
     </button>
   );
 };

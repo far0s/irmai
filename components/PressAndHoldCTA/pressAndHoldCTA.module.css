@@ -55,6 +55,12 @@
   transition: 0.5s ease-in-out 0.3s;
 }
 
+.circleCopy {
+  font-size: 12px;
+  line-height: 15px;
+  font-style: italic;
+}
+
 .copyWhilePress {
   opacity: 0;
   transform: translateY(24px);
