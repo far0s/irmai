@@ -14,8 +14,10 @@ const PressAndHoldCTA = ({
 }) => {
   const [isPressed, setIsPressed] = useState(false);
   const timeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+  let initialTimestamp: number;
 
   const handlePress = () => {
+    initialTimestamp = Date.now();
     setIsPressed(true);
     onBeginPress && onBeginPress();
     timeout.current = setTimeout(() => {
@@ -25,9 +27,15 @@ const PressAndHoldCTA = ({
   };
 
   const handleRelease = () => {
-    onRelease && onRelease();
-    setIsPressed(false);
-    timeout.current && clearTimeout(timeout.current);
+    const timeRemaining = Date.now() - initialTimestamp;
+    if (timeRemaining > 1000 && timeout.current) {
+      clearTimeout(timeout.current);
+      setIsPressed(false);
+      onEndPress && onEndPress();
+    } else {
+      onRelease && onRelease();
+      setIsPressed(false);
+    }
   };
 
   return (
