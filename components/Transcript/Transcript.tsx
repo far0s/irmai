@@ -4,8 +4,14 @@ import { cirka, poppins } from "@/utils/fonts";
 import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
 
 const Transcript = () => {
-  const { focus, firstQuestion, showTranscript, selectedCards, transcript } =
-    useIrmaiStore((s) => s);
+  const {
+    focus,
+    firstQuestion,
+    showTranscript,
+    selectedCards,
+    transcript,
+    conclusion,
+  } = useIrmaiStore((s) => s);
   const [transcriptWithoutFirstQuestion, setTranscriptWithoutFirstQuestion] =
     useState<any[]>([]);
 
@@ -89,25 +95,24 @@ const Transcript = () => {
             </ul>
           </article>
         )}
-        {/* <article className={s.transcriptBlock}>
-          <header className={`${cirka.className} ${s.transcriptHeader}`}>
-            Conclusion
-          </header>
-          <div className={s.transcriptHighlight}>
-            <p>
-              <em>
-                The Fool suggested embracing new beginnings, while The High
-                Priestess emphasized intuition and inner wisdom. However, The
-                Tower warned of potential upheaval, urging us to prepare for
-                transformative change.
-              </em>
-            </p>
-          </div>
-        </article>
+        {conclusion.length > 0 && (
+          <article className={s.transcriptBlock}>
+            <header className={`${cirka.className} ${s.transcriptHeader}`}>
+              Conclusion
+            </header>
+            <div className={s.transcriptHighlight}>
+              <p>
+                <em>{conclusion}</em>
+              </p>
+            </div>
+          </article>
+        )}
 
-        <article className={s.transcriptBlock}>
-          <p>[ADD OUTRO ACTIONS HERE]</p>
-        </article> */}
+        {conclusion.length > 0 && (
+          <article className={s.transcriptBlock}>
+            <p>[ADD OUTRO ACTIONS HERE]</p>
+          </article>
+        )}
       </main>
     </div>
   );

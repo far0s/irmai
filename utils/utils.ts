@@ -15,6 +15,6 @@ export const prepareFirstPrompt = ({
     .map((card) => card.name)
     .join(", ")}. My question is "${firstQuestion}".
     Keep your response to a maximum of 150 words.
-    At the end, please return 3 words that describe the overall energy of the reading.
+    Finish your answer by asking me a followup question about my reading.
   `;
 };

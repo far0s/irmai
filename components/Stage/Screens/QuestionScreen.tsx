@@ -18,11 +18,13 @@ const QuestionScreen = ({
   chatProps: IChatProps;
 }) => {
   const {
+    setGlobalState,
     focus,
     selectedCards,
     setIsSpeaking,
     setIsListening,
     setIsThinking,
+    firstQuestion,
     setFirstQuestion,
     setTranscript,
   } = useIrmaiStore((s) => s);
@@ -60,7 +62,7 @@ const QuestionScreen = ({
   };
 
   useEffect(() => {
-    if (audioURL && audioFile) {
+    if (isActive && audioURL && audioFile) {
       setPartToShow("thinking");
       convertAudioToTranscript(audioFile);
     }
@@ -83,14 +85,17 @@ const QuestionScreen = ({
       .then((res) => res.json())
       .catch((err) => window.alert(err));
     if (response && response.text) {
-      setFirstQuestion(withoutTrailingPeriod(response.text));
+      if (!firstQuestion)
+        setFirstQuestion(withoutTrailingPeriod(response.text));
       resetRecording?.();
       append({
-        content: prepareFirstPrompt({
-          focus,
-          firstQuestion: withoutTrailingPeriod(response.text),
-          cards: selectedCards,
-        }),
+        content: !firstQuestion
+          ? prepareFirstPrompt({
+              focus,
+              firstQuestion: withoutTrailingPeriod(response.text),
+              cards: selectedCards,
+            })
+          : response.text,
         role: "user",
       } as any);
     }
@@ -129,6 +134,8 @@ const QuestionScreen = ({
           audioSource.onended = () => {
             setIsSpeaking(false);
             stream.getTracks().forEach((track: any) => track.stop());
+            setPartToShow("recording");
+            startRecording();
           };
         })
         .catch((error) => console.log("Something went wrong!", error));
@@ -138,6 +145,7 @@ const QuestionScreen = ({
   };
 
   useEffect(() => {
+    if (!isActive) return;
     // start a timer for 2 seconds
     // when new messages come in,
     // check if the last message was from the assistant
@@ -158,6 +166,14 @@ const QuestionScreen = ({
 
     return () => clearTimeout(timer);
   }, [messages]);
+
+  const handleGoToOutro = () => {
+    setGlobalState("outro");
+    setIsSpeaking(false);
+    setIsListening(false);
+    stopRecording();
+    resetRecording?.();
+  };
 
   return (
     <Screen id={id} isActive={isActive}>
@@ -191,6 +207,18 @@ const QuestionScreen = ({
           <p>"Speaking..."</p>
         </div>
       </div>
+
+      {messages.length > 2 && (
+        <div className={s.ending}>
+          <p>
+            You can ask another question or we can end the conversation here. To
+            ask a follow up press and hold. To end tap the close button on the
+            top right.
+          </p>
+
+          <PressCTA label="End" onPress={handleGoToOutro} />
+        </div>
+      )}
 
       {partToShow === "start" && (
         <PressCTA label="Press" onPress={handlePress} />

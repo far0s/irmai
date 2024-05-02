@@ -7,8 +7,6 @@ export type TGlobalState =
   | "focus"
   | "tarot"
   | "question"
-  | "reading"
-  | "followup"
   | "outro";
 
 interface IStore {
@@ -33,6 +31,8 @@ interface IStore {
   setFirstQuestion: (question: string) => void;
   showTranscript: boolean;
   setShowTranscript: (showTranscript: boolean) => void;
+  conclusion: string;
+  setConclusion: (conclusion: string) => void;
   reset: () => void;
 }
 
@@ -48,6 +48,7 @@ export type State = {
   firstQuestion: string;
   showTranscript: boolean;
   selectedCards: any[];
+  conclusion: string;
 };
 
 export type Actions = {
@@ -61,6 +62,7 @@ export type Actions = {
   setFirstQuestion: (question: string) => void;
   setShowTranscript: (showTranscript: boolean) => void;
   setSelectedCards: (cards: string[]) => void;
+  setConclusion: (conclusion: string) => void;
   reset: () => void;
 };
 
@@ -79,6 +81,7 @@ export const initStore = (): State => {
     firstQuestion: "",
     showTranscript: false,
     selectedCards: [],
+    conclusion: "",
   };
 };
 
@@ -94,6 +97,7 @@ export const defaultInitState: State = {
   firstQuestion: "",
   showTranscript: false,
   selectedCards: [],
+  conclusion: "",
 };
 
 export const createZStore = (initState: State = defaultInitState) => {
@@ -114,6 +118,7 @@ export const createZStore = (initState: State = defaultInitState) => {
           setShowTranscript: (showTranscript: boolean) =>
             set({ showTranscript }),
           setSelectedCards: (cards: string[]) => set({ selectedCards: cards }),
+          setConclusion: (conclusion: string) => set({ conclusion }),
           reset: () => set(initState),
         }),
         {
