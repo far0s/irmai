@@ -23,8 +23,8 @@
   content: "";
   position: fixed;
   top: 18px;
-  left: 0;
   width: 100%;
+  max-width: 1010px;
   height: calc(var(--header-safe-zone) - var(--header-margin) / 2);
   background: var(--purple);
   z-index: 1;

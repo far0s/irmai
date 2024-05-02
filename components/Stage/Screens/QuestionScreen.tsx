@@ -18,18 +18,12 @@ const QuestionScreen = ({
   chatProps: IChatProps;
 }) => {
   const {
-    setGlobalState,
     focus,
     selectedCards,
     setIsSpeaking,
-    isSpeaking,
     setIsListening,
-    isListening,
-    isThinking,
     setIsThinking,
-    firstQuestion,
     setFirstQuestion,
-    transcript,
     setTranscript,
   } = useIrmaiStore((s) => s);
   const [partToShow, setPartToShow] = useState<
@@ -113,11 +107,13 @@ const QuestionScreen = ({
               input: message.content,
               voice: "nova", // alloy, echo, fable, onyx, nova, and shimmer
             }),
+          }).then((res) => {
+            setIsThinking(false);
+            setIsSpeaking(true);
+            setPartToShow("result");
+            return res;
           });
 
-          setIsThinking(false);
-          setIsSpeaking(true);
-          setPartToShow("result");
           const audioContext = new AudioContext();
           const audioBuffer = await audioContext.decodeAudioData(
             await whisper.arrayBuffer()
