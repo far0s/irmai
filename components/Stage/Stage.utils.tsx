@@ -1,7 +1,5 @@
 "use client";
 import s from "./stage.module.css";
-import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
-import PressAndHoldCTA from "@/components/PressAndHoldCTA/PressAndHoldCTA";
 import { IChatProps } from "@/utils/shared-types";
 
 import SplashScreen from "./Screens/SplashScreen";

@@ -15,11 +15,14 @@ const OutroScreen = ({
   id: string;
   chatProps: IChatProps;
 }) => {
-  const { setGlobalState, setShowTranscript, conclusion, setConclusion } =
-    useIrmaiStore((s) => s);
-  const [partToShow, setPartToShow] = useState<
-    null | "start" | "copy2" | "copy3" | "end"
-  >(null);
+  const {
+    reset,
+    setGlobalState,
+    setShowTranscript,
+    conclusion,
+    setConclusion,
+  } = useIrmaiStore((s) => s);
+  const [partToShow, setPartToShow] = useState<null | "start">(null);
 
   const { input, messages, handleInputChange, handleSubmit, append } =
     chatProps;
@@ -43,13 +46,12 @@ const OutroScreen = ({
     if (messages.length === 0) return;
     const lastMessage = messages[messages.length - 1];
     if (
-      lastMessage.role === "user" &&
+      lastMessage.role === "assistant" &&
       lastMessage.content.startsWith("*CONCLUSION")
     ) {
       const conclusion = lastMessage.content
         .replace("*CONCLUSION: ", "")
         .trim();
-      console.log("conclusion", conclusion);
 
       setConclusion(conclusion);
     }
@@ -59,19 +61,35 @@ const OutroScreen = ({
     <Screen id={id} isActive={isActive}>
       <div className={s.wrapper} data-show={partToShow}>
         {conclusion.length > 0 && (
-          <div className={s.copy}>
-            <p>
-              <span className={`${cirka.className}`}>Conclusion</span>
-              {conclusion}
-            </p>
-          </div>
+          <article
+            className={s.transcriptBlock}
+            data-show={partToShow === "start"}
+          >
+            <header className={`${cirka.className} ${s.transcriptHeader}`}>
+              Conclusion
+            </header>
+            <div className={s.transcriptHighlight}>
+              <p>
+                <em>{conclusion}</em>
+              </p>
+            </div>
+          </article>
         )}
       </div>
 
-      <PressCTA
-        label="Show transcript"
-        onPress={() => setShowTranscript(true)}
-      />
+      <footer className={s.footer}>
+        <PressCTA
+          label="Show transcript"
+          onPress={() => setShowTranscript(true)}
+        />
+        <PressCTA
+          label="New Reading"
+          onPress={() => {
+            reset();
+            window.location.reload();
+          }}
+        />
+      </footer>
     </Screen>
   );
 };

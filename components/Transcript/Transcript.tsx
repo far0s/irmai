@@ -92,6 +92,12 @@ const Transcript = () => {
                     <p>{item.content}</p>
                   </li>
                 ))}
+
+              {conclusion.length > 0 && (
+                <li className={s.transcriptItemAi}>
+                  <span className={cirka.className}>[end of conversation]</span>
+                </li>
+              )}
             </ul>
           </article>
         )}
@@ -110,7 +116,9 @@ const Transcript = () => {
 
         {conclusion.length > 0 && (
           <article className={s.transcriptBlock}>
-            <p>[ADD OUTRO ACTIONS HERE]</p>
+            <header className={`${cirka.className} ${s.transcriptHeader}`}>
+              [ADD OUTRO ACTIONS HERE]
+            </header>
           </article>
         )}
       </main>

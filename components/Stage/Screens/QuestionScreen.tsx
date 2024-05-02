@@ -134,8 +134,7 @@ const QuestionScreen = ({
           audioSource.onended = () => {
             setIsSpeaking(false);
             stream.getTracks().forEach((track: any) => track.stop());
-            setPartToShow("recording");
-            startRecording();
+            setPartToShow("start");
           };
         })
         .catch((error) => console.log("Something went wrong!", error));

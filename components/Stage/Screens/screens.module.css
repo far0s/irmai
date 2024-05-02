@@ -36,6 +36,9 @@
 .footer {
   position: relative !important;
   margin-top: auto;
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
   transition: 0.5s ease-out;
 }
 
