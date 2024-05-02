@@ -71,10 +71,6 @@ const FocusScreen = ({ isActive, id }: { isActive: boolean; id: string }) => {
 
   const convertAudioToTranscript = async (audioFile: any) => {
     const formData = new FormData();
-
-    const url = URL.createObjectURL(audioFile);
-    window.open(url, "_blank");
-
     formData.append("file", audioFile);
     const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
     formData.append("safari", isSafari.toString());
