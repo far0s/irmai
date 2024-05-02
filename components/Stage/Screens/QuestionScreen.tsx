@@ -32,8 +32,7 @@ const QuestionScreen = ({
     null | "start" | "recording" | "thinking" | "result"
   >(null);
 
-  const { input, messages, handleInputChange, handleSubmit, append } =
-    chatProps;
+  const { messages, append } = chatProps;
 
   const {
     startRecording,

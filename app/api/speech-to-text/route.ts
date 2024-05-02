@@ -65,7 +65,6 @@ export async function GET(req: Request) {
 }
 
 const reEncodeAudioFile = async (audioFile: any): Promise<File> => {
-  console.log("🐛", audioFile);
   // when the file is initially encoded in Safari/Webkit, the mp3 is detected as invalid by the OpenAI API.
   // forum threads are saying this is because Safari adds an extra atom at the end of the file, and that the file needs to be re-encoded
   // https://community.openai.com/t/whisper-api-cannot-read-files-correctly/93420/54?page=2
