@@ -1,10 +1,12 @@
 import { useEffect, useState, useRef } from "react";
 import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
 import PressAndHoldCTA from "@/components/PressAndHoldCTA/PressAndHoldCTA";
+import PressCTA from "@/components/PressCTA/PressCTA";
 import { Screen } from "../Stage.utils";
 import s from "./screens.module.css";
 import { cirka } from "@/utils/fonts";
 import useRecorder from "@/utils/use-recorder";
+import { withoutTrailingPeriod } from "@/utils/utils";
 
 const FocusScreen = ({ isActive, id }: { isActive: boolean; id: string }) => {
   const { setGlobalState, setIsListening, setFocus } = useIrmaiStore((s) => s);
@@ -79,7 +81,7 @@ const FocusScreen = ({ isActive, id }: { isActive: boolean; id: string }) => {
       .then((res) => res.json())
       .catch((err) => window.alert(err));
     if (response && response.text) {
-      setFocus(response.text);
+      setFocus(withoutTrailingPeriod(response.text));
       setPartToShow("start");
       setGlobalState("tarot");
       resetRecording?.();
@@ -110,7 +112,7 @@ const FocusScreen = ({ isActive, id }: { isActive: boolean; id: string }) => {
 
         <div className={s.recording}>
           <p>"I'm listening"</p>
-          <button onClick={handleStopRecording}>Stop recording</button>
+          <PressCTA label="Stop recording" onPress={handleStopRecording} />
         </div>
 
         <footer className={s.footer}>

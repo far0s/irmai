@@ -7,41 +7,24 @@ import SplashScreen from "./Screens/SplashScreen";
 import LandingScreen from "./Screens/LandingScreen";
 import FocusScreen from "./Screens/FocusScreen";
 import TarotScreen from "./Screens/TarotScreen";
+import QuestionScreen from "./Screens/QuestionScreen";
+import { IChatProps } from "@/utils/shared-types";
 
 export const Screen = ({
   isActive,
   id,
+  chatProps,
   children,
 }: {
   isActive: boolean;
   id: string;
+  chatProps?: IChatProps;
   children?: React.ReactNode;
 }) => {
   return (
     <div id={id} className={s.screen} data-is-active={isActive}>
       {children}
     </div>
-  );
-};
-
-const QuestionScreen = ({
-  isActive,
-  id,
-}: {
-  isActive: boolean;
-  id: string;
-}) => {
-  const { setGlobalState } = useIrmaiStore((s) => s);
-
-  return (
-    <Screen id={id} isActive={isActive}>
-      <h2>What is your question?</h2>
-
-      <PressAndHoldCTA
-        onEndPress={() => setGlobalState("reading")}
-        pressDuration={2000}
-      />
-    </Screen>
   );
 };
 

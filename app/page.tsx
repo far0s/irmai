@@ -8,23 +8,31 @@ import StageScreens from "@/components/Stage/Stage.utils";
 import Debug from "@/components/Debug/Debug";
 import Transcript from "@/components/Transcript/Transcript";
 import { useChat } from "ai/react";
+import { IChatProps } from "@/utils/shared-types";
 
 const Home = () => {
   const { globalState, setShowTranscript, setIsThinking } = useIrmaiStore(
     (s) => s
   );
 
-  const { messages, input, isLoading, handleInputChange, handleSubmit } =
-    useChat({
-      api: "/api/chat",
-    });
+  const {
+    messages,
+    input,
+    isLoading,
+    handleInputChange,
+    handleSubmit,
+    append,
+  } = useChat({
+    api: "/api/chat",
+  });
 
-  const chatProps = {
+  const chatProps: IChatProps = {
     input,
     messages,
     isLoading,
     handleInputChange,
     handleSubmit,
+    append,
   };
 
   useEffect(() => {
@@ -39,7 +47,12 @@ const Home = () => {
     <main className={s.page}>
       <Stage>
         {Object.entries(StageScreens).map(([key, Component]) => (
-          <Component key={key} id={key} isActive={globalState === key} />
+          <Component
+            key={key}
+            id={key}
+            isActive={globalState === key}
+            chatProps={chatProps}
+          />
         ))}
       </Stage>
       <Header />

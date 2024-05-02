@@ -1,3 +1,4 @@
+import { memo, useState, useEffect } from "react";
 import s from "./transcript.module.css";
 import { cirka, poppins } from "@/utils/fonts";
 import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
@@ -5,6 +6,14 @@ import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStorePro
 const Transcript = () => {
   const { focus, firstQuestion, showTranscript, selectedCards, transcript } =
     useIrmaiStore((s) => s);
+  const [transcriptWithoutFirstQuestion, setTranscriptWithoutFirstQuestion] =
+    useState<any[]>([]);
+
+  useEffect(() => {
+    if (transcript.length > 1) {
+      setTranscriptWithoutFirstQuestion(transcript.slice(1));
+    }
+  }, [transcript]);
 
   const date = new Date().toLocaleDateString("fr-FR", {
     month: "2-digit",
@@ -61,8 +70,8 @@ const Transcript = () => {
               <p>{firstQuestion}</p>
             </div>
             <ul className={s.transcriptTranscript}>
-              {transcript.length > 0 &&
-                transcript.map((item) => (
+              {transcriptWithoutFirstQuestion.length > 0 &&
+                transcriptWithoutFirstQuestion.map((item) => (
                   <li
                     key={item.id}
                     className={
@@ -74,14 +83,7 @@ const Transcript = () => {
                     <span className={cirka.className}>
                       {item.role === "assistant" ? "irmai" : "you"}
                     </span>
-                    <p>
-                      Lorem ipsum dolor sit amet consectetur. Eu feugiat
-                      tincidunt tortor posuere iaculis magna dolor dignissim.
-                      Cras nullam amet eleifend eros sed. In sed vitae est
-                      viverra leo urna. Vestibulum dui at placerat cras ornare.
-                      Ipsum augue a aliquam ut faucibus amet. Scelerisque luctus
-                      vitae dignissim ultrices pharetra eu.
-                    </p>
+                    <p>{item.content}</p>
                   </li>
                 ))}
             </ul>
@@ -111,4 +113,4 @@ const Transcript = () => {
   );
 };
 
-export default Transcript;
+export default memo(Transcript);

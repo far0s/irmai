@@ -8,4 +8,5 @@ export interface IChatProps {
   messages: Message[];
   handleInputChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  append: (message: ChatMessage) => void;
 }

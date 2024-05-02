@@ -22,11 +22,11 @@
 .transcript::before {
   content: "";
   position: fixed;
-  top: 0;
+  top: 18px;
   left: 0;
   width: 100%;
-  height: calc(var(--header-safe-zone));
-  backdrop-filter: blur(5px);
+  height: calc(var(--header-safe-zone) - var(--header-margin) / 2);
+  background: var(--purple);
   z-index: 1;
 }
 

@@ -24,7 +24,7 @@ const Header = () => {
     const spans = document.querySelectorAll(`.${s.userAudioLevels} span`);
     if (audioLevels && spans.length) {
       spans.forEach((span: any) => {
-        span.style.transform = `scaleY(${audioLevels / 50})`;
+        span.style.transform = `scaleY(${audioLevels * 10000})`;
       });
     } else {
       spans.forEach((span: any) => {
