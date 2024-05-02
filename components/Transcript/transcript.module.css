@@ -22,7 +22,7 @@
 .transcript::before {
   content: "";
   position: fixed;
-  top: 18px;
+  top: 17px;
   width: 100%;
   max-width: 1010px;
   height: calc(var(--header-safe-zone) - var(--header-margin) / 2);
