@@ -11,7 +11,7 @@ export const prepareFirstPrompt = ({
   cards: any[];
 }) => {
   return `
-    Give me a tarot, focusing on "${focus}". I pulled the following cards from left to right: ${cards
+    *INTRO: Give me a tarot reading, focusing on "${focus}". I pulled the following cards from left to right: ${cards
     .map((card) => card.name)
     .join(", ")}. My question is "${firstQuestion}".
     Keep your response to a maximum of 150 words.
