@@ -20,7 +20,7 @@ interface Recorder {
 const useRecorder = (): Recorder => {
   const [recordingState, setRecordingState] = useState<RecordingStates>("idle");
   const [audioURL, setAudioURL] = useState<string>("");
-  const [time, setTime] = useState<number>(0);
+  const [time, setTime] = useState<number>(1000);
   const [blob, setBlob] = useState<Blob | null>(null);
   const timerRef = useRef<number>();
   const mediaRecorderRef = useRef<MediaRecorder>();
@@ -29,7 +29,7 @@ const useRecorder = (): Recorder => {
   // Function to start recording
   const startRecording = async () => {
     setRecordingState("recording");
-    setTime(0);
+    setTime(1000);
     timerRef.current = window.setInterval(() => {
       setTime((prevTime) => prevTime + 1);
     }, 1000);
@@ -87,7 +87,7 @@ const useRecorder = (): Recorder => {
   const resetRecording = () => {
     setRecordingState("idle");
     setAudioURL("");
-    setTime(0);
+    setTime(1000);
   };
 
   const stopRecording = () => {
