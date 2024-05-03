@@ -2,6 +2,8 @@
 import { useEffect, useState, useRef } from "react";
 
 import { cirka } from "@/utils/fonts";
+import { prepareSystemPrompt } from "@/utils/prompts";
+import { IChatProps } from "@/utils/shared-types";
 
 import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
 import PressAndHoldCTA from "@/components/PressAndHoldCTA/PressAndHoldCTA";
@@ -11,7 +13,15 @@ import s from "./screens.module.css";
 
 type TPartToShow = null | "start" | "copy2" | "copy3" | "end";
 
-const LandingScreen = ({ isActive, id }: { isActive: boolean; id: string }) => {
+const LandingScreen = ({
+  isActive,
+  id,
+  chatProps,
+}: {
+  isActive: boolean;
+  id: string;
+  chatProps: IChatProps;
+}) => {
   const { setGlobalState } = useIrmaiStore((s) => s);
   const [partToShow, setPartToShow] = useState<TPartToShow>(null);
   const timeout1 = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -19,6 +29,10 @@ const LandingScreen = ({ isActive, id }: { isActive: boolean; id: string }) => {
   const timeout3 = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // TODO: make irmai talk
+
+  useEffect(() => {
+    prepareSystemPrompt(chatProps.append);
+  }, []);
 
   useEffect(() => {
     isActive && setPartToShow("start");

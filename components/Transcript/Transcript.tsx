@@ -1,16 +1,24 @@
-import { memo, useState, useEffect } from "react";
+import { memo, useState, useEffect, useRef } from "react";
 
 import { dateDDMMYYYY, timeHHMM, filteredTranscript } from "@/utils";
 import { cirka, poppins } from "@/utils/fonts";
-import { IChatProps } from "@/utils/shared-types";
+import { IChatProps, ChatMessage } from "@/utils/shared-types";
 
 import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
+
 import s from "./transcript.module.css";
 
 const Transcript = ({ chatProps }: { chatProps: IChatProps }) => {
-  const { focus, firstQuestion, showTranscript, selectedCards, conclusion } =
-    useIrmaiStore((s) => s);
-  const [transcript, setTranscript] = useState<any[]>([]);
+  const {
+    focus,
+    firstQuestion,
+    showTranscript,
+    setShowTranscript,
+    selectedCards,
+    conclusion,
+  } = useIrmaiStore((s) => s);
+  const [transcript, setTranscript] = useState<ChatMessage[]>([]);
+  const transcriptInnerElem = useRef<HTMLDivElement | null>(null);
 
   const { messages } = chatProps;
 
@@ -20,12 +28,17 @@ const Transcript = ({ chatProps }: { chatProps: IChatProps }) => {
     }
   }, [messages]);
 
+  useEffect(() => {
+    setShowTranscript(false);
+    transcriptInnerElem.current?.scrollTo(0, 0);
+  }, []);
+
   return (
     <div
       className={`${poppins.className} ${s.transcript}`}
       data-show={showTranscript}
     >
-      <main className={s.transcriptInner}>
+      <main className={s.transcriptInner} ref={transcriptInnerElem}>
         <div className={s.timeKeeper}>
           <span className={s.timeDate}>{dateDDMMYYYY()}</span>
           <span className={s.timeTime}>{timeHHMM()}</span>

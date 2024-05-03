@@ -80,8 +80,6 @@ const QuestionScreen = ({
     setIsThinking(true);
     const formData = new FormData();
     formData.append("file", audioFile);
-    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-    formData.append("safari", isSafari.toString());
     const response = await fetch("/api/speech-to-text", {
       method: "POST",
       body: formData,
@@ -158,7 +156,6 @@ const QuestionScreen = ({
     // if new messages come in, restart the timer
     if (messages?.length === 0) return;
 
-    // if the last message was from the assistant, setIrmaiIsThinking(false);
     const lastMessage = messages?.[messages.length - 1];
 
     const timer = setTimeout(() => {

@@ -77,8 +77,6 @@ const FocusScreen = ({ isActive, id }: { isActive: boolean; id: string }) => {
   const convertAudioToTranscript = async (audioFile: any) => {
     const formData = new FormData();
     formData.append("file", audioFile);
-    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-    formData.append("safari", isSafari.toString());
     const response = await fetch("/api/speech-to-text", {
       method: "POST",
       body: formData,
