@@ -5,7 +5,7 @@ import { withoutTrailingPeriod } from "@/utils";
 import { prepareFirstPrompt } from "@/utils/prompts";
 import { cirka } from "@/utils/fonts";
 import { IChatProps } from "@/utils/shared-types";
-import useRecorder from "@/utils/use-recorder";
+import useRecorder from "@/hooks/use-recorder";
 
 import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
 import { Screen } from "@/components/Stage/Stage";

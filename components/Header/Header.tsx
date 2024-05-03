@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-import { useAudioLevels } from "@/utils/use-audio-levels";
+import { useAudioLevels } from "@/hooks/use-audio-levels";
 
 import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
 import TranscriptButton from "./TranscriptButton";

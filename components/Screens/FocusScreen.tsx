@@ -3,7 +3,7 @@ import { useEffect, useState, useRef } from "react";
 
 import { withoutTrailingPeriod } from "@/utils";
 import { cirka } from "@/utils/fonts";
-import useRecorder from "@/utils/use-recorder";
+import useRecorder from "@/hooks/use-recorder";
 
 import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
 import PressAndHoldCTA from "@/components/PressAndHoldCTA/PressAndHoldCTA";

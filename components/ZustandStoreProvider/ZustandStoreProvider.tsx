@@ -3,7 +3,7 @@
 import { type ReactNode, createContext, useRef, useContext } from "react";
 import { useStore } from "zustand";
 
-import { type Store, createZStore, initStore } from "@/utils/use-zustand-state";
+import { type Store, createZStore, initStore } from "@/hooks/use-zustand-state";
 
 export type StoreApi = ReturnType<typeof createZStore>;
 
