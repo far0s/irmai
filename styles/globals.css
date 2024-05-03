@@ -34,7 +34,7 @@ body {
 
 [class^="stage"]:has(#splash[data-is-active="false"])
   ~ [class^="header"]
-  [class*="transcriptButton"] {
+  [class*="transcriptToggle"][data-is-visible="true"] {
   animation: fadeIn 0.3s ease-in-out forwards 0.8s;
 }
 

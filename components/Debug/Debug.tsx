@@ -15,27 +15,22 @@ const Debug = () => {
     setGlobalState,
   } = useIrmaiStore((s) => s);
 
+  const handleReset = () => {
+    reset();
+    window.location.reload();
+  };
+
+  const handleChangeSelect = (e: any) => setGlobalState(e.target.value);
+
   return (
     debug && (
       <div className={s.debug}>
         <p>
-          <button
-            onClick={() => {
-              reset();
-              window.location.reload();
-            }}
-          >
-            reload
-          </button>
+          <button onClick={handleReset}>reload</button>
         </p>
         <p>
           state:
-          <select
-            onChange={(e) => {
-              setGlobalState(e.target.value as any);
-            }}
-            value={globalState}
-          >
+          <select onChange={handleChangeSelect} value={globalState}>
             <option value="splash">splash</option>
             <option value="landing">landing</option>
             <option value="focus">focus</option>
