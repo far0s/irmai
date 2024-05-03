@@ -9,6 +9,7 @@ import Debug from "@/components/Debug/Debug";
 import Transcript from "@/components/Transcript/Transcript";
 import { useChat } from "ai/react";
 import { IChatProps } from "@/utils/shared-types";
+import { prepareSystemPrompt } from "@/utils/utils";
 
 const Home = () => {
   const { globalState, setShowTranscript, setIsThinking } = useIrmaiStore(
@@ -43,6 +44,10 @@ const Home = () => {
 
   useEffect(() => setIsThinking(isLoading), [isLoading]);
 
+  useEffect(() => {
+    prepareSystemPrompt(append);
+  }, []);
+
   return (
     <main className={s.page}>
       <Stage>
@@ -56,7 +61,7 @@ const Home = () => {
         ))}
       </Stage>
       <Header />
-      <Transcript />
+      <Transcript chatProps={chatProps} />
       <Debug />
     </main>
   );

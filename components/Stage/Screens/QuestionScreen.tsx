@@ -26,7 +26,6 @@ const QuestionScreen = ({
     setIsThinking,
     firstQuestion,
     setFirstQuestion,
-    setTranscript,
   } = useIrmaiStore((s) => s);
   const [partToShow, setPartToShow] = useState<
     null | "start" | "recording" | "thinking" | "result"
@@ -157,7 +156,6 @@ const QuestionScreen = ({
 
     const timer = setTimeout(() => {
       if (lastMessage.role === "assistant") {
-        setTranscript(messages);
         speakLastMessage(lastMessage);
       }
     }, 1000);

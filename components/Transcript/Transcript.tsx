@@ -2,24 +2,28 @@ import { memo, useState, useEffect } from "react";
 import s from "./transcript.module.css";
 import { cirka, poppins } from "@/utils/fonts";
 import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
+import { IChatProps } from "@/utils/shared-types";
 
-const Transcript = () => {
-  const {
-    focus,
-    firstQuestion,
-    showTranscript,
-    selectedCards,
-    transcript,
-    conclusion,
-  } = useIrmaiStore((s) => s);
+const Transcript = ({ chatProps }: { chatProps: IChatProps }) => {
+  const { focus, firstQuestion, showTranscript, selectedCards, conclusion } =
+    useIrmaiStore((s) => s);
   const [transcriptWithoutFirstQuestion, setTranscriptWithoutFirstQuestion] =
     useState<any[]>([]);
 
+  const { messages } = chatProps;
+
   useEffect(() => {
-    if (transcript.length > 1) {
-      setTranscriptWithoutFirstQuestion(transcript.slice(1));
+    if (messages.length > 1) {
+      const filteredTranscript = messages.filter(
+        (item) =>
+          item.role !== "system" &&
+          !item.content.includes("*INTRO") &&
+          !item.content.includes("*SYSTEM") &&
+          !item.content.includes("*CONCLUSION")
+      );
+      setTranscriptWithoutFirstQuestion(filteredTranscript);
     }
-  }, [transcript]);
+  }, [messages]);
 
   const date = new Date().toLocaleDateString("fr-FR", {
     month: "2-digit",
