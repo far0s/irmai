@@ -3,9 +3,15 @@ import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStorePro
 import s from "./debug.module.css";
 
 const Debug = () => {
-  const { reset, debug, isSpeaking, isListening, isThinking } = useIrmaiStore(
-    (s) => s
-  );
+  const {
+    reset,
+    debug,
+    isSpeaking,
+    isListening,
+    isThinking,
+    globalState,
+    setGlobalState,
+  } = useIrmaiStore((s) => s);
 
   return (
     debug && (
@@ -19,6 +25,21 @@ const Debug = () => {
           >
             reload
           </button>
+        </p>
+        <p>
+          state:
+          <select
+            onChange={(e) => {
+              setGlobalState(e.target.value as any);
+            }}
+            value={globalState}
+          >
+            <option value="splash">splash</option>
+            <option value="landing">landing</option>
+            <option value="focus">focus</option>
+            <option value="question">question</option>
+            <option value="outro">outro</option>
+          </select>
         </p>
         {isSpeaking && <p>irmai isSpeaking</p>}
         {isListening && <p>irmai isListening</p>}
