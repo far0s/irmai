@@ -5,6 +5,9 @@ import { withoutTrailingPeriod } from "@/utils";
 import { prepareFirstPrompt } from "@/utils/prompts";
 import { cirka } from "@/utils/fonts";
 import { IChatProps } from "@/utils/shared-types";
+import convertSpeechToText from "@/utils/speech-to-text";
+import convertTextToSpeech from "@/utils/text-to-speech";
+
 import useRecorder from "@/hooks/use-recorder";
 
 import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
@@ -67,84 +70,35 @@ const QuestionScreen = ({
   useEffect(() => {
     if (isActive && audioURL && audioFile) {
       setPartToShow("thinking");
-      convertAudioToTranscript(audioFile);
+      setIsThinking(true);
+      // TODO: refactor the callbacks
+      convertSpeechToText({
+        audioFile: audioFile,
+        errorCallback: (error) => {
+          window.alert(error);
+          setPartToShow("start");
+        },
+        successCallback: (res) => {
+          if (!firstQuestion) setFirstQuestion(withoutTrailingPeriod(res.text));
+          resetRecording?.();
+          append?.({
+            content: !firstQuestion
+              ? prepareFirstPrompt({
+                  focus,
+                  firstQuestion: withoutTrailingPeriod(res.text),
+                  cards: selectedCards,
+                })
+              : res.text,
+            role: "user",
+          } as any);
+        },
+      });
     }
   }, [audioURL, audioFile]);
 
   useEffect(() => {
     setIsListening(isRecording);
   }, [isRecording]);
-
-  // TODO: refactor this to a shared function
-  const convertAudioToTranscript = async (audioFile: any) => {
-    setIsThinking(true);
-    const formData = new FormData();
-    formData.append("file", audioFile);
-    const response = await fetch("/api/speech-to-text", {
-      method: "POST",
-      body: formData,
-    })
-      .then((res) => res.json())
-      .catch((err) => window.alert(err));
-    if (response && response.text) {
-      if (!firstQuestion)
-        setFirstQuestion(withoutTrailingPeriod(response.text));
-      resetRecording?.();
-      append?.({
-        content: !firstQuestion
-          ? prepareFirstPrompt({
-              focus,
-              firstQuestion: withoutTrailingPeriod(response.text),
-              cards: selectedCards,
-            })
-          : response.text,
-        role: "user",
-      } as any);
-    }
-  };
-
-  // TODO: refactor this to a shared function
-  const speakLastMessage = async (message: any) => {
-    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-      navigator.mediaDevices
-        .getUserMedia({ audio: true })
-        .then(async (stream) => {
-          const whisper = await fetch("/api/text-to-speech", {
-            method: "POST",
-            body: JSON.stringify({
-              input: message.content,
-              voice: "nova", // alloy, echo, fable, onyx, nova, and shimmer
-            }),
-          }).then((res) => {
-            setIsThinking(false);
-            setIsSpeaking(true);
-            setPartToShow("result");
-            return res;
-          });
-
-          const audioContext = new AudioContext();
-          const audioBuffer = await audioContext.decodeAudioData(
-            await whisper.arrayBuffer()
-          );
-          const audioSource = audioContext.createBufferSource();
-          audioSource.buffer = audioBuffer;
-          audioSource.connect(audioContext.destination);
-          const gainNode = audioContext.createGain();
-          gainNode.gain.value = 0.5;
-          audioSource.connect(gainNode);
-          gainNode.connect(audioContext.destination);
-          audioSource.start();
-          audioSource.onended = () => {
-            setIsSpeaking(false);
-            stream.getTracks().forEach((track: any) => track.stop());
-            setPartToShow("start");
-          };
-        })
-        .catch((error) => console.log("Something went wrong!", error));
-    } else {
-      console.log("getUserMedia is not supported");
-    }
-  };
 
   useEffect(() => {
     if (!isActive) return;
@@ -160,7 +114,20 @@ const QuestionScreen = ({
 
     const timer = setTimeout(() => {
       if (lastMessage?.role === "assistant") {
-        speakLastMessage(lastMessage);
+        // TODO: refactor the callbacks
+        convertTextToSpeech({
+          mediaDevices: navigator.mediaDevices,
+          message: lastMessage,
+          startSpeakCallback: () => {
+            setIsThinking(false);
+            setIsSpeaking(true);
+            setPartToShow("result");
+          },
+          endSpeakCallback: () => {
+            setIsSpeaking(false);
+            setPartToShow("start");
+          },
+        });
       }
     }, 1000);
 

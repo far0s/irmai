@@ -3,6 +3,8 @@ import { useEffect, useState, useRef } from "react";
 
 import { withoutTrailingPeriod } from "@/utils";
 import { cirka } from "@/utils/fonts";
+import convertSpeechToText from "@/utils/speech-to-text";
+
 import useRecorder from "@/hooks/use-recorder";
 
 import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
@@ -64,32 +66,24 @@ const FocusScreen = ({ isActive, id }: { isActive: boolean; id: string }) => {
   };
 
   useEffect(() => {
-    if (audioURL && audioFile) {
-      convertAudioToTranscript(audioFile);
-    }
+    // TODO: refactor the callbacks
+    audioURL &&
+      audioFile &&
+      convertSpeechToText({
+        audioFile: audioFile,
+        errorCallback: () => window.alert("Error converting speech to text"),
+        successCallback: (data) => {
+          setFocus(withoutTrailingPeriod(data.text));
+          setPartToShow("start");
+          setGlobalState("tarot");
+          resetRecording?.();
+        },
+      });
   }, [audioURL, audioFile]);
 
   useEffect(() => {
     setIsListening(isRecording);
   }, [isRecording]);
-
-  // TODO: refactor this to a shared function
-  const convertAudioToTranscript = async (audioFile: any) => {
-    const formData = new FormData();
-    formData.append("file", audioFile);
-    const response = await fetch("/api/speech-to-text", {
-      method: "POST",
-      body: formData,
-    })
-      .then((res) => res.json())
-      .catch((err) => window.alert(err));
-    if (response && response.text) {
-      setFocus(withoutTrailingPeriod(response.text));
-      setPartToShow("start");
-      setGlobalState("tarot");
-      resetRecording?.();
-    }
-  };
 
   // TODO: make irmai talk
 
