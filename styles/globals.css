@@ -1,10 +1,8 @@
 @tailwind base;
-@tailwind components;
-@tailwind utilities;
 /* TODO: remove tailwind once we're sufficiently ready to archive POC */
 
 body {
-  --black: #000000;
+  --black: #0b0216;
   --cream: #fffbf2;
   --purple: #281595;
   background-color: var(--black);
