@@ -39,6 +39,7 @@ const Debug = () => {
             <option value="splash">splash</option>
             <option value="landing">landing</option>
             <option value="focus">focus</option>
+            <option value="tarot">tarot</option>
             <option value="question">question</option>
             <option value="outro">outro</option>
           </select>
