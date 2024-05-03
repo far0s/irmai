@@ -1,12 +1,15 @@
 import { useEffect, useState, useRef } from "react";
+
+import { withoutTrailingPeriod } from "@/utils";
+import { cirka } from "@/utils/fonts";
+import useRecorder from "@/utils/use-recorder";
+
 import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
 import PressAndHoldCTA from "@/components/PressAndHoldCTA/PressAndHoldCTA";
 import PressCTA from "@/components/PressCTA/PressCTA";
-import { Screen } from "../Stage.utils";
+import { Screen } from "@/components/Stage/Stage";
+
 import s from "./screens.module.css";
-import { cirka } from "@/utils/fonts";
-import useRecorder from "@/utils/use-recorder";
-import { withoutTrailingPeriod } from "@/utils/utils";
 
 const FocusScreen = ({ isActive, id }: { isActive: boolean; id: string }) => {
   const { setGlobalState, setIsListening, setFocus } = useIrmaiStore((s) => s);

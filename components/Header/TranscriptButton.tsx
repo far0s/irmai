@@ -1,5 +1,6 @@
+import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
+
 import s from "./header.module.css";
-import { useIrmaiStore } from "../ZustandStoreProvider/ZustandStoreProvider";
 
 const TranscriptButton = () => {
   const { showTranscript, setShowTranscript } = useIrmaiStore((s) => s);

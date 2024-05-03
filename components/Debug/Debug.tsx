@@ -1,5 +1,7 @@
 import { memo } from "react";
+
 import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
+
 import s from "./debug.module.css";
 
 const Debug = () => {

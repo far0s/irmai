@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
-import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
-import { Screen } from "../Stage.utils";
-import s from "./screens.module.css";
+
 import { cirka } from "@/utils/fonts";
-import PressCTA from "@/components/PressCTA/PressCTA";
 import { IChatProps } from "@/utils/shared-types";
+
+import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
+import { Screen } from "@/components/Stage/Stage";
+import PressCTA from "@/components/PressCTA/PressCTA";
+
+import s from "./screens.module.css";
 
 const OutroScreen = ({
   isActive,
@@ -15,17 +18,12 @@ const OutroScreen = ({
   id: string;
   chatProps: IChatProps;
 }) => {
-  const {
-    reset,
-    setGlobalState,
-    setShowTranscript,
-    conclusion,
-    setConclusion,
-  } = useIrmaiStore((s) => s);
+  const { reset, setShowTranscript, conclusion, setConclusion } = useIrmaiStore(
+    (s) => s
+  );
   const [partToShow, setPartToShow] = useState<null | "start">(null);
 
-  const { input, messages, handleInputChange, handleSubmit, append } =
-    chatProps;
+  const { messages, append } = chatProps;
 
   useEffect(() => {
     if (!isActive) return;
@@ -35,7 +33,7 @@ const OutroScreen = ({
 
   // on load, ask AI for a conclusion to the reading, based on the previous messages
   const askForConclusion = () => {
-    append({
+    append?.({
       role: "user",
       content:
         "Provide a conclusion to the reading (max 50 words) that summarizes the conversation. Don't mention the cards. Precede your answer with `*CONCLUSION`",
@@ -43,17 +41,13 @@ const OutroScreen = ({
   };
 
   useEffect(() => {
-    if (messages.length === 0) return;
-    const lastMessage = messages[messages.length - 1];
-    if (
-      lastMessage.role === "assistant" &&
-      lastMessage.content.startsWith("*CONCLUSION")
-    ) {
-      const conclusion = lastMessage.content
-        .replace("*CONCLUSION: ", "")
-        .trim();
-
-      setConclusion(conclusion);
+    if (messages?.length === 0) return;
+    const lastMessage = messages?.[messages.length - 1];
+    const lastMsgIsConclusion =
+      lastMessage?.role === "assistant" &&
+      lastMessage.content.startsWith("*CONCLUSION");
+    if (lastMsgIsConclusion) {
+      setConclusion(lastMessage.content.replace("*CONCLUSION: ", "").trim());
     }
   }, [messages]);
 

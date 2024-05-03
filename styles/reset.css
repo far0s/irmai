@@ -1,8 +1,3 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-/* TODO: remove tailwind once we're sufficiently ready to archive POC */
-
 /* Box sizing rules */
 *,
 *::before,
@@ -38,15 +33,9 @@ ol[role="list"] {
   list-style: none;
 }
 
-/* Set core body defaults */
 body {
-  --black: #000000;
-  --cream: #fffbf2;
-  --purple: #281595;
   min-height: 100dvh;
   line-height: 1.5;
-  background-color: var(--black);
-  color: var(--cream);
   -webkit-touch-callout: none !important;
 }
 
@@ -101,40 +90,4 @@ textarea:not([rows]) {
 /* Anything that has been anchored to should have extra scroll margin */
 :target {
   scroll-margin-block: 5ex;
-}
-
-/* Animate the header when the splash screen is active */
-[class^="stage"]:has(#splash[data-is-active="true"]) ~ [class^="header"] {
-  transform: translateX(10%) translateY(-50%) scale(1.2);
-  top: 50%;
-}
-
-[class^="stage"]:has(#splash[data-is-active="true"])
-  ~ [class^="header"]
-  [class*="headerRow"] {
-  transform: translateX(calc(25% - 14px));
-}
-
-[class^="stage"]:has(#splash[data-is-active="false"])
-  ~ [class^="header"]
-  [class*="audioFeedback"] {
-  animation: appear 0.3s ease-in-out forwards 0.8s;
-}
-
-[class^="stage"]:has(#splash[data-is-active="false"])
-  ~ [class^="header"]
-  [class*="transcriptButton"] {
-  animation: fadeIn 0.3s ease-in-out forwards 0.8s;
-}
-
-@keyframes appear {
-  to {
-    transform: scaleX(1);
-  }
-}
-
-@keyframes fadeIn {
-  to {
-    opacity: 1;
-  }
 }

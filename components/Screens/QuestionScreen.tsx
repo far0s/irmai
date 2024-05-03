@@ -1,12 +1,17 @@
 import { useEffect, useState } from "react";
-import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
-import { Screen } from "../Stage.utils";
-import s from "./screens.module.css";
+
+import { withoutTrailingPeriod, prepareFirstPrompt } from "@/utils";
 import { cirka } from "@/utils/fonts";
-import PressCTA from "@/components/PressCTA/PressCTA";
-import useRecorder from "@/utils/use-recorder";
-import { withoutTrailingPeriod, prepareFirstPrompt } from "@/utils/utils";
 import { IChatProps } from "@/utils/shared-types";
+import useRecorder from "@/utils/use-recorder";
+
+import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
+import { Screen } from "@/components/Stage/Stage";
+import PressCTA from "@/components/PressCTA/PressCTA";
+
+import s from "./screens.module.css";
+
+type TPartToShow = null | "start" | "recording" | "thinking" | "result";
 
 const QuestionScreen = ({
   isActive,
@@ -27,9 +32,7 @@ const QuestionScreen = ({
     firstQuestion,
     setFirstQuestion,
   } = useIrmaiStore((s) => s);
-  const [partToShow, setPartToShow] = useState<
-    null | "start" | "recording" | "thinking" | "result"
-  >(null);
+  const [partToShow, setPartToShow] = useState<TPartToShow>(null);
 
   const { messages, append } = chatProps;
 
@@ -86,7 +89,7 @@ const QuestionScreen = ({
       if (!firstQuestion)
         setFirstQuestion(withoutTrailingPeriod(response.text));
       resetRecording?.();
-      append({
+      append?.({
         content: !firstQuestion
           ? prepareFirstPrompt({
               focus,
@@ -149,13 +152,13 @@ const QuestionScreen = ({
     // if so, restart the timer
     // if the timer expires, speak the last message out loud
     // if new messages come in, restart the timer
-    if (messages.length === 0) return;
+    if (messages?.length === 0) return;
 
     // if the last message was from the assistant, setIrmaiIsThinking(false);
-    const lastMessage = messages[messages.length - 1];
+    const lastMessage = messages?.[messages.length - 1];
 
     const timer = setTimeout(() => {
-      if (lastMessage.role === "assistant") {
+      if (lastMessage?.role === "assistant") {
         speakLastMessage(lastMessage);
       }
     }, 1000);
@@ -204,7 +207,7 @@ const QuestionScreen = ({
         </div>
       </div>
 
-      {messages.length > 2 && (
+      {messages && messages.length > 2 && (
         <div className={s.ending}>
           <p>
             You can ask another question or we can end the conversation here. To

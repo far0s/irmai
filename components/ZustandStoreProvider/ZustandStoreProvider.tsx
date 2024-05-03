@@ -9,11 +9,7 @@ export type StoreApi = ReturnType<typeof createZStore>;
 
 export const StoreContext = createContext<StoreApi | undefined>(undefined);
 
-export interface StoreProviderProps {
-  children: ReactNode;
-}
-
-export const StoreProvider = ({ children }: StoreProviderProps) => {
+export const StoreProvider = ({ children }: { children: ReactNode }) => {
   const storeRef = useRef<StoreApi>();
   if (!storeRef.current) {
     storeRef.current = createZStore(initStore());

@@ -1,7 +1,8 @@
 "use client";
 import { useEffect } from "react";
+
 import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
-import { Screen } from "../Stage.utils";
+import { Screen } from "@/components/Stage/Stage";
 
 const SplashScreen = ({ isActive, id }: { isActive: boolean; id: string }) => {
   const { globalState, setGlobalState, hasSeenSplash, setHasSeenSplash } =

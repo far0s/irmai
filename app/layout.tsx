@@ -1,4 +1,5 @@
-import "./globals.css";
+import "../styles/reset.css";
+import "../styles/globals.css";
 import { StoreProvider } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
 import { type Viewport, Metadata } from "next";
 import { Analytics } from "@vercel/analytics/react";

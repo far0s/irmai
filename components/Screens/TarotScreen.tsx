@@ -1,21 +1,19 @@
 import { useEffect, useState } from "react";
-import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
-import PressCTA from "@/components/PressCTA/PressCTA";
-import { Screen } from "../Stage.utils";
-import s from "./screens.module.css";
+
 import { cirka } from "@/utils/fonts";
 
+import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
+import PressCTA from "@/components/PressCTA/PressCTA";
+import { Screen } from "@/components/Stage/Stage";
+
+import s from "./screens.module.css";
+
+type TPartToShow = null | "start" | "pulling" | "result";
+
 const TarotScreen = ({ isActive, id }: { isActive: boolean; id: string }) => {
-  const {
-    setGlobalState,
-    focus,
-    setSelectedCards,
-    selectedCards,
-    setIsSpeaking,
-  } = useIrmaiStore((s) => s);
-  const [partToShow, setPartToShow] = useState<
-    null | "start" | "pulling" | "result"
-  >(null);
+  const { setGlobalState, focus, selectedCards, setSelectedCards } =
+    useIrmaiStore((s) => s);
+  const [partToShow, setPartToShow] = useState<TPartToShow>(null);
   const [showCardsCopy, setShowCardsCopy] = useState<boolean>(false);
 
   // TODO: make irmai talk about the cards

@@ -1,40 +1,24 @@
 import { memo, useState, useEffect } from "react";
-import s from "./transcript.module.css";
+
+import { dateDDMMYYYY, timeHHMM, filteredTranscript } from "@/utils";
 import { cirka, poppins } from "@/utils/fonts";
-import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
 import { IChatProps } from "@/utils/shared-types";
+
+import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
+import s from "./transcript.module.css";
 
 const Transcript = ({ chatProps }: { chatProps: IChatProps }) => {
   const { focus, firstQuestion, showTranscript, selectedCards, conclusion } =
     useIrmaiStore((s) => s);
-  const [transcriptWithoutFirstQuestion, setTranscriptWithoutFirstQuestion] =
-    useState<any[]>([]);
+  const [transcript, setTranscript] = useState<any[]>([]);
 
   const { messages } = chatProps;
 
   useEffect(() => {
-    if (messages.length > 1) {
-      const filteredTranscript = messages.filter(
-        (item) =>
-          item.role !== "system" &&
-          !item.content.includes("*INTRO") &&
-          !item.content.includes("*SYSTEM") &&
-          !item.content.includes("*CONCLUSION")
-      );
-      setTranscriptWithoutFirstQuestion(filteredTranscript);
+    if (messages && messages.length > 1) {
+      setTranscript(filteredTranscript(messages));
     }
   }, [messages]);
-
-  const date = new Date().toLocaleDateString("fr-FR", {
-    month: "2-digit",
-    day: "2-digit",
-    year: "numeric",
-  });
-
-  const time = new Date().toLocaleTimeString("fr-FR", {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
 
   return (
     <div
@@ -43,8 +27,8 @@ const Transcript = ({ chatProps }: { chatProps: IChatProps }) => {
     >
       <main className={s.transcriptInner}>
         <div className={s.timeKeeper}>
-          <span className={s.timeDate}>{date}</span>
-          <span className={s.timeTime}>{time}</span>
+          <span className={s.timeDate}>{dateDDMMYYYY()}</span>
+          <span className={s.timeTime}>{timeHHMM()}</span>
         </div>
         <article className={s.transcriptBlock}>
           <header className={`${cirka.className} ${s.transcriptHeader}`}>
@@ -80,8 +64,8 @@ const Transcript = ({ chatProps }: { chatProps: IChatProps }) => {
               <p>{firstQuestion}</p>
             </div>
             <ul className={s.transcriptTranscript}>
-              {transcriptWithoutFirstQuestion.length > 0 &&
-                transcriptWithoutFirstQuestion.map((item) => (
+              {transcript.length > 0 &&
+                transcript.map((item) => (
                   <li
                     key={item.id}
                     className={

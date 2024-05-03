@@ -1,9 +1,12 @@
 import { useEffect, useState, useRef } from "react";
+
+import { cirka } from "@/utils/fonts";
+
 import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
 import PressAndHoldCTA from "@/components/PressAndHoldCTA/PressAndHoldCTA";
-import { Screen } from "../Stage.utils";
+import { Screen } from "@/components/Stage/Stage";
+
 import s from "./screens.module.css";
-import { cirka } from "@/utils/fonts";
 
 const LandingScreen = ({ isActive, id }: { isActive: boolean; id: string }) => {
   const { setGlobalState } = useIrmaiStore((s) => s);

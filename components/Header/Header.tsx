@@ -1,8 +1,11 @@
 import { useEffect, useRef } from "react";
-import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
-import s from "./header.module.css";
-import TranscriptButton from "./TranscriptButton";
+
 import { useAudioLevels } from "@/utils/use-audio-levels";
+
+import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
+import TranscriptButton from "./TranscriptButton";
+
+import s from "./header.module.css";
 
 const Header = () => {
   const logoRef = useRef<SVGSVGElement>(null);
