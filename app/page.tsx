@@ -2,7 +2,7 @@
 import { useEffect } from "react";
 import { useChat } from "ai/react";
 
-import { prepareSystemPrompt } from "@/utils";
+import { prepareSystemPrompt } from "@/utils/prompts";
 import { IChatProps } from "@/utils/shared-types";
 
 import Header from "@/components/Header/Header";

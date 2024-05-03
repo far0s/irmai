@@ -1,7 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
 
-import { withoutTrailingPeriod, prepareFirstPrompt } from "@/utils";
+import { withoutTrailingPeriod } from "@/utils";
+import { prepareFirstPrompt } from "@/utils/prompts";
 import { cirka } from "@/utils/fonts";
 import { IChatProps } from "@/utils/shared-types";
 import useRecorder from "@/utils/use-recorder";

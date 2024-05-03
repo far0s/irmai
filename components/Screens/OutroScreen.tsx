@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { prepareConclusionPrompt } from "@/utils";
+import { prepareConclusionPrompt } from "@/utils/prompts";
 import { cirka } from "@/utils/fonts";
 import { IChatProps } from "@/utils/shared-types";
 
