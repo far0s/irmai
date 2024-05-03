@@ -8,9 +8,11 @@ const Logo = () => {
   const generateRandomDelaysForLetters = () => {
     const paths = logoRef.current?.querySelectorAll("path");
     if (!paths) return;
-    paths.forEach((path) => {
-      const rand = (Math.random() + 0.05).toFixed(2);
-      path.style.transitionDelay = `${rand}s`;
+    const randomDelays = Array.from({ length: paths.length }, () =>
+      (Math.random() * 0.5 + 0.5).toFixed(2)
+    );
+    paths.forEach((path, i) => {
+      path.style.transitionDelay = `${randomDelays[i]}s`;
       path.classList.add("isReady");
     });
   };
