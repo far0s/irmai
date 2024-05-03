@@ -1,0 +1,20 @@
+.page {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center;
+
+  --header-margin: 35px;
+  --header-height: 35px;
+  --header-safe-zone: calc(var(--header-margin) * 2 + var(--header-height));
+  --footer-margin: calc(55px + 1svh);
+}
+
+.page > * {
+  max-width: 1024px;
+  margin: auto;
+  box-sizing: border-box;
+}

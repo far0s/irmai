@@ -1,0 +1,21 @@
+.debug {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  padding: 2px;
+  background-color: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 12px;
+  font-family: monospace;
+}
+
+.debug select {
+  width: min-content;
+}
+
+.debug select option {
+  font-size: 1rem;
+  padding: initial;
+}
