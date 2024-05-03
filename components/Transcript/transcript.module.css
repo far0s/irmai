@@ -61,6 +61,7 @@
 
 .transcriptHeader {
   padding: 0.5rem 0;
+  font-family: var(--font-cirka), serif;
   text-transform: uppercase;
   font-size: 20px;
   font-weight: 600;
@@ -127,6 +128,7 @@
 }
 
 .transcriptTranscript span {
+  font-family: var(--font-cirka), serif;
   text-transform: uppercase;
   font-weight: 600;
   font-size: 12px;

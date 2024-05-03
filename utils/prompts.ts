@@ -1,3 +1,5 @@
+"use client";
+
 export const prepareSystemPrompt = (append: any) => {
   append({
     role: "system",

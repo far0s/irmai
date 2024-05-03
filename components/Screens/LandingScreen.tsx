@@ -1,7 +1,5 @@
-"use client";
 import { useEffect, useState, useRef } from "react";
 
-import { cirka } from "@/utils/fonts";
 import { prepareSystemPrompt } from "@/utils/prompts";
 import { IChatProps } from "@/utils/shared-types";
 
@@ -68,7 +66,7 @@ const LandingScreen = ({
       <div className={s.wrapper} data-show={partToShow}>
         <div className={s.copy}>
           <p>
-            <span className={`${cirka.className}`}>Welcome</span>
+            <span>Welcome</span>
             irmai is your audio-visual spiritual guide. This is a journey of
             self-discovery and inner peace to nurture your spiritual growth and
             self connection.

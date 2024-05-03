@@ -1,7 +1,4 @@
-"use client";
 import { useEffect, useState } from "react";
-
-import { cirka } from "@/utils/fonts";
 
 import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
 import PressCTA from "@/components/PressCTA/PressCTA";
@@ -47,9 +44,7 @@ const TarotScreen = ({ isActive, id }: { isActive: boolean; id: string }) => {
           className={s.transcriptBlock}
           data-show={partToShow === "start" || partToShow === "result"}
         >
-          <header className={`${cirka.className} ${s.transcriptHeader}`}>
-            Focus
-          </header>
+          <header className={s.transcriptHeader}>Focus</header>
           {focus?.length > 0 && partToShow !== "result" && (
             <div className={s.transcriptHighlight}>
               <p>{focus}</p>
@@ -60,9 +55,7 @@ const TarotScreen = ({ isActive, id }: { isActive: boolean; id: string }) => {
         <article className={s.transcriptBlock} data-show={showCardsCopy}>
           {partToShow === "result" ? (
             <>
-              <header className={`${cirka.className} ${s.transcriptHeader}`}>
-                Cards
-              </header>
+              <header className={s.transcriptHeader}>Cards</header>
               <div className={s.transcriptCards}>
                 {selectedCards.map((card) => (
                   <div key={card.name_short} className={s.transcriptCard}>
@@ -74,16 +67,15 @@ const TarotScreen = ({ isActive, id }: { isActive: boolean; id: string }) => {
             </>
           ) : (
             <p>
-              <span className={`${cirka.className}`}>Cards</span> Each card has
-              symbolic meanings that represent different aspects of your life,
-              such as relationships, career, emotions, and more. As you choose
-              the cards, I will interpret the symbols and archetypes to provide
-              you with personalized insights and guidance. The cards are not
-              meant to predict the future, but rather to offer a fresh
-              perspective on your current situation and potential paths forward.
-              My role is to be an intuitive guide, and we will work together to
-              explore the messages the cards reveal and how they apply to your
-              life.
+              <span>Cards</span> Each card has symbolic meanings that represent
+              different aspects of your life, such as relationships, career,
+              emotions, and more. As you choose the cards, I will interpret the
+              symbols and archetypes to provide you with personalized insights
+              and guidance. The cards are not meant to predict the future, but
+              rather to offer a fresh perspective on your current situation and
+              potential paths forward. My role is to be an intuitive guide, and
+              we will work together to explore the messages the cards reveal and
+              how they apply to your life.
             </p>
           )}
         </article>

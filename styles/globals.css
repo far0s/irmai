@@ -8,6 +8,8 @@ body {
   background-color: var(--black);
   color: var(--cream);
 
+  font-family: var(--font-poppins), sans-serif;
+
   --header-margin: 35px;
   --header-height: 35px;
   --header-safe-zone: calc(var(--header-margin) * 2 + var(--header-height));

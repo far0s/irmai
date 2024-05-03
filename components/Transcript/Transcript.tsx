@@ -1,7 +1,6 @@
 import { memo, useState, useEffect, useRef } from "react";
 
 import { dateDDMMYYYY, timeHHMM, filteredTranscript } from "@/utils";
-import { cirka, poppins } from "@/utils/fonts";
 import { IChatProps, ChatMessage } from "@/utils/shared-types";
 
 import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
@@ -34,19 +33,14 @@ const Transcript = ({ chatProps }: { chatProps: IChatProps }) => {
   }, []);
 
   return (
-    <div
-      className={`${poppins.className} ${s.transcript}`}
-      data-show={showTranscript}
-    >
+    <div className={`${s.transcript}`} data-show={showTranscript}>
       <main className={s.transcriptInner} ref={transcriptInnerElem}>
         <div className={s.timeKeeper}>
           <span className={s.timeDate}>{dateDDMMYYYY()}</span>
           <span className={s.timeTime}>{timeHHMM()}</span>
         </div>
         <article className={s.transcriptBlock}>
-          <header className={`${cirka.className} ${s.transcriptHeader}`}>
-            Focus
-          </header>
+          <header className={s.transcriptHeader}>Focus</header>
           {focus?.length > 0 && (
             <div className={s.transcriptHighlight}>
               <p>{focus}</p>
@@ -55,9 +49,7 @@ const Transcript = ({ chatProps }: { chatProps: IChatProps }) => {
         </article>
         {selectedCards.length > 0 && (
           <article className={s.transcriptBlock}>
-            <header className={`${cirka.className} ${s.transcriptHeader}`}>
-              Your Cards
-            </header>
+            <header className={s.transcriptHeader}>Your Cards</header>
             <div className={s.transcriptCards}>
               {selectedCards.map((card) => (
                 <div key={card.name_short} className={s.transcriptCard}>
@@ -70,9 +62,7 @@ const Transcript = ({ chatProps }: { chatProps: IChatProps }) => {
         )}
         {firstQuestion.length > 0 && (
           <article className={s.transcriptBlock}>
-            <header className={`${cirka.className} ${s.transcriptHeader}`}>
-              Starting Question
-            </header>
+            <header className={s.transcriptHeader}>Starting Question</header>
             <div className={s.transcriptHighlight}>
               <p>{firstQuestion}</p>
             </div>
@@ -87,16 +77,14 @@ const Transcript = ({ chatProps }: { chatProps: IChatProps }) => {
                         : s.transcriptItemUser
                     }
                   >
-                    <span className={cirka.className}>
-                      {item.role === "assistant" ? "irmai" : "you"}
-                    </span>
+                    <span>{item.role === "assistant" ? "irmai" : "you"}</span>
                     <p>{item.content}</p>
                   </li>
                 ))}
 
               {conclusion.length > 0 && (
                 <li className={s.transcriptItemAi}>
-                  <span className={cirka.className}>[end of conversation]</span>
+                  <span>[end of conversation]</span>
                 </li>
               )}
             </ul>
@@ -104,9 +92,7 @@ const Transcript = ({ chatProps }: { chatProps: IChatProps }) => {
         )}
         {conclusion.length > 0 && (
           <article className={s.transcriptBlock}>
-            <header className={`${cirka.className} ${s.transcriptHeader}`}>
-              Conclusion
-            </header>
+            <header className={s.transcriptHeader}>Conclusion</header>
             <div className={s.transcriptHighlight}>
               <p>
                 <em>{conclusion}</em>
@@ -117,7 +103,7 @@ const Transcript = ({ chatProps }: { chatProps: IChatProps }) => {
 
         {conclusion.length > 0 && (
           <article className={s.transcriptBlock}>
-            <header className={`${cirka.className} ${s.transcriptHeader}`}>
+            <header className={s.transcriptHeader}>
               [ADD OUTRO ACTIONS HERE]
             </header>
           </article>

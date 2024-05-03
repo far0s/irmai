@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 
 import { prepareConclusionPrompt } from "@/utils/prompts";
-import { cirka } from "@/utils/fonts";
 import { IChatProps } from "@/utils/shared-types";
 
 import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
@@ -51,9 +50,7 @@ const OutroScreen = ({
             className={s.transcriptBlock}
             data-show={partToShow === "start"}
           >
-            <header className={`${cirka.className} ${s.transcriptHeader}`}>
-              Conclusion
-            </header>
+            <header className={s.transcriptHeader}>Conclusion</header>
             <div className={s.transcriptHighlight}>
               <p>
                 <em>{conclusion}</em>

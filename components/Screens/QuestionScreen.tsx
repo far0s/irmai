@@ -1,9 +1,7 @@
-"use client";
 import { useEffect, useState } from "react";
 
 import { withoutTrailingPeriod } from "@/utils";
 import { prepareFirstPrompt } from "@/utils/prompts";
-import { cirka } from "@/utils/fonts";
 import { IChatProps } from "@/utils/shared-types";
 import convertSpeechToText from "@/utils/speech-to-text";
 import convertTextToSpeech from "@/utils/text-to-speech";
@@ -153,11 +151,10 @@ const QuestionScreen = ({
           }}
         >
           <p>
-            <span className={`${cirka.className}`}>Question</span> Lorem ipsum
-            dolor sit amet consectetur. Leo nisi odio aliquam cursus egestas.
-            Augue venenatis tincidunt in volutpat. Nascetur amet auctor sem non
-            fermentum. Velit sem ullamcorper tellus sed scelerisque ipsum
-            elementum.
+            <span>Question</span> Lorem ipsum dolor sit amet consectetur. Leo
+            nisi odio aliquam cursus egestas. Augue venenatis tincidunt in
+            volutpat. Nascetur amet auctor sem non fermentum. Velit sem
+            ullamcorper tellus sed scelerisque ipsum elementum.
           </p>
         </article>
 

@@ -1,3 +1,5 @@
+"use client";
+
 import s from "./stage.module.css";
 
 export const Screen = ({

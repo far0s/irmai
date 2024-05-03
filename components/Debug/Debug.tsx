@@ -26,7 +26,7 @@ const Debug = () => {
     debug && (
       <div className={s.debug}>
         <p>
-          <button onClick={handleReset}>reload</button>
+          <button onClick={() => handleReset()}>reload</button>
         </p>
         <p>
           state:

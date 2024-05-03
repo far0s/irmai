@@ -1,8 +1,6 @@
-"use client";
 import { useEffect, useState, useRef } from "react";
 
 import { withoutTrailingPeriod } from "@/utils";
-import { cirka } from "@/utils/fonts";
 import convertSpeechToText from "@/utils/speech-to-text";
 
 import useRecorder from "@/hooks/use-recorder";
@@ -92,7 +90,7 @@ const FocusScreen = ({ isActive, id }: { isActive: boolean; id: string }) => {
       <div className={s.wrapper} data-show={partToShow}>
         <div className={s.copy}>
           <p>
-            <span className={`${cirka.className}`}>Focus</span>
+            <span>Focus</span>
             to form a focused intention for a tarot reading, reflect on your
             current situation and distill it into a clear, specific question or
             intention. Phrase your question carefully to invite actionable

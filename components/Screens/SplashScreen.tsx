@@ -1,4 +1,3 @@
-"use client";
 import { useEffect } from "react";
 
 import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
