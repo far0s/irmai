@@ -20,7 +20,7 @@ interface Recorder {
 const useRecorder = (): Recorder => {
   const [recordingState, setRecordingState] = useState<RecordingStates>("idle");
   const [audioURL, setAudioURL] = useState<string>("");
-  const [time, setTime] = useState<number>(1000);
+  const [time, setTime] = useState<number>(0);
   const [blob, setBlob] = useState<Blob | null>(null);
   const timerRef = useRef<number>();
   const mediaRecorderRef = useRef<MediaRecorder>();
@@ -44,15 +44,6 @@ const useRecorder = (): Recorder => {
       setBlob(blob);
       setAudioURL(URL.createObjectURL(blob));
 
-      // FIXME: on safari, the blob is not playable because of the codec, or a missin moov atom at the end, it's unclear why
-      // some openai forum threads:
-      // https://community.openai.com/t/whisper-api-cannot-read-files-correctly/93420/54?page=2
-      // https://community.openai.com/t/whisper-api-is-not-able-to-transcribe-audios-created-on-ios/457325
-      // https://community.openai.com/t/whisper-api-respnse-issue/81552
-      // potential solution would be to use a polyfill, such as https://github.com/ai/audio-recorder-polyfill
-      // or to reencode the audio file on the server, using ffmpeg
-      // https://github.com/fluent-ffmpeg/node-fluent-ffmpeg
-
       const audioFile = new File([blob], "recorded_audio.mp3", {
         type: "audio/mp3",
       });
@@ -64,7 +55,10 @@ const useRecorder = (): Recorder => {
           .forEach((track: any) => track.stop());
     };
 
-    mediaRecorderRef.current.start();
+    // Here we start at 1000ms to avoid the empty audio bug that happens on iOS
+    // see https://community.openai.com/t/whisper-problem-with-audio-mp4-blobs-from-safari/322252
+    // and https://community.openai.com/t/whisper-api-completely-wrong-for-mp4/289256 for more info
+    mediaRecorderRef.current.start(1000);
   };
 
   // Function to pause recording
