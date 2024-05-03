@@ -1,3 +1,4 @@
+"use client";
 import { useEffect, useState } from "react";
 
 import { withoutTrailingPeriod, prepareFirstPrompt } from "@/utils";
@@ -34,7 +35,7 @@ const QuestionScreen = ({
   } = useIrmaiStore((s) => s);
   const [partToShow, setPartToShow] = useState<TPartToShow>(null);
 
-  const { messages, append } = chatProps;
+  const { messages, append }: IChatProps = chatProps;
 
   const {
     startRecording,
@@ -73,6 +74,7 @@ const QuestionScreen = ({
     setIsListening(isRecording);
   }, [isRecording]);
 
+  // TODO: refactor this to a shared function
   const convertAudioToTranscript = async (audioFile: any) => {
     setIsThinking(true);
     const formData = new FormData();
@@ -102,6 +104,7 @@ const QuestionScreen = ({
     }
   };
 
+  // TODO: refactor this to a shared function
   const speakLastMessage = async (message: any) => {
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       navigator.mediaDevices

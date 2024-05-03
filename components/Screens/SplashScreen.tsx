@@ -9,15 +9,10 @@ const SplashScreen = ({ isActive, id }: { isActive: boolean; id: string }) => {
     useIrmaiStore((s) => s);
 
   useEffect(() => {
-    if (globalState !== "splash") {
-      return;
-    }
-    if (hasSeenSplash) {
-      return setGlobalState("landing");
-    }
+    if (globalState !== "splash") return;
+    if (hasSeenSplash) return setGlobalState("landing");
 
     setHasSeenSplash(true);
-
     setTimeout(() => setGlobalState("landing"), 2400);
   }, [globalState]);
 

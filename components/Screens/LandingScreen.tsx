@@ -1,3 +1,4 @@
+"use client";
 import { useEffect, useState, useRef } from "react";
 
 import { cirka } from "@/utils/fonts";
@@ -8,11 +9,11 @@ import { Screen } from "@/components/Stage/Stage";
 
 import s from "./screens.module.css";
 
+type TPartToShow = null | "start" | "copy2" | "copy3" | "end";
+
 const LandingScreen = ({ isActive, id }: { isActive: boolean; id: string }) => {
   const { setGlobalState } = useIrmaiStore((s) => s);
-  const [partToShow, setPartToShow] = useState<
-    null | "start" | "copy2" | "copy3" | "end"
-  >(null);
+  const [partToShow, setPartToShow] = useState<TPartToShow>(null);
   const timeout1 = useRef<ReturnType<typeof setTimeout> | null>(null);
   const timeout2 = useRef<ReturnType<typeof setTimeout> | null>(null);
   const timeout3 = useRef<ReturnType<typeof setTimeout> | null>(null);

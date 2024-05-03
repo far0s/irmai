@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 
+import { prepareConclusionPrompt } from "@/utils";
 import { cirka } from "@/utils/fonts";
 import { IChatProps } from "@/utils/shared-types";
 
@@ -23,22 +24,13 @@ const OutroScreen = ({
   );
   const [partToShow, setPartToShow] = useState<null | "start">(null);
 
-  const { messages, append } = chatProps;
+  const { messages, append }: IChatProps = chatProps;
 
   useEffect(() => {
     if (!isActive) return;
     setPartToShow("start");
-    !conclusion && askForConclusion();
+    !conclusion && prepareConclusionPrompt(append);
   }, [isActive]);
-
-  // on load, ask AI for a conclusion to the reading, based on the previous messages
-  const askForConclusion = () => {
-    append?.({
-      role: "user",
-      content:
-        "Provide a conclusion to the reading (max 50 words) that summarizes the conversation. Don't mention the cards. Precede your answer with `*CONCLUSION`",
-    } as any);
-  };
 
   useEffect(() => {
     if (messages?.length === 0) return;

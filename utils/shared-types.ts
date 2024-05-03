@@ -27,3 +27,11 @@ export interface IChatProps {
   metadata?: Object;
   data?: JSONValue[];
 }
+
+export type TGlobalState =
+  | "splash"
+  | "landing"
+  | "focus"
+  | "tarot"
+  | "question"
+  | "outro";

@@ -1,3 +1,4 @@
+"use client";
 import { useEffect, useState, useRef } from "react";
 
 import { withoutTrailingPeriod } from "@/utils";
@@ -11,11 +12,11 @@ import { Screen } from "@/components/Stage/Stage";
 
 import s from "./screens.module.css";
 
+type TPartToShow = null | "start" | "copy2" | "end" | "recording";
+
 const FocusScreen = ({ isActive, id }: { isActive: boolean; id: string }) => {
   const { setGlobalState, setIsListening, setFocus } = useIrmaiStore((s) => s);
-  const [partToShow, setPartToShow] = useState<
-    null | "start" | "copy2" | "end" | "recording"
-  >(null);
+  const [partToShow, setPartToShow] = useState<TPartToShow>(null);
   const timeout1 = useRef<ReturnType<typeof setTimeout> | null>(null);
   const timeout2 = useRef<ReturnType<typeof setTimeout> | null>(null);
   const timeout3 = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -72,6 +73,7 @@ const FocusScreen = ({ isActive, id }: { isActive: boolean; id: string }) => {
     setIsListening(isRecording);
   }, [isRecording]);
 
+  // TODO: refactor this to a shared function
   const convertAudioToTranscript = async (audioFile: any) => {
     const formData = new FormData();
     formData.append("file", audioFile);

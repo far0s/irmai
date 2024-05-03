@@ -1,9 +1,12 @@
-import "../styles/reset.css";
-import "../styles/globals.css";
-import { StoreProvider } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
+import "@/styles/reset.css";
+import "@/styles/globals.css";
+
 import { type Viewport, Metadata } from "next";
 import { Analytics } from "@vercel/analytics/react";
+
 import { poppins, cirka } from "@/utils/fonts";
+
+import { StoreProvider } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
 
 export function generateMetadata(): Metadata {
   return {
