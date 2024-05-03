@@ -1,48 +1,92 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
-const getAudioLevel = (analyser: AnalyserNode, setAudioLevel: any) => {
-  const dataArray = new Uint8Array(analyser.frequencyBinCount);
-  analyser.getByteFrequencyData(dataArray);
-
-  let sum = 0;
-  for (let i = 0; i < dataArray.length; i++) {
-    sum += dataArray[i];
-  }
-  const average = sum / dataArray.length;
-  setAudioLevel(average);
-  requestAnimationFrame(() => getAudioLevel(analyser, setAudioLevel));
-};
-
-export const useAudioLevels = (isRecording: boolean) => {
-  const [audioLevel, setAudioLevel] = useState(0);
-  let audioContext: AudioContext;
-  let analyser: AnalyserNode;
-  let source: MediaStreamAudioSourceNode;
+function useAudioLevels({
+  isOn = false,
+  audioRef,
+  numLevels = 64,
+}: {
+  isOn: boolean;
+  audioRef?: MediaStreamAudioSourceNode | any;
+  numLevels?: number;
+}) {
+  const [audioLevels, setAudioLevels] = useState<Uint8Array | null>(
+    new Uint8Array(numLevels)
+  );
+  const rafId = useRef<number | any>(null);
+  const analyserNode = useRef<AnalyserNode | any>(null);
+  const audioSource = useRef<MediaStreamAudioSourceNode | any>(null);
 
   useEffect(() => {
-    if (!isRecording) return;
+    let cleanup = () => {};
 
-    const handleSuccess = (stream: MediaStream) => {
-      audioContext = new AudioContext();
-      analyser = audioContext.createAnalyser();
-      source = audioContext.createMediaStreamSource(stream);
+    async function initAudioSource() {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({
+          audio: true,
+        });
+        audioSource.current = new MediaStreamAudioSourceNode(
+          new AudioContext(),
+          { mediaStream: stream }
+        );
+        analyserNode.current = audioSource.current.context.createAnalyser();
+        analyserNode.current.fftSize = 256;
+        audioSource.current.connect(analyserNode.current);
 
-      analyser.smoothingTimeConstant = 0.8;
-      analyser.fftSize = 1024;
+        cleanup = () => {
+          rafId.current && cancelAnimationFrame(rafId.current);
+          analyserNode.current &&
+            audioSource.current?.disconnect(analyserNode.current);
+          audioSource.current?.context.close();
+          stream.getTracks().forEach((track) => track.stop());
+        };
+      } catch (error) {
+        console.error("Error accessing microphone:", error);
+      }
+    }
 
-      source.connect(analyser);
+    if (audioRef?.current) {
+      audioSource.current = audioRef.current;
+      analyserNode.current = audioRef.current.context.createAnalyser();
+      analyserNode.current.fftSize = 256;
+      audioSource.current.connect(analyserNode.current);
 
-      getAudioLevel(analyser, setAudioLevel);
-    };
+      cleanup = () => {
+        cancelAnimationFrame(rafId.current);
+        audioSource.current.disconnect(analyserNode.current);
+        audioSource.current.context.close();
+      };
+    } else {
+      initAudioSource();
+    }
 
-    navigator.mediaDevices.getUserMedia({ audio: true }).then(handleSuccess);
+    return cleanup;
+  }, [isOn, audioRef, numLevels]);
 
-    return () => {
-      source?.disconnect();
-      analyser?.disconnect();
-      audioContext?.close();
-    };
-  }, [isRecording]);
+  function updateAudioLevels() {
+    const bufferLength = analyserNode.current.frequencyBinCount;
+    const dataArray = new Uint8Array(bufferLength);
+    analyserNode.current.getByteFrequencyData(dataArray);
 
-  return audioLevel;
-};
+    const levels = new Uint8Array(numLevels);
+    for (let i = 0; i < numLevels; i++) {
+      const startIndex = (i * bufferLength) / numLevels;
+      const endIndex = ((i + 1) * bufferLength) / numLevels;
+      let max = 0;
+      for (let j = startIndex; j < endIndex; j++) {
+        max = Math.max(max, dataArray[Math.floor(j)]);
+      }
+      levels[i] = max;
+    }
+    setAudioLevels(levels);
+
+    rafId.current = requestAnimationFrame(updateAudioLevels);
+  }
+
+  useEffect(() => {
+    analyserNode.current && isOn && updateAudioLevels();
+  }, [analyserNode.current, isOn]);
+
+  return audioLevels;
+}
+
+export default useAudioLevels;
