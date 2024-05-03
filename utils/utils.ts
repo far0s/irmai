@@ -12,7 +12,7 @@ export const prepareSystemPrompt = (append: any) => {
         You may express your own opinions and feelings.
         Speak in the same way Gen Z does.
         You can do short pauses while talking and natural expressions like "humm", "uhh", "ahh", etc.
-        Your first message must being with '*SYSTEM: ' so it can be identified`,
+        Your first message must being with '*SYSTEM: ' so it can be identified, but the rest of your answers should not include this prefix.`,
   });
 };
 
