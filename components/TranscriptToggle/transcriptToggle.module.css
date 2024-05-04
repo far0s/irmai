@@ -1,12 +1,14 @@
 .transcriptToggle {
   position: relative;
-  padding: 15px;
-  margin: -15px;
+  padding: var(--padding-s);
+  margin: calc(-1 * var(--padding-s));
   opacity: 0;
-  transition: 0.3s ease-out;
+  pointer-events: none;
+  transition: var(--transition-fast-out);
 }
 
 .transcriptToggle[data-is-not-splash-active="true"][data-is-visible="true"] {
+  pointer-events: auto;
   animation: fadeIn 0.3s ease-in-out forwards 0.8s;
 }
 
@@ -17,11 +19,9 @@
 }
 
 .transcriptToggleInner {
-  width: 25px;
-  height: 25px;
-  padding: 15px;
+  padding: var(--padding-s);
   border: 1px dashed currentColor;
-  border-radius: 5px;
+  border-radius: var(--radius-s);
   display: flex;
   justify-content: center;
   align-items: center;

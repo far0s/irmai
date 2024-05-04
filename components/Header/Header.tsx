@@ -12,7 +12,9 @@ const Header = () => {
   return (
     <header className={s.header} data-is-splash-active={isSplash}>
       <div className={s.headerRow}>
-        <Logo />
+        <div className={s.logoWrapper}>
+          <Logo />
+        </div>
         <TranscriptToggle />
       </div>
       <UserAudioFeedback />

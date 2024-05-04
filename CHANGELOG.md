@@ -3,9 +3,7 @@
 ## Todo's in order of importance (move these to releases when in progress or done)
 
 - [ ] FEATURE/UI: add 'The Orb', animated centerpiece reacting to app's state and AI's outputs
-- [ ] FEATURE/UI: clean up animations and interactions across all screens
 - [ ] FEATURE/ART: add tarot cards
-- [ ] BUGFIX/UI: re-do Header styles and transitions from Splash Screen
 - [ ] FEATURE/UI: style outro screen
 - [ ] CHORE: refactor transcript components to be reusable in screens too
 - [ ] FEATURE/Safari: wait for mic permissions to be granted before showing the header
@@ -22,7 +20,10 @@
 
 ## Releases
 
-### 1.0.0
+### 0.2.3 - WIP
+
+- [x] BUGFIX/UI: re-do Header styles and transitions from Splash Screen
+- [ ] FEATURE/UI: clean up animations and interactions across all screens
 
 ### 0.2.2 - released 04/06/2024
 

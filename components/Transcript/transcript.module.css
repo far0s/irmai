@@ -3,7 +3,8 @@
   top: calc(var(--header-margin) / 2);
   width: 100%;
   height: calc(100svh - var(--header-margin) / 2);
-  padding: calc(var(--header-safe-zone) - 18px) 14px 0 14px;
+  padding: calc(var(--header-safe-zone) - 18px) var(--padding-s) 0
+    var(--padding-s);
   background: var(--purple);
   box-sizing: border-box;
   z-index: 1;

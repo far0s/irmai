@@ -1,17 +1,31 @@
 @tailwind base;
-/* TODO: remove tailwind once we're sufficiently ready to archive POC */
 
-body {
+:root {
+  /* colours */
   --black: #0b0216;
   --cream: #fffbf2;
   --purple: #281595;
-  background-color: var(--black);
-  color: var(--cream);
 
-  font-family: var(--font-poppins), sans-serif;
-
-  --header-margin: 35px;
-  --header-height: 35px;
+  /* header */
+  --header-margin: 36px;
+  --header-height: 36px;
   --header-safe-zone: calc(var(--header-margin) * 2 + var(--header-height));
   --footer-margin: calc(55px + 1svh);
+
+  /* spacing */
+  --padding-s: 14px;
+
+  /* transitions */
+  --transition-slow-flow: 0.8s cubic-bezier(0.65, 0.05, 0.35, 1);
+  --transition-fast-out: 0.3s ease-out;
+  --transition-slow-out: 1s ease-out;
+
+  /* radii */
+  --radius-s: 5px;
+}
+
+body {
+  background-color: var(--black);
+  color: var(--cream);
+  font-family: var(--font-poppins), sans-serif;
 }

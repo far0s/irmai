@@ -2,10 +2,7 @@
   position: fixed;
   top: var(--header-margin);
   width: 100%;
-  padding: 0 14px;
-  transform: translateX(0) translateY(0) scale(1);
-  transition: 0.8s ease-out;
-  will-change: top, transform;
+  padding: 0 var(--padding-s);
   display: flex;
   flex-flow: column nowrap;
   gap: var(--header-margin);
@@ -15,18 +12,36 @@
 .headerRow {
   display: flex;
   flex-flow: row nowrap;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
-  transform: translateX(0);
   will-change: transform;
-  transition: 0.8s ease-out;
 }
 
-.header[data-is-splash-active="true"] {
-  transform: translateX(10%) translateY(-50%) scale(1.2);
-  top: 50%;
+.logoWrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(100vh - var(--header-margin) * 2);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  pointer-events: none;
+  transition: var(--transition-slow-flow);
+  will-change: transform;
+  transform: translateX(calc(-50% + var(--header-margin) * 2)) translateY(0);
 }
 
-.header[data-is-splash-active="true"] .headerRow {
-  transform: translateX(calc(25% - 14px));
+.logoWrapper h1 {
+  position: relative;
+  transform: scale(1);
+  transition: var(--transition-slow-flow);
+}
+
+.header[data-is-splash-active="true"] .logoWrapper {
+  transform: translateX(0) translateY(calc(50% - var(--header-margin)));
+}
+
+.header[data-is-splash-active="true"] .logoWrapper h1 {
+  transform: scale(1.4);
 }
