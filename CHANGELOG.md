@@ -19,7 +19,7 @@
 
 ## Releases
 
-### 0.2.3 - WIP
+### 0.2.3 - released 05/06/2024
 
 - [x] BUGFIX/UI: re-do Header styles and transitions from Splash Screen
 - [x] FEATURE/Safari: wait for mic permissions to be granted before showing the header
