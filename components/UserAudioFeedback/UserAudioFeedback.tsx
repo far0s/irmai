@@ -9,6 +9,22 @@ import s from "./userAudioFeedback.module.css";
 const minLevels: number = 16;
 const scale: number = 200;
 
+const generateUserAudioLevels = (
+  audioLevels: Uint8Array,
+  numLevels: number
+) => {
+  return [...Array(numLevels)].map((_, i) => (
+    <span
+      key={i}
+      style={{
+        transform: audioLevels?.[i]
+          ? `scaleY(${audioLevels[i] / scale})`
+          : `scaleY(0)`,
+      }}
+    />
+  ));
+};
+
 const UserAudioFeedback = () => {
   const { isListening } = useIrmaiStore((s) => s);
   const [numLevels, setNumLevels] = useState<number>(16);
@@ -48,27 +64,8 @@ const UserAudioFeedback = () => {
     <div className={s.audioFeedback}>
       <div className={s.userAudioLevels} data-is-listening={isListening}>
         {reverseAudioLevels &&
-          [...Array(numLevels - 1)].map((_, i): any => (
-            <span
-              key={i}
-              style={{
-                transform: reverseAudioLevels?.[i]
-                  ? `scaleY(${reverseAudioLevels[i] / scale})`
-                  : `scaleY(0)`,
-              }}
-            />
-          ))}
-        {audioLevels &&
-          [...Array(numLevels)].map((_, i) => (
-            <span
-              key={i}
-              style={{
-                transform: audioLevels?.[i]
-                  ? `scaleY(${audioLevels[i] / scale})`
-                  : `scaleY(0)`,
-              }}
-            />
-          ))}
+          generateUserAudioLevels(reverseAudioLevels, numLevels - 1)}
+        {audioLevels && generateUserAudioLevels(audioLevels, numLevels)}
       </div>
     </div>
   );

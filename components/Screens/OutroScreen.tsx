@@ -9,6 +9,27 @@ import PressCTA from "@/components/PressCTA/PressCTA";
 
 import s from "./screens.module.css";
 
+const handleActiveChange = (
+  conclusion: any,
+  append: any,
+  setPartToShow: any,
+  prepareConclusionPrompt: any
+) => {
+  setPartToShow("start");
+  !conclusion && prepareConclusionPrompt(append);
+};
+
+const handleMessagesChange = (messages: any, setConclusion: any) => {
+  if (messages?.length === 0) return;
+  const lastMessage = messages?.[messages.length - 1];
+  const lastMsgIsConclusion =
+    lastMessage?.role === "assistant" &&
+    lastMessage.content.startsWith("*CONCLUSION");
+  if (lastMsgIsConclusion) {
+    setConclusion(lastMessage.content.replace("*CONCLUSION: ", "").trim());
+  }
+};
+
 const OutroScreen = ({
   isActive,
   id,
@@ -26,20 +47,17 @@ const OutroScreen = ({
   const { messages, append }: IChatProps = chatProps;
 
   useEffect(() => {
-    if (!isActive) return;
-    setPartToShow("start");
-    !conclusion && prepareConclusionPrompt(append);
+    isActive &&
+      handleActiveChange(
+        conclusion,
+        append,
+        setPartToShow,
+        prepareConclusionPrompt
+      );
   }, [isActive]);
 
   useEffect(() => {
-    if (messages?.length === 0) return;
-    const lastMessage = messages?.[messages.length - 1];
-    const lastMsgIsConclusion =
-      lastMessage?.role === "assistant" &&
-      lastMessage.content.startsWith("*CONCLUSION");
-    if (lastMsgIsConclusion) {
-      setConclusion(lastMessage.content.replace("*CONCLUSION: ", "").trim());
-    }
+    handleMessagesChange(messages, setConclusion);
   }, [messages]);
 
   return (

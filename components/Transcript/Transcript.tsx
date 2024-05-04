@@ -1,13 +1,14 @@
-import { memo, useState, useEffect, useRef } from "react";
-
-import { dateDDMMYYYY, timeHHMM, filteredTranscript } from "@/utils";
-import { IChatProps, ChatMessage } from "@/utils/shared-types";
+import { memo, useEffect, useRef } from "react";
 
 import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
+import { TimeKeeper, FocusBlock } from "./Transcript.utils";
+
+import useScrollToTop from "@/hooks/use-scroll-to-top";
+import useTranscript from "@/hooks/use-transcript";
 
 import s from "./transcript.module.css";
 
-const Transcript = ({ chatProps }: { chatProps: IChatProps }) => {
+const Transcript = ({ chatProps }: any) => {
   const {
     focus,
     firstQuestion,
@@ -16,37 +17,23 @@ const Transcript = ({ chatProps }: { chatProps: IChatProps }) => {
     selectedCards,
     conclusion,
   } = useIrmaiStore((s) => s);
-  const [transcript, setTranscript] = useState<ChatMessage[]>([]);
   const transcriptInnerElem = useRef<HTMLDivElement | null>(null);
-
   const { messages } = chatProps;
+  const transcript = useTranscript(messages);
 
-  useEffect(() => {
-    if (messages && messages.length > 1) {
-      setTranscript(filteredTranscript(messages));
-    }
-  }, [messages]);
+  useScrollToTop(transcriptInnerElem);
 
   useEffect(() => {
     setShowTranscript(false);
-    transcriptInnerElem.current?.scrollTo(0, 0);
   }, []);
+
+  // TODO: refactor remaining transcript blocks
 
   return (
     <div className={`${s.transcript}`} data-show={showTranscript}>
       <main className={s.transcriptInner} ref={transcriptInnerElem}>
-        <div className={s.timeKeeper}>
-          <span className={s.timeDate}>{dateDDMMYYYY()}</span>
-          <span className={s.timeTime}>{timeHHMM()}</span>
-        </div>
-        <article className={s.transcriptBlock}>
-          <header className={s.transcriptHeader}>Focus</header>
-          {focus?.length > 0 && (
-            <div className={s.transcriptHighlight}>
-              <p>{focus}</p>
-            </div>
-          )}
-        </article>
+        <TimeKeeper />
+        <FocusBlock focus={focus} />
         {selectedCards.length > 0 && (
           <article className={s.transcriptBlock}>
             <header className={s.transcriptHeader}>Your Cards</header>
@@ -101,6 +88,7 @@ const Transcript = ({ chatProps }: { chatProps: IChatProps }) => {
           </article>
         )}
 
+        {/* TODO: figure out outro actions */}
         {conclusion.length > 0 && (
           <article className={s.transcriptBlock}>
             <header className={s.transcriptHeader}>
