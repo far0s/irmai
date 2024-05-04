@@ -7,11 +7,15 @@ const PressAndHoldCTA = ({
   onEndPress,
   onRelease,
   pressDuration = 2000,
+  idleChildren,
+  activeChildren,
 }: {
   onBeginPress?: () => void;
   onEndPress?: () => void;
   onRelease?: () => void;
   pressDuration?: number;
+  idleChildren?: React.ReactNode;
+  activeChildren?: React.ReactNode;
 }) => {
   const [isPressed, setIsPressed] = useState(false);
   const timeout = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -56,11 +60,17 @@ const PressAndHoldCTA = ({
         <span className={s.circleGlow}></span>
       </div>
       <span className={s.copy}>
-        Press and
-        <br />
-        hold
+        {idleChildren || (
+          <>
+            Press and
+            <br />
+            hold
+          </>
+        )}
       </span>
-      <span className={s.copyWhilePress}>Keep holding</span>
+      <span className={s.copyWhilePress}>
+        {activeChildren || "Keep holding"}
+      </span>
     </button>
   );
 };

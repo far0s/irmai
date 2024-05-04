@@ -45,7 +45,6 @@ const FocusScreen = ({ isActive, id }: { isActive: boolean; id: string }) => {
 
     timeout3.current = setTimeout(() => {
       setPartToShow("recording");
-      startRecording();
     }, 5000);
   };
 
@@ -107,16 +106,26 @@ const FocusScreen = ({ isActive, id }: { isActive: boolean; id: string }) => {
 
         <div className={s.recording}>
           <p>"I'm listening"</p>
-          <PressCTA label="Stop recording" onPress={handleStopRecording} />
         </div>
 
         <footer className={s.footer}>
-          <PressAndHoldCTA
-            onBeginPress={handlePress}
-            onEndPress={handleEndPress}
-            onRelease={handleRelease}
-            pressDuration={5100}
-          />
+          {partToShow === "recording" ? (
+            <PressAndHoldCTA
+              onBeginPress={startRecording}
+              onEndPress={handleStopRecording}
+              onRelease={handleStopRecording}
+              pressDuration={360000}
+              idleChildren="Hold to record"
+              activeChildren="Release to stop"
+            />
+          ) : (
+            <PressAndHoldCTA
+              onBeginPress={handlePress}
+              onEndPress={handleEndPress}
+              onRelease={handleRelease}
+              pressDuration={5100}
+            />
+          )}
         </footer>
       </div>
     </Screen>

@@ -23,7 +23,7 @@
 
 - [x] BUGFIX/UI: re-do Header styles and transitions from Splash Screen
 - [x] FEATURE/Safari: wait for mic permissions to be granted before showing the header
-- [ ] FEATURE/UI: clean up animations and interactions across all screens
+- [x] FEATURE/UI: clean up animations and interactions across all screens
 
 ### 0.2.2 - released 04/06/2024
 
