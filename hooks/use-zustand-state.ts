@@ -1,13 +1,6 @@
 import { createStore } from "zustand";
 import { devtools, persist, createJSONStorage } from "zustand/middleware";
-
-export type TGlobalState =
-  | "splash"
-  | "landing"
-  | "focus"
-  | "tarot"
-  | "question"
-  | "outro";
+import { TGlobalState } from "@/utils/shared-types";
 
 interface IStore {
   debug: boolean;

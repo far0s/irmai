@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import s from "../PressAndHoldCTA/pressAndHoldCTA.module.css";
+
+import s from "@/components/PressAndHoldCTA/pressAndHoldCTA.module.css";
 
 const PressCTA = ({
   onPress,

@@ -1,20 +1,36 @@
 import { useEffect, useState, useRef } from "react";
+
+import { prepareSystemPrompt } from "@/utils/prompts";
+import { IChatProps } from "@/utils/shared-types";
+
 import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
 import PressAndHoldCTA from "@/components/PressAndHoldCTA/PressAndHoldCTA";
-import { Screen } from "../Stage.utils";
-import s from "./screens.module.css";
-import { cirka } from "@/utils/fonts";
+import { Screen } from "@/components/Stage/Stage";
 
-const LandingScreen = ({ isActive, id }: { isActive: boolean; id: string }) => {
+import s from "./screens.module.css";
+
+type TPartToShow = null | "start" | "copy2" | "copy3" | "end";
+
+const LandingScreen = ({
+  isActive,
+  id,
+  chatProps,
+}: {
+  isActive: boolean;
+  id: string;
+  chatProps: IChatProps;
+}) => {
   const { setGlobalState } = useIrmaiStore((s) => s);
-  const [partToShow, setPartToShow] = useState<
-    null | "start" | "copy2" | "copy3" | "end"
-  >(null);
+  const [partToShow, setPartToShow] = useState<TPartToShow>(null);
   const timeout1 = useRef<ReturnType<typeof setTimeout> | null>(null);
   const timeout2 = useRef<ReturnType<typeof setTimeout> | null>(null);
   const timeout3 = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // TODO: make irmai talk
+
+  useEffect(() => {
+    prepareSystemPrompt(chatProps.append);
+  }, []);
 
   useEffect(() => {
     isActive && setPartToShow("start");
@@ -50,7 +66,7 @@ const LandingScreen = ({ isActive, id }: { isActive: boolean; id: string }) => {
       <div className={s.wrapper} data-show={partToShow}>
         <div className={s.copy}>
           <p>
-            <span className={`${cirka.className}`}>Welcome</span>
+            <span>Welcome</span>
             irmai is your audio-visual spiritual guide. This is a journey of
             self-discovery and inner peace to nurture your spiritual growth and
             self connection.

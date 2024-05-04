@@ -1,15 +1,17 @@
-import s from "./header.module.css";
-import { useIrmaiStore } from "../ZustandStoreProvider/ZustandStoreProvider";
+import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
 
-const TranscriptButton = () => {
-  const { showTranscript, setShowTranscript } = useIrmaiStore((s) => s);
+import s from "./transcriptToggle.module.css";
+
+const TranscriptToggle = () => {
+  const { focus, showTranscript, setShowTranscript } = useIrmaiStore((s) => s);
 
   return (
     <button
-      className={s.transcriptButton}
+      className={s.transcriptToggle}
       onClick={() => setShowTranscript(!showTranscript)}
+      data-is-visible={focus !== ""}
     >
-      <div className={s.transcriptButtonInner}>
+      <div className={s.transcriptToggleInner}>
         {showTranscript ? (
           <svg
             width="14"
@@ -48,4 +50,4 @@ const TranscriptButton = () => {
   );
 };
 
-export default TranscriptButton;
+export default TranscriptToggle;

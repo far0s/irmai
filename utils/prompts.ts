@@ -1,5 +1,4 @@
-export const withoutTrailingPeriod = (str: string) =>
-  str.endsWith(".") ? str.slice(0, -1) : str;
+"use client";
 
 export const prepareSystemPrompt = (append: any) => {
   append({
@@ -31,4 +30,12 @@ export const prepareFirstPrompt = ({
     Keep your response to a maximum of 150 words.
     Finish your answer by asking me a followup question about my reading.
   `;
+};
+
+export const prepareConclusionPrompt = (append: any) => {
+  append({
+    role: "user",
+    content:
+      "Provide a conclusion to the reading (max 50 words) that summarizes the conversation. Don't mention the cards. Precede your answer with `*CONCLUSION`",
+  } as any);
 };

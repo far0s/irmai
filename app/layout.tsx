@@ -1,8 +1,12 @@
-import "./globals.css";
-import { StoreProvider } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
+import "../styles/reset.css";
+import "../styles/globals.css";
+
 import { type Viewport, Metadata } from "next";
 import { Analytics } from "@vercel/analytics/react";
+
 import { poppins, cirka } from "@/utils/fonts";
+
+import { StoreProvider } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
 
 export function generateMetadata(): Metadata {
   return {
@@ -35,7 +39,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${poppins.className} ${cirka.className}`}>
+    <html lang="en" className={`${poppins.variable} ${cirka.variable}`}>
       <head>
         <link rel="icon" href="/images/irmai-favicon.png" sizes="any" />
         <link rel="apple-touch-icon" href="/images/irmai-favicon.png" />

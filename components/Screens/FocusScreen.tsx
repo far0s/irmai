@@ -1,18 +1,22 @@
 import { useEffect, useState, useRef } from "react";
+
+import { withoutTrailingPeriod } from "@/utils";
+import convertSpeechToText from "@/utils/speech-to-text";
+
+import useRecorder from "@/hooks/use-recorder";
+
 import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
 import PressAndHoldCTA from "@/components/PressAndHoldCTA/PressAndHoldCTA";
 import PressCTA from "@/components/PressCTA/PressCTA";
-import { Screen } from "../Stage.utils";
+import { Screen } from "@/components/Stage/Stage";
+
 import s from "./screens.module.css";
-import { cirka } from "@/utils/fonts";
-import useRecorder from "@/utils/use-recorder";
-import { withoutTrailingPeriod } from "@/utils/utils";
+
+type TPartToShow = null | "start" | "copy2" | "end" | "recording";
 
 const FocusScreen = ({ isActive, id }: { isActive: boolean; id: string }) => {
   const { setGlobalState, setIsListening, setFocus } = useIrmaiStore((s) => s);
-  const [partToShow, setPartToShow] = useState<
-    null | "start" | "copy2" | "end" | "recording"
-  >(null);
+  const [partToShow, setPartToShow] = useState<TPartToShow>(null);
   const timeout1 = useRef<ReturnType<typeof setTimeout> | null>(null);
   const timeout2 = useRef<ReturnType<typeof setTimeout> | null>(null);
   const timeout3 = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -60,33 +64,24 @@ const FocusScreen = ({ isActive, id }: { isActive: boolean; id: string }) => {
   };
 
   useEffect(() => {
-    if (audioURL && audioFile) {
-      convertAudioToTranscript(audioFile);
-    }
+    // TODO: refactor the callbacks
+    audioURL &&
+      audioFile &&
+      convertSpeechToText({
+        audioFile: audioFile,
+        errorCallback: () => window.alert("Error converting speech to text"),
+        successCallback: (data) => {
+          setFocus(withoutTrailingPeriod(data.text));
+          setPartToShow("start");
+          setGlobalState("tarot");
+          resetRecording?.();
+        },
+      });
   }, [audioURL, audioFile]);
 
   useEffect(() => {
     setIsListening(isRecording);
   }, [isRecording]);
-
-  const convertAudioToTranscript = async (audioFile: any) => {
-    const formData = new FormData();
-    formData.append("file", audioFile);
-    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-    formData.append("safari", isSafari.toString());
-    const response = await fetch("/api/speech-to-text", {
-      method: "POST",
-      body: formData,
-    })
-      .then((res) => res.json())
-      .catch((err) => window.alert(err));
-    if (response && response.text) {
-      setFocus(withoutTrailingPeriod(response.text));
-      setPartToShow("start");
-      setGlobalState("tarot");
-      resetRecording?.();
-    }
-  };
 
   // TODO: make irmai talk
 
@@ -95,7 +90,7 @@ const FocusScreen = ({ isActive, id }: { isActive: boolean; id: string }) => {
       <div className={s.wrapper} data-show={partToShow}>
         <div className={s.copy}>
           <p>
-            <span className={`${cirka.className}`}>Focus</span>
+            <span>Focus</span>
             to form a focused intention for a tarot reading, reflect on your
             current situation and distill it into a clear, specific question or
             intention. Phrase your question carefully to invite actionable

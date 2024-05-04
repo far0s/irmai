@@ -1,66 +1,42 @@
-import { memo, useState, useEffect } from "react";
-import s from "./transcript.module.css";
-import { cirka, poppins } from "@/utils/fonts";
+import { memo, useEffect, useRef } from "react";
+
 import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
-import { IChatProps } from "@/utils/shared-types";
+import { TimeKeeper, FocusBlock } from "./Transcript.utils";
 
-const Transcript = ({ chatProps }: { chatProps: IChatProps }) => {
-  const { focus, firstQuestion, showTranscript, selectedCards, conclusion } =
-    useIrmaiStore((s) => s);
-  const [transcriptWithoutFirstQuestion, setTranscriptWithoutFirstQuestion] =
-    useState<any[]>([]);
+import useScrollToTop from "@/hooks/use-scroll-to-top";
+import useTranscript from "@/hooks/use-transcript";
 
+import s from "./transcript.module.css";
+
+const Transcript = ({ chatProps }: any) => {
+  const {
+    focus,
+    firstQuestion,
+    showTranscript,
+    setShowTranscript,
+    selectedCards,
+    conclusion,
+  } = useIrmaiStore((s) => s);
+  const transcriptInnerElem = useRef<HTMLDivElement | null>(null);
   const { messages } = chatProps;
+  const transcript = useTranscript(messages);
+
+  useScrollToTop(transcriptInnerElem);
 
   useEffect(() => {
-    if (messages.length > 1) {
-      const filteredTranscript = messages.filter(
-        (item) =>
-          item.role !== "system" &&
-          !item.content.includes("*INTRO") &&
-          !item.content.includes("*SYSTEM") &&
-          !item.content.includes("*CONCLUSION")
-      );
-      setTranscriptWithoutFirstQuestion(filteredTranscript);
-    }
-  }, [messages]);
+    setShowTranscript(false);
+  }, []);
 
-  const date = new Date().toLocaleDateString("fr-FR", {
-    month: "2-digit",
-    day: "2-digit",
-    year: "numeric",
-  });
-
-  const time = new Date().toLocaleTimeString("fr-FR", {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
+  // TODO: refactor remaining transcript blocks
 
   return (
-    <div
-      className={`${poppins.className} ${s.transcript}`}
-      data-show={showTranscript}
-    >
-      <main className={s.transcriptInner}>
-        <div className={s.timeKeeper}>
-          <span className={s.timeDate}>{date}</span>
-          <span className={s.timeTime}>{time}</span>
-        </div>
-        <article className={s.transcriptBlock}>
-          <header className={`${cirka.className} ${s.transcriptHeader}`}>
-            Focus
-          </header>
-          {focus?.length > 0 && (
-            <div className={s.transcriptHighlight}>
-              <p>{focus}</p>
-            </div>
-          )}
-        </article>
+    <div className={`${s.transcript}`} data-show={showTranscript}>
+      <main className={s.transcriptInner} ref={transcriptInnerElem}>
+        <TimeKeeper />
+        <FocusBlock focus={focus} />
         {selectedCards.length > 0 && (
           <article className={s.transcriptBlock}>
-            <header className={`${cirka.className} ${s.transcriptHeader}`}>
-              Your Cards
-            </header>
+            <header className={s.transcriptHeader}>Your Cards</header>
             <div className={s.transcriptCards}>
               {selectedCards.map((card) => (
                 <div key={card.name_short} className={s.transcriptCard}>
@@ -73,15 +49,13 @@ const Transcript = ({ chatProps }: { chatProps: IChatProps }) => {
         )}
         {firstQuestion.length > 0 && (
           <article className={s.transcriptBlock}>
-            <header className={`${cirka.className} ${s.transcriptHeader}`}>
-              Starting Question
-            </header>
+            <header className={s.transcriptHeader}>Starting Question</header>
             <div className={s.transcriptHighlight}>
               <p>{firstQuestion}</p>
             </div>
             <ul className={s.transcriptTranscript}>
-              {transcriptWithoutFirstQuestion.length > 0 &&
-                transcriptWithoutFirstQuestion.map((item) => (
+              {transcript.length > 0 &&
+                transcript.map((item) => (
                   <li
                     key={item.id}
                     className={
@@ -90,16 +64,14 @@ const Transcript = ({ chatProps }: { chatProps: IChatProps }) => {
                         : s.transcriptItemUser
                     }
                   >
-                    <span className={cirka.className}>
-                      {item.role === "assistant" ? "irmai" : "you"}
-                    </span>
+                    <span>{item.role === "assistant" ? "irmai" : "you"}</span>
                     <p>{item.content}</p>
                   </li>
                 ))}
 
               {conclusion.length > 0 && (
                 <li className={s.transcriptItemAi}>
-                  <span className={cirka.className}>[end of conversation]</span>
+                  <span>[end of conversation]</span>
                 </li>
               )}
             </ul>
@@ -107,9 +79,7 @@ const Transcript = ({ chatProps }: { chatProps: IChatProps }) => {
         )}
         {conclusion.length > 0 && (
           <article className={s.transcriptBlock}>
-            <header className={`${cirka.className} ${s.transcriptHeader}`}>
-              Conclusion
-            </header>
+            <header className={s.transcriptHeader}>Conclusion</header>
             <div className={s.transcriptHighlight}>
               <p>
                 <em>{conclusion}</em>
@@ -118,9 +88,10 @@ const Transcript = ({ chatProps }: { chatProps: IChatProps }) => {
           </article>
         )}
 
+        {/* TODO: figure out outro actions */}
         {conclusion.length > 0 && (
           <article className={s.transcriptBlock}>
-            <header className={`${cirka.className} ${s.transcriptHeader}`}>
+            <header className={s.transcriptHeader}>
               [ADD OUTRO ACTIONS HERE]
             </header>
           </article>

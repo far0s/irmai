@@ -17,12 +17,12 @@ export const cirka = localFont({
       style: "normal",
     },
     {
-      path: "../public/fonts/subset-PPCirka-Light.woff2",
+      path: "../public/fonts/PPCirka-Light.woff2",
       weight: "300",
       style: "normal",
     },
     {
-      path: "../public/fonts/subset-PPCirka-Bold.woff2",
+      path: "../public/fonts/PPCirka-Bold.woff2",
       weight: "600",
       style: "normal",
     },

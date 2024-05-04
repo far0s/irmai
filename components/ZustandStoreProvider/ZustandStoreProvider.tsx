@@ -3,17 +3,13 @@
 import { type ReactNode, createContext, useRef, useContext } from "react";
 import { useStore } from "zustand";
 
-import { type Store, createZStore, initStore } from "@/utils/use-zustand-state";
+import { type Store, createZStore, initStore } from "@/hooks/use-zustand-state";
 
 export type StoreApi = ReturnType<typeof createZStore>;
 
 export const StoreContext = createContext<StoreApi | undefined>(undefined);
 
-export interface StoreProviderProps {
-  children: ReactNode;
-}
-
-export const StoreProvider = ({ children }: StoreProviderProps) => {
+export const StoreProvider = ({ children }: { children: ReactNode }) => {
   const storeRef = useRef<StoreApi>();
   if (!storeRef.current) {
     storeRef.current = createZStore(initStore());
