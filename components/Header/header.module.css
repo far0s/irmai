@@ -2,22 +2,54 @@
   position: fixed;
   top: var(--header-margin);
   width: 100%;
-  padding: 0 14px;
-  transform: translateX(0) translateY(0) scale(1);
-  transition: 0.8s ease-out;
-  will-change: top, transform;
+  padding: 0 var(--padding-s);
   display: flex;
   flex-flow: column nowrap;
   gap: var(--header-margin);
   z-index: 2;
+  --header-transition-delay: 100s;
+}
+
+.header[data-is-mic-ready="true"] {
+  /* once the mic is ready, we start the header+logo transitions */
+  --header-transition-delay: 0s;
 }
 
 .headerRow {
   display: flex;
   flex-flow: row nowrap;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
-  transform: translateX(0);
-  will-change: transform;
-  transition: 0.8s ease-out;
+}
+
+.logoWrapper {
+  position: absolute;
+  top: 0;
+  left: var(--padding-s);
+  width: 100%;
+  height: calc(100vh - var(--header-margin) * 2);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  pointer-events: none;
+  will-change: transform, left;
+  transform: translateX(calc(-50% + var(--header-margin) * 2)) translateY(0);
+  transition: var(--transition-slow-flow);
+  transition-delay: var(--header-transition-delay);
+}
+
+.logoWrapper h1 {
+  position: relative;
+  transform: scale(1);
+  transition: var(--transition-slow-flow);
+  transition-delay: var(--header-transition-delay);
+}
+
+.header[data-is-splash-active="true"] .logoWrapper {
+  left: 0;
+  transform: translateX(0) translateY(calc(50% - var(--header-margin)));
+}
+
+.header[data-is-splash-active="true"] .logoWrapper h1 {
+  transform: scale(1.4);
 }

@@ -2,13 +2,23 @@
   width: 100%;
   height: 2px;
   background-color: currentColor;
-  transition: 0.3s ease-out;
+  transition: var(--transition-fast-out);
   pointer-events: none;
   transform-origin: left center;
   transform: scaleX(0);
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.audioFeedback[data-is-not-splash-active="true"] {
+  animation: appear 0.3s ease-in-out forwards 0.8s;
+}
+
+@keyframes appear {
+  to {
+    transform: scaleX(1);
+  }
 }
 
 .userAudioLevels {

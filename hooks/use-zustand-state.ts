@@ -6,6 +6,8 @@ interface IStore {
   debug: boolean;
   globalState: TGlobalState;
   setGlobalState: (state: TGlobalState) => void;
+  isMicReady: boolean;
+  setIsMicReady: (isMicReady: boolean) => void;
   hasSeenSplash: boolean;
   setHasSeenSplash: (hasSeenSplash: boolean) => void;
   isSpeaking: boolean;
@@ -32,6 +34,7 @@ interface IStore {
 export type State = {
   debug: boolean;
   globalState: TGlobalState;
+  isMicReady: boolean;
   hasSeenSplash: boolean;
   isSpeaking: boolean;
   isListening: boolean;
@@ -46,6 +49,7 @@ export type State = {
 
 export type Actions = {
   setGlobalState: (state: TGlobalState) => void;
+  setIsMicReady: (isMicReady: boolean) => void;
   setHasSeenSplash: (hasSeenSplash: boolean) => void;
   setIsSpeaking: (isSpeaking: boolean) => void;
   setIsListening: (isListening: boolean) => void;
@@ -65,6 +69,7 @@ export const initStore = (): State => {
   return {
     debug: process.env.NODE_ENV === "development",
     globalState: "splash",
+    isMicReady: false,
     hasSeenSplash: false,
     isSpeaking: false,
     isListening: false,
@@ -81,6 +86,7 @@ export const initStore = (): State => {
 export const defaultInitState: State = {
   debug: process.env.NODE_ENV === "development",
   globalState: "splash",
+  isMicReady: false,
   hasSeenSplash: false,
   isSpeaking: false,
   isListening: false,
@@ -100,6 +106,7 @@ export const createZStore = (initState: State = defaultInitState) => {
         (set) => ({
           ...initState,
           setGlobalState: (state: TGlobalState) => set({ globalState: state }),
+          setIsMicReady: (isMicReady: boolean) => set({ isMicReady }),
           setHasSeenSplash: (hasSeenSplash: boolean) => set({ hasSeenSplash }),
           setIsSpeaking: (isSpeaking: boolean) => set({ isSpeaking }),
           setIsListening: (isListening: boolean) => set({ isListening }),

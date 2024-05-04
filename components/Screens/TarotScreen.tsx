@@ -155,27 +155,19 @@ const TarotScreen = ({ isActive, id }: { isActive: boolean; id: string }) => {
         />
       </div>
 
-      {selectedCards.length === 0 ? (
-        <PressCTA
-          onPress={() => {
-            setPartToShow("pulling");
-            setShowCardsCopy(false);
-          }}
-        />
-      ) : (
-        <PressCTA
-          onPress={() => {
-            setShowCardsCopy(true);
-            setSelectedCards([]);
-            setPartToShow("start");
-          }}
-          label="reset"
-        />
-      )}
-
-      {partToShow === "result" && (
-        <PressCTA onPress={() => setGlobalState("question")} label="Next" />
-      )}
+      <footer className={s.footer}>
+        {partToShow === "start" && (
+          <PressCTA
+            onPress={() => {
+              setPartToShow("pulling");
+              setShowCardsCopy(false);
+            }}
+          />
+        )}
+        {partToShow === "result" && (
+          <PressCTA onPress={() => setGlobalState("question")} />
+        )}
+      </footer>
     </Screen>
   );
 };

@@ -1,8 +1,12 @@
+"use client";
 import { useEffect, useRef } from "react";
+
+import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
 
 import s from "./logo.module.css";
 
 const Logo = () => {
+  const { isMicReady } = useIrmaiStore((s) => s);
   const logoRef = useRef<SVGSVGElement>(null);
 
   const generateRandomDelaysForLetters = () => {
@@ -18,8 +22,8 @@ const Logo = () => {
   };
 
   useEffect(() => {
-    generateRandomDelaysForLetters();
-  }, []);
+    isMicReady && generateRandomDelaysForLetters();
+  }, [isMicReady]);
 
   return (
     <h1>

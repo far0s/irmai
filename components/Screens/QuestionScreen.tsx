@@ -11,6 +11,7 @@ import useRecorder from "@/hooks/use-recorder";
 import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
 import { Screen } from "@/components/Stage/Stage";
 import PressCTA from "@/components/PressCTA/PressCTA";
+import PressAndHoldCTA from "@/components/PressAndHoldCTA/PressAndHoldCTA";
 
 import s from "./screens.module.css";
 
@@ -58,7 +59,6 @@ const QuestionScreen = ({
 
   const handlePress = () => {
     setPartToShow("recording");
-    startRecording();
   };
 
   const handleStopRecording = () => {
@@ -136,7 +136,6 @@ const QuestionScreen = ({
     setGlobalState("outro");
     setIsSpeaking(false);
     setIsListening(false);
-    stopRecording();
     resetRecording?.();
   };
 
@@ -160,7 +159,6 @@ const QuestionScreen = ({
 
         <div className={s.recording}>
           <p>"I'm listening"</p>
-          <PressCTA label="Stop recording" onPress={handleStopRecording} />
         </div>
 
         <div className={s.thinking}>
@@ -170,6 +168,19 @@ const QuestionScreen = ({
         <div className={s.speaking}>
           <p>"Speaking..."</p>
         </div>
+
+        <footer className={s.footer}>
+          {partToShow === "recording" && (
+            <PressAndHoldCTA
+              onBeginPress={startRecording}
+              onEndPress={handleStopRecording}
+              onRelease={handleStopRecording}
+              pressDuration={360000}
+              idleChildren="Hold to record"
+              activeChildren="Release to stop"
+            />
+          )}
+        </footer>
       </div>
 
       {messages && messages.length > 2 && (
