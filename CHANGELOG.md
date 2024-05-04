@@ -6,7 +6,6 @@
 - [ ] FEATURE/ART: add tarot cards
 - [ ] FEATURE/UI: style outro screen
 - [ ] CHORE: refactor transcript components to be reusable in screens too
-- [ ] FEATURE/Safari: wait for mic permissions to be granted before showing the header
 - [ ] FEATURE/AI: update TTS API route to use ElevenLabs instead of OpenAI's Whisper
 - [ ] CHORE/AI: move API key to project API key in OpenAI. Same for Project and Assistant
 - [ ] FEATURE/AI: replace useChat for useAssistant
@@ -23,6 +22,7 @@
 ### 0.2.3 - WIP
 
 - [x] BUGFIX/UI: re-do Header styles and transitions from Splash Screen
+- [x] FEATURE/Safari: wait for mic permissions to be granted before showing the header
 - [ ] FEATURE/UI: clean up animations and interactions across all screens
 
 ### 0.2.2 - released 04/06/2024

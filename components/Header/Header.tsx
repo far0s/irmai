@@ -6,11 +6,15 @@ import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStorePro
 import s from "./header.module.css";
 
 const Header = () => {
-  const { globalState } = useIrmaiStore((s) => s);
+  const { globalState, isMicReady } = useIrmaiStore((s) => s);
   const isSplash = globalState === "splash";
 
   return (
-    <header className={s.header} data-is-splash-active={isSplash}>
+    <header
+      className={s.header}
+      data-is-splash-active={isSplash}
+      data-is-mic-ready={isMicReady}
+    >
       <div className={s.headerRow}>
         <div className={s.logoWrapper}>
           <Logo />

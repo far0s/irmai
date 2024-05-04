@@ -4,10 +4,12 @@ function useAudioLevels({
   isOn = false,
   audioRef,
   numLevels = 64,
+  setIsMicReady,
 }: {
   isOn: boolean;
   audioRef?: MediaStreamAudioSourceNode | any;
   numLevels?: number;
+  setIsMicReady?: (isReady: boolean) => void;
 }) {
   const [audioLevels, setAudioLevels] = useState<Uint8Array | null>(
     new Uint8Array(numLevels)
@@ -31,6 +33,7 @@ function useAudioLevels({
         analyserNode.current = audioSource.current.context.createAnalyser();
         analyserNode.current.fftSize = 256;
         audioSource.current.connect(analyserNode.current);
+        setIsMicReady && setIsMicReady(true);
 
         cleanup = () => {
           rafId.current && cancelAnimationFrame(rafId.current);
@@ -38,6 +41,7 @@ function useAudioLevels({
             audioSource.current?.disconnect(analyserNode.current);
           audioSource.current?.context.close();
           stream.getTracks().forEach((track) => track.stop());
+          setIsMicReady && setIsMicReady(false);
         };
       } catch (error) {
         console.error("Error accessing microphone:", error);

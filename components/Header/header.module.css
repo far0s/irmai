@@ -7,6 +7,12 @@
   flex-flow: column nowrap;
   gap: var(--header-margin);
   z-index: 2;
+  --header-transition-delay: 100s;
+}
+
+.header[data-is-mic-ready="true"] {
+  /* once the mic is ready, we start the header+logo transitions */
+  --header-transition-delay: 0s;
 }
 
 .headerRow {
@@ -14,31 +20,33 @@
   flex-flow: row nowrap;
   justify-content: flex-end;
   align-items: center;
-  will-change: transform;
 }
 
 .logoWrapper {
   position: absolute;
   top: 0;
-  left: 0;
+  left: var(--padding-s);
   width: 100%;
   height: calc(100vh - var(--header-margin) * 2);
   display: flex;
   justify-content: center;
   align-items: flex-start;
   pointer-events: none;
-  transition: var(--transition-slow-flow);
-  will-change: transform;
+  will-change: transform, left;
   transform: translateX(calc(-50% + var(--header-margin) * 2)) translateY(0);
+  transition: var(--transition-slow-flow);
+  transition-delay: var(--header-transition-delay);
 }
 
 .logoWrapper h1 {
   position: relative;
   transform: scale(1);
   transition: var(--transition-slow-flow);
+  transition-delay: var(--header-transition-delay);
 }
 
 .header[data-is-splash-active="true"] .logoWrapper {
+  left: 0;
   transform: translateX(0) translateY(calc(50% - var(--header-margin)));
 }
 
