@@ -21,3 +21,12 @@
   will-change: transform;
   transition: 0.8s ease-out;
 }
+
+.header[data-is-splash-active="true"] {
+  transform: translateX(10%) translateY(-50%) scale(1.2);
+  top: 50%;
+}
+
+.header[data-is-splash-active="true"] .headerRow {
+  transform: translateX(calc(25% - 14px));
+}

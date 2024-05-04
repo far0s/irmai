@@ -11,6 +11,16 @@
   align-items: center;
 }
 
+.audioFeedback[data-is-not-splash-active="true"] {
+  animation: appear 0.3s ease-in-out forwards 0.8s;
+}
+
+@keyframes appear {
+  to {
+    transform: scaleX(1);
+  }
+}
+
 .userAudioLevels {
   position: relative;
   display: flex;

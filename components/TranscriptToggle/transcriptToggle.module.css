@@ -6,6 +6,16 @@
   transition: 0.3s ease-out;
 }
 
+.transcriptToggle[data-is-not-splash-active="true"][data-is-visible="true"] {
+  animation: fadeIn 0.3s ease-in-out forwards 0.8s;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
 .transcriptToggleInner {
   width: 25px;
   height: 25px;

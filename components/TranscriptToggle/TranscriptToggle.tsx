@@ -3,13 +3,17 @@ import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStorePro
 import s from "./transcriptToggle.module.css";
 
 const TranscriptToggle = () => {
-  const { focus, showTranscript, setShowTranscript } = useIrmaiStore((s) => s);
+  const { globalState, focus, showTranscript, setShowTranscript } =
+    useIrmaiStore((s) => s);
+
+  const isNotSplash = globalState !== "splash";
 
   return (
     <button
       className={s.transcriptToggle}
       onClick={() => setShowTranscript(!showTranscript)}
       data-is-visible={focus !== ""}
+      data-is-not-splash-active={isNotSplash}
     >
       <div className={s.transcriptToggleInner}>
         {showTranscript ? (
