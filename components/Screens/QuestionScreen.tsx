@@ -105,12 +105,8 @@ const QuestionScreen = ({
 
   useEffect(() => {
     if (!isActive) return;
-    // start a timer for 2 seconds
-    // when new messages come in,
-    // check if the last message was from the assistant
-    // if so, restart the timer
-    // if the timer expires, speak the last message out loud
-    // if new messages come in, restart the timer
+    if (focus?.length === 0) return;
+    if (firstQuestion?.length === 0) return;
     if (messages?.length === 0) return;
 
     const lastMessage = messages?.[messages.length - 1];

@@ -5,7 +5,6 @@
 - [ ] FEATURE/UI: add 'The Orb', animated centerpiece reacting to app's state and AI's outputs
 - [ ] FEATURE/ART: add tarot cards
 - [ ] FEATURE/UI: style outro screen
-- [ ] BUGFIX: prevent messages to be read out loud if the page loads at the question screen
 - [ ] FEATURE/AI: update TTS API route to use ElevenLabs instead of OpenAI's Whisper
 - [ ] CHORE/AI: move API key to project API key in OpenAI. Same for Project and Assistant
 - [ ] FEATURE/AI: replace useChat for useAssistant
@@ -21,8 +20,9 @@
 
 ### 0.2.4 - WIP
 
-- [x] - CHORE/UI: continue refactoring and cleaning up the screens for better transitions and flow
+- [x] CHORE/UI: continue refactoring and cleaning up the screens for better transitions and flow
 - [x] CHORE: refactor transcript components to be reusable in screens too
+- [x] BUGFIX: prevent messages to be read out loud if the page loads at the question screen
 
 ### 0.2.3 - released 05/06/2024
 
