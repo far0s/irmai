@@ -191,9 +191,9 @@ const QuestionScreen = ({
         <footer className={s.footer}>
           {(partToShow === "idle" || partToShow === "recording") && (
             <PressAndHoldCTA
-              onBeginPress={handleStartRecording}
-              onEndPress={handleStopRecording}
-              onRelease={handleStopRecording}
+              onBeginPress={() => handleStartRecording()}
+              onEndPress={() => handleStopRecording()}
+              onRelease={() => handleStopRecording()}
               pressDuration={360000}
               idleChildren="Press & hold to record"
               activeChildren="Release to stop"
