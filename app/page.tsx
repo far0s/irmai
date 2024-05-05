@@ -29,19 +29,11 @@ const Screens = {
 };
 
 const IrmaiHome = () => {
-  const { globalState, setShowTranscript, setIsThinking } = useIrmaiStore(
-    (s) => s
-  );
+  const { globalState, setIsThinking } = useIrmaiStore((s) => s);
 
   const chatProps: IChatProps = useChat({
     api: "/api/chat",
   });
-
-  useEffect(() => {
-    setShowTranscript(false);
-    const transcriptElem = document.querySelector("[class*='transcriptInner']");
-    transcriptElem && transcriptElem.scrollTo(0, 0);
-  }, []);
 
   useEffect(
     () => setIsThinking(chatProps.isLoading || false),
