@@ -7,19 +7,16 @@ import useRecorder from "@/hooks/use-recorder";
 
 import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
 import PressAndHoldCTA from "@/components/PressAndHoldCTA/PressAndHoldCTA";
-import PressCTA from "@/components/PressCTA/PressCTA";
 import { Screen } from "@/components/Stage/Stage";
 
 import s from "./screens.module.css";
+import FadeInWrapper from "../FadeInWrapper/FadeInWrapper";
 
-type TPartToShow = null | "start" | "copy2" | "end" | "recording";
+type TPartToShow = null | "recording";
 
-const FocusScreen = ({ isActive, id }: { isActive: boolean; id: string }) => {
+const FocusScreen = ({ isActive }: { isActive: boolean }) => {
   const { setGlobalState, setIsListening, setFocus } = useIrmaiStore((s) => s);
   const [partToShow, setPartToShow] = useState<TPartToShow>(null);
-  const timeout1 = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const timeout2 = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const timeout3 = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const {
     startRecording,
@@ -31,35 +28,11 @@ const FocusScreen = ({ isActive, id }: { isActive: boolean; id: string }) => {
   } = useRecorder();
 
   useEffect(() => {
-    isActive && setPartToShow("start");
+    setPartToShow(isActive ? "recording" : null);
   }, [isActive]);
-
-  const handlePress = () => {
-    timeout1.current = setTimeout(() => {
-      setPartToShow("copy2");
-    }, 500);
-
-    timeout2.current = setTimeout(() => {
-      setPartToShow("end");
-    }, 3000);
-
-    timeout3.current = setTimeout(() => {
-      setPartToShow("recording");
-    }, 5000);
-  };
-
-  const handleRelease = () => {
-    timeout1.current && clearTimeout(timeout1.current);
-    timeout2.current && clearTimeout(timeout2.current);
-    timeout3.current && clearTimeout(timeout3.current);
-  };
 
   const handleStopRecording = () => {
     stopRecording();
-  };
-
-  const handleEndPress = () => {
-    setPartToShow("recording");
   };
 
   useEffect(() => {
@@ -71,7 +44,7 @@ const FocusScreen = ({ isActive, id }: { isActive: boolean; id: string }) => {
         errorCallback: () => window.alert("Error converting speech to text"),
         successCallback: (data) => {
           setFocus(withoutTrailingPeriod(data.text));
-          setPartToShow("start");
+          setPartToShow("recording");
           setGlobalState("tarot");
           resetRecording?.();
         },
@@ -82,34 +55,23 @@ const FocusScreen = ({ isActive, id }: { isActive: boolean; id: string }) => {
     setIsListening(isRecording);
   }, [isRecording]);
 
-  // TODO: make irmai talk
-
   return (
-    <Screen isActive={isActive} id={id}>
+    <Screen isActive={isActive}>
       <div className={s.wrapper} data-show={partToShow}>
-        <div className={s.copy}>
-          <p>
-            <span>Focus</span>
-            to form a focused intention for a tarot reading, reflect on your
-            current situation and distill it into a clear, specific question or
-            intention. Phrase your question carefully to invite actionable
-            guidance and insight, ensuring it captures the essence of what you
-            want to explore.
-          </p>
-        </div>
-        <div className={s.copy}>
-          <p>
-            Now is the time to give your focus to IRMAI. This will guide the
-            type of conversation you would like to have.
-          </p>
-        </div>
-
-        <div className={s.recording}>
-          <p>"I'm listening"</p>
-        </div>
+        <section className={s.screenPartWrapper}>
+          <FadeInWrapper
+            show={partToShow === "recording"}
+            className={s.recording}
+          >
+            <p>"I'm listening"</p>
+          </FadeInWrapper>
+        </section>
 
         <footer className={s.footer}>
-          {partToShow === "recording" ? (
+          <FadeInWrapper
+            className={s.footerPart}
+            show={partToShow === "recording"}
+          >
             <PressAndHoldCTA
               onBeginPress={startRecording}
               onEndPress={handleStopRecording}
@@ -118,14 +80,7 @@ const FocusScreen = ({ isActive, id }: { isActive: boolean; id: string }) => {
               idleChildren="Hold to record"
               activeChildren="Release to stop"
             />
-          ) : (
-            <PressAndHoldCTA
-              onBeginPress={handlePress}
-              onEndPress={handleEndPress}
-              onRelease={handleRelease}
-              pressDuration={5100}
-            />
-          )}
+          </FadeInWrapper>
         </footer>
       </div>
     </Screen>

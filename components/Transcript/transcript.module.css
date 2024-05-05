@@ -60,6 +60,22 @@
   border-top: 2px solid currentColor;
 }
 
+.transcriptBlock > p {
+  padding-top: 16px;
+  padding-bottom: 40px;
+}
+
+.transcriptBlock span {
+  font-family: var(--font-cirka), serif;
+  text-wrap: balance;
+  display: inline-block;
+  font-size: 1.5rem;
+  line-height: 1;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-right: 0.5ch;
+}
+
 .transcriptHeader {
   padding: 0.5rem 0;
   font-family: var(--font-cirka), serif;

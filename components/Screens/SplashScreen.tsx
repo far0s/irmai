@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
 import { Screen } from "@/components/Stage/Stage";
 
-const SplashScreen = ({ isActive, id }: { isActive: boolean; id: string }) => {
+const SplashScreen = ({ isActive }: { isActive: boolean }) => {
   const {
     globalState,
     setGlobalState,
@@ -21,7 +21,7 @@ const SplashScreen = ({ isActive, id }: { isActive: boolean; id: string }) => {
     setTimeout(() => setGlobalState("landing"), 2400);
   }, [isMicReady, globalState]);
 
-  return <Screen id={id} isActive={isActive}></Screen>;
+  return <Screen isActive={isActive}></Screen>;
 };
 
 export default SplashScreen;

@@ -1,95 +1,127 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect } from "react";
 
 import { prepareSystemPrompt } from "@/utils/prompts";
 import { IChatProps } from "@/utils/shared-types";
 
+import { useDebounce } from "@/hooks/use-debounce";
+
 import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
-import PressAndHoldCTA from "@/components/PressAndHoldCTA/PressAndHoldCTA";
+import PressCTA from "@/components/PressCTA/PressCTA";
 import { Screen } from "@/components/Stage/Stage";
+import FadeInWrapper from "@/components/FadeInWrapper/FadeInWrapper";
 
 import s from "./screens.module.css";
 
-type TPartToShow = null | "start" | "copy2" | "copy3" | "end";
+type TPartToShow = null | "welcome" | "focus";
 
 const LandingScreen = ({
   isActive,
-  id,
   chatProps,
 }: {
   isActive: boolean;
-  id: string;
   chatProps: IChatProps;
 }) => {
   const { setGlobalState } = useIrmaiStore((s) => s);
-  const [partToShow, setPartToShow] = useState<TPartToShow>(null);
-  const timeout1 = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const timeout2 = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const timeout3 = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  // TODO: make irmai talk
+  const [partToShow, setPartToShow] = useDebounce<TPartToShow>(null, 100);
 
   useEffect(() => {
     prepareSystemPrompt(chatProps.append);
   }, []);
 
   useEffect(() => {
-    isActive && setPartToShow("start");
+    setPartToShow(isActive ? "welcome" : null);
   }, [isActive]);
 
-  const handlePress = () => {
-    timeout1.current = setTimeout(() => {
-      setPartToShow("copy2");
-    }, 500);
-
-    timeout2.current = setTimeout(() => {
-      setPartToShow("copy3");
-    }, 2500);
-
-    timeout3.current = setTimeout(() => {
-      setPartToShow("end");
-    }, 5000);
+  const handleNextPart = () => {
+    setPartToShow("focus");
   };
 
-  const handleRelease = () => {
-    timeout1.current && clearTimeout(timeout1.current);
-    timeout2.current && clearTimeout(timeout2.current);
-    timeout3.current && clearTimeout(timeout3.current);
-    setPartToShow("start");
-  };
-
-  const handleEndPress = () => {
-    setGlobalState("focus");
+  const handleNextScreen = () => {
+    if (partToShow === "focus") {
+      setPartToShow(null);
+      setGlobalState("focus");
+    }
   };
 
   return (
-    <Screen isActive={isActive} id={id}>
+    <Screen isActive={isActive}>
       <div className={s.wrapper} data-show={partToShow}>
-        <div className={s.copy}>
-          <p>
-            <span>Welcome</span>
-            irmai is your audio-visual spiritual guide. This is a journey of
-            self-discovery and inner peace to nurture your spiritual growth and
-            self connection.
-          </p>
-          <p>Ready to embark on a journey of self-discovery?</p>
-        </div>
-        <div className={s.copy}>
-          <p>There is power within your fingertips.</p>
-        </div>
-        <div className={s.copy}>
-          <p>
-            Pressing, holding, and speaking, will let you connect with your
-            spiritual guide.
-          </p>
-        </div>
+        {/* Part 1 - welcome */}
+        <section className={s.screenPartWrapper}>
+          <FadeInWrapper
+            show={partToShow === "welcome"}
+            className={s.copy}
+            delay={1000}
+          >
+            <p>
+              <span>Welcome</span>
+              irmai is your audio-visual spiritual guide. This is a journey of
+              self-discovery and inner peace to nurture your spiritual growth
+              and self connection.
+            </p>
+          </FadeInWrapper>
+          <FadeInWrapper
+            show={partToShow === "welcome"}
+            className={s.copy}
+            delay={1500}
+          >
+            <p>There is power within your fingertips.</p>
+          </FadeInWrapper>
+          <FadeInWrapper
+            show={partToShow === "welcome"}
+            className={s.copy}
+            delay={2000}
+          >
+            <p>
+              Pressing, holding, and speaking, will let you connect with your
+              spiritual guide.
+            </p>
+          </FadeInWrapper>
+        </section>
+
+        {/* Part 2 - focus */}
+        <section className={s.screenPartWrapper}>
+          <FadeInWrapper
+            show={partToShow === "focus"}
+            className={s.copy}
+            delay={1000}
+          >
+            <p>
+              <span>Focus</span>
+              to form a focused intention for a tarot reading, reflect on your
+              current situation and distill it into a clear, specific question
+              or intention. Phrase your question carefully to invite actionable
+              guidance and insight, ensuring it captures the essence of what you
+              want to explore.
+            </p>
+          </FadeInWrapper>
+          <FadeInWrapper
+            show={partToShow === "focus"}
+            className={s.copy}
+            delay={1500}
+          >
+            <p>
+              Now is the time to give your focus to IRMAI. This will guide the
+              type of conversation you would like to have.
+            </p>
+          </FadeInWrapper>
+        </section>
 
         <footer className={s.footer}>
-          <PressAndHoldCTA
-            onBeginPress={handlePress}
-            onEndPress={handleEndPress}
-            onRelease={handleRelease}
-            pressDuration={6000}
-          />
+          <FadeInWrapper
+            className={s.footerPart}
+            show={partToShow === "welcome"}
+            delay={2500}
+          >
+            <PressCTA onPress={handleNextPart} label="Next" />
+          </FadeInWrapper>
+          <FadeInWrapper
+            className={s.footerPart}
+            show={partToShow === "focus"}
+            delay={2000}
+          >
+            <PressCTA onPress={handleNextScreen} label="Next" />
+          </FadeInWrapper>
         </footer>
       </div>
     </Screen>

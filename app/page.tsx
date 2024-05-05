@@ -58,7 +58,6 @@ const IrmaiHome = () => {
         {Object.entries(Screens).map(([key, Component]) => (
           <Component
             key={key}
-            id={key}
             isActive={globalState === key}
             chatProps={chatProps}
           />

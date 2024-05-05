@@ -1,7 +1,12 @@
 import { memo, useEffect, useRef } from "react";
 
 import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
-import { TimeKeeper, FocusBlock } from "./Transcript.utils";
+import {
+  TimeKeeper,
+  HighlightBlock,
+  CardsOverviewBlock,
+} from "./Transcript.utils";
+import PressCTA from "@/components/PressCTA/PressCTA";
 
 import useScrollToTop from "@/hooks/use-scroll-to-top";
 import useTranscript from "@/hooks/use-transcript";
@@ -16,6 +21,7 @@ const Transcript = ({ chatProps }: any) => {
     setShowTranscript,
     selectedCards,
     conclusion,
+    reset,
   } = useIrmaiStore((s) => s);
   const transcriptInnerElem = useRef<HTMLDivElement | null>(null);
   const { messages } = chatProps;
@@ -33,19 +39,13 @@ const Transcript = ({ chatProps }: any) => {
     <div className={`${s.transcript}`} data-show={showTranscript}>
       <main className={s.transcriptInner} ref={transcriptInnerElem}>
         <TimeKeeper />
-        <FocusBlock focus={focus} />
+        {focus.length > 0 && (
+          <HighlightBlock header="Focus">
+            <p>{focus}</p>
+          </HighlightBlock>
+        )}
         {selectedCards.length > 0 && (
-          <article className={s.transcriptBlock}>
-            <header className={s.transcriptHeader}>Your Cards</header>
-            <div className={s.transcriptCards}>
-              {selectedCards.map((card) => (
-                <div key={card.name_short} className={s.transcriptCard}>
-                  <div className={s.transcriptCardPicture}></div>
-                  <p className={s.transcriptCardTitle}>{card.name}</p>
-                </div>
-              ))}
-            </div>
-          </article>
+          <CardsOverviewBlock cards={selectedCards} />
         )}
         {firstQuestion.length > 0 && (
           <article className={s.transcriptBlock}>
@@ -94,6 +94,15 @@ const Transcript = ({ chatProps }: any) => {
             <header className={s.transcriptHeader}>
               [ADD OUTRO ACTIONS HERE]
             </header>
+            <p>
+              <PressCTA
+                label="New Reading"
+                onPress={() => {
+                  reset();
+                  window.location.reload();
+                }}
+              />
+            </p>
           </article>
         )}
       </main>

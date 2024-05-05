@@ -1,81 +1,30 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+
+import { useDebounce } from "@/hooks/use-debounce";
 
 import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
 import PressCTA from "@/components/PressCTA/PressCTA";
 import { Screen } from "@/components/Stage/Stage";
+import FadeInWrapper from "@/components/FadeInWrapper/FadeInWrapper";
+import {
+  CardsOverviewBlock,
+  HighlightBlock,
+  TextBlock,
+} from "@/components/Transcript/Transcript.utils";
 
 import s from "./screens.module.css";
 
-type TPartToShow = null | "start" | "pulling" | "result";
-
-const TranscriptBlock = ({
-  partToShow,
-  focus,
-}: {
-  partToShow: TPartToShow;
-  focus: string;
-}) => (
-  <article
-    className={s.transcriptBlock}
-    data-show={partToShow === "start" || partToShow === "result"}
-  >
-    <header className={s.transcriptHeader}>Focus</header>
-    {focus?.length > 0 && partToShow !== "result" && (
-      <div className={s.transcriptHighlight}>
-        <p>{focus}</p>
-      </div>
-    )}
-  </article>
-);
-
-const CardsBlock = ({
-  partToShow,
-  showCardsCopy,
-  selectedCards,
-}: {
-  partToShow: TPartToShow;
-  showCardsCopy: boolean;
-  selectedCards: any[];
-}) => (
-  <article className={s.transcriptBlock} data-show={showCardsCopy}>
-    {partToShow === "result" ? (
-      <>
-        <header className={s.transcriptHeader}>Cards</header>
-        <div className={s.transcriptCards}>
-          {selectedCards.map((card: any) => (
-            <div key={card.name_short} className={s.transcriptCard}>
-              <div className={s.transcriptCardPicture}></div>
-              <p className={s.transcriptCardTitle}>{card.name}</p>
-            </div>
-          ))}
-        </div>
-      </>
-    ) : (
-      <p>
-        <span>Cards</span> Each card has symbolic meanings that represent
-        different aspects of your life, such as relationships, career, emotions,
-        and more. As you choose the cards, I will interpret the symbols and
-        archetypes to provide you with personalized insights and guidance. The
-        cards are not meant to predict the future, but rather to offer a fresh
-        perspective on your current situation and potential paths forward. My
-        role is to be an intuitive guide, and we will work together to explore
-        the messages the cards reveal and how they apply to your life.
-      </p>
-    )}
-  </article>
-);
+type TPartToShow = null | "overview" | "pulling" | "result";
 
 const CardsShaker = ({
   partToShow,
   selectedCards,
   pickTarotCards,
-  setShowCardsCopy,
   setPartToShow,
 }: {
   partToShow: TPartToShow;
   selectedCards: any[];
   pickTarotCards: () => Promise<void>;
-  setShowCardsCopy: (arg0: boolean) => void;
   setPartToShow: (arg0: TPartToShow) => void;
 }) => (
   <div className={s.cardsShaker} data-show={partToShow === "pulling"}>
@@ -90,18 +39,10 @@ const CardsShaker = ({
         </>
       ) : (
         <>
-          <div className={s.transcriptCards}>
-            {selectedCards.map((card: any) => (
-              <div key={card.name_short} className={s.transcriptCard}>
-                <div className={s.transcriptCardPicture}></div>
-                <p className={s.transcriptCardTitle}>{card.name}</p>
-              </div>
-            ))}
-          </div>
+          <CardsOverviewBlock cards={selectedCards} />
           <PressCTA
             onPress={() => {
-              setShowCardsCopy(true);
-              setPartToShow("result");
+              setPartToShow("overview");
             }}
             label="go to results"
           />
@@ -111,25 +52,20 @@ const CardsShaker = ({
   </div>
 );
 
-const TarotScreen = ({ isActive, id }: { isActive: boolean; id: string }) => {
+const TarotScreen = ({ isActive }: { isActive: boolean }) => {
   const { setGlobalState, focus, selectedCards, setSelectedCards } =
     useIrmaiStore((s) => s);
-  const [partToShow, setPartToShow] = useState<TPartToShow>(null);
-  const [showCardsCopy, setShowCardsCopy] = useState<boolean>(false);
+  const [partToShow, setPartToShow] = useDebounce<TPartToShow>(null, 100);
 
   useEffect(() => {
-    isActive && setPartToShow("start");
-
-    const timeout = setTimeout(() => {
-      setShowCardsCopy(true);
-    }, 2000);
-
-    return () => {
-      clearTimeout(timeout);
-      setShowCardsCopy(false);
-      setPartToShow("start");
-    };
+    setPartToShow(isActive ? "overview" : null);
   }, [isActive]);
+
+  const handleCTAPress = () => {
+    selectedCards.length === 0
+      ? setPartToShow("pulling")
+      : setGlobalState("question");
+  };
 
   const pickTarotCards = async () =>
     await fetch("/api/tarot")
@@ -138,35 +74,60 @@ const TarotScreen = ({ isActive, id }: { isActive: boolean; id: string }) => {
       .catch((err) => console.error(err));
 
   return (
-    <Screen id={id} isActive={isActive}>
+    <Screen isActive={isActive}>
       <div className={s.wrapper} data-show={partToShow}>
-        <TranscriptBlock partToShow={partToShow} focus={focus} />
-        <CardsBlock
-          partToShow={partToShow}
-          showCardsCopy={showCardsCopy}
-          selectedCards={selectedCards}
-        />
-        <CardsShaker
-          partToShow={partToShow}
-          selectedCards={selectedCards}
-          pickTarotCards={pickTarotCards}
-          setShowCardsCopy={setShowCardsCopy}
-          setPartToShow={setPartToShow}
-        />
+        <section className={s.screenPartWrapper}>
+          <FadeInWrapper show={partToShow === "overview"} delay={1000}>
+            <HighlightBlock header="Focus">
+              <p>{focus}</p>
+            </HighlightBlock>
+          </FadeInWrapper>
+          <FadeInWrapper
+            className={s.copy}
+            show={partToShow === "overview"}
+            delay={1500}
+          >
+            {selectedCards.length > 0 ? (
+              <CardsOverviewBlock cards={selectedCards} />
+            ) : (
+              <TextBlock>
+                <span>Cards</span> Each card has symbolic meanings that
+                represent different aspects of your life, such as relationships,
+                career, emotions, and more. As you choose the cards, I will
+                interpret the symbols and archetypes to provide you with
+                personalized insights and guidance. The cards are not meant to
+                predict the future, but rather to offer a fresh perspective on
+                your current situation and potential paths forward. My role is
+                to be an intuitive guide, and we will work together to explore
+                the messages the cards reveal and how they apply to your life.
+              </TextBlock>
+            )}
+          </FadeInWrapper>
+        </section>
+
+        <section className={s.screenPartWrapper}>
+          <FadeInWrapper show={partToShow === "pulling"}>
+            <CardsShaker
+              partToShow={partToShow}
+              selectedCards={selectedCards}
+              pickTarotCards={pickTarotCards}
+              setPartToShow={setPartToShow}
+            />
+          </FadeInWrapper>
+        </section>
       </div>
 
       <footer className={s.footer}>
-        {partToShow === "start" && (
+        <FadeInWrapper
+          className={s.footerPart}
+          show={partToShow === "overview"}
+          delay={1000}
+        >
           <PressCTA
-            onPress={() => {
-              setPartToShow("pulling");
-              setShowCardsCopy(false);
-            }}
+            onPress={handleCTAPress}
+            label={selectedCards.length === 0 ? "Pull your cards" : "Next"}
           />
-        )}
-        {partToShow === "result" && (
-          <PressCTA onPress={() => setGlobalState("question")} />
-        )}
+        </FadeInWrapper>
       </footer>
     </Screen>
   );

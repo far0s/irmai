@@ -6,18 +6,10 @@ import { IChatProps } from "@/utils/shared-types";
 import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
 import { Screen } from "@/components/Stage/Stage";
 import PressCTA from "@/components/PressCTA/PressCTA";
+import { HighlightBlock } from "@/components/Transcript/Transcript.utils";
 
 import s from "./screens.module.css";
-
-const handleActiveChange = (
-  conclusion: any,
-  append: any,
-  setPartToShow: any,
-  prepareConclusionPrompt: any
-) => {
-  setPartToShow("start");
-  !conclusion && prepareConclusionPrompt(append);
-};
+import FadeInWrapper from "../FadeInWrapper/FadeInWrapper";
 
 const handleMessagesChange = (messages: any, setConclusion: any) => {
   if (messages?.length === 0) return;
@@ -32,28 +24,21 @@ const handleMessagesChange = (messages: any, setConclusion: any) => {
 
 const OutroScreen = ({
   isActive,
-  id,
   chatProps,
 }: {
   isActive: boolean;
-  id: string;
   chatProps: IChatProps;
 }) => {
   const { reset, setShowTranscript, conclusion, setConclusion } = useIrmaiStore(
     (s) => s
   );
-  const [partToShow, setPartToShow] = useState<null | "start">(null);
+  const [partToShow, setPartToShow] = useState<null | "outro">(null);
 
   const { messages, append }: IChatProps = chatProps;
 
   useEffect(() => {
-    isActive &&
-      handleActiveChange(
-        conclusion,
-        append,
-        setPartToShow,
-        prepareConclusionPrompt
-      );
+    setPartToShow(isActive ? "outro" : null);
+    isActive && !conclusion && prepareConclusionPrompt(append);
   }, [isActive]);
 
   useEffect(() => {
@@ -61,21 +46,20 @@ const OutroScreen = ({
   }, [messages]);
 
   return (
-    <Screen id={id} isActive={isActive}>
-      <div className={s.wrapper} data-show={partToShow}>
-        {conclusion.length > 0 && (
-          <article
-            className={s.transcriptBlock}
-            data-show={partToShow === "start"}
+    <Screen isActive={isActive}>
+      <div className={s.wrapper}>
+        <section className={s.screenPartWrapper}>
+          <FadeInWrapper
+            show={partToShow === "outro" && conclusion.length > 0}
+            delay={1000}
           >
-            <header className={s.transcriptHeader}>Conclusion</header>
-            <div className={s.transcriptHighlight}>
+            <HighlightBlock header="Conclusion">
               <p>
                 <em>{conclusion}</em>
               </p>
-            </div>
-          </article>
-        )}
+            </HighlightBlock>
+          </FadeInWrapper>
+        </section>
       </div>
 
       <footer className={s.footer}>
