@@ -12,18 +12,25 @@ import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStorePro
 import { Screen } from "@/components/Stage/Stage";
 import PressCTA from "@/components/PressCTA/PressCTA";
 import PressAndHoldCTA from "@/components/PressAndHoldCTA/PressAndHoldCTA";
+import FadeInWrapper from "@/components/FadeInWrapper/FadeInWrapper";
 
 import s from "./screens.module.css";
+import { TextBlock } from "../Transcript/Transcript.utils";
+import { start } from "repl";
 
-type TPartToShow = null | "start" | "recording" | "thinking" | "result";
+type TPartToShow =
+  | null
+  | "idle"
+  | "recording"
+  | "thinking"
+  | "speaking"
+  | "recording";
 
 const QuestionScreen = ({
   isActive,
-  id,
   chatProps,
 }: {
   isActive: boolean;
-  id: string;
   chatProps: IChatProps;
 }) => {
   const {
@@ -50,18 +57,16 @@ const QuestionScreen = ({
   } = useRecorder();
 
   useEffect(() => {
-    isActive && setPartToShow("start");
-
-    return () => {
-      setPartToShow("start");
-    };
+    setPartToShow(isActive ? "idle" : null);
   }, [isActive]);
 
-  const handlePress = () => {
+  const handleStartRecording = () => {
     setPartToShow("recording");
+    startRecording();
   };
 
   const handleStopRecording = () => {
+    setPartToShow("thinking");
     stopRecording();
   };
 
@@ -74,7 +79,7 @@ const QuestionScreen = ({
         audioFile: audioFile,
         errorCallback: (error) => {
           window.alert(error);
-          setPartToShow("start");
+          setPartToShow("idle");
         },
         successCallback: (res) => {
           if (!firstQuestion) setFirstQuestion(withoutTrailingPeriod(res.text));
@@ -100,12 +105,8 @@ const QuestionScreen = ({
 
   useEffect(() => {
     if (!isActive) return;
-    // start a timer for 2 seconds
-    // when new messages come in,
-    // check if the last message was from the assistant
-    // if so, restart the timer
-    // if the timer expires, speak the last message out loud
-    // if new messages come in, restart the timer
+    if (focus?.length === 0) return;
+    if (firstQuestion?.length === 0) return;
     if (messages?.length === 0) return;
 
     const lastMessage = messages?.[messages.length - 1];
@@ -119,11 +120,11 @@ const QuestionScreen = ({
           startSpeakCallback: () => {
             setIsThinking(false);
             setIsSpeaking(true);
-            setPartToShow("result");
+            setPartToShow("speaking");
           },
           endSpeakCallback: () => {
             setIsSpeaking(false);
-            setPartToShow("start");
+            setPartToShow("idle");
           },
         });
       }
@@ -140,64 +141,66 @@ const QuestionScreen = ({
   };
 
   return (
-    <Screen id={id} isActive={isActive}>
-      <div className={s.wrapper} data-show={partToShow}>
-        <article
-          className={s.transcriptBlock}
-          data-show={partToShow === "start"}
-          style={{
-            transitionDelay: "0.5s",
-          }}
-        >
-          <p>
-            <span>Question</span> Lorem ipsum dolor sit amet consectetur. Leo
-            nisi odio aliquam cursus egestas. Augue venenatis tincidunt in
-            volutpat. Nascetur amet auctor sem non fermentum. Velit sem
-            ullamcorper tellus sed scelerisque ipsum elementum.
-          </p>
-        </article>
+    <Screen isActive={isActive}>
+      <div className={s.wrapper}>
+        <section className={s.screenPartWrapper}>
+          <FadeInWrapper show={partToShow === "idle"} delay={1000}>
+            <TextBlock>
+              <span>Question</span> Lorem ipsum dolor sit amet consectetur. Leo
+              nisi odio aliquam cursus egestas. Augue venenatis tincidunt in
+              volutpat. Nascetur amet auctor sem non fermentum. Velit sem
+              ullamcorper tellus sed scelerisque ipsum elementum.
+            </TextBlock>
+          </FadeInWrapper>
+          <FadeInWrapper
+            show={partToShow === "idle" && messages && messages.length > 2}
+            delay={1500}
+          >
+            <TextBlock>
+              You can ask another question or we can end the conversation here.
+              To ask a follow up press and hold. To end tap the close button on
+              the top right.
+              <PressCTA label="[End]" onPress={handleGoToOutro} />
+            </TextBlock>
+          </FadeInWrapper>
+        </section>
 
-        <div className={s.recording}>
-          <p>"I'm listening"</p>
-        </div>
-
-        <div className={s.thinking}>
-          <p>"Thinking..."</p>
-        </div>
-
-        <div className={s.speaking}>
-          <p>"Speaking..."</p>
-        </div>
+        <section className={`${s.screenPartWrapper} ${s.tempAiFeedback}`}>
+          <FadeInWrapper show={partToShow === "idle"} delay={100}>
+            <div className={s.idle}>
+              <p>"What is your question?"</p>
+            </div>
+          </FadeInWrapper>
+          <FadeInWrapper show={partToShow === "recording"} delay={100}>
+            <div className={s.recording}>
+              <p>"Listening..."</p>
+            </div>
+          </FadeInWrapper>
+          <FadeInWrapper show={partToShow === "thinking"} delay={100}>
+            <div className={s.thinking}>
+              <p>"Thinking..."</p>
+            </div>
+          </FadeInWrapper>
+          <FadeInWrapper show={partToShow === "speaking"} delay={100}>
+            <div className={s.speaking}>
+              <p>"Speaking..."</p>
+            </div>
+          </FadeInWrapper>
+        </section>
 
         <footer className={s.footer}>
-          {partToShow === "recording" && (
+          {(partToShow === "idle" || partToShow === "recording") && (
             <PressAndHoldCTA
-              onBeginPress={startRecording}
+              onBeginPress={handleStartRecording}
               onEndPress={handleStopRecording}
               onRelease={handleStopRecording}
               pressDuration={360000}
-              idleChildren="Hold to record"
+              idleChildren="Press & hold to record"
               activeChildren="Release to stop"
             />
           )}
         </footer>
       </div>
-
-      {messages && messages.length > 2 && (
-        <div className={s.ending}>
-          <p>
-            You can ask another question or we can end the conversation here. To
-            ask a follow up press and hold. To end tap the close button on the
-            top right.
-          </p>
-
-          <PressCTA label="End" onPress={handleGoToOutro} />
-        </div>
-      )}
-
-      {partToShow === "start" && (
-        <PressCTA label="Press" onPress={handlePress} />
-      )}
     </Screen>
   );
 };

@@ -12,13 +12,50 @@ export const TimeKeeper = () => {
   );
 };
 
-export const FocusBlock = ({ focus }: { focus: string }) => {
-  return focus?.length > 0 ? (
+export const HighlightBlock = ({
+  header,
+  children,
+}: {
+  header: string;
+  children: React.ReactNode;
+}) => {
+  return (
     <article className={s.transcriptBlock}>
-      <header className={s.transcriptHeader}>Focus</header>
-      <div className={s.transcriptHighlight}>
-        <p>{focus}</p>
+      {header && <header className={s.transcriptHeader}>{header}</header>}
+      <div className={s.transcriptHighlight}>{children}</div>
+    </article>
+  );
+};
+
+export const TextBlock = ({
+  header,
+  children,
+}: {
+  header?: string;
+  children: React.ReactNode;
+}) => {
+  return (
+    <article className={s.transcriptBlock}>
+      {header && header.length > 0 && (
+        <header className={s.transcriptHeader}>{header}</header>
+      )}
+      <p>{children}</p>
+    </article>
+  );
+};
+
+export const CardsOverviewBlock = ({ cards }: { cards: any[] }) => {
+  return (
+    <article className={s.transcriptBlock}>
+      <header className={s.transcriptHeader}>Your cards</header>
+      <div className={s.transcriptCards}>
+        {cards.map((card: any) => (
+          <div key={card.name_short} className={s.transcriptCard}>
+            <div className={s.transcriptCardPicture}></div>
+            <p className={s.transcriptCardTitle}>{card.name}</p>
+          </div>
+        ))}
       </div>
     </article>
-  ) : null;
+  );
 };
