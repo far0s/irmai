@@ -54,18 +54,20 @@ const IrmaiHome = () => {
 
   return (
     <main className={s.page}>
-      <Stage>
-        {Object.entries(Screens).map(([key, Component]) => (
-          <Component
-            key={key}
-            isActive={globalState === key}
-            chatProps={chatProps}
-          />
-        ))}
-      </Stage>
-      <Header />
-      <Transcript chatProps={chatProps} />
-      <Debug />
+      <div className={s.pageContainer}>
+        <Stage>
+          {Object.entries(Screens).map(([key, Component]) => (
+            <Component
+              key={key}
+              isActive={globalState === key}
+              chatProps={chatProps}
+            />
+          ))}
+        </Stage>
+        <Header />
+        <Transcript chatProps={chatProps} />
+        <Debug />
+      </div>
     </main>
   );
 };

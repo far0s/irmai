@@ -22,7 +22,7 @@
 ### 0.2.4 - WIP
 
 - [x] - CHORE/UI: continue refactoring and cleaning up the screens for better transitions and flow
-- [ ] CHORE: refactor transcript components to be reusable in screens too
+- [x] CHORE: refactor transcript components to be reusable in screens too
 
 ### 0.2.3 - released 05/06/2024
 
