@@ -18,28 +18,32 @@
 
 ## Releases
 
-### 0.2.4 - WIP
+### 0.2.5 - released 05/05/2024
+
+- [x] BUGFIX: QuestionScreen - tentative fix for potential issue with state getting stuck on thinking
+
+### 0.2.4 - released 05/05/2024
 
 - [x] CHORE/UI: continue refactoring and cleaning up the screens for better transitions and flow
 - [x] CHORE: refactor transcript components to be reusable in screens too
 - [x] BUGFIX: prevent messages to be read out loud if the page loads at the question screen
 
-### 0.2.3 - released 05/06/2024
+### 0.2.3 - released 05/05/2024
 
 - [x] BUGFIX/UI: re-do Header styles and transitions from Splash Screen
 - [x] FEATURE/Safari: wait for mic permissions to be granted before showing the header
 - [x] FEATURE/UI: clean up animations and interactions across all screens
 
-### 0.2.2 - released 04/06/2024
+### 0.2.2 - released 04/05/2024
 
 - [x] CHORE: added a changelog and todo
 
-### 0.2.1 - released 04/06/2024
+### 0.2.1 - released 04/05/2024
 
 - [x] FEATURE: huge refactors and cleanups
 - [x] BUGFIX: font bugs in production
 
-### 0.2.0 - released 03/06/2024
+### 0.2.0 - released 03/05/2024
 
 - [x] new UX, new UI
 - [x] OpenAI: figure out a way to record and play audio
