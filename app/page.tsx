@@ -16,6 +16,7 @@ import FocusScreen from "@/components/Screens/FocusScreen";
 import TarotScreen from "@/components/Screens/TarotScreen";
 import QuestionScreen from "@/components/Screens/QuestionScreen";
 import OutroScreen from "@/components/Screens/OutroScreen";
+import Background from "@/components/Background/Background";
 
 import s from "./page.module.css";
 
@@ -61,6 +62,7 @@ const IrmaiHome = () => {
       </div>
 
       <Debug />
+      <Background />
     </main>
   );
 };
