@@ -75,7 +75,7 @@ export type Store = State & Actions;
 
 export const initStore = (): State => {
   return {
-    debug: process.env.NODE_ENV === "development",
+    debug: /* process.env.NODE_ENV === "development", */ true,
     globalState: "splash",
     isMicReady: false,
     hasSeenSplash: false,
@@ -94,7 +94,9 @@ export const initStore = (): State => {
 };
 
 export const defaultInitState: State = {
-  debug: process.env.NODE_ENV === "development",
+  debug:
+    /* process.env.NODE_ENV === "development", */
+    true,
   globalState: "splash",
   isMicReady: false,
   hasSeenSplash: false,
