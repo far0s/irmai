@@ -58,8 +58,9 @@ const IrmaiHome = () => {
         </Stage>
         <Header />
         <Transcript chatProps={chatProps} />
-        <Debug />
       </div>
+
+      <Debug />
     </main>
   );
 };

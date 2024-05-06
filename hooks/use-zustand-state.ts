@@ -29,6 +29,10 @@ interface IStore {
   conclusion: string;
   setConclusion: (conclusion: string) => void;
   reset: () => void;
+
+  // Orb debugging
+  hideApp: boolean;
+  setHideApp: (hideApp: boolean) => void;
 }
 
 export type State = {
@@ -45,6 +49,8 @@ export type State = {
   showTranscript: boolean;
   selectedCards: any[];
   conclusion: string;
+
+  hideApp: boolean;
 };
 
 export type Actions = {
@@ -61,6 +67,8 @@ export type Actions = {
   setSelectedCards: (cards: string[]) => void;
   setConclusion: (conclusion: string) => void;
   reset: () => void;
+
+  setHideApp: (hideApp: boolean) => void;
 };
 
 export type Store = State & Actions;
@@ -80,6 +88,8 @@ export const initStore = (): State => {
     showTranscript: false,
     selectedCards: [],
     conclusion: "",
+
+    hideApp: false,
   };
 };
 
@@ -97,6 +107,8 @@ export const defaultInitState: State = {
   showTranscript: false,
   selectedCards: [],
   conclusion: "",
+
+  hideApp: false,
 };
 
 export const createZStore = (initState: State = defaultInitState) => {
@@ -120,6 +132,8 @@ export const createZStore = (initState: State = defaultInitState) => {
           setSelectedCards: (cards: string[]) => set({ selectedCards: cards }),
           setConclusion: (conclusion: string) => set({ conclusion }),
           reset: () => set(initState),
+
+          setHideApp: (hideApp: boolean) => set({ hideApp }),
         }),
         {
           name: "irmai-store",
