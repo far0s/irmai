@@ -21,6 +21,7 @@
 ### 0.2.5 - released 05/05/2024
 
 - [x] BUGFIX: QuestionScreen - tentative fix for potential issue with state getting stuck on thinking
+- [x] CHORE: refactore /api/tarot to allow to pull a select number of cards, or all
 
 ### 0.2.4 - released 05/05/2024
 

@@ -68,7 +68,7 @@ const TarotScreen = ({ isActive }: { isActive: boolean }) => {
   };
 
   const pickTarotCards = async () =>
-    await fetch("/api/tarot")
+    await fetch("/api/tarot?n=3")
       .then((res) => res.json())
       .then((data) => setSelectedCards(data))
       .catch((err) => console.error(err));
