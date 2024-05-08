@@ -6,8 +6,13 @@ import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStorePro
 import s from "./header.module.css";
 
 const Header = () => {
-  const { globalState, isMicReady } = useIrmaiStore((s) => s);
+  const { globalState, isMicReady, reset } = useIrmaiStore((s) => s);
   const isSplash = globalState === "splash";
+
+  const handleReset = () => {
+    reset();
+    window.location.reload();
+  };
 
   return (
     <header
@@ -16,6 +21,9 @@ const Header = () => {
       data-is-mic-ready={isMicReady}
     >
       <div className={s.headerRow}>
+        <button className={s.logoShadow} onClick={handleReset}>
+          shadow
+        </button>
         <div className={s.logoWrapper}>
           <Logo />
         </div>
