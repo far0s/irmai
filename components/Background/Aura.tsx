@@ -12,7 +12,16 @@ const Aura = ({ vertex, fragment }: { vertex: string; fragment: string }) => {
     height: window.innerWidth,
   });
 
-  const { u_speed, u_detail, u_color, u_scale, u_distance } = useControls({
+  const {
+    u_speed,
+    u_detail,
+    u_color,
+    u_scale,
+    u_distance,
+    u_bloom,
+    u_center_size,
+    u_complexity,
+  } = useControls({
     u_speed: {
       value: 1.0,
       min: 0.0,
@@ -40,6 +49,24 @@ const Aura = ({ vertex, fragment }: { vertex: string; fragment: string }) => {
       max: 10.0,
       step: 0.01,
     },
+    u_bloom: {
+      value: 2.5,
+      min: 0.0,
+      max: 20.0,
+      step: 0.01,
+    },
+    u_center_size: {
+      value: 0.0,
+      min: 0.0,
+      max: 5.0,
+      step: 0.01,
+    },
+    u_complexity: {
+      value: 2.0,
+      min: 0.0,
+      max: 5.0,
+      step: 0.01,
+    },
   });
 
   useFrame((state) => {
@@ -57,6 +84,9 @@ const Aura = ({ vertex, fragment }: { vertex: string; fragment: string }) => {
       material.uniforms.u_color.value = convertHexToVec3(u_color);
       material.uniforms.u_scale.value = u_scale;
       material.uniforms.u_distance.value = u_distance;
+      material.uniforms.u_bloom.value = u_bloom;
+      material.uniforms.u_center_size.value = u_center_size;
+      material.uniforms.u_complexity.value = u_complexity;
     }
   });
 
@@ -83,6 +113,9 @@ const Aura = ({ vertex, fragment }: { vertex: string; fragment: string }) => {
       u_detail: { value: u_detail },
       u_scale: { value: u_scale },
       u_distance: { value: u_distance },
+      u_bloom: { value: u_bloom },
+      u_center_size: { value: u_center_size },
+      u_complexity: { value: u_complexity },
     };
   }, []);
 

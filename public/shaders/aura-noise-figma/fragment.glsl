@@ -10,6 +10,9 @@ uniform float u_speed;
 uniform float u_detail;
 uniform float u_scale;
 uniform float u_distance;
+uniform float u_bloom;
+uniform float u_center_size;
+uniform float u_complexity;
 varying vec2 vUv;
 
 /*
@@ -23,22 +26,23 @@ mat2 m(float a) {
 float map(vec3 p) {
   float t = u_time * u_speed;
   p.xz *= m(t * 0.4);p.xy*= m(t * 0.1);
-  vec3 q = p * 2.0 + t;
-  return length(p+vec3(sin((t*u_speed) * 0.1))) * log(length(p) + 0.9) + cos(q.x + sin(q.z + cos(q.y))) * 0.5 - 1.0;
+  vec3 q = p * u_complexity + t;
+  return length(p+vec3(sin((t*u_speed) * 0.1))) * log(length(p) + 0.9) + cos(q.x + sin(q.z + cos(q.y))) * 0.5 - u_distance;
 }
 
 void main() {
   // FIXME: the offset is not consistent with the resolution
+  // looks okay on mobile/tablet but not on desktop somehow, maybe something to do with pixel density
   vec2 a = gl_FragCoord.xy / u_resolution.xy - vec2(1.0, 2.0);
   vec3 cl = vec3(0.0);
-  float d = u_distance;
+  float d = 2.5;
 
   for (float i = 0.; i <= (1. + 20. * u_detail); i++) {
     vec3 p = vec3(0, 0, 4.0) + normalize(vec3(a, -u_scale)) * d;
     float rz = map(p);
     float f =  clamp((rz - map(p + 0.1)) * 0.5, -0.1, 1.0);
     vec3 l = vec3(0.1, 0.3, 0.4) + vec3(5.0, 2.5, 3.0) * f;
-    cl = cl * l + smoothstep(2.5, 0.0, rz) * 1.0 * l;
+    cl = cl * l + smoothstep(u_bloom, u_center_size, rz) * 1.0 * l;
     d += min(rz, 1.0);
   }
 
