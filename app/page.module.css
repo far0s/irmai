@@ -14,4 +14,12 @@
   box-sizing: border-box;
   display: flex;
   justify-content: center;
+  backdrop-filter: blur(60px);
+  transition: backdrop-filter var(--transition-slow-flow);
+}
+
+.pageContainer:has(
+    > [class*="__stage"] > [class*="screen"]:first-of-type[data-show="false"]
+  ) {
+  backdrop-filter: blur(0);
 }
