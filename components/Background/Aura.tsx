@@ -3,7 +3,7 @@ import * as THREE from "three";
 import { useFrame } from "@react-three/fiber";
 import { useControls } from "leva";
 
-import { convertHexToVec3, lerp } from "@/utils";
+import { convertHexToVec3 } from "@/utils";
 
 const Aura = ({ vertex, fragment }: { vertex: string; fragment: string }) => {
   const meshRef = useRef<THREE.Mesh>(null!);

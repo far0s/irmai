@@ -36,6 +36,3 @@ export const convertHexToVec3 = (hex: string): Vector3 => {
   color.set(r, g, b);
   return color;
 };
-
-export const lerp = (start: number, end: number, t: number): number =>
-  start * (1 - t) + end * t;
