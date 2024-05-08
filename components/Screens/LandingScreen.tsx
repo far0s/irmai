@@ -19,14 +19,14 @@ const LandingScreen = ({
   chatProps,
 }: {
   isActive: boolean;
-  chatProps: IChatProps;
+  chatProps?: IChatProps;
 }) => {
   const { setGlobalState } = useIrmaiStore((s) => s);
   const [partToShow, setPartToShow] = useDebounce<TPartToShow>(null, 100);
 
-  useEffect(() => {
+  /* useEffect(() => {
     prepareSystemPrompt(chatProps.append);
-  }, []);
+  }, []); */
 
   useEffect(() => {
     setPartToShow(isActive ? "welcome" : null);

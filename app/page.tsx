@@ -23,27 +23,23 @@ import s from "./page.module.css";
 const Screens = {
   splash: SplashScreen,
   landing: LandingScreen,
-  focus: FocusScreen,
-  tarot: TarotScreen,
-  question: QuestionScreen,
-  outro: OutroScreen,
+  // focus: FocusScreen,
+  // tarot: TarotScreen,
+  // question: QuestionScreen,
+  // outro: OutroScreen,
 };
 
 const IrmaiHome = () => {
   const { globalState, setIsThinking } = useIrmaiStore((s) => s);
 
-  const chatProps: IChatProps = useChat({
+  /* const chatProps: IChatProps = useChat({
     api: "/api/chat",
   });
 
   useEffect(
     () => setIsThinking(chatProps.isLoading || false),
     [chatProps.isLoading]
-  );
-
-  useEffect(() => {
-    prepareSystemPrompt(chatProps.append);
-  }, []);
+  ); */
 
   return (
     <main className={s.page}>
@@ -53,12 +49,12 @@ const IrmaiHome = () => {
             <Component
               key={key}
               isActive={globalState === key}
-              chatProps={chatProps}
+              // chatProps={chatProps}
             />
           ))}
         </Stage>
         <Header />
-        <Transcript chatProps={chatProps} />
+        {/* <Transcript chatProps={chatProps} /> */}
       </div>
 
       <Debug />
