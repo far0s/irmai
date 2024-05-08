@@ -1,32 +1,34 @@
-import React, { useEffect, useState, Suspense, memo } from "react";
+import React, { memo, useState, useEffect, Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
-
-import ShaderMesh from "./ShaderMesh";
+import { Stats } from "@react-three/drei";
 
 import s from "./background.module.css";
+
+import AuraMesh from "./AuraMesh";
 
 const Background = () => {
   const [vertex, setVertex] = useState("");
   const [fragment, setFragment] = useState("");
 
   useEffect(() => {
-    fetch("/shaders/hydrogen-orbitals/vertexShader.glsl")
+    fetch("/shaders/aura-noise-figma/vertexShader.glsl")
       .then((response) => response.text())
       .then((data) => setVertex(data));
 
-    fetch("/shaders/hydrogen-orbitals/fragmentShader.glsl")
+    fetch("/shaders/aura-noise-figma/fragmentShader.glsl")
       .then((response) => response.text())
       .then((data) => setFragment(data));
   }, []);
 
   return (
     <div className={s.background}>
-      <Canvas style={{ width: "100vw", height: "100vh" }}>
+      <Canvas style={{ width: "100vw", height: "100vw" }}>
         <Suspense fallback={null}>
           {vertex && fragment && (
-            <ShaderMesh vertex={vertex} fragment={fragment} />
+            <AuraMesh vertex={vertex} fragment={fragment} />
           )}
         </Suspense>
+        <Stats className={s.stats} />
       </Canvas>
     </div>
   );
