@@ -5,6 +5,63 @@ import { useControls } from "leva";
 
 import { convertHexToVec3 } from "@/utils";
 
+const initControls = {
+  u_speed: {
+    value: 1.0,
+    min: 0.0,
+    max: 4.0,
+    step: 0.001,
+  },
+  u_detail: {
+    value: 0.1,
+    min: 0.0,
+    max: 1.0,
+    step: 0.001,
+  },
+  u_color: {
+    value: "#194c66",
+  },
+  u_color2: {
+    value: "#7f3f4c",
+  },
+  u_colorLimit: {
+    value: 0.1,
+    min: 0.0,
+    max: 0.5,
+    step: 0.01,
+  },
+  u_scale: {
+    value: 0.75,
+    min: 0.0,
+    max: 5.0,
+    step: 0.01,
+  },
+  u_distance: {
+    value: 2.5,
+    min: 0.0,
+    max: 10.0,
+    step: 0.01,
+  },
+  u_bloom: {
+    value: 2.5,
+    min: 0.0,
+    max: 20.0,
+    step: 0.01,
+  },
+  u_center_size: {
+    value: 0.0,
+    min: 0.0,
+    max: 5.0,
+    step: 0.01,
+  },
+  u_complexity: {
+    value: 2.0,
+    min: 0.0,
+    max: 5.0,
+    step: 0.01,
+  },
+};
+
 const Aura = ({ vertex, fragment }: { vertex: string; fragment: string }) => {
   const meshRef = useRef<THREE.Mesh>(null!);
   const [dimensions, setDimensions] = useState({
@@ -16,58 +73,14 @@ const Aura = ({ vertex, fragment }: { vertex: string; fragment: string }) => {
     u_speed,
     u_detail,
     u_color,
+    u_color2,
+    u_colorLimit,
     u_scale,
     u_distance,
     u_bloom,
     u_center_size,
     u_complexity,
-  } = useControls({
-    u_speed: {
-      value: 1.0,
-      min: 0.0,
-      max: 4.0,
-      step: 0.001,
-    },
-    u_detail: {
-      value: 0.1,
-      min: 0.0,
-      max: 1.0,
-      step: 0.001,
-    },
-    u_color: {
-      value: "#FFFFFF",
-    },
-    u_scale: {
-      value: 1.0,
-      min: 0.0,
-      max: 10.0,
-      step: 0.01,
-    },
-    u_distance: {
-      value: 2.5,
-      min: 0.0,
-      max: 10.0,
-      step: 0.01,
-    },
-    u_bloom: {
-      value: 2.5,
-      min: 0.0,
-      max: 20.0,
-      step: 0.01,
-    },
-    u_center_size: {
-      value: 0.0,
-      min: 0.0,
-      max: 5.0,
-      step: 0.01,
-    },
-    u_complexity: {
-      value: 2.0,
-      min: 0.0,
-      max: 5.0,
-      step: 0.01,
-    },
-  });
+  } = useControls(initControls);
 
   useFrame((state) => {
     let time = state.clock.getElapsedTime();
@@ -82,6 +95,8 @@ const Aura = ({ vertex, fragment }: { vertex: string; fragment: string }) => {
       material.uniforms.u_speed.value = u_speed;
       material.uniforms.u_detail.value = u_detail;
       material.uniforms.u_color.value = convertHexToVec3(u_color);
+      material.uniforms.u_color2.value = convertHexToVec3(u_color2);
+      material.uniforms.u_colorLimit.value = u_colorLimit;
       material.uniforms.u_scale.value = u_scale;
       material.uniforms.u_distance.value = u_distance;
       material.uniforms.u_bloom.value = u_bloom;
@@ -107,7 +122,9 @@ const Aura = ({ vertex, fragment }: { vertex: string; fragment: string }) => {
         value: new THREE.Vector2(dimensions.width, dimensions.height),
       },
       u_time: { value: new Date().getTime() },
-      u_color: { value: new THREE.Vector3(1.0, 1.0, 1.0) },
+      u_color: { value: convertHexToVec3("#194c66") },
+      u_color2: { value: convertHexToVec3("#7f3f4c") },
+      u_colorLimit: { value: 0.5 },
       u_background: { value: new THREE.Vector4(0.043, 0.008, 0.086, 1.0) },
       u_speed: { value: u_speed },
       u_detail: { value: u_detail },

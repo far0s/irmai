@@ -36,3 +36,12 @@ export const convertHexToVec3 = (hex: string): Vector3 => {
   color.set(r, g, b);
   return color;
 };
+
+export const fetchGLSL = async (
+  path: string,
+  successCallback: (data: string) => void
+) => {
+  const response = await fetch(path);
+  const data = await response.text();
+  successCallback(data);
+};
