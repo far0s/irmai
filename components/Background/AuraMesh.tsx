@@ -20,7 +20,7 @@ const AuraMesh = ({
 
     if (meshRef.current) {
       const material = meshRef.current.material as THREE.ShaderMaterial;
-      material.uniforms.u_time.value = time + 1;
+      material.uniforms.u_time.value = state.clock.startTime + time;
       material.uniforms.u_resolution.value.set(
         dimensions.width,
         dimensions.height
@@ -42,7 +42,7 @@ const AuraMesh = ({
   const uniforms = useMemo(() => {
     return {
       u_resolution: { value: new THREE.Vector2() },
-      u_time: { value: 0 },
+      u_time: { value: new Date().getTime() },
       u_color: { value: new THREE.Vector4(1.0, 1.0, 1.0, 1.0) },
       u_background: { value: new THREE.Vector4(0.043, 0.008, 0.086, 1.0) },
       u_speed: { value: 1.0 },
