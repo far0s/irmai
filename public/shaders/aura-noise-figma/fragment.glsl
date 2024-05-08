@@ -8,6 +8,8 @@ uniform vec3 u_color;
 uniform vec4 u_background;
 uniform float u_speed;
 uniform float u_detail;
+uniform float u_scale;
+uniform float u_distance;
 varying vec2 vUv;
 
 /*
@@ -18,23 +20,6 @@ mat2 m(float a) {
   return mat2(c,-s,s,c);
 }
 
-#ifndef FNC_RGB2LUMA
-#define FNC_RGB2LUMA
-float rgb2luma(in vec3 color) {
-  return dot(color, vec3(0.299, 0.587, 0.114));
-}
-float rgb2luma(in vec4 color) {
-  return rgb2luma(color.rgb);
-}
-#endif
-
-#ifndef FNC_LUMA
-#define FNC_LUMA
-float luma(float v) { return v; }
-float luma(in vec3 v) { return rgb2luma(v); }
-float luma(in vec4 v) { return rgb2luma(v.rgb); }
-#endif
-
 float map(vec3 p) {
   float t = u_time * u_speed;
   p.xz *= m(t * 0.4);p.xy*= m(t * 0.1);
@@ -43,16 +28,17 @@ float map(vec3 p) {
 }
 
 void main() {
-  vec2 a = gl_FragCoord.xy / u_resolution.xy - vec2(0.5, 0.5);
+  // FIXME: the offset is not consistent with the resolution
+  vec2 a = gl_FragCoord.xy / u_resolution.xy - vec2(1.0, 2.0);
   vec3 cl = vec3(0.0);
-  float d = 2.5;
+  float d = u_distance;
 
   for (float i = 0.; i <= (1. + 20. * u_detail); i++) {
-    vec3 p = vec3(0, 0, 4.0) + normalize(vec3(a, -1.0)) * d;
+    vec3 p = vec3(0, 0, 4.0) + normalize(vec3(a, -u_scale)) * d;
     float rz = map(p);
     float f =  clamp((rz - map(p + 0.1)) * 0.5, -0.1, 1.0);
     vec3 l = vec3(0.1, 0.3, 0.4) + vec3(5.0, 2.5, 3.0) * f;
-    cl = cl * l + smoothstep(2.5, 0.0, rz) * 0.6 * l;
+    cl = cl * l + smoothstep(2.5, 0.0, rz) * 1.0 * l;
     d += min(rz, 1.0);
   }
 

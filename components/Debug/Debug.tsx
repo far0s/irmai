@@ -1,4 +1,5 @@
 import { memo, useEffect } from "react";
+import { Leva, useControls, button } from "leva";
 
 import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
 
@@ -11,6 +12,9 @@ const Debug = () => {
     isSpeaking,
     isListening,
     isThinking,
+    setIsSpeaking,
+    setIsListening,
+    setIsThinking,
     globalState,
     setGlobalState,
 
@@ -22,8 +26,44 @@ const Debug = () => {
     reset();
     window.location.reload();
   };
-
-  const handleChangeSelect = (e: any) => setGlobalState(e.target.value);
+  useControls({
+    reset: button(() => handleReset()),
+    levaHideApp: {
+      value: hideApp,
+      label: "Hide App",
+      onChange: (v) => setHideApp(v),
+    },
+    levaGlobalState: {
+      value: globalState,
+      label: "Global State",
+      options: ["splash", "landing", "focus", "tarot", "question", "outro"],
+      onChange: (v) => setGlobalState(v),
+    },
+    orbState: {
+      value: "idle",
+      label: "Orb State",
+      options: ["idle", "listening", "thinking", "speaking"],
+      onChange: (v) => {
+        if (v === "listening") {
+          setIsListening(true);
+          setIsThinking(false);
+          setIsSpeaking(false);
+        } else if (v === "thinking") {
+          setIsListening(false);
+          setIsThinking(true);
+          setIsSpeaking(false);
+        } else if (v === "speaking") {
+          setIsListening(false);
+          setIsThinking(false);
+          setIsSpeaking(true);
+        } else {
+          setIsListening(false);
+          setIsThinking(false);
+          setIsSpeaking(false);
+        }
+      },
+    },
+  });
 
   useEffect(() => {
     const pageContainer = document.querySelector('[class*="pageContainer"]');
@@ -32,34 +72,7 @@ const Debug = () => {
     }
   }, [hideApp]);
 
-  return (
-    debug && (
-      <div className={s.debug}>
-        <p>
-          <button onClick={() => handleReset()}>reload</button>
-        </p>
-        <p>
-          state:
-          <select onChange={handleChangeSelect} value={globalState}>
-            <option value="splash">splash</option>
-            <option value="landing">landing</option>
-            <option value="focus">focus</option>
-            <option value="tarot">tarot</option>
-            <option value="question">question</option>
-            <option value="outro">outro</option>
-          </select>
-        </p>
-        <p>
-          <button onClick={() => setHideApp(!hideApp)}>
-            {hideApp ? "show app" : "hide app"}
-          </button>
-        </p>
-        {isSpeaking && <p>irmai isSpeaking</p>}
-        {isListening && <p>irmai isListening</p>}
-        {isThinking && <p>irmai isThinking</p>}
-      </div>
-    )
-  );
+  return debug && <Leva flat collapsed />;
 };
 
 export default memo(Debug);

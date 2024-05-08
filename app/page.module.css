@@ -19,7 +19,7 @@
 }
 
 .pageContainer:has(
-    > [class*="__stage"] > [class*="screen"]:first-of-type[data-show="false"]
+    > [class*="_stage"] > [class*="_screen"]:first-of-type[data-show="false"]
   ) {
   backdrop-filter: blur(0);
 }
