@@ -122,9 +122,9 @@ const Aura = ({ vertex, fragment }: { vertex: string; fragment: string }) => {
         value: new THREE.Vector2(dimensions.width, dimensions.height),
       },
       u_time: { value: new Date().getTime() },
-      u_color: { value: convertHexToVec3("#194c66") },
-      u_color2: { value: convertHexToVec3("#7f3f4c") },
-      u_colorLimit: { value: 0.5 },
+      u_color: { value: convertHexToVec3(u_color) },
+      u_color2: { value: convertHexToVec3(u_color2) },
+      u_colorLimit: { value: u_colorLimit },
       u_background: { value: new THREE.Vector4(0.043, 0.008, 0.086, 1.0) },
       u_speed: { value: u_speed },
       u_detail: { value: u_detail },
@@ -135,6 +135,8 @@ const Aura = ({ vertex, fragment }: { vertex: string; fragment: string }) => {
       u_complexity: { value: u_complexity },
     };
   }, []);
+
+  // TODO: create control logic for orb states
 
   return (
     <mesh ref={meshRef} position={[0, 0, 0]} scale={1} rotation={[0, 0, 0]}>
