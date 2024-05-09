@@ -16,7 +16,6 @@ import FadeInWrapper from "@/components/FadeInWrapper/FadeInWrapper";
 
 import s from "./screens.module.css";
 import { TextBlock } from "../Transcript/Transcript.utils";
-import { start } from "repl";
 
 type TPartToShow =
   | null
