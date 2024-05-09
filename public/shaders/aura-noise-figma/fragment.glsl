@@ -33,9 +33,10 @@ float map(vec3 p) {
   return length(p+vec3(sin((t*u_speed) * 0.1))) * log(length(p) + 0.9) + cos(q.x + sin(q.z + cos(q.y))) * 0.5 - u_distance;
 }
 
-void main() {
+void mainImage ( out vec4 fragColor, in vec2 fragCoord ) {
   // FIXME: the offset is not consistent with the resolution
   // looks okay on mobile/tablet but not on desktop somehow, maybe something to do with pixel density
+  // pixel density has been forced set to 2, which fixed the problem for hydrogen-orbitals, but not here
   vec2 a = gl_FragCoord.xy / u_resolution.xy - vec2(1.0, 2.0);
   vec3 cl = vec3(0.0);
   float d = 2.5;
@@ -55,5 +56,10 @@ void main() {
   color.r = max(u_background.r,color.r);
   color.g = max(u_background.g,color.g);
   color.b = max(u_background.b,color.b);
-  gl_FragColor = color;
+  fragColor = color;
+}
+
+void main()
+{
+	mainImage(gl_FragColor, gl_FragCoord.xy);
 }
