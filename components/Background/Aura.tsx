@@ -7,10 +7,10 @@ import { convertHexToVec3 } from "@/utils";
 
 const initControls = {
   u_speed: {
-    value: 1.0,
+    value: 0.6,
     min: 0.0,
-    max: 4.0,
-    step: 0.001,
+    max: 2.0,
+    step: 0.01,
   },
   u_detail: {
     value: 0.1,
@@ -31,7 +31,7 @@ const initControls = {
     step: 0.01,
   },
   u_scale: {
-    value: 0.75,
+    value: 1.0,
     min: 0.0,
     max: 5.0,
     step: 0.01,
@@ -66,7 +66,7 @@ const Aura = ({ vertex, fragment }: { vertex: string; fragment: string }) => {
   const meshRef = useRef<THREE.Mesh>(null!);
   const [dimensions, setDimensions] = useState({
     width: window.innerWidth,
-    height: window.innerWidth,
+    height: window.innerHeight,
   });
 
   const {
@@ -107,7 +107,7 @@ const Aura = ({ vertex, fragment }: { vertex: string; fragment: string }) => {
 
   useEffect(() => {
     const handleResize = () => {
-      setDimensions({ width: window.innerWidth, height: window.innerWidth });
+      setDimensions({ width: window.innerWidth, height: window.innerHeight });
     };
 
     window.addEventListener("resize", handleResize);
