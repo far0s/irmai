@@ -9,19 +9,19 @@ const initControls = {
   n: {
     value: 3,
     min: 1,
-    max: 4,
+    max: 6,
     step: 1,
   },
   l: {
     value: 2,
     min: 0,
-    max: 3,
+    max: 6,
     step: 1,
   },
   m: {
     value: 0,
-    min: 0,
-    max: 3,
+    min: -6,
+    max: 6,
     step: 1,
   },
   u_scale: {
@@ -42,6 +42,15 @@ const initControls = {
     max: 2.0,
     step: 0.01,
   },
+  u_opacity: {
+    value: 0.0,
+    min: 0.0,
+    max: 1.0,
+    step: 0.01,
+  },
+  u_att_color: {
+    value: "#ffffff",
+  },
 };
 
 const HydrogenOrbitals = ({
@@ -57,8 +66,17 @@ const HydrogenOrbitals = ({
     height: window.innerHeight,
   });
 
-  const { n, l, m, u_scale, u_pos_color, u_neg_color, u_exposure } =
-    useControls(initControls);
+  const {
+    n,
+    l,
+    m,
+    u_scale,
+    u_pos_color,
+    u_neg_color,
+    u_exposure,
+    u_opacity,
+    u_att_color,
+  } = useControls(initControls);
 
   useFrame((state) => {
     let time = state.clock.getElapsedTime();
@@ -78,6 +96,8 @@ const HydrogenOrbitals = ({
       material.uniforms.u_pos_color.value = convertHexToVec3(u_pos_color);
       material.uniforms.u_neg_color.value = convertHexToVec3(u_neg_color);
       material.uniforms.u_exposure.value = u_exposure;
+      material.uniforms.u_opacity.value = u_opacity;
+      material.uniforms.u_att_color.value = convertHexToVec3(u_att_color);
     }
   });
 
@@ -107,6 +127,8 @@ const HydrogenOrbitals = ({
       u_pos_color: { value: convertHexToVec3(u_pos_color) },
       u_neg_color: { value: convertHexToVec3(u_neg_color) },
       u_exposure: { value: u_exposure },
+      u_opacity: { value: u_opacity },
+      u_att_color: { value: convertHexToVec3(u_att_color) },
     };
   }, []);
 

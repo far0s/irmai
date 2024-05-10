@@ -10,6 +10,8 @@ uniform float u_scale;
 uniform vec3 u_pos_color;
 uniform vec3 u_neg_color;
 uniform float u_exposure;
+uniform float u_opacity;
+uniform vec3 u_att_color;
 varying vec2 vUv;
 
 // ####### Hydrogen Orbitals #######
@@ -207,6 +209,43 @@ const float k07 = 2.8906114210; // sqrt(105 / PI) / 2
 const float k08 = 0.4570214810; // sqrt( 42 / PI) / 8
 const float k09 = 0.3731763300; // sqrt(  7 / PI) / 4
 const float k10 = 1.4453057110; // sqrt(105 / PI) / 4
+// Band 4
+const float k11= 0.2041639326;
+const float k12= 0.3322411854;
+const float k13= 0.4186264364;
+const float k14= 0.4793080678;
+const float k15= 0.4077881153;
+const float k16= 0.4793080678;
+const float k17= 0.4186264364;
+const float k18= 0.3322411854;
+const float k19= 0.2041639326;
+// Band 5
+const float k20 = 0.1624598571;
+const float k21 = 0.2721626504;
+const float k22 = 0.3503023869;
+const float k23 = 0.4050674072;
+const float k24 = 0.4403442667;
+const float k25 = 0.3856652288;
+const float k26 = 0.4403442667;
+const float k27 = 0.4050674072;
+const float k28 = 0.3503023869;
+const float k29 = 0.2721626504;
+const float k30 = 0.1624598571;
+// Band 6
+const float k31 = 0.1294069263;
+const float k32 = 0.2238103044;
+const float k33 = 0.2964176796;
+const float k34 = 0.3523839015;
+const float k35 = 0.3887843131;
+const float k36 = 0.4084729801;
+const float k37 = 0.3700632973;
+const float k38 = 0.4084729801;
+const float k39 = 0.3887843131;
+const float k40 = 0.3523839015;
+const float k41 = 0.2964176796;
+const float k42 = 0.2238103044;
+const float k43 = 0.1294069263;
+
 
 // Y_l_m(s), where l is the band and m the range in [-l..l]
 //float SH( in int l, in int m, in vec3 s )
@@ -235,6 +274,42 @@ if( l==2 && m==-2 ) return  k03 * n_.x * n_.y;
 	if( l==3 && m== 2 ) return  k10 * n_.z * (n_.x * n_.x - n_.y * n_.y);
 	if( l==3 && m== 3 ) return -k06 * n_.x * (n_.x * n_.x - 3.0 * n_.y * n_.y);
 	//----------------------------------------------------------
+if (l==4 && m==-4) return k11 * n_.x * n_.y * (n_.x * n_.x - n_.y * n_.y);
+if (l==4 && m==-3) return -k12 * n_.y * (3.0 * n_.x * n_.x - n_.y * n_.y) * n_.z;
+if (l==4 && m==-2) return k13 * n_.z * n_.y * (7.0 * n_.x * n_.x - 1.0);
+if (l==4 && m==-1) return -k14 * n_.y * (7.0 * n_.z * n_.z - 1.0);
+if (l==4 && m== 0) return k15 * (35.0 * n_.z * n_.z * n_.z * n_.z - 30.0 * n_.z * n_.z + 3.0);
+if (l==4 && m== 1) return -k14 * n_.x * (7.0 * n_.z * n_.z - 1.0);
+if (l==4 && m== 2) return k13 * n_.z * (n_.x * n_.x - n_.y * n_.y) * n_.z;
+if (l==4 && m== 3) return -k12 * n_.x * (n_.x * n_.x - 3.0 * n_.y * n_.y) * n_.z;
+if (l==4 && m== 4) return k16 * (n_.x * n_.x - n_.y * n_.y) * (n_.x * n_.x - n_.y * n_.y);
+//----------------------------------------------------------
+if (l==5 && m==-5) return -k17 * n_.y * (n_.x * n_.x - n_.y * n_.y) * (n_.x * n_.x - n_.y * n_.y);
+if (l==5 && m==-4) return k18 * n_.z * n_.y * (n_.x * n_.x - n_.y * n_.y) * n_.z;
+if (l==5 && m==-3) return -k19 * n_.y * (3.0 * n_.x * n_.x - n_.y * n_.y) * (11.0 * n_.z * n_.z - 1.0);
+if (l==5 && m==-2) return k20 * n_.z * n_.y * (11.0 * n_.z * n_.z - 3.0) * n_.z;
+if (l==5 && m==-1) return -k21 * n_.y * (11.0 * n_.z * n_.z - 3.0) * n_.z;
+if (l==5 && m== 0) return k22 * (231.0 * n_.z * n_.z * n_.z * n_.z * n_.z - 315.0 * n_.z * n_.z * n_.z + 105.0 * n_.z * n_.z - 5.0);
+if (l==5 && m== 1) return -k21 * n_.x * (11.0 * n_.z * n_.z - 3.0) * n_.z;
+if (l==5 && m== 2) return k20 * n_.z * (n_.x * n_.x - n_.y * n_.y) * (11.0 * n_.z * n_.z - 3.0) * n_.z;
+if (l==5 && m== 3) return -k19 * n_.x * (n_.x * n_.x - 3.0 * n_.y * n_.y) * (11.0 * n_.z * n_.z - 1.0);
+if (l==5 && m== 4) return k23 * n_.z * (n_.x * n_.x - n_.y * n_.y) * n_.z;
+if (l==5 && m== 5) return -k17 * n_.x * (n_.x * n_.x - 3.0 * n_.y * n_.y) * (n_.x * n_.x - n_.y * n_.y);
+//----------------------------------------------------------
+if (l==6 && m==-6) return k24 * n_.x * n_.y * (n_.x * n_.x - n_.y * n_.y) * (n_.x * n_.x - n_.y * n_.y);
+if (l==6 && m==-5) return -k25 * n_.y * (n_.x * n_.x - n_.y * n_.y) * (11.0 * n_.z * n_.z - 3.0) * n_.z;
+if (l==6 && m==-4) return k26 * n_.z * n_.y * (11.0 * n_.z * n_.z - 3.0) * n_.z;
+if (l==6 && m==-3) return -k27 * n_.y * (3.0 * n_.x * n_.x - n_.y * n_.y) * (11.0 * n_.z * n_.z - 1.0);
+if (l==6 && m==-2) return k28 * n_.z * n_.y * (33.0 * n_.z * n_.z * n_.z * n_.z - 18.0 * n_.z * n_.z + 1.0) * n_.z;
+if (l==6 && m==-1) return -k29 * n_.y * (33.0 * n_.z * n_.z * n_.z * n_.z - 18.0 * n_.z * n_.z + 1.0) * n_.z;
+if (l==6 && m== 0) return k30 * (3003.0 * n_.z * n_.z * n_.z * n_.z * n_.z * n_.z - 4620.0 * n_.z * n_.z * n_.z * n_.z + 2100.0 * n_.z * n_.z - 245.0 * n_.z + 5.0);
+if (l==6 && m== 1) return -k29 * n_.x * (33.0 * n_.z * n_.z * n_.z * n_.z - 18.0 * n_.z * n_.z + 1.0) * n_.z;
+if (l==6 && m== 2) return k28 * n_.z * (n_.x * n_.x - n_.y * n_.y) * (33.0 * n_.z * n_.z * n_.z * n_.z - 18.0 * n_.z * n_.z + 1.0) * n_.z;
+if (l==6 && m== 3) return -k27 * n_.x * (n_.x * n_.x - 3.0 * n_.y * n_.y) * (11.0 * n_.z * n_.z - 1.0);
+if (l==6 && m== 4) return k31 * n_.z * (n_.x * n_.x - n_.y * n_.y) * (11.0 * n_.z * n_.z - 3.0) * n_.z;
+if (l==6 && m== 5) return -k25 * n_.x * (n_.x * n_.x - 3.0 * n_.y * n_.y) * (11.0 * n_.z * n_.z - 3.0) * n_.z;
+if (l==6 && m== 6) return k32 * (n_.x * n_.x - n_.y * n_.y) * (n_.x * n_.x - n_.y * n_.y);
+//----------------------------------------------------------
 
 	return 0.0;
 }
@@ -282,9 +357,9 @@ float sample_volume(in vec3 p, out vec3 col)
 	}
 
 	// this manages the rotation of the volume
-	p = vec3(rotate(p.xy, 1.0 * (0.1 / 3.0) * two_pi * u_time), p.z).xyz;
-	p = vec3(rotate(p.xz, 2.0 * (0.1 / 3.0) * two_pi * u_time), p.y).xzy;
-	p = vec3(rotate(p.yz, 3.0 * (0.1 / 3.0) * two_pi * u_time), p.x).yzx;
+	p = vec3(rotate(p.xy, 1.0 * (0.1 / 10.0) * two_pi * u_time), p.z).xyz;
+	p = vec3(rotate(p.xz, 2.0 * (0.1 / 10.0) * two_pi * u_time), p.y).xzy;
+	p = vec3(rotate(p.yz, 3.0 * (0.1 / 10.0) * two_pi * u_time), p.x).yzx;
 
 	p = cartesian2spherical(p);
 	float r     = p.x;
@@ -309,7 +384,7 @@ vec3 sample_light(vec3 ro, vec3 rd)
 {
 	vec3 a = vec3(1);
 
-	for(int i = 0; i < 10; i++)
+	for(int i = 0; i < 100; i++)
 	{
 		float t = STEP_SIZE_SHADOW * float(i);
 
@@ -338,12 +413,27 @@ float IGN(vec2 pixel_coord, int frame)
 	return fract( 52.9829189 * fract(0.06711056 * pixel_coord.x + 0.00583715 * pixel_coord.y) );
 }
 
+mat2 m2(float a) {
+  float c=cos(a), s=sin(a);
+  return mat2(c,-s,s,c);
+}
+
+float map(vec3 p) {
+  float t = u_time * 4.0;
+  p.xz *= m2(t * 0.4);
+  p.xy*= m2(t * 0.1);
+  vec3 q = p * 2.0 + t;
+  return length(p+vec3(sin((t*4.0) * 0.1))) * log(length(p) + 0.9) + cos(q.x + sin(q.z + cos(q.y))) * 0.5 - 2.5;
+}
+
 // ##### Main #####
 void mainImage( out vec4 fragColor, in vec2 fragCoord )
 {
 	fragColor = u_background;
 
-	vec2 uv = u_scale * (fragCoord - u_resolution.xy) / max(u_resolution.x, u_resolution.y);
+	float normalised_scale = float(u_scale) * float(abs(l) + abs(n)) / 4.0;
+
+	vec2 uv = normalised_scale * (fragCoord - u_resolution.xy) / max(u_resolution.x, u_resolution.y);
 
 	vec3 ro = vec3( FOV * uv ,  16.0);
 	vec3 rd = vec3( 0.0,  0.0,  -1.0);
@@ -353,8 +443,8 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
 	// ro = vec3(rotate(ro.xz, theta), ro.y).xzy;
 	// rd = vec3(rotate(rd.xz, theta), rd.y).xzy;
 
-	vec3 att = vec3(1);
-	vec3 col = vec3(0);
+	vec3 att = u_att_color;
+	vec3 col = u_background.rgb;
 
 	float dither = STEP_SIZE * IGN(floor(fragCoord), u_frame);
 
@@ -379,12 +469,17 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord )
 		vec3 c;
 		float d = sample_volume(p, c);
 
-		if(d > 0.0)
-		{
-			col += STEP_SIZE * att * d * sample_light( p, normalize( vec3(1, 1, 0) ) );
+		// vec3 p = vec3(0, 0, 4.0) + normalize(vec3(uv, -1.0)) * d;
+		float rz = map(p);
+		// float f =  clamp((rz - map(p + 0.1)) * 0.5, -0.1, 0.1);
+		// vec3 l = u_pos_color + u_neg_color * f;
 
-			// att *= exp(-STEP_SIZE * c * d);
+		if(d > u_opacity)
+		{
+			col += STEP_SIZE * att * d * sample_light( p, normalize( vec3(1, 0, 0) ) );
+
 			att *= exp(-STEP_SIZE * d);
+			d += min(rz, 1.0);
 		}
 	}
 
