@@ -3,7 +3,7 @@ import * as THREE from "three";
 import { useFrame } from "@react-three/fiber";
 import { useControls } from "leva";
 
-import { convertHexToVec3 } from "@/utils";
+import { convertHexToVec3, lerp } from "@/utils";
 
 const initControls = {
   n: {
@@ -92,7 +92,11 @@ const HydrogenOrbitals = ({
       material.uniforms.n.value = n;
       material.uniforms.l.value = l;
       material.uniforms.m.value = m;
-      material.uniforms.u_scale.value = u_scale;
+      material.uniforms.u_scale.value = lerp(
+        0.5,
+        u_scale,
+        Math.min(time / 5, 1.0)
+      );
       material.uniforms.u_pos_color.value = convertHexToVec3(u_pos_color);
       material.uniforms.u_neg_color.value = convertHexToVec3(u_neg_color);
       material.uniforms.u_exposure.value = u_exposure;

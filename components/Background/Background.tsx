@@ -25,7 +25,7 @@ const shaders = [
 ];
 
 const Background = () => {
-  const [selectedShader, setSelectedShader] = useState<any>(shaders[1]);
+  const [selectedShader, setSelectedShader] = useState<any>(shaders[0]);
   const [vertex, setVertex] = useState("");
   const [fragment, setFragment] = useState("");
 

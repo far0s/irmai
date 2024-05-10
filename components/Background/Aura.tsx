@@ -3,7 +3,7 @@ import * as THREE from "three";
 import { useFrame } from "@react-three/fiber";
 import { useControls } from "leva";
 
-import { convertHexToVec3 } from "@/utils";
+import { convertHexToVec3, lerp } from "@/utils";
 
 const initControls = {
   u_speed: {
@@ -97,11 +97,19 @@ const Aura = ({ vertex, fragment }: { vertex: string; fragment: string }) => {
       material.uniforms.u_color.value = convertHexToVec3(u_color);
       material.uniforms.u_color2.value = convertHexToVec3(u_color2);
       material.uniforms.u_colorLimit.value = u_colorLimit;
-      material.uniforms.u_scale.value = u_scale;
+      material.uniforms.u_scale.value = lerp(
+        0.0,
+        u_scale,
+        Math.min(time / 10, 1.0)
+      );
       material.uniforms.u_distance.value = u_distance;
       material.uniforms.u_bloom.value = u_bloom;
       material.uniforms.u_center_size.value = u_center_size;
-      material.uniforms.u_complexity.value = u_complexity;
+      material.uniforms.u_complexity.value = lerp(
+        0.0,
+        u_complexity,
+        Math.min(time / 5, 1.0)
+      );
     }
   });
 
@@ -132,7 +140,7 @@ const Aura = ({ vertex, fragment }: { vertex: string; fragment: string }) => {
       u_distance: { value: u_distance },
       u_bloom: { value: u_bloom },
       u_center_size: { value: u_center_size },
-      u_complexity: { value: u_complexity },
+      u_complexity: { value: 0.0 },
     };
   }, []);
 
