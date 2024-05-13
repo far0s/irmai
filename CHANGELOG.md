@@ -18,7 +18,7 @@
 
 ## Releases
 
-### 0.3.0 - WIP
+### 0.3.0 - released 13/05/2024
 
 - [x] FEATURE: refactor screens to simplify UX flow
 
