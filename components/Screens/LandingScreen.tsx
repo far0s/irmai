@@ -8,7 +8,7 @@ import { useDebounce } from "@/hooks/use-debounce";
 import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
 import PressCTA from "@/components/PressCTA/PressCTA";
 import { Screen } from "@/components/Stage/Stage";
-import FadeInWrapper from "@/components/FadeInWrapper/FadeInWrapper";
+import FadeInWrapper from "@/components/TransitionWrapper/TransitionWrapper";
 
 import s from "./screens.module.css";
 
@@ -52,6 +52,7 @@ const LandingScreen = ({
             show={partToShow === "welcome"}
             className={s.copy}
             delay={1000}
+            variant="fade"
           >
             <p>
               <span>Welcome</span>
@@ -64,6 +65,7 @@ const LandingScreen = ({
             show={partToShow === "welcome"}
             className={s.copy}
             delay={1500}
+            variant="fade"
           >
             <p>There is power within your fingertips.</p>
           </FadeInWrapper>
@@ -71,6 +73,7 @@ const LandingScreen = ({
             show={partToShow === "welcome"}
             className={s.copy}
             delay={2000}
+            variant="fade"
           >
             <p>
               Pressing, holding, and speaking, will let you connect with your
@@ -85,6 +88,7 @@ const LandingScreen = ({
             show={partToShow === "question"}
             className={s.copy}
             delay={1000}
+            variant="fade"
           >
             <p>
               <span>Question</span>
@@ -99,6 +103,7 @@ const LandingScreen = ({
             show={partToShow === "question"}
             className={s.copy}
             delay={1500}
+            variant="fade"
           >
             <p>
               Now is the time to ask your question to IRMAI. This will guide the
@@ -112,6 +117,7 @@ const LandingScreen = ({
             className={s.footerPart}
             show={partToShow === "welcome"}
             delay={2500}
+            variant="fade"
           >
             <PressCTA onPress={handleNextPart} label="Next" />
           </FadeInWrapper>
@@ -119,6 +125,7 @@ const LandingScreen = ({
             className={s.footerPart}
             show={partToShow === "question"}
             delay={2000}
+            variant="fade"
           >
             <PressCTA onPress={handleNextScreen} label="Next" />
           </FadeInWrapper>

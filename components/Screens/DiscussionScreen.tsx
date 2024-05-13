@@ -12,7 +12,7 @@ import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStorePro
 import { Screen } from "@/components/Stage/Stage";
 import PressCTA from "@/components/PressCTA/PressCTA";
 import PressAndHoldCTA from "@/components/PressAndHoldCTA/PressAndHoldCTA";
-import FadeInWrapper from "@/components/FadeInWrapper/FadeInWrapper";
+import FadeInWrapper from "@/components/TransitionWrapper/TransitionWrapper";
 import {
   TextBlock,
   HighlightBlock,
@@ -174,6 +174,7 @@ const DiscussionScreen = ({
           <FadeInWrapper
             show={partToShow === "idle" && firstQuestion.length > 0}
             delay={1000}
+            variant="fade"
           >
             <HighlightBlock header="Question"></HighlightBlock>
           </FadeInWrapper>
@@ -181,12 +182,14 @@ const DiscussionScreen = ({
             className={s.copy}
             show={partToShow === "idle"}
             delay={1500}
+            variant="fade"
           >
             <HighlightBlock header="Your cards"></HighlightBlock>
           </FadeInWrapper>
           <FadeInWrapper
             show={partToShow === "idle" && messages && messages.length > 1}
             delay={1500}
+            variant="fade"
           >
             <TextBlock>
               You can ask another question or we can end the conversation here.
@@ -198,22 +201,38 @@ const DiscussionScreen = ({
         </section>
 
         <section className={`${s.screenPartWrapper} ${s.tempAiFeedback}`}>
-          <FadeInWrapper show={partToShow === "idle"} delay={100}>
+          <FadeInWrapper
+            show={partToShow === "idle"}
+            delay={100}
+            variant="fade"
+          >
             <div className={s.idle}>
               <p>"What is your question?"</p>
             </div>
           </FadeInWrapper>
-          <FadeInWrapper show={partToShow === "recording"} delay={100}>
+          <FadeInWrapper
+            show={partToShow === "recording"}
+            delay={100}
+            variant="fade"
+          >
             <div className={s.recording}>
               <p>"Listening..."</p>
             </div>
           </FadeInWrapper>
-          <FadeInWrapper show={partToShow === "thinking"} delay={100}>
+          <FadeInWrapper
+            show={partToShow === "thinking"}
+            delay={100}
+            variant="fade"
+          >
             <div className={s.thinking}>
               <p>"Thinking..."</p>
             </div>
           </FadeInWrapper>
-          <FadeInWrapper show={partToShow === "speaking"} delay={100}>
+          <FadeInWrapper
+            show={partToShow === "speaking"}
+            delay={100}
+            variant="fade"
+          >
             <div className={s.speaking}>
               <p>"Speaking..."</p>
             </div>

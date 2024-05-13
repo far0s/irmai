@@ -1,29 +1,39 @@
-.fadeInWrapper {
+.transitionWrapper {
   position: relative;
-  opacity: 0;
-  transform: translateY(2rem);
-  filter: blur(10px);
-  will-change: opacity, transform, filter;
-  transition: opacity 0.5s ease-out 100s, transform 0.5s ease-out 100s,
-    filter 0.5s ease-out 100s;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   pointer-events: none;
 }
 
-.fadeInWrapper[data-show="true"] {
+.transitionWrapper[data-show="true"] {
+  pointer-events: auto;
+}
+
+.transitionWrapper[data-show="false"] {
+  transition-delay: 0s;
+  pointer-events: none;
+}
+
+.transitionWrapper[data-variant="fade"] {
+  opacity: 0;
+  transform: translateY(2rem);
+  filter: blur(10px);
+  will-change: opacity, transform, filter;
+  transition: opacity 0.5s ease-out 100s, transform 0.5s ease-out 100s,
+    filter 0.5s ease-out 100s;
+}
+
+.transitionWrapper[data-variant="fade"][data-show="true"] {
   opacity: 1;
   transform: translateY(0);
   filter: blur(0);
   transition-delay: var(--delay), var(--delay), var(--delay);
-  pointer-events: auto;
 }
 
-.fadeInWrapper[data-show="false"] {
+.transitionWrapper[data-variant="fade"][data-show="false"] {
   opacity: 0;
   transform: translateY(2rem);
   filter: blur(10px);
   transition-delay: 0s;
-  pointer-events: none;
 }

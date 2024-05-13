@@ -5,7 +5,7 @@ import { useDebounce } from "@/hooks/use-debounce";
 import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
 import PressCTA from "@/components/PressCTA/PressCTA";
 import { Screen } from "@/components/Stage/Stage";
-import FadeInWrapper from "@/components/FadeInWrapper/FadeInWrapper";
+import FadeInWrapper from "@/components/TransitionWrapper/TransitionWrapper";
 import {
   CardsOverviewBlock,
   HighlightBlock,
@@ -80,6 +80,7 @@ const TarotScreen = ({ isActive }: { isActive: boolean }) => {
           <FadeInWrapper
             show={partToShow === "overview" && firstQuestion.length > 0}
             delay={1000}
+            variant="fade"
           >
             <HighlightBlock header="Question">
               <p>{firstQuestion}</p>
@@ -89,6 +90,7 @@ const TarotScreen = ({ isActive }: { isActive: boolean }) => {
             className={s.copy}
             show={partToShow === "overview"}
             delay={1000}
+            variant="fade"
           >
             {selectedCards.length > 0 ? (
               <CardsOverviewBlock cards={selectedCards} />
@@ -109,7 +111,7 @@ const TarotScreen = ({ isActive }: { isActive: boolean }) => {
         </section>
 
         <section className={s.screenPartWrapper}>
-          <FadeInWrapper show={partToShow === "pulling"}>
+          <FadeInWrapper show={partToShow === "pulling"} variant="fade">
             <CardsShaker
               partToShow={partToShow}
               selectedCards={selectedCards}
@@ -125,6 +127,7 @@ const TarotScreen = ({ isActive }: { isActive: boolean }) => {
           className={s.footerPart}
           show={partToShow === "overview"}
           delay={1000}
+          variant="fade"
         >
           <PressCTA
             onPress={handleCTAPress}

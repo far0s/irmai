@@ -9,7 +9,7 @@ import PressCTA from "@/components/PressCTA/PressCTA";
 import { HighlightBlock } from "@/components/Transcript/Transcript.utils";
 
 import s from "./screens.module.css";
-import FadeInWrapper from "../FadeInWrapper/FadeInWrapper";
+import FadeInWrapper from "../TransitionWrapper/TransitionWrapper";
 
 const handleMessagesChange = (messages: any, setConclusion: any) => {
   if (messages?.length === 0) return;
@@ -52,6 +52,7 @@ const OutroScreen = ({
           <FadeInWrapper
             show={partToShow === "outro" && conclusion.length > 0}
             delay={1000}
+            variant="fade"
           >
             <HighlightBlock header="Conclusion">
               <p>

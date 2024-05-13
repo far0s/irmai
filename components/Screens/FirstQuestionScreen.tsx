@@ -9,7 +9,7 @@ import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStorePro
 import { Screen } from "@/components/Stage/Stage";
 import PressCTA from "@/components/PressCTA/PressCTA";
 import PressAndHoldCTA from "@/components/PressAndHoldCTA/PressAndHoldCTA";
-import FadeInWrapper from "@/components/FadeInWrapper/FadeInWrapper";
+import FadeInWrapper from "@/components/TransitionWrapper/TransitionWrapper";
 
 import s from "./screens.module.css";
 import { HighlightBlock, TextBlock } from "../Transcript/Transcript.utils";
@@ -104,6 +104,7 @@ const FirstQuestionScreen = ({ isActive }: { isActive: boolean }) => {
           <FadeInWrapper
             show={partToShow === "recap" && firstQuestion.length > 0}
             delay={1000}
+            variant="fade"
           >
             <HighlightBlock header="Question">
               <p>{firstQuestion}</p>
@@ -115,12 +116,20 @@ const FirstQuestionScreen = ({ isActive }: { isActive: boolean }) => {
         </section>
 
         <section className={`${s.screenPartWrapper} ${s.tempAiFeedback}`}>
-          <FadeInWrapper show={partToShow === "idle"} delay={100}>
+          <FadeInWrapper
+            show={partToShow === "idle"}
+            delay={100}
+            variant="fade"
+          >
             <div className={s.idle}>
               <p>"What is your question?"</p>
             </div>
           </FadeInWrapper>
-          <FadeInWrapper show={partToShow === "recording"} delay={100}>
+          <FadeInWrapper
+            show={partToShow === "recording"}
+            delay={100}
+            variant="fade"
+          >
             <div className={s.recording}>
               <p>"Listening..."</p>
             </div>
@@ -132,6 +141,7 @@ const FirstQuestionScreen = ({ isActive }: { isActive: boolean }) => {
             className={s.footerPart}
             show={partToShow === "idle" || partToShow === "recording"}
             delay={100}
+            variant="fade"
           >
             <PressAndHoldCTA
               onBeginPress={() => handleStartRecording()}
@@ -146,6 +156,7 @@ const FirstQuestionScreen = ({ isActive }: { isActive: boolean }) => {
             className={s.footerPart}
             show={partToShow === "recap"}
             delay={100}
+            variant="fade"
           >
             <PressCTA onPress={handleGoToNextScreen} label="Next" />
           </FadeInWrapper>
