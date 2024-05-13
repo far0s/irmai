@@ -57,7 +57,6 @@ const DiscussionScreen = ({
       (message) =>
         message.role === "assistant" && !message.content.includes("*SYSTEM")
     );
-    console.log("msgs", msgs);
 
     return (msgs && msgs.length > 0) || false;
   };
@@ -67,16 +66,13 @@ const DiscussionScreen = ({
       isActive ? (checkIfIrmaiHasAlreadyAnswered() ? "idle" : "thinking") : null
     );
     const alreadyHasAnswered = checkIfIrmaiHasAlreadyAnswered();
-    console.log("alreadyHasAnswered", alreadyHasAnswered);
     isActive && !alreadyHasAnswered && handleSendFirstQuestion();
   }, [isActive]);
 
   const handleSendFirstQuestion = () => {
-    console.log("handleSendFirstQuestion pre");
     if (!firstQuestion) return;
     if (!selectedCards || selectedCards.length === 0) return;
     if (!append) return;
-    console.log("handleSendFirstQuestion go");
 
     setIsThinking(true);
 
