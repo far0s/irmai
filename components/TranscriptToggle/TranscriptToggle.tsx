@@ -5,7 +5,6 @@ import s from "./transcriptToggle.module.css";
 const TranscriptToggle = () => {
   const {
     globalState,
-    focus,
     showTranscript,
     setShowTranscript,
     transcript,
@@ -14,7 +13,7 @@ const TranscriptToggle = () => {
 
   const isNotSplash = globalState !== "splash";
   const showTranscriptToggle =
-    focus.length > 0 || transcript.length > 0 || firstQuestion.length > 0;
+    transcript.length > 0 || firstQuestion.length > 0;
 
   return (
     <button

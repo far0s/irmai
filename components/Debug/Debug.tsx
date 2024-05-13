@@ -43,9 +43,9 @@ const Debug = () => {
           <select onChange={handleChangeSelect} value={globalState}>
             <option value="splash">splash</option>
             <option value="landing">landing</option>
-            <option value="focus">focus</option>
+            <option value="firstQuestion">first question</option>
             <option value="tarot">tarot</option>
-            <option value="question">question</option>
+            <option value="discussion">discussion</option>
             <option value="outro">outro</option>
           </select>
         </p>

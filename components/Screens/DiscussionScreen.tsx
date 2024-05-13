@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 import { withoutTrailingPeriod } from "@/utils";
 import { prepareFirstPrompt } from "@/utils/prompts";
-import { IChatProps } from "@/utils/shared-types";
+import { IChatProps, ChatMessage } from "@/utils/shared-types";
 import convertSpeechToText from "@/utils/speech-to-text";
 import convertTextToSpeech from "@/utils/text-to-speech";
 
@@ -13,19 +13,17 @@ import { Screen } from "@/components/Stage/Stage";
 import PressCTA from "@/components/PressCTA/PressCTA";
 import PressAndHoldCTA from "@/components/PressAndHoldCTA/PressAndHoldCTA";
 import FadeInWrapper from "@/components/FadeInWrapper/FadeInWrapper";
+import {
+  TextBlock,
+  HighlightBlock,
+  CardsOverviewBlock,
+} from "../Transcript/Transcript.utils";
 
 import s from "./screens.module.css";
-import { TextBlock } from "../Transcript/Transcript.utils";
 
-type TPartToShow =
-  | null
-  | "idle"
-  | "recording"
-  | "thinking"
-  | "speaking"
-  | "recording";
+type TPartToShow = null | "idle" | "recording" | "thinking" | "speaking";
 
-const QuestionScreen = ({
+const DiscussionScreen = ({
   isActive,
   chatProps,
 }: {
@@ -34,7 +32,6 @@ const QuestionScreen = ({
 }) => {
   const {
     setGlobalState,
-    focus,
     selectedCards,
     setIsSpeaking,
     setIsListening,
@@ -55,9 +52,42 @@ const QuestionScreen = ({
     audioFile,
   } = useRecorder();
 
+  const checkIfIrmaiHasAlreadyAnswered = () => {
+    const msgs: ChatMessage[] | undefined = messages?.filter(
+      (message) =>
+        message.role === "assistant" && !message.content.includes("*SYSTEM")
+    );
+    console.log("msgs", msgs);
+
+    return (msgs && msgs.length > 0) || false;
+  };
+
   useEffect(() => {
-    setPartToShow(isActive ? "idle" : null);
+    setPartToShow(
+      isActive ? (checkIfIrmaiHasAlreadyAnswered() ? "idle" : "thinking") : null
+    );
+    const alreadyHasAnswered = checkIfIrmaiHasAlreadyAnswered();
+    console.log("alreadyHasAnswered", alreadyHasAnswered);
+    isActive && !alreadyHasAnswered && handleSendFirstQuestion();
   }, [isActive]);
+
+  const handleSendFirstQuestion = () => {
+    console.log("handleSendFirstQuestion pre");
+    if (!firstQuestion) return;
+    if (!selectedCards || selectedCards.length === 0) return;
+    if (!append) return;
+    console.log("handleSendFirstQuestion go");
+
+    setIsThinking(true);
+
+    append({
+      content: prepareFirstPrompt({
+        firstQuestion: firstQuestion,
+        cards: selectedCards,
+      }),
+      role: "user",
+    } as any);
+  };
 
   const handleStartRecording = () => {
     setPartToShow("recording");
@@ -86,7 +116,6 @@ const QuestionScreen = ({
           append?.({
             content: !firstQuestion
               ? prepareFirstPrompt({
-                  focus,
                   firstQuestion: withoutTrailingPeriod(res.text),
                   cards: selectedCards,
                 })
@@ -104,7 +133,6 @@ const QuestionScreen = ({
 
   useEffect(() => {
     if (!isActive) return;
-    if (focus?.length === 0) return;
     if (firstQuestion?.length === 0) return;
     if (messages?.length === 0) return;
 
@@ -143,16 +171,21 @@ const QuestionScreen = ({
     <Screen isActive={isActive}>
       <div className={s.wrapper}>
         <section className={s.screenPartWrapper}>
-          <FadeInWrapper show={partToShow === "idle"} delay={1000}>
-            <TextBlock>
-              <span>Question</span> Lorem ipsum dolor sit amet consectetur. Leo
-              nisi odio aliquam cursus egestas. Augue venenatis tincidunt in
-              volutpat. Nascetur amet auctor sem non fermentum. Velit sem
-              ullamcorper tellus sed scelerisque ipsum elementum.
-            </TextBlock>
+          <FadeInWrapper
+            show={partToShow === "idle" && firstQuestion.length > 0}
+            delay={1000}
+          >
+            <HighlightBlock header="Question"></HighlightBlock>
           </FadeInWrapper>
           <FadeInWrapper
-            show={partToShow === "idle" && messages && messages.length > 2}
+            className={s.copy}
+            show={partToShow === "idle"}
+            delay={1500}
+          >
+            <HighlightBlock header="Your cards"></HighlightBlock>
+          </FadeInWrapper>
+          <FadeInWrapper
+            show={partToShow === "idle" && messages && messages.length > 1}
             delay={1500}
           >
             <TextBlock>
@@ -204,4 +237,4 @@ const QuestionScreen = ({
   );
 };
 
-export default QuestionScreen;
+export default DiscussionScreen;

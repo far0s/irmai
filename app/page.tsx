@@ -12,9 +12,9 @@ import Debug from "@/components/Debug/Debug";
 import Transcript from "@/components/Transcript/Transcript";
 import SplashScreen from "@/components/Screens/SplashScreen";
 import LandingScreen from "@/components/Screens/LandingScreen";
-import FocusScreen from "@/components/Screens/FocusScreen";
+import FirstQuestionScreen from "@/components/Screens/FirstQuestionScreen";
 import TarotScreen from "@/components/Screens/TarotScreen";
-import QuestionScreen from "@/components/Screens/QuestionScreen";
+import DiscussionScreen from "@/components/Screens/DiscussionScreen";
 import OutroScreen from "@/components/Screens/OutroScreen";
 
 import s from "./page.module.css";
@@ -22,9 +22,9 @@ import s from "./page.module.css";
 const Screens = {
   splash: SplashScreen,
   landing: LandingScreen,
-  focus: FocusScreen,
+  firstQuestion: FirstQuestionScreen,
   tarot: TarotScreen,
-  question: QuestionScreen,
+  discussion: DiscussionScreen,
   outro: OutroScreen,
 };
 

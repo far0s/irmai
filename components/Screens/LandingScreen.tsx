@@ -12,7 +12,7 @@ import FadeInWrapper from "@/components/FadeInWrapper/FadeInWrapper";
 
 import s from "./screens.module.css";
 
-type TPartToShow = null | "welcome" | "focus";
+type TPartToShow = null | "welcome" | "question";
 
 const LandingScreen = ({
   isActive,
@@ -33,13 +33,13 @@ const LandingScreen = ({
   }, [isActive]);
 
   const handleNextPart = () => {
-    setPartToShow("focus");
+    setPartToShow("question");
   };
 
   const handleNextScreen = () => {
-    if (partToShow === "focus") {
+    if (partToShow === "question") {
       setPartToShow(null);
-      setGlobalState("focus");
+      setGlobalState("firstQuestion");
     }
   };
 
@@ -79,29 +79,29 @@ const LandingScreen = ({
           </FadeInWrapper>
         </section>
 
-        {/* Part 2 - focus */}
+        {/* Part 2 - question */}
         <section className={s.screenPartWrapper}>
           <FadeInWrapper
-            show={partToShow === "focus"}
+            show={partToShow === "question"}
             className={s.copy}
             delay={1000}
           >
             <p>
-              <span>Focus</span>
-              to form a focused intention for a tarot reading, reflect on your
-              current situation and distill it into a clear, specific question
-              or intention. Phrase your question carefully to invite actionable
+              <span>Question</span>
+              to form an intention for a tarot reading, reflect on your current
+              situation and distill it into a clear, specific question or
+              intention. Phrase your question carefully to invite actionable
               guidance and insight, ensuring it captures the essence of what you
               want to explore.
             </p>
           </FadeInWrapper>
           <FadeInWrapper
-            show={partToShow === "focus"}
+            show={partToShow === "question"}
             className={s.copy}
             delay={1500}
           >
             <p>
-              Now is the time to give your focus to IRMAI. This will guide the
+              Now is the time to ask your question to IRMAI. This will guide the
               type of conversation you would like to have.
             </p>
           </FadeInWrapper>
@@ -117,7 +117,7 @@ const LandingScreen = ({
           </FadeInWrapper>
           <FadeInWrapper
             className={s.footerPart}
-            show={partToShow === "focus"}
+            show={partToShow === "question"}
             delay={2000}
           >
             <PressCTA onPress={handleNextScreen} label="Next" />

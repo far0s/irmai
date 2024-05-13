@@ -53,7 +53,7 @@ const CardsShaker = ({
 );
 
 const TarotScreen = ({ isActive }: { isActive: boolean }) => {
-  const { setGlobalState, focus, selectedCards, setSelectedCards } =
+  const { setGlobalState, selectedCards, setSelectedCards, firstQuestion } =
     useIrmaiStore((s) => s);
   const [partToShow, setPartToShow] = useDebounce<TPartToShow>(null, 100);
 
@@ -64,7 +64,7 @@ const TarotScreen = ({ isActive }: { isActive: boolean }) => {
   const handleCTAPress = () => {
     selectedCards.length === 0
       ? setPartToShow("pulling")
-      : setGlobalState("question");
+      : setGlobalState("discussion");
   };
 
   const pickTarotCards = async () =>
@@ -77,15 +77,18 @@ const TarotScreen = ({ isActive }: { isActive: boolean }) => {
     <Screen isActive={isActive}>
       <div className={s.wrapper} data-show={partToShow}>
         <section className={s.screenPartWrapper}>
-          <FadeInWrapper show={partToShow === "overview"} delay={1000}>
-            <HighlightBlock header="Focus">
-              <p>{focus}</p>
+          <FadeInWrapper
+            show={partToShow === "overview" && firstQuestion.length > 0}
+            delay={1000}
+          >
+            <HighlightBlock header="Question">
+              <p>{firstQuestion}</p>
             </HighlightBlock>
           </FadeInWrapper>
           <FadeInWrapper
             className={s.copy}
             show={partToShow === "overview"}
-            delay={1500}
+            delay={1000}
           >
             {selectedCards.length > 0 ? (
               <CardsOverviewBlock cards={selectedCards} />
@@ -125,7 +128,11 @@ const TarotScreen = ({ isActive }: { isActive: boolean }) => {
         >
           <PressCTA
             onPress={handleCTAPress}
-            label={selectedCards.length === 0 ? "Pull your cards" : "Next"}
+            label={
+              selectedCards.length === 0
+                ? "Pull your cards"
+                : "Tell me my future"
+            }
           />
         </FadeInWrapper>
       </footer>
