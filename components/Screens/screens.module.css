@@ -138,3 +138,11 @@
 .irmaiAudioLevels:not([data-is-speaking="true"]) span {
   transform: scaleY(0) !important;
 }
+
+.recordAgainLink {
+  display: inline-block;
+  font-size: 14px;
+  margin-top: 0.5rem;
+  text-decoration: underline;
+  cursor: pointer;
+}

@@ -18,6 +18,10 @@
 
 ## Releases
 
+### 0.3.0 - WIP
+
+- [x] FEATURE: refactor screens to simplify UX flow
+
 ### 0.2.5 - released 05/05/2024
 
 - [x] BUGFIX: QuestionScreen - tentative fix for potential issue with state getting stuck on thinking

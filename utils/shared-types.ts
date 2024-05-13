@@ -31,7 +31,7 @@ export interface IChatProps {
 export type TGlobalState =
   | "splash"
   | "landing"
-  | "focus"
+  | "firstQuestion"
   | "tarot"
-  | "question"
+  | "discussion"
   | "outro";

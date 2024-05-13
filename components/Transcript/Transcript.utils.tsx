@@ -17,12 +17,12 @@ export const HighlightBlock = ({
   children,
 }: {
   header: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }) => {
   return (
     <article className={s.transcriptBlock}>
       {header && <header className={s.transcriptHeader}>{header}</header>}
-      <div className={s.transcriptHighlight}>{children}</div>
+      {children && <div className={s.transcriptHighlight}>{children}</div>}
     </article>
   );
 };
