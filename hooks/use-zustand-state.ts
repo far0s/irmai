@@ -1,6 +1,6 @@
 import { createStore } from "zustand";
 import { devtools, persist, createJSONStorage } from "zustand/middleware";
-import { TGlobalState } from "@/utils/shared-types";
+import { TGlobalState, ITarotCard } from "@/utils/shared-types";
 
 interface IStore {
   debug: boolean;
@@ -18,7 +18,9 @@ interface IStore {
   setIsThinking: (isThinking: boolean) => void;
   transcript: any[];
   setTranscript: (transcript: any[]) => void;
-  selectedCards: string[];
+  allCards: ITarotCard[];
+  setAllCards: (cards: string[]) => void;
+  selectedCards: ITarotCard[];
   setSelectedCards: (cards: string[]) => void;
   firstQuestion: string;
   setFirstQuestion: (question: string) => void;
@@ -44,6 +46,7 @@ export type State = {
   transcript: any[];
   firstQuestion: string;
   showTranscript: boolean;
+  allCards: ITarotCard[];
   selectedCards: any[];
   conclusion: string;
 
@@ -60,6 +63,7 @@ export type Actions = {
   setTranscript: (transcript: any[]) => void;
   setFirstQuestion: (question: string) => void;
   setShowTranscript: (showTranscript: boolean) => void;
+  setAllCards: (cards: string[]) => void;
   setSelectedCards: (cards: string[]) => void;
   setConclusion: (conclusion: string) => void;
   reset: () => void;
@@ -81,6 +85,7 @@ export const initStore = (): State => {
     transcript: [],
     firstQuestion: "",
     showTranscript: false,
+    allCards: [],
     selectedCards: [],
     conclusion: "",
 
@@ -99,6 +104,7 @@ export const defaultInitState: State = {
   transcript: [],
   firstQuestion: "",
   showTranscript: false,
+  allCards: [],
   selectedCards: [],
   conclusion: "",
 
@@ -122,7 +128,8 @@ export const createZStore = (initState: State = defaultInitState) => {
             set({ firstQuestion: question }),
           setShowTranscript: (showTranscript: boolean) =>
             set({ showTranscript }),
-          setSelectedCards: (cards: string[]) => set({ selectedCards: cards }),
+          setAllCards: (cards: any[]) => set({ allCards: cards }),
+          setSelectedCards: (cards: any[]) => set({ selectedCards: cards }),
           setConclusion: (conclusion: string) => set({ conclusion }),
           reset: () => set(initState),
 

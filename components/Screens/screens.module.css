@@ -80,38 +80,6 @@
   pointer-events: none;
 }
 
-.cardsShaker {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  padding: 2rem 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  opacity: 1;
-  transform: translateY(0);
-  filter: blur(0);
-  transition: 0.5s ease-out;
-}
-
-.cardsShaker:not([data-show="true"]) {
-  opacity: 0;
-  transform: translateY(2rem);
-  filter: blur(10px);
-  pointer-events: none;
-}
-
-.cardsContainer {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: stretch;
-}
-
 .cardsInstructions {
   position: absolute;
   bottom: 2rem;

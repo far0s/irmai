@@ -29,7 +29,7 @@ const Screens = {
 };
 
 const IrmaiHome = () => {
-  const { globalState, setIsThinking } = useIrmaiStore((s) => s);
+  const { globalState, setIsThinking, setAllCards } = useIrmaiStore((s) => s);
 
   const chatProps: IChatProps = useChat({
     api: "/api/chat",
@@ -42,7 +42,14 @@ const IrmaiHome = () => {
 
   useEffect(() => {
     prepareSystemPrompt(chatProps.append);
+    fetchAllTarotCards();
   }, []);
+
+  const fetchAllTarotCards = async () =>
+    await fetch("/api/tarot")
+      .then((res) => res.json())
+      .then((data) => setAllCards(data))
+      .catch((err) => console.error(err));
 
   return (
     <main className={s.page}>
