@@ -1,7 +1,5 @@
 import { useEffect } from "react";
-
-import { prepareSystemPrompt } from "@/utils/prompts";
-import { IChatProps } from "@/utils/shared-types";
+import { UseAssistantHelpers } from "ai/react";
 
 import { useDebounce } from "@/hooks/use-debounce";
 
@@ -16,17 +14,13 @@ type TPartToShow = null | "welcome" | "question";
 
 const LandingScreen = ({
   isActive,
-  chatProps,
+  assistantProps,
 }: {
   isActive: boolean;
-  chatProps: IChatProps;
+  assistantProps: UseAssistantHelpers;
 }) => {
   const { setGlobalState } = useIrmaiStore((s) => s);
   const [partToShow, setPartToShow] = useDebounce<TPartToShow>(null, 100);
-
-  useEffect(() => {
-    prepareSystemPrompt(chatProps.append);
-  }, []);
 
   useEffect(() => {
     setPartToShow(isActive ? "welcome" : null);

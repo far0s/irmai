@@ -17,7 +17,7 @@ const CardsShaker = ({
   show: boolean;
 }) => {
   const { allCards, selectedCards, setSelectedCards } = useIrmaiStore((s) => s);
-  const [tempSelectedCards, setTempSelectedCards] = useState<ITarotCard[]>([]);
+  const [tempSelectedCards, setTempSelectedCards] = useState<any[]>([]);
   const [showReset, setShowReset] = useState(false);
 
   useEffect(() => {
@@ -79,6 +79,15 @@ const CardsShaker = ({
         >
           <em>Choose three cards</em>
         </p>
+        {tempSelectedCards.length === 3 && (
+          <PressCTA
+            onPress={() => {
+              setSelectedCards(tempSelectedCards);
+              setPartToShow("overview");
+            }}
+            label="reveal cards"
+          />
+        )}
       </footer>
       {/* <div className={s.cardsContainer}>
         {selectedCards.length === 0 ? (

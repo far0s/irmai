@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
+import { UseAssistantHelpers } from "ai/react";
 
 import { prepareConclusionPrompt } from "@/utils/prompts";
-import { IChatProps } from "@/utils/shared-types";
 
 import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
 import { Screen } from "@/components/Stage/Stage";
@@ -18,23 +18,23 @@ const handleMessagesChange = (messages: any, setConclusion: any) => {
     lastMessage?.role === "assistant" &&
     lastMessage.content.startsWith("*CONCLUSION");
   if (lastMsgIsConclusion) {
-    setConclusion(lastMessage.content.replace("*CONCLUSION: ", "").trim());
+    setConclusion(lastMessage.content.replace("*CONCLUSION", "").trim());
   }
 };
 
 const OutroScreen = ({
   isActive,
-  chatProps,
+  assistantProps,
 }: {
   isActive: boolean;
-  chatProps: IChatProps;
+  assistantProps: UseAssistantHelpers;
 }) => {
   const { reset, setShowTranscript, conclusion, setConclusion } = useIrmaiStore(
     (s) => s
   );
   const [partToShow, setPartToShow] = useState<null | "outro">(null);
 
-  const { messages, append }: IChatProps = chatProps;
+  const { messages, append }: UseAssistantHelpers = assistantProps;
 
   useEffect(() => {
     setPartToShow(isActive ? "outro" : null);
