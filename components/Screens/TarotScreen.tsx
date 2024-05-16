@@ -5,56 +5,22 @@ import { useDebounce } from "@/hooks/use-debounce";
 import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
 import PressCTA from "@/components/PressCTA/PressCTA";
 import { Screen } from "@/components/Stage/Stage";
-import FadeInWrapper from "@/components/FadeInWrapper/FadeInWrapper";
+import FadeInWrapper from "@/components/TransitionWrapper/TransitionWrapper";
 import {
   CardsOverviewBlock,
   HighlightBlock,
   TextBlock,
 } from "@/components/Transcript/Transcript.utils";
+import CardsShaker from "@/components/CardsShaker/CardsShaker";
 
 import s from "./screens.module.css";
 
 type TPartToShow = null | "overview" | "pulling" | "result";
 
-const CardsShaker = ({
-  partToShow,
-  selectedCards,
-  pickTarotCards,
-  setPartToShow,
-}: {
-  partToShow: TPartToShow;
-  selectedCards: any[];
-  pickTarotCards: () => Promise<void>;
-  setPartToShow: (arg0: TPartToShow) => void;
-}) => (
-  <div className={s.cardsShaker} data-show={partToShow === "pulling"}>
-    <div className={s.cardsContainer}>
-      {selectedCards.length === 0 ? (
-        <>
-          <p>[cards will be shown here]</p>
-          <PressCTA
-            onPress={pickTarotCards}
-            label="in the meantime click here to shuffle the cards"
-          />
-        </>
-      ) : (
-        <>
-          <CardsOverviewBlock cards={selectedCards} />
-          <PressCTA
-            onPress={() => {
-              setPartToShow("overview");
-            }}
-            label="go to results"
-          />
-        </>
-      )}
-    </div>
-  </div>
-);
-
 const TarotScreen = ({ isActive }: { isActive: boolean }) => {
-  const { setGlobalState, focus, selectedCards, setSelectedCards } =
-    useIrmaiStore((s) => s);
+  const { setGlobalState, selectedCards, firstQuestion } = useIrmaiStore(
+    (s) => s
+  );
   const [partToShow, setPartToShow] = useDebounce<TPartToShow>(null, 100);
 
   useEffect(() => {
@@ -64,28 +30,27 @@ const TarotScreen = ({ isActive }: { isActive: boolean }) => {
   const handleCTAPress = () => {
     selectedCards.length === 0
       ? setPartToShow("pulling")
-      : setGlobalState("question");
+      : setGlobalState("discussion");
   };
-
-  const pickTarotCards = async () =>
-    await fetch("/api/tarot?n=3")
-      .then((res) => res.json())
-      .then((data) => setSelectedCards(data))
-      .catch((err) => console.error(err));
 
   return (
     <Screen isActive={isActive}>
       <div className={s.wrapper} data-show={partToShow}>
         <section className={s.screenPartWrapper}>
-          <FadeInWrapper show={partToShow === "overview"} delay={1000}>
-            <HighlightBlock header="Focus">
-              <p>{focus}</p>
+          <FadeInWrapper
+            show={partToShow === "overview" && firstQuestion.length > 0}
+            delay={1000}
+            variant="fade"
+          >
+            <HighlightBlock header="Question">
+              <p>{firstQuestion}</p>
             </HighlightBlock>
           </FadeInWrapper>
           <FadeInWrapper
             className={s.copy}
             show={partToShow === "overview"}
-            delay={1500}
+            delay={1000}
+            variant="fade"
           >
             {selectedCards.length > 0 ? (
               <CardsOverviewBlock cards={selectedCards} />
@@ -106,12 +71,10 @@ const TarotScreen = ({ isActive }: { isActive: boolean }) => {
         </section>
 
         <section className={s.screenPartWrapper}>
-          <FadeInWrapper show={partToShow === "pulling"}>
+          <FadeInWrapper show={partToShow === "pulling"} variant="fade">
             <CardsShaker
-              partToShow={partToShow}
-              selectedCards={selectedCards}
-              pickTarotCards={pickTarotCards}
               setPartToShow={setPartToShow}
+              show={partToShow === "pulling"}
             />
           </FadeInWrapper>
         </section>
@@ -122,10 +85,15 @@ const TarotScreen = ({ isActive }: { isActive: boolean }) => {
           className={s.footerPart}
           show={partToShow === "overview"}
           delay={1000}
+          variant="fade"
         >
           <PressCTA
             onPress={handleCTAPress}
-            label={selectedCards.length === 0 ? "Pull your cards" : "Next"}
+            label={
+              selectedCards.length === 0
+                ? "Pull your cards"
+                : "Tell me my future"
+            }
           />
         </FadeInWrapper>
       </footer>

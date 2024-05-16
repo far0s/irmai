@@ -23,7 +23,6 @@ export const filteredTranscript = (messages: ChatMessage[]) => {
     (item) =>
       item.role !== "system" &&
       !item.content.includes("*INTRO") &&
-      !item.content.includes("*SYSTEM") &&
       !item.content.includes("*CONCLUSION")
   );
 };

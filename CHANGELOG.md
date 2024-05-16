@@ -6,10 +6,6 @@
 - [ ] FEATURE/ART: add tarot cards
 - [ ] FEATURE/UI: style outro screen
 - [ ] FEATURE/AI: update TTS API route to use ElevenLabs instead of OpenAI's Whisper
-- [ ] CHORE/AI: move API key to project API key in OpenAI. Same for Project and Assistant
-- [ ] FEATURE/AI: replace useChat for useAssistant
-  - [ ] create assistant in OpenAI (figure out system prompts etc.)
-  - [ ] update UI to use the new helpers
 - [ ] FEATURE/AI: "Chaos Mode" – based on trigger X in the conversation, the AI will become more chaotic, sarcastic, humourous, unhinged, etc.
 - [ ] FEATURE: add an about page with a short description of the project, the team, etc.
 - [ ] CHORE: update metatags and SEO
@@ -17,6 +13,17 @@
 - [ ] BUGFIX: solve minified React errors in production (418, 423, 425)
 
 ## Releases
+
+### 0.4.0 - released 16/05/2024
+
+- [x] CHORE/AI: move API key to project API key in OpenAI. Same for Project and Assistant
+- [x] FEATURE/AI: replace useChat for useAssistant
+  - [x] create assistant in OpenAI (figure out system prompts etc.)
+  - [x] update UI to use the new helpers
+
+### 0.3.0 - released 13/05/2024
+
+- [x] FEATURE: refactor screens to simplify UX flow
 
 ### 0.2.5 - released 05/05/2024
 
@@ -53,3 +60,4 @@
 ### 0.1.0 - released 26/11/2023
 
 - [x] initial POC release
+- [ ] CHORE/AI: move API key to project API key in OpenAI. Same for Project and Assistant

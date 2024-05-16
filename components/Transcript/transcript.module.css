@@ -25,7 +25,6 @@
   position: fixed;
   top: 17px;
   width: 100%;
-  max-width: 1010px;
   height: calc(var(--header-safe-zone) - var(--header-margin) / 2);
   background: var(--purple);
   z-index: 1;
@@ -89,6 +88,7 @@
   padding-top: 16px;
   padding-bottom: 40px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   font-size: 24px;

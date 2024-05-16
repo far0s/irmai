@@ -13,9 +13,8 @@ import useTranscript from "@/hooks/use-transcript";
 
 import s from "./transcript.module.css";
 
-const Transcript = ({ chatProps }: any) => {
+const Transcript = ({ assistantProps }: any) => {
   const {
-    focus,
     firstQuestion,
     showTranscript,
     setShowTranscript,
@@ -24,7 +23,7 @@ const Transcript = ({ chatProps }: any) => {
     reset,
   } = useIrmaiStore((s) => s);
   const transcriptInnerElem = useRef<HTMLDivElement | null>(null);
-  const { messages } = chatProps;
+  const { messages } = assistantProps;
   const transcript = useTranscript(messages);
 
   useScrollToTop(transcriptInnerElem);
@@ -39,9 +38,9 @@ const Transcript = ({ chatProps }: any) => {
     <div className={`${s.transcript}`} data-show={showTranscript}>
       <main className={s.transcriptInner} ref={transcriptInnerElem}>
         <TimeKeeper />
-        {focus.length > 0 && (
-          <HighlightBlock header="Focus">
-            <p>{focus}</p>
+        {firstQuestion.length > 0 && (
+          <HighlightBlock header="Starting Question">
+            <p>{firstQuestion}</p>
           </HighlightBlock>
         )}
         {selectedCards.length > 0 && (
@@ -49,10 +48,6 @@ const Transcript = ({ chatProps }: any) => {
         )}
         {firstQuestion.length > 0 && (
           <article className={s.transcriptBlock}>
-            <header className={s.transcriptHeader}>Starting Question</header>
-            <div className={s.transcriptHighlight}>
-              <p>{firstQuestion}</p>
-            </div>
             <ul className={s.transcriptTranscript}>
               {transcript.length > 0 &&
                 transcript.map((item) => (

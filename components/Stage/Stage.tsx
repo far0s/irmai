@@ -1,6 +1,6 @@
 "use client";
 
-import FadeInWrapper from "@/components/FadeInWrapper/FadeInWrapper";
+import FadeInWrapper from "@/components/TransitionWrapper/TransitionWrapper";
 
 import s from "./stage.module.css";
 
@@ -15,6 +15,7 @@ export const Screen = ({
     <FadeInWrapper
       show={isActive}
       delay={isActive ? 500 : 0}
+      variant="fade"
       className={s.screen}
     >
       {children}

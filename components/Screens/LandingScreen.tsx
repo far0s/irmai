@@ -1,45 +1,39 @@
 import { useEffect } from "react";
-
-import { prepareSystemPrompt } from "@/utils/prompts";
-import { IChatProps } from "@/utils/shared-types";
+import { UseAssistantHelpers } from "ai/react";
 
 import { useDebounce } from "@/hooks/use-debounce";
 
 import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
 import PressCTA from "@/components/PressCTA/PressCTA";
 import { Screen } from "@/components/Stage/Stage";
-import FadeInWrapper from "@/components/FadeInWrapper/FadeInWrapper";
+import FadeInWrapper from "@/components/TransitionWrapper/TransitionWrapper";
 
 import s from "./screens.module.css";
 
-type TPartToShow = null | "welcome" | "focus";
+type TPartToShow = null | "welcome" | "question";
 
 const LandingScreen = ({
   isActive,
-  chatProps,
+  assistantProps,
 }: {
   isActive: boolean;
-  chatProps?: IChatProps;
+  assistantProps?: UseAssistantHelpers;
 }) => {
   const { setGlobalState } = useIrmaiStore((s) => s);
   const [partToShow, setPartToShow] = useDebounce<TPartToShow>(null, 100);
-
-  /* useEffect(() => {
-    prepareSystemPrompt(chatProps.append);
-  }, []); */
 
   useEffect(() => {
     setPartToShow(isActive ? "welcome" : null);
   }, [isActive]);
 
   const handleNextPart = () => {
-    setPartToShow("focus");
+    setPartToShow("question");
   };
 
   const handleNextScreen = () => {
-    if (partToShow === "focus") {
+    if (partToShow === "question") {
       setPartToShow(null);
-      setGlobalState("focus");
+      setGlobalState("firstQuestion");
     }
   };
 
@@ -52,6 +46,7 @@ const LandingScreen = ({
             show={partToShow === "welcome"}
             className={s.copy}
             delay={1000}
+            variant="fade"
           >
             <p>
               <span>Welcome</span>
@@ -64,6 +59,7 @@ const LandingScreen = ({
             show={partToShow === "welcome"}
             className={s.copy}
             delay={1500}
+            variant="fade"
           >
             <p>There is power within your fingertips.</p>
           </FadeInWrapper>
@@ -71,6 +67,7 @@ const LandingScreen = ({
             show={partToShow === "welcome"}
             className={s.copy}
             delay={2000}
+            variant="fade"
           >
             <p>
               Pressing, holding, and speaking, will let you connect with your
@@ -79,29 +76,31 @@ const LandingScreen = ({
           </FadeInWrapper>
         </section>
 
-        {/* Part 2 - focus */}
+        {/* Part 2 - question */}
         <section className={s.screenPartWrapper}>
           <FadeInWrapper
-            show={partToShow === "focus"}
+            show={partToShow === "question"}
             className={s.copy}
             delay={1000}
+            variant="fade"
           >
             <p>
-              <span>Focus</span>
-              to form a focused intention for a tarot reading, reflect on your
-              current situation and distill it into a clear, specific question
-              or intention. Phrase your question carefully to invite actionable
+              <span>Question</span>
+              to form an intention for a tarot reading, reflect on your current
+              situation and distill it into a clear, specific question or
+              intention. Phrase your question carefully to invite actionable
               guidance and insight, ensuring it captures the essence of what you
               want to explore.
             </p>
           </FadeInWrapper>
           <FadeInWrapper
-            show={partToShow === "focus"}
+            show={partToShow === "question"}
             className={s.copy}
             delay={1500}
+            variant="fade"
           >
             <p>
-              Now is the time to give your focus to IRMAI. This will guide the
+              Now is the time to ask your question to IRMAI. This will guide the
               type of conversation you would like to have.
             </p>
           </FadeInWrapper>
@@ -112,13 +111,15 @@ const LandingScreen = ({
             className={s.footerPart}
             show={partToShow === "welcome"}
             delay={2500}
+            variant="fade"
           >
             <PressCTA onPress={handleNextPart} label="Next" />
           </FadeInWrapper>
           <FadeInWrapper
             className={s.footerPart}
-            show={partToShow === "focus"}
+            show={partToShow === "question"}
             delay={2000}
+            variant="fade"
           >
             <PressCTA onPress={handleNextScreen} label="Next" />
           </FadeInWrapper>

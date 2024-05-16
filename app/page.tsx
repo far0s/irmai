@@ -1,9 +1,6 @@
 "use client";
 import { useEffect } from "react";
-import { useChat } from "ai/react";
-
-import { prepareSystemPrompt } from "@/utils/prompts";
-import { IChatProps } from "@/utils/shared-types";
+import { useAssistant, UseAssistantHelpers } from "ai/react";
 
 import Header from "@/components/Header/Header";
 import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
@@ -12,9 +9,9 @@ import Debug from "@/components/Debug/Debug";
 import Transcript from "@/components/Transcript/Transcript";
 import SplashScreen from "@/components/Screens/SplashScreen";
 import LandingScreen from "@/components/Screens/LandingScreen";
-import FocusScreen from "@/components/Screens/FocusScreen";
+import FirstQuestionScreen from "@/components/Screens/FirstQuestionScreen";
 import TarotScreen from "@/components/Screens/TarotScreen";
-import QuestionScreen from "@/components/Screens/QuestionScreen";
+import DiscussionScreen from "@/components/Screens/DiscussionScreen";
 import OutroScreen from "@/components/Screens/OutroScreen";
 import Background from "@/components/Background/Background";
 
@@ -30,16 +27,22 @@ const Screens = {
 };
 
 const IrmaiHome = () => {
-  const { globalState, setIsThinking } = useIrmaiStore((s) => s);
+  const { globalState, setIsThinking, setAllCards } = useIrmaiStore((s) => s);
 
-  /* const chatProps: IChatProps = useChat({
+  /* const assistantProps: IChatProps = useChat({
     api: "/api/chat",
   });
 
   useEffect(
-    () => setIsThinking(chatProps.isLoading || false),
-    [chatProps.isLoading]
+    () => setIsThinking(assistantProps.isLoading || false),
+    [assistantProps.isLoading]
   ); */
+
+  const fetchAllTarotCards = async () =>
+    await fetch("/api/tarot")
+      .then((res) => res.json())
+      .then((data) => setAllCards(data))
+      .catch((err) => console.error(err));
 
   return (
     <main className={s.page}>
@@ -49,12 +52,12 @@ const IrmaiHome = () => {
             <Component
               key={key}
               isActive={globalState === key}
-              // chatProps={chatProps}
+              // assistantProps={assistantProps}
             />
           ))}
         </Stage>
         <Header />
-        {/* <Transcript chatProps={chatProps} /> */}
+        {/* <Transcript assistantProps={assistantProps} /> */}
       </div>
 
       <Debug />

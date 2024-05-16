@@ -1,10 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { withoutTrailingPeriod } from "@/utils";
-import { prepareFirstPrompt } from "@/utils/prompts";
-import { IChatProps } from "@/utils/shared-types";
 import convertSpeechToText from "@/utils/speech-to-text";
-import convertTextToSpeech from "@/utils/text-to-speech";
 
 import useRecorder from "@/hooks/use-recorder";
 
@@ -12,30 +9,16 @@ import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStorePro
 import { Screen } from "@/components/Stage/Stage";
 import PressCTA from "@/components/PressCTA/PressCTA";
 import PressAndHoldCTA from "@/components/PressAndHoldCTA/PressAndHoldCTA";
-import FadeInWrapper from "@/components/FadeInWrapper/FadeInWrapper";
+import FadeInWrapper from "@/components/TransitionWrapper/TransitionWrapper";
 
 import s from "./screens.module.css";
-import { TextBlock } from "../Transcript/Transcript.utils";
+import { HighlightBlock, TextBlock } from "../Transcript/Transcript.utils";
 
-type TPartToShow =
-  | null
-  | "idle"
-  | "recording"
-  | "thinking"
-  | "speaking"
-  | "recording";
+type TPartToShow = null | "idle" | "recording" | "recap";
 
-const QuestionScreen = ({
-  isActive,
-  chatProps,
-}: {
-  isActive: boolean;
-  chatProps: IChatProps;
-}) => {
+const FirstQuestionScreen = ({ isActive }: { isActive: boolean }) => {
   const {
     setGlobalState,
-    focus,
-    selectedCards,
     setIsSpeaking,
     setIsListening,
     setIsThinking,
@@ -43,8 +26,6 @@ const QuestionScreen = ({
     setFirstQuestion,
   } = useIrmaiStore((s) => s);
   const [partToShow, setPartToShow] = useState<TPartToShow>(null);
-
-  const { messages, append }: IChatProps = chatProps;
 
   const {
     startRecording,
@@ -61,38 +42,30 @@ const QuestionScreen = ({
 
   const handleStartRecording = () => {
     setPartToShow("recording");
+    setIsListening(true);
     startRecording();
   };
 
   const handleStopRecording = () => {
-    setPartToShow("thinking");
+    setIsListening(false);
     stopRecording();
   };
 
   useEffect(() => {
     if (isActive && audioURL && audioFile) {
-      setPartToShow("thinking");
       setIsThinking(true);
-      // TODO: refactor the callbacks
       convertSpeechToText({
         audioFile: audioFile,
         errorCallback: (error) => {
           window.alert(error);
+          setIsThinking(false);
           setPartToShow("idle");
         },
         successCallback: (res) => {
           if (!firstQuestion) setFirstQuestion(withoutTrailingPeriod(res.text));
           resetRecording?.();
-          append?.({
-            content: !firstQuestion
-              ? prepareFirstPrompt({
-                  focus,
-                  firstQuestion: withoutTrailingPeriod(res.text),
-                  cards: selectedCards,
-                })
-              : res.text,
-            role: "user",
-          } as any);
+          setIsThinking(false);
+          setPartToShow("recap");
         },
       });
     }
@@ -102,39 +75,14 @@ const QuestionScreen = ({
     setIsListening(isRecording);
   }, [isRecording]);
 
-  useEffect(() => {
-    if (!isActive) return;
-    if (focus?.length === 0) return;
-    if (firstQuestion?.length === 0) return;
-    if (messages?.length === 0) return;
+  const handleRecordAgain = () => {
+    setFirstQuestion("");
+    setPartToShow("idle");
+    resetRecording?.();
+  };
 
-    const lastMessage = messages?.[messages.length - 1];
-
-    const timer = setTimeout(() => {
-      if (lastMessage?.role === "assistant") {
-        // TODO: refactor the callbacks
-        convertTextToSpeech({
-          mediaDevices: navigator.mediaDevices,
-          message: lastMessage,
-          startSpeakCallback: () => {
-            setIsThinking(false);
-            setIsSpeaking(true);
-            setPartToShow("speaking");
-          },
-          endSpeakCallback: () => {
-            setIsSpeaking(false);
-            setPartToShow("idle");
-          },
-        });
-      }
-    }, 1000);
-
-    return () => clearTimeout(timer);
-  }, [messages]);
-
-  const handleGoToOutro = () => {
-    setGlobalState("outro");
-    setIsSpeaking(false);
+  const handleGoToNextScreen = () => {
+    setGlobalState("tarot");
     setIsListening(false);
     resetRecording?.();
   };
@@ -151,44 +99,50 @@ const QuestionScreen = ({
               ullamcorper tellus sed scelerisque ipsum elementum.
             </TextBlock>
           </FadeInWrapper>
+        </section>
+        <section className={s.screenPartWrapper}>
           <FadeInWrapper
-            show={partToShow === "idle" && messages && messages.length > 2}
-            delay={1500}
+            show={partToShow === "recap" && firstQuestion.length > 0}
+            delay={1000}
+            variant="fade"
           >
-            <TextBlock>
-              You can ask another question or we can end the conversation here.
-              To ask a follow up press and hold. To end tap the close button on
-              the top right.
-              <PressCTA label="[End]" onPress={handleGoToOutro} />
-            </TextBlock>
+            <HighlightBlock header="Question">
+              <p>{firstQuestion}</p>
+              <p className={s.recordAgainLink}>
+                <em onClick={handleRecordAgain}>record again</em>
+              </p>
+            </HighlightBlock>
           </FadeInWrapper>
         </section>
 
         <section className={`${s.screenPartWrapper} ${s.tempAiFeedback}`}>
-          <FadeInWrapper show={partToShow === "idle"} delay={100}>
+          <FadeInWrapper
+            show={partToShow === "idle"}
+            delay={100}
+            variant="fade"
+          >
             <div className={s.idle}>
               <p>"What is your question?"</p>
             </div>
           </FadeInWrapper>
-          <FadeInWrapper show={partToShow === "recording"} delay={100}>
+          <FadeInWrapper
+            show={partToShow === "recording"}
+            delay={100}
+            variant="fade"
+          >
             <div className={s.recording}>
               <p>"Listening..."</p>
-            </div>
-          </FadeInWrapper>
-          <FadeInWrapper show={partToShow === "thinking"} delay={100}>
-            <div className={s.thinking}>
-              <p>"Thinking..."</p>
-            </div>
-          </FadeInWrapper>
-          <FadeInWrapper show={partToShow === "speaking"} delay={100}>
-            <div className={s.speaking}>
-              <p>"Speaking..."</p>
             </div>
           </FadeInWrapper>
         </section>
 
         <footer className={s.footer}>
-          {(partToShow === "idle" || partToShow === "recording") && (
+          <FadeInWrapper
+            className={s.footerPart}
+            show={partToShow === "idle" || partToShow === "recording"}
+            delay={100}
+            variant="fade"
+          >
             <PressAndHoldCTA
               onBeginPress={() => handleStartRecording()}
               onEndPress={() => handleStopRecording()}
@@ -197,11 +151,19 @@ const QuestionScreen = ({
               idleChildren="Press & hold to record"
               activeChildren="Release to stop"
             />
-          )}
+          </FadeInWrapper>
+          <FadeInWrapper
+            className={s.footerPart}
+            show={partToShow === "recap"}
+            delay={100}
+            variant="fade"
+          >
+            <PressCTA onPress={handleGoToNextScreen} label="Next" />
+          </FadeInWrapper>
         </footer>
       </div>
     </Screen>
   );
 };
 
-export default QuestionScreen;
+export default FirstQuestionScreen;
