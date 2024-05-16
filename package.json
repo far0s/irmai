@@ -1,6 +1,6 @@
 {
   "name": "irmai",
-  "version": "0.2.5",
+  "version": "0.4.0",
   "private": true,
   "scripts": {
     "dev": "next dev --turbo --experimental-https",
@@ -10,15 +10,15 @@
   },
   "dependencies": {
     "@vercel/analytics": "^1.2.2",
-    "ai": "3.1.6",
+    "ai": "3.1.11",
     "next": "14.2.3",
-    "openai": "4.45.0",
+    "openai": "4.47.1",
     "react": "18.3.1",
     "react-dom": "^18.3.1",
     "zustand": "^4.5.2"
   },
   "devDependencies": {
-    "@types/node": "^20.12.11",
+    "@types/node": "^20.12.12",
     "@types/react": "^18.3.2",
     "@types/react-dom": "^18.3.0",
     "autoprefixer": "^10.4.19",

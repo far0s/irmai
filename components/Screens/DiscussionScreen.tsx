@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
+import { UseAssistantHelpers } from "ai/react";
 
 import { withoutTrailingPeriod } from "@/utils";
 import { prepareFirstPrompt } from "@/utils/prompts";
-import { IChatProps, ChatMessage } from "@/utils/shared-types";
+import { ChatMessage } from "@/utils/shared-types";
 import convertSpeechToText from "@/utils/speech-to-text";
 import convertTextToSpeech from "@/utils/text-to-speech";
 
@@ -25,10 +26,10 @@ type TPartToShow = null | "idle" | "recording" | "thinking" | "speaking";
 
 const DiscussionScreen = ({
   isActive,
-  chatProps,
+  assistantProps,
 }: {
   isActive: boolean;
-  chatProps: IChatProps;
+  assistantProps: UseAssistantHelpers;
 }) => {
   const {
     setGlobalState,
@@ -41,7 +42,7 @@ const DiscussionScreen = ({
   } = useIrmaiStore((s) => s);
   const [partToShow, setPartToShow] = useState<TPartToShow>(null);
 
-  const { messages, append }: IChatProps = chatProps;
+  const { messages, append }: UseAssistantHelpers = assistantProps;
 
   const {
     startRecording,

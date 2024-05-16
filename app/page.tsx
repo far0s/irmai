@@ -1,9 +1,6 @@
 "use client";
 import { useEffect } from "react";
-import { useChat } from "ai/react";
-
-import { prepareSystemPrompt } from "@/utils/prompts";
-import { IChatProps } from "@/utils/shared-types";
+import { useAssistant, UseAssistantHelpers } from "ai/react";
 
 import Header from "@/components/Header/Header";
 import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
@@ -31,17 +28,16 @@ const Screens = {
 const IrmaiHome = () => {
   const { globalState, setIsThinking, setAllCards } = useIrmaiStore((s) => s);
 
-  const chatProps: IChatProps = useChat({
-    api: "/api/chat",
+  const assistantProps: UseAssistantHelpers = useAssistant({
+    api: "/api/assistant",
   });
 
   useEffect(
-    () => setIsThinking(chatProps.isLoading || false),
-    [chatProps.isLoading]
+    () => setIsThinking(assistantProps.status === "in_progress" || false),
+    [assistantProps.status]
   );
 
   useEffect(() => {
-    prepareSystemPrompt(chatProps.append);
     fetchAllTarotCards();
   }, []);
 
@@ -59,12 +55,12 @@ const IrmaiHome = () => {
             <Component
               key={key}
               isActive={globalState === key}
-              chatProps={chatProps}
+              assistantProps={assistantProps}
             />
           ))}
         </Stage>
         <Header />
-        <Transcript chatProps={chatProps} />
+        <Transcript assistantProps={assistantProps} />
       </div>
 
       <Debug />

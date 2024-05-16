@@ -13,7 +13,7 @@ import useTranscript from "@/hooks/use-transcript";
 
 import s from "./transcript.module.css";
 
-const Transcript = ({ chatProps }: any) => {
+const Transcript = ({ assistantProps }: any) => {
   const {
     firstQuestion,
     showTranscript,
@@ -23,7 +23,7 @@ const Transcript = ({ chatProps }: any) => {
     reset,
   } = useIrmaiStore((s) => s);
   const transcriptInnerElem = useRef<HTMLDivElement | null>(null);
-  const { messages } = chatProps;
+  const { messages } = assistantProps;
   const transcript = useTranscript(messages);
 
   useScrollToTop(transcriptInnerElem);
