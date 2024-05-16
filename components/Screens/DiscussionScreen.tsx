@@ -55,8 +55,7 @@ const DiscussionScreen = ({
 
   const checkIfIrmaiHasAlreadyAnswered = () => {
     const msgs: ChatMessage[] | undefined = messages?.filter(
-      (message) =>
-        message.role === "assistant" && !message.content.includes("*SYSTEM")
+      (message) => message.role === "assistant"
     );
 
     return (msgs && msgs.length > 0) || false;
