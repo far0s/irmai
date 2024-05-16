@@ -29,13 +29,15 @@ const Card = ({
       </div>
       {/* and a front face showing an image */}
       <div className={s.cardFront}>
-        <img
-          src={card.image || null}
-          alt={card.name}
-          className={s.cardImage}
-          data-hidden={hidden}
-          data-reverse={reverse}
-        />
+        {card.image && (
+          <img
+            src={card.image}
+            alt={card.name}
+            className={s.cardImage}
+            data-hidden={hidden}
+            data-reverse={reverse}
+          />
+        )}
       </div>
     </div>
   );

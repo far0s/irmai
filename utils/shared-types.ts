@@ -45,4 +45,5 @@ export type ITarotCard = {
   meaning_up: string;
   meaning_rev: string;
   desc: string;
+  image: string;
 };
