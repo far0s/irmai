@@ -17,6 +17,7 @@ const CardsShaker = ({
   show: boolean;
 }) => {
   const { allCards, selectedCards, setSelectedCards } = useIrmaiStore((s) => s);
+  const [randomizedCards, setRandomizedCards] = useState(allCards);
   const [tempSelectedCards, setTempSelectedCards] = useState<any[]>([]);
   const [showReset, setShowReset] = useState(false);
 
@@ -24,17 +25,30 @@ const CardsShaker = ({
     if (show) {
       setSelectedCards([]);
       setShowReset(true);
+      randomizeCards();
     } else {
       setShowReset(false);
     }
   }, [show]);
 
-  // we probably don't need this anymore
-  /* const pickTarotCards = async () =>
-    await fetch("/api/tarot?n=3")
-      .then((res) => res.json())
-      .then((data) => setSelectedCards(data))
-      .catch((err) => console.error(err)); */
+  useEffect(() => {
+    if (tempSelectedCards.length === 3) {
+      window.setTimeout(() => {
+        setSelectedCards(tempSelectedCards);
+        setPartToShow("overview");
+        setTempSelectedCards([]);
+      }, 1300);
+    }
+  }, [tempSelectedCards]);
+
+  const randomizeCards = () => {
+    const cards = allCards.sort(() => Math.random() - 0.5);
+    const randomized = cards.map((card) => ({
+      ...card,
+      reverse: Math.random() < 0.5,
+    }));
+    return setRandomizedCards(randomized);
+  };
 
   // TODO:
   // first animate to show all the cards
@@ -53,10 +67,13 @@ const CardsShaker = ({
               <Card
                 key={card.name_short}
                 card={card}
-                hidden={false}
-                reverse={false}
+                hidden={!tempSelectedCards.includes(card)}
+                reverse={card.reverse}
                 onClick={() => {
-                  if (tempSelectedCards.length < 3) {
+                  if (
+                    tempSelectedCards.length < 3 &&
+                    !tempSelectedCards.includes(card)
+                  ) {
                     setTempSelectedCards([...tempSelectedCards, card]);
                   }
                 }}
@@ -79,37 +96,7 @@ const CardsShaker = ({
         >
           <em>Choose three cards</em>
         </p>
-        {tempSelectedCards.length === 3 && (
-          <PressCTA
-            onPress={() => {
-              setSelectedCards(tempSelectedCards);
-              setPartToShow("overview");
-            }}
-            label="reveal cards"
-          />
-        )}
       </footer>
-      {/* <div className={s.cardsContainer}>
-        {selectedCards.length === 0 ? (
-          <>
-            <p>[cards will be shown here]</p>
-            <PressCTA
-              onPress={pickTarotCards}
-              label="in the meantime click here to shuffle the cards"
-            />
-          </>
-        ) : (
-          <>
-            <CardsOverviewBlock cards={selectedCards} />
-            <PressCTA
-              onPress={() => {
-                setPartToShow("overview");
-              }}
-              label="go to results"
-            />
-          </>
-        )}
-      </div> */}
     </div>
   );
 };

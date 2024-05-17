@@ -13,6 +13,7 @@ const Debug = () => {
     isThinking,
     globalState,
     setGlobalState,
+    setSelectedCards,
 
     hideApp,
     setHideApp,
@@ -52,6 +53,11 @@ const Debug = () => {
         <p>
           <button onClick={() => setHideApp(!hideApp)}>
             {hideApp ? "show app" : "hide app"}
+          </button>
+        </p>
+        <p>
+          <button onClick={() => setSelectedCards([])}>
+            reset selected cards
           </button>
         </p>
         {isSpeaking && <p>irmai isSpeaking</p>}

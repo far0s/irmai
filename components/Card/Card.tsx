@@ -22,12 +22,10 @@ const Card = ({
       data-is-reverse={reverse}
       onClick={onClick}
     >
-      {/* a card has a backface with the irmai logo shown in both vertical directions */}
       <div className={s.cardBack}>
         <Logo />
         <Logo />
       </div>
-      {/* and a front face showing an image */}
       <div className={s.cardFront}>
         {card.image && (
           <img
@@ -38,6 +36,7 @@ const Card = ({
             data-reverse={reverse}
           />
         )}
+        <p>{card.name}</p>
       </div>
     </div>
   );
