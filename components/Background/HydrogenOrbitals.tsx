@@ -3,7 +3,7 @@ import * as THREE from "three";
 import { useFrame } from "@react-three/fiber";
 import { useControls } from "leva";
 
-import { convertHexToVec3, lerp } from "@/utils";
+import { convertHexToVec3 } from "@/utils";
 
 const initControls = {
   n: {
@@ -61,7 +61,7 @@ const HydrogenOrbitals = ({
   fragment: string;
 }) => {
   const meshRef = useRef<THREE.Mesh>(null!);
-  const [dimensions, setDimensions] = useState({
+  const [{ width, height }, setDimensions] = useState({
     width: window.innerWidth,
     height: window.innerHeight,
   });
@@ -84,18 +84,15 @@ const HydrogenOrbitals = ({
     if (meshRef.current) {
       const material = meshRef.current.material as THREE.ShaderMaterial;
       material.uniforms.u_time.value = time + 1;
-      material.uniforms.u_resolution.value.set(
-        dimensions.width,
-        dimensions.height
-      );
+      material.uniforms.u_resolution.value.set(width, height);
       material.uniforms.u_frame.value += 1;
       material.uniforms.n.value = n;
       material.uniforms.l.value = l;
       material.uniforms.m.value = m;
-      material.uniforms.u_scale.value = lerp(
-        0.5,
+      material.uniforms.u_scale.value = THREE.MathUtils.lerp(
+        material.uniforms.u_scale.value,
         u_scale,
-        Math.min(time / 5, 1.0)
+        0.1
       );
       material.uniforms.u_pos_color.value = convertHexToVec3(u_pos_color);
       material.uniforms.u_neg_color.value = convertHexToVec3(u_neg_color);
@@ -119,7 +116,7 @@ const HydrogenOrbitals = ({
   const uniforms = useMemo(() => {
     return {
       u_resolution: {
-        value: new THREE.Vector2(dimensions.width, dimensions.height),
+        value: new THREE.Vector2(width, height),
       },
       u_time: { value: 0.0 },
       u_frame: { value: 0.0 },
@@ -138,7 +135,7 @@ const HydrogenOrbitals = ({
 
   return (
     <mesh ref={meshRef} position={[0, 0, 0]} scale={1} rotation={[0, 0, 0]}>
-      <planeGeometry args={[dimensions.width, dimensions.height]} />
+      <planeGeometry args={[width, height]} />
       <shaderMaterial
         uniforms={uniforms}
         vertexShader={vertex}

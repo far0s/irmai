@@ -44,6 +44,3 @@ export const fetchGLSL = async (
   const data = await response.text();
   successCallback(data);
 };
-
-export const lerp = (start: number, end: number, t: number) =>
-  start * (1 - t) + end * t;

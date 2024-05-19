@@ -100,7 +100,7 @@ const Aura = ({ vertex, fragment }: { vertex: string; fragment: string }) => {
       material.uniforms.u_color.value = convertHexToVec3(u_color);
       material.uniforms.u_color2.value = convertHexToVec3(u_color2);
       material.uniforms.u_colorLimit.value = u_colorLimit;
-      material.uniforms.u_scale.value = lerp(
+      material.uniforms.u_scale.value = THREE.MathUtils.lerp(
         0.0,
         u_scale,
         Math.min(time / 10, 1.0)
@@ -108,7 +108,7 @@ const Aura = ({ vertex, fragment }: { vertex: string; fragment: string }) => {
       material.uniforms.u_distance.value = u_distance;
       material.uniforms.u_bloom.value = u_bloom;
       material.uniforms.u_center_size.value = u_center_size;
-      material.uniforms.u_complexity.value = lerp(
+      material.uniforms.u_complexity.value = THREE.MathUtils.lerp(
         0.0,
         u_complexity,
         Math.min(time / 5, 1.0)
