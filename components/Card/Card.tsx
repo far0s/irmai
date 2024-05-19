@@ -28,15 +28,16 @@ const Card = ({
       </div>
       <div className={s.cardFront}>
         {card.image && (
-          <img
-            src={card.image}
-            alt={card.name}
-            className={s.cardImage}
-            data-hidden={hidden}
-            data-reverse={reverse}
-          />
+          <img src={card.image} alt={card.name} className={s.cardImage} />
         )}
-        <p>{card.name}</p>
+        <p>
+          {card.name}{" "}
+          {reverse === true && (
+            <>
+              <br /> <span>(reverse)</span>
+            </>
+          )}
+        </p>
       </div>
     </div>
   );

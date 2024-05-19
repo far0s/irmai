@@ -16,7 +16,7 @@ const CardsShaker = ({
   setPartToShow: any;
   show: boolean;
 }) => {
-  const { allCards, selectedCards, setSelectedCards } = useIrmaiStore((s) => s);
+  const { allCards, setSelectedCards } = useIrmaiStore((s) => s);
   const [randomizedCards, setRandomizedCards] = useState(allCards);
   const [tempSelectedCards, setTempSelectedCards] = useState<any[]>([]);
   const [showReset, setShowReset] = useState(false);
@@ -50,33 +50,24 @@ const CardsShaker = ({
     return setRandomizedCards(randomized);
   };
 
-  // TODO:
-  // first animate to show all the cards
-  // the cards should randomized and turned over
-  // each card becomes selectable
-  // when selected, it moves to the selected cards section at the bottom
-  // when 3 cards are selected, reveal them and show them kinda full screen
-  // user can then click to go to the next screen
+  const handleAddCardToTempSelectedCards = (card: ITarotCard) => {
+    if (tempSelectedCards.length === 3) return;
+    if (tempSelectedCards.includes(card)) return;
+    setTempSelectedCards([...tempSelectedCards, card]);
+  };
 
   return (
     <div className={s.cardsShaker}>
       <div className={s.shakerSpace}>
         <div className={s.cardsGrid}>
-          {allCards.map((card) => (
+          {randomizedCards.map((card) => (
             <Fragment key={card.name_short}>
               <Card
                 key={card.name_short}
                 card={card}
                 hidden={!tempSelectedCards.includes(card)}
                 reverse={card.reverse}
-                onClick={() => {
-                  if (
-                    tempSelectedCards.length < 3 &&
-                    !tempSelectedCards.includes(card)
-                  ) {
-                    setTempSelectedCards([...tempSelectedCards, card]);
-                  }
-                }}
+                onClick={() => handleAddCardToTempSelectedCards(card)}
               />
             </Fragment>
           ))}
@@ -88,6 +79,11 @@ const CardsShaker = ({
           tempSelectedCards.map((card: ITarotCard) => (
             <div key={card.name_short} className={s.card}>
               {card.name}
+              {card.reverse === true && (
+                <>
+                  <br /> <span>(reverse)</span>
+                </>
+              )}
             </div>
           ))}
         <p

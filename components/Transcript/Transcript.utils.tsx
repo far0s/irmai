@@ -52,7 +52,15 @@ export const CardsOverviewBlock = ({ cards }: { cards: any[] }) => {
         {cards.map((card: any) => (
           <div key={card.name_short} className={s.transcriptCard}>
             <div className={s.transcriptCardPicture}></div>
-            <p className={s.transcriptCardTitle}>{card.name}</p>
+            <p className={s.transcriptCardTitle}>
+              {card.name}
+              {card.reverse === true && (
+                <>
+                  <br />
+                  (reverse)
+                </>
+              )}
+            </p>
           </div>
         ))}
       </div>

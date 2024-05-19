@@ -1,7 +1,7 @@
 .card {
   position: relative;
   flex: 0 0 min(230px, 50vw);
-  width: min(230p, 50vw);
+  width: min(230px, 50vw);
   aspect-ratio: 7/12;
   display: flex;
   flex-flow: column nowrap;
