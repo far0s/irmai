@@ -1,7 +1,7 @@
 .card {
   position: relative;
-  flex: 0 0 230px;
-  width: 230px;
+  flex: 0 0 min(230px, 50vw);
+  width: min(230px, 50vw);
   aspect-ratio: 7/12;
   display: flex;
   flex-flow: column nowrap;
@@ -35,10 +35,10 @@
   transform: rotateY(-180deg);
 }
 
-.card:hover .cardFront {
+.card[data-is-hidden="true"] .cardFront {
   transform: rotateY(180deg);
 }
 
-.card:hover .cardBack {
+.card[data-is-hidden="true"] .cardBack {
   transform: rotateY(0deg);
 }

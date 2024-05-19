@@ -17,6 +17,7 @@ const Debug = () => {
     setIsThinking,
     globalState,
     setGlobalState,
+    setSelectedCards,
 
     hideApp,
     setHideApp,
@@ -63,6 +64,7 @@ const Debug = () => {
         }
       },
     },
+    resetCards: button(() => setSelectedCards([])),
   });
 
   useEffect(() => {

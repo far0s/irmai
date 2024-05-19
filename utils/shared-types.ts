@@ -30,4 +30,5 @@ export type ITarotCard = {
   meaning_rev: string;
   desc: string;
   image: string;
+  reverse: boolean;
 };

@@ -24,26 +24,21 @@
   pointer-events: none;
 }
 
-/* .cardsContainer {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: stretch;
-} */
-
 .shakerSpace {
   position: relative;
-  width: 100%;
+  width: calc(100% + var(--padding-s) * 2);
   height: 100%;
   overflow: hidden;
-  padding: var(--padding-s) 0;
+  padding: var(--padding-s);
   display: flex;
   flex-flow: row nowrap;
   justify-content: center;
   align-items: center;
+  overflow-x: scroll;
+}
+
+.shakerSpace::-webkit-scrollbar {
+  display: none;
 }
 
 .shakerDock {
@@ -86,9 +81,7 @@
   height: 100%;
   display: flex;
   flex-flow: row nowrap;
-  justify-content: center;
+  justify-content: stretch;
   align-items: center;
-  gap: 2rem;
-  overflow-x: scroll;
-  scroll-snap-type: x mandatory;
+  gap: var(--padding-s);
 }

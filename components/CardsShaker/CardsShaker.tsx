@@ -16,7 +16,8 @@ const CardsShaker = ({
   setPartToShow: any;
   show: boolean;
 }) => {
-  const { allCards, selectedCards, setSelectedCards } = useIrmaiStore((s) => s);
+  const { allCards, setSelectedCards } = useIrmaiStore((s) => s);
+  const [randomizedCards, setRandomizedCards] = useState(allCards);
   const [tempSelectedCards, setTempSelectedCards] = useState<any[]>([]);
   const [showReset, setShowReset] = useState(false);
 
@@ -24,42 +25,49 @@ const CardsShaker = ({
     if (show) {
       setSelectedCards([]);
       setShowReset(true);
+      randomizeCards();
     } else {
       setShowReset(false);
     }
   }, [show]);
 
-  // we probably don't need this anymore
-  /* const pickTarotCards = async () =>
-    await fetch("/api/tarot?n=3")
-      .then((res) => res.json())
-      .then((data) => setSelectedCards(data))
-      .catch((err) => console.error(err)); */
+  useEffect(() => {
+    if (tempSelectedCards.length === 3) {
+      window.setTimeout(() => {
+        setSelectedCards(tempSelectedCards);
+        setPartToShow("overview");
+        setTempSelectedCards([]);
+      }, 1300);
+    }
+  }, [tempSelectedCards]);
 
-  // TODO:
-  // first animate to show all the cards
-  // the cards should randomized and turned over
-  // each card becomes selectable
-  // when selected, it moves to the selected cards section at the bottom
-  // when 3 cards are selected, reveal them and show them kinda full screen
-  // user can then click to go to the next screen
+  const randomizeCards = () => {
+    const cards = allCards.sort(() => Math.random() - 0.5);
+    const randomized = cards.map((card) => ({
+      ...card,
+      reverse: Math.random() < 0.5,
+    }));
+    return setRandomizedCards(randomized);
+  };
+
+  const handleAddCardToTempSelectedCards = (card: ITarotCard) => {
+    if (tempSelectedCards.length === 3) return;
+    if (tempSelectedCards.includes(card)) return;
+    setTempSelectedCards([...tempSelectedCards, card]);
+  };
 
   return (
     <div className={s.cardsShaker}>
       <div className={s.shakerSpace}>
         <div className={s.cardsGrid}>
-          {allCards.map((card) => (
+          {randomizedCards.map((card) => (
             <Fragment key={card.name_short}>
               <Card
                 key={card.name_short}
                 card={card}
-                hidden={false}
-                reverse={false}
-                onClick={() => {
-                  if (tempSelectedCards.length < 3) {
-                    setTempSelectedCards([...tempSelectedCards, card]);
-                  }
-                }}
+                hidden={!tempSelectedCards.includes(card)}
+                reverse={card.reverse}
+                onClick={() => handleAddCardToTempSelectedCards(card)}
               />
             </Fragment>
           ))}
@@ -71,6 +79,11 @@ const CardsShaker = ({
           tempSelectedCards.map((card: ITarotCard) => (
             <div key={card.name_short} className={s.card}>
               {card.name}
+              {card.reverse === true && (
+                <>
+                  <br /> <span>(reverse)</span>
+                </>
+              )}
             </div>
           ))}
         <p
@@ -79,37 +92,7 @@ const CardsShaker = ({
         >
           <em>Choose three cards</em>
         </p>
-        {tempSelectedCards.length === 3 && (
-          <PressCTA
-            onPress={() => {
-              setSelectedCards(tempSelectedCards);
-              setPartToShow("overview");
-            }}
-            label="reveal cards"
-          />
-        )}
       </footer>
-      {/* <div className={s.cardsContainer}>
-        {selectedCards.length === 0 ? (
-          <>
-            <p>[cards will be shown here]</p>
-            <PressCTA
-              onPress={pickTarotCards}
-              label="in the meantime click here to shuffle the cards"
-            />
-          </>
-        ) : (
-          <>
-            <CardsOverviewBlock cards={selectedCards} />
-            <PressCTA
-              onPress={() => {
-                setPartToShow("overview");
-              }}
-              label="go to results"
-            />
-          </>
-        )}
-      </div> */}
     </div>
   );
 };
