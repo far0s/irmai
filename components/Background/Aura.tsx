@@ -102,7 +102,7 @@ const Aura = ({ vertex, fragment }: { vertex: string; fragment: string }) => {
       material.uniforms.u_colorLimit.value = u_colorLimit;
       material.uniforms.u_scale.value = THREE.MathUtils.lerp(
         0.0,
-        isListening ? u_scale : u_scale * 1.5,
+        isListening ? u_scale / 1.5 : u_scale,
         Math.min(time / 10, 1.0)
       );
       material.uniforms.u_distance.value = u_distance;
