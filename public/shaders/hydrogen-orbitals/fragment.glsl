@@ -3,9 +3,9 @@ uniform float u_time;
 uniform vec2 u_resolution;
 uniform int u_frame;
 uniform vec4 u_background;
-uniform int n;
-uniform int l;
-uniform int m;
+uniform float n;
+uniform float l;
+uniform float m;
 uniform float u_scale;
 uniform vec3 u_pos_color;
 uniform vec3 u_neg_color;
@@ -149,11 +149,11 @@ vec2 rotate(vec2 vector, float theta)
 	return vec2(vector.x * c - vector.y * s, vector.x * s + vector.y * c);
 }
 
-int factorial(int x)
+float factorial(float x)
 {
-	int f = 1;
+	float f = 1.0;
 
-	for(int i = 1; i <= x; i++)
+	for(float i = 1.0; i <= x; i++)
 	{
 		f = f * i;
 	}
@@ -253,68 +253,64 @@ float SH( in vec3 s )
 {
 	vec3 n_ = s.zxy;
 
-	//----------------------------------------------------------
-	if( l==0 )          return  k01;
-	//----------------------------------------------------------
-	if( l==1 && m==-1 ) return -k02 * n_.y;
-	if( l==1 && m== 0 ) return  k02 * n_.z;
-	if( l==1 && m== 1 ) return -k02 * n_.x;
-	//----------------------------------------------------------
-if( l==2 && m==-2 ) return  k03 * n_.x * n_.y;
-	if( l==2 && m==-1 ) return -k03 * n_.y * n_.z;
-	if( l==2 && m== 0 ) return  k04 * (3.0 * n_.z * n_.z - 1.0);
-	if( l==2 && m== 1 ) return -k03 * n_.x * n_.z;
-	if( l==2 && m== 2 ) return  k05 * (n_.x * n_.x - n_.y * n_.y);
-	//----------------------------------------------------------
-	if( l==3 && m==-3 ) return -k06 * n_.y * (3.0 * n_.x * n_.x - n_.y * n_.y);
-	if( l==3 && m==-2 ) return  k07 * n_.z * n_.y * n_.x;
-	if( l==3 && m==-1 ) return -k08 * n_.y * (5.0 * n_.z * n_.z - 1.0);
-	if( l==3 && m== 0 ) return  k09 * n_.z * (5.0 * n_.z * n_.z - 3.0);
-	if( l==3 && m== 1 ) return -k08 * n_.x * (5.0 * n_.z * n_.z - 1.0);
-	if( l==3 && m== 2 ) return  k10 * n_.z * (n_.x * n_.x - n_.y * n_.y);
-	if( l==3 && m== 3 ) return -k06 * n_.x * (n_.x * n_.x - 3.0 * n_.y * n_.y);
-	//----------------------------------------------------------
-if (l==4 && m==-4) return k11 * n_.x * n_.y * (n_.x * n_.x - n_.y * n_.y);
-if (l==4 && m==-3) return -k12 * n_.y * (3.0 * n_.x * n_.x - n_.y * n_.y) * n_.z;
-if (l==4 && m==-2) return k13 * n_.z * n_.y * (7.0 * n_.x * n_.x - 1.0);
-if (l==4 && m==-1) return -k14 * n_.y * (7.0 * n_.z * n_.z - 1.0);
-if (l==4 && m== 0) return k15 * (35.0 * n_.z * n_.z * n_.z * n_.z - 30.0 * n_.z * n_.z + 3.0);
-if (l==4 && m== 1) return -k14 * n_.x * (7.0 * n_.z * n_.z - 1.0);
-if (l==4 && m== 2) return k13 * n_.z * (n_.x * n_.x - n_.y * n_.y) * n_.z;
-if (l==4 && m== 3) return -k12 * n_.x * (n_.x * n_.x - 3.0 * n_.y * n_.y) * n_.z;
-if (l==4 && m== 4) return k16 * (n_.x * n_.x - n_.y * n_.y) * (n_.x * n_.x - n_.y * n_.y);
-//----------------------------------------------------------
-if (l==5 && m==-5) return -k17 * n_.y * (n_.x * n_.x - n_.y * n_.y) * (n_.x * n_.x - n_.y * n_.y);
-if (l==5 && m==-4) return k18 * n_.z * n_.y * (n_.x * n_.x - n_.y * n_.y) * n_.z;
-if (l==5 && m==-3) return -k19 * n_.y * (3.0 * n_.x * n_.x - n_.y * n_.y) * (11.0 * n_.z * n_.z - 1.0);
-if (l==5 && m==-2) return k20 * n_.z * n_.y * (11.0 * n_.z * n_.z - 3.0) * n_.z;
-if (l==5 && m==-1) return -k21 * n_.y * (11.0 * n_.z * n_.z - 3.0) * n_.z;
-if (l==5 && m== 0) return k22 * (231.0 * n_.z * n_.z * n_.z * n_.z * n_.z - 315.0 * n_.z * n_.z * n_.z + 105.0 * n_.z * n_.z - 5.0);
-if (l==5 && m== 1) return -k21 * n_.x * (11.0 * n_.z * n_.z - 3.0) * n_.z;
-if (l==5 && m== 2) return k20 * n_.z * (n_.x * n_.x - n_.y * n_.y) * (11.0 * n_.z * n_.z - 3.0) * n_.z;
-if (l==5 && m== 3) return -k19 * n_.x * (n_.x * n_.x - 3.0 * n_.y * n_.y) * (11.0 * n_.z * n_.z - 1.0);
-if (l==5 && m== 4) return k23 * n_.z * (n_.x * n_.x - n_.y * n_.y) * n_.z;
-if (l==5 && m== 5) return -k17 * n_.x * (n_.x * n_.x - 3.0 * n_.y * n_.y) * (n_.x * n_.x - n_.y * n_.y);
-//----------------------------------------------------------
-if (l==6 && m==-6) return k24 * n_.x * n_.y * (n_.x * n_.x - n_.y * n_.y) * (n_.x * n_.x - n_.y * n_.y);
-if (l==6 && m==-5) return -k25 * n_.y * (n_.x * n_.x - n_.y * n_.y) * (11.0 * n_.z * n_.z - 3.0) * n_.z;
-if (l==6 && m==-4) return k26 * n_.z * n_.y * (11.0 * n_.z * n_.z - 3.0) * n_.z;
-if (l==6 && m==-3) return -k27 * n_.y * (3.0 * n_.x * n_.x - n_.y * n_.y) * (11.0 * n_.z * n_.z - 1.0);
-if (l==6 && m==-2) return k28 * n_.z * n_.y * (33.0 * n_.z * n_.z * n_.z * n_.z - 18.0 * n_.z * n_.z + 1.0) * n_.z;
-if (l==6 && m==-1) return -k29 * n_.y * (33.0 * n_.z * n_.z * n_.z * n_.z - 18.0 * n_.z * n_.z + 1.0) * n_.z;
-if (l==6 && m== 0) return k30 * (3003.0 * n_.z * n_.z * n_.z * n_.z * n_.z * n_.z - 4620.0 * n_.z * n_.z * n_.z * n_.z + 2100.0 * n_.z * n_.z - 245.0 * n_.z + 5.0);
-if (l==6 && m== 1) return -k29 * n_.x * (33.0 * n_.z * n_.z * n_.z * n_.z - 18.0 * n_.z * n_.z + 1.0) * n_.z;
-if (l==6 && m== 2) return k28 * n_.z * (n_.x * n_.x - n_.y * n_.y) * (33.0 * n_.z * n_.z * n_.z * n_.z - 18.0 * n_.z * n_.z + 1.0) * n_.z;
-if (l==6 && m== 3) return -k27 * n_.x * (n_.x * n_.x - 3.0 * n_.y * n_.y) * (11.0 * n_.z * n_.z - 1.0);
-if (l==6 && m== 4) return k31 * n_.z * (n_.x * n_.x - n_.y * n_.y) * (11.0 * n_.z * n_.z - 3.0) * n_.z;
-if (l==6 && m== 5) return -k25 * n_.x * (n_.x * n_.x - 3.0 * n_.y * n_.y) * (11.0 * n_.z * n_.z - 3.0) * n_.z;
-if (l==6 && m== 6) return k32 * (n_.x * n_.x - n_.y * n_.y) * (n_.x * n_.x - n_.y * n_.y);
-//----------------------------------------------------------
+	bool isZero = l == 0.0;
+	bool isAbsLBetween0And1 = abs(l) < 1.0 && abs(l) >= 0.0;
+	bool isAbsLBetween1And2 = abs(l) < 2.0 && abs(l) >= 1.0;
+	bool isAbsLBetween2And3 = abs(l) < 3.0 && abs(l) >= 2.0;
+	bool isAbsLBetween3And4 = abs(l) < 4.0 && abs(l) >= 3.0;
+	bool isAbsLBetween4And5 = abs(l) < 5.0 && abs(l) >= 4.0;
+	bool isAbsMBetween0And1 = abs(m) < 1.0 && abs(m) >= 0.0;
+	bool isAbsMBetween1And2 = abs(m) < 2.0 && abs(m) >= 1.0;
+	bool isAbsMBetween2And3 = abs(m) < 3.0 && abs(m) >= 2.0;
+	bool isAbsMBetween3And4 = abs(m) < 4.0 && abs(m) >= 3.0;
+	// float lmFactor = sqrt( (2.0 * l + 1.0) / (4.0 * pi) );
+	float lmFactor = 1.0;
 
+	//----------------------------------------------------------
+	if( isZero )          return  k01;
+	//----------------------------------------------------------
+	if( isAbsLBetween0And1 && isAbsMBetween1And2 ) return -k02 * n_.y * lmFactor;
+	if( isAbsLBetween0And1 && isAbsMBetween0And1 ) return  k02 * n_.z * lmFactor;
+	if( isAbsLBetween0And1 && isAbsMBetween1And2 ) return -k02 * n_.x * lmFactor;
+	//----------------------------------------------------------
+	if( isAbsLBetween1And2 && isAbsMBetween2And3 ) return  k03 * n_.x * n_.y * lmFactor;
+	if( isAbsLBetween1And2 && isAbsMBetween1And2 ) return -k03 * n_.y * n_.z * lmFactor;
+	if( isAbsLBetween1And2 && isAbsMBetween0And1 ) return  k04 * (3.0 * n_.z * n_.z - 1.0) * lmFactor;
+	if( isAbsLBetween1And2 && isAbsMBetween1And2 ) return -k03 * n_.x * n_.z * lmFactor;
+	if( isAbsLBetween1And2 && isAbsMBetween2And3 ) return  k05 * (n_.x * n_.x - n_.y * n_.y) * lmFactor;
+	//----------------------------------------------------------
+	if( isAbsLBetween2And3 && isAbsMBetween3And4 ) return -k06 * n_.y * (3.0 * n_.x * n_.x - n_.y * n_.y) * lmFactor;
+	if( isAbsLBetween2And3 && isAbsMBetween2And3 ) return  k07 * n_.z * n_.y * n_.x * lmFactor;
+	if( isAbsLBetween2And3 && isAbsMBetween1And2 ) return -k08 * n_.y * (5.0 * n_.z * n_.z - 1.0) * lmFactor;
+	if( isAbsLBetween2And3 && isAbsMBetween0And1 ) return  k09 * n_.z * (5.0 * n_.z * n_.z - 3.0) * lmFactor;
+	if( isAbsLBetween2And3 && isAbsMBetween1And2 ) return -k08 * n_.x * (5.0 * n_.z * n_.z - 1.0) * lmFactor;
+	if( isAbsLBetween2And3 && isAbsMBetween2And3 ) return  k10 * n_.z * (n_.x * n_.x - n_.y * n_.y) * lmFactor;
+	if( isAbsLBetween2And3 && isAbsMBetween3And4 ) return -k06 * n_.x * (n_.x * n_.x - 3.0 * n_.y * n_.y) * lmFactor;
+	//----------------------------------------------------------
+	if (isAbsLBetween3And4 && m==-4.0) return k11 * n_.x * n_.y * (n_.x * n_.x - n_.y * n_.y) * lmFactor;
+	if (isAbsLBetween3And4 && isAbsMBetween3And4) return -k12 * n_.y * (3.0 * n_.x * n_.x - n_.y * n_.y) * n_.z * lmFactor;
+	if (isAbsLBetween3And4 && isAbsMBetween2And3) return k13 * n_.z * n_.y * (7.0 * n_.x * n_.x - 1.0) * lmFactor;
+	if (isAbsLBetween3And4 && isAbsMBetween1And2) return -k14 * n_.y * (7.0 * n_.z * n_.z - 1.0) * lmFactor;
+	if (isAbsLBetween3And4 && isAbsMBetween0And1) return k15 * (35.0 * n_.z * n_.z * n_.z * n_.z - 30.0 * n_.z * n_.z + 3.0) * lmFactor;
+	if (isAbsLBetween3And4 && isAbsMBetween1And2) return -k14 * n_.x * (7.0 * n_.z * n_.z - 1.0) * lmFactor;
+	if (isAbsLBetween3And4 && isAbsMBetween2And3) return k13 * n_.z * (n_.x * n_.x - n_.y * n_.y) * n_.z * lmFactor;
+	if (isAbsLBetween3And4 && isAbsMBetween3And4) return -k12 * n_.x * (n_.x * n_.x - 3.0 * n_.y * n_.y) * n_.z * lmFactor;
+	if (isAbsLBetween3And4 && m== 4.0) return k16 * (n_.x * n_.x - n_.y * n_.y) * (n_.x * n_.x - n_.y * n_.y) * lmFactor;
+	//----------------------------------------------------------
+	if (isAbsLBetween4And5 && m==-5.0) return -k17 * n_.y * (n_.x * n_.x - n_.y * n_.y) * (n_.x * n_.x - n_.y * n_.y) * lmFactor;
+	if (isAbsLBetween4And5 && m==-4.0) return k18 * n_.z * n_.y * (n_.x * n_.x - n_.y * n_.y) * n_.z * lmFactor;
+	if (isAbsLBetween4And5 && isAbsMBetween3And4) return -k19 * n_.y * (3.0 * n_.x * n_.x - n_.y * n_.y) * (11.0 * n_.z * n_.z - 1.0) * lmFactor;
+	if (isAbsLBetween4And5 && isAbsMBetween2And3) return k20 * n_.z * n_.y * (11.0 * n_.z * n_.z - 3.0) * n_.z * lmFactor;
+	if (isAbsLBetween4And5 && isAbsMBetween1And2) return -k21 * n_.y * (11.0 * n_.z * n_.z - 3.0) * n_.z * lmFactor;
+	if (isAbsLBetween4And5 && isAbsMBetween0And1) return k22 * (231.0 * n_.z * n_.z * n_.z * n_.z * n_.z - 315.0 * n_.z * n_.z * n_.z + 105.0 * n_.z * n_.z - 5.0) * lmFactor;
+	if (isAbsLBetween4And5 && isAbsMBetween1And2) return -k21 * n_.x * (11.0 * n_.z * n_.z - 3.0) * n_.z * lmFactor;
+	if (isAbsLBetween4And5 && isAbsMBetween2And3) return k20 * n_.z * (n_.x * n_.x - n_.y * n_.y) * (11.0 * n_.z * n_.z - 3.0) * n_.z * lmFactor;
+	if (isAbsLBetween4And5 && isAbsMBetween3And4) return -k19 * n_.x * (n_.x * n_.x - 3.0 * n_.y * n_.y) * (11.0 * n_.z * n_.z - 1.0) * lmFactor;
+	if (isAbsLBetween4And5 && m== 4.0) return k23 * n_.z * (n_.x * n_.x - n_.y * n_.y) * n_.z * lmFactor;
+	if (isAbsLBetween4And5 && m== 5.0) return -k17 * n_.x * (n_.x * n_.x - 3.0 * n_.y * n_.y) * (n_.x * n_.x - n_.y * n_.y) * lmFactor;
+	//----------------------------------------------------------
 	return 0.0;
 }
-/*
-*/
 
 // Generalized Laguerre Polynomial (not neccesary, I think?)
 float L(float rho)
@@ -335,7 +331,7 @@ float wavefunction(float r, float theta, float phi)
 {
 	float rho = (2.0 * r) / (float(n) * a0);
 	float f0 = 2.0 / (float(n) * a0);
-	float f1 = float( factorial(n - l - 1) ) / float( 2 * n * factorial(n + l) );
+	float f1 = float( factorial(n - l - 1.0) ) / float( 2.0 * n * factorial(n + l) );
 	return sqrt(f0 * f0 * f0 * f1) * exp(-rho / 2.0) * pow( rho, float(l) ) * L(rho) * Y(theta, phi);
 }
 

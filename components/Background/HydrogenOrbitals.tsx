@@ -7,22 +7,22 @@ import { convertHexToVec3, lerp } from "@/utils";
 
 const initControls = {
   n: {
-    value: 3,
-    min: 1,
-    max: 6,
-    step: 1,
+    value: 3.0,
+    min: 1.0,
+    max: 6.0,
+    step: 0.1,
   },
   l: {
-    value: 2,
-    min: 0,
-    max: 6,
-    step: 1,
+    value: 2.0,
+    min: 0.0,
+    max: 5.0,
+    step: 0.01,
   },
   m: {
-    value: 0,
-    min: -6,
-    max: 6,
-    step: 1,
+    value: 0.0,
+    min: -4.0,
+    max: 4.0,
+    step: 0.01,
   },
   u_scale: {
     value: 1.0,
