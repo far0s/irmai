@@ -3,6 +3,8 @@ import * as THREE from "three";
 import { useFrame } from "@react-three/fiber";
 import { useControls } from "leva";
 
+import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
+
 import { convertHexToVec3, lerp } from "@/utils";
 
 const initControls = {
@@ -63,6 +65,7 @@ const initControls = {
 };
 
 const Aura = ({ vertex, fragment }: { vertex: string; fragment: string }) => {
+  const { isListening, isThinking, isSpeaking } = useIrmaiStore((s) => s);
   const meshRef = useRef<THREE.Mesh>(null!);
   const [dimensions, setDimensions] = useState({
     width: window.innerWidth,

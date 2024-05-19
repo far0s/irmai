@@ -37,7 +37,14 @@ const Debug = () => {
     levaGlobalState: {
       value: globalState,
       label: "Global State",
-      options: ["splash", "landing", "focus", "tarot", "question", "outro"],
+      options: [
+        "splash",
+        "landing",
+        "firstQuestion",
+        "tarot",
+        "discussion",
+        "outro",
+      ],
       onChange: (v) => setGlobalState(v),
     },
     orbState: {

@@ -20,23 +20,23 @@ import s from "./page.module.css";
 const Screens = {
   splash: SplashScreen,
   landing: LandingScreen,
-  // focus: FocusScreen,
-  // tarot: TarotScreen,
-  // question: QuestionScreen,
-  // outro: OutroScreen,
+  firstQuestion: FirstQuestionScreen,
+  tarot: TarotScreen,
+  discussion: DiscussionScreen,
+  outro: OutroScreen,
 };
 
 const IrmaiHome = () => {
   const { globalState, setIsThinking, setAllCards } = useIrmaiStore((s) => s);
 
-  /* const assistantProps: IChatProps = useChat({
-    api: "/api/chat",
+  const assistantProps: UseAssistantHelpers = useAssistant({
+    api: "/api/assistant",
   });
 
   useEffect(
-    () => setIsThinking(assistantProps.isLoading || false),
-    [assistantProps.isLoading]
-  ); */
+    () => setIsThinking(assistantProps.status === "in_progress" || false),
+    [assistantProps.status]
+  );
 
   const fetchAllTarotCards = async () =>
     await fetch("/api/tarot")
@@ -52,12 +52,12 @@ const IrmaiHome = () => {
             <Component
               key={key}
               isActive={globalState === key}
-              // assistantProps={assistantProps}
+              assistantProps={assistantProps}
             />
           ))}
         </Stage>
         <Header />
-        {/* <Transcript assistantProps={assistantProps} /> */}
+        <Transcript assistantProps={assistantProps} />
       </div>
 
       <Debug />
