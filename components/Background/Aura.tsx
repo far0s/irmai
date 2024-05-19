@@ -5,7 +5,7 @@ import { useControls } from "leva";
 
 import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
 
-import { convertHexToVec3, lerp } from "@/utils";
+import { convertHexToVec3 } from "@/utils";
 
 const initControls = {
   u_speed: {
@@ -102,7 +102,7 @@ const Aura = ({ vertex, fragment }: { vertex: string; fragment: string }) => {
       material.uniforms.u_colorLimit.value = u_colorLimit;
       material.uniforms.u_scale.value = THREE.MathUtils.lerp(
         0.0,
-        u_scale,
+        isListening ? u_scale : u_scale * 1.5,
         Math.min(time / 10, 1.0)
       );
       material.uniforms.u_distance.value = u_distance;
