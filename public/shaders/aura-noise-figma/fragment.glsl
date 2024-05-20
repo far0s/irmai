@@ -15,6 +15,7 @@ uniform float u_distance;
 uniform float u_bloom;
 uniform float u_center_size;
 uniform float u_complexity;
+uniform float u_audioLevels[20];
 varying vec2 vUv;
 
 /*
@@ -45,7 +46,8 @@ void mainImage ( out vec4 fragColor, in vec2 fragCoord ) {
     vec3 startColor = u_color;
     vec3 endColor = u_color2 * 10.0;
     vec3 l = startColor + endColor * f;
-    cl = cl * l + smoothstep(u_bloom, u_center_size, rz) * 1.0 * l;
+    float audioBoost = u_audioLevels[int(i)] / 50.0;
+    cl = cl * l + smoothstep(u_bloom + audioBoost , u_center_size, rz) * 1.0 * l;
     d += min(rz, 1.0);
   }
 

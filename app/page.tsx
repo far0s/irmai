@@ -38,6 +38,10 @@ const IrmaiHome = () => {
     [assistantProps.status]
   );
 
+  useEffect(() => {
+    fetchAllTarotCards();
+  }, []);
+
   const fetchAllTarotCards = async () =>
     await fetch("/api/tarot")
       .then((res) => res.json())

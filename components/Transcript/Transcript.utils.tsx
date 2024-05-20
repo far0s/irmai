@@ -1,16 +1,17 @@
 "use client";
+import { memo } from "react";
 import { dateDDMMYYYY, timeHHMM } from "@/utils";
 
 import s from "./transcript.module.css";
 
-export const TimeKeeper = () => {
+export const TimeKeeper = memo(() => {
   return (
     <div className={s.timeKeeper}>
       <span className={s.timeDate}>{dateDDMMYYYY()}</span>
       <span className={s.timeTime}>{timeHHMM()}</span>
     </div>
   );
-};
+});
 
 export const HighlightBlock = ({
   header,

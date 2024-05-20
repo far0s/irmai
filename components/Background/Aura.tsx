@@ -6,6 +6,7 @@ import { useControls } from "leva";
 import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
 
 import { convertHexToVec3 } from "@/utils";
+import useAudioLevels from "@/hooks/use-audio-levels";
 
 const initControls = {
   u_speed: {
@@ -17,7 +18,7 @@ const initControls = {
   u_detail: {
     value: 0.1,
     min: 0.0,
-    max: 1.0,
+    max: 0.5,
     step: 0.001,
   },
   u_color: {
@@ -85,35 +86,39 @@ const Aura = ({ vertex, fragment }: { vertex: string; fragment: string }) => {
     u_complexity,
   } = useControls(initControls);
 
-  useFrame((state) => {
-    let time = state.clock.getElapsedTime();
+  const audioLevels: Uint8Array | null = useAudioLevels({
+    isOn: isListening,
+    numLevels: 1 + 20 * u_detail,
+  });
 
-    if (meshRef.current) {
-      const material = meshRef.current.material as THREE.ShaderMaterial;
-      material.uniforms.u_time.value = time + 1;
-      material.uniforms.u_resolution.value.set(
-        dimensions.width,
-        dimensions.height
-      );
-      material.uniforms.u_speed.value = u_speed;
-      material.uniforms.u_detail.value = u_detail;
-      material.uniforms.u_color.value = convertHexToVec3(u_color);
-      material.uniforms.u_color2.value = convertHexToVec3(u_color2);
-      material.uniforms.u_colorLimit.value = u_colorLimit;
-      material.uniforms.u_scale.value = THREE.MathUtils.lerp(
-        0.0,
-        isListening ? u_scale / 1.5 : u_scale,
-        Math.min(time / 10, 1.0)
-      );
-      material.uniforms.u_distance.value = u_distance;
-      material.uniforms.u_bloom.value = u_bloom;
-      material.uniforms.u_center_size.value = u_center_size;
-      material.uniforms.u_complexity.value = THREE.MathUtils.lerp(
-        0.0,
-        u_complexity,
-        Math.min(time / 5, 1.0)
-      );
-    }
+  useFrame((state) => {
+    if (!meshRef.current) return;
+    let time = state.clock.getElapsedTime();
+    const isReady = time > 10;
+    const { uniforms } = meshRef.current.material as THREE.ShaderMaterial;
+
+    uniforms.u_time.value = time + 1;
+    uniforms.u_resolution.value.set(dimensions.width, dimensions.height);
+    uniforms.u_speed.value = u_speed;
+    uniforms.u_detail.value = u_detail;
+    uniforms.u_color.value = convertHexToVec3(u_color);
+    uniforms.u_color2.value = convertHexToVec3(u_color2);
+    uniforms.u_colorLimit.value = u_colorLimit;
+    uniforms.u_scale.value = THREE.MathUtils.lerp(
+      uniforms.u_scale.value,
+      u_scale,
+      isReady ? 0.01 : 0.002
+    );
+    uniforms.u_distance.value = u_distance;
+    uniforms.u_bloom.value = u_bloom;
+    uniforms.u_center_size.value = u_center_size;
+    uniforms.u_complexity.value = THREE.MathUtils.lerp(
+      uniforms.u_complexity.value,
+      isSpeaking ? 2.5 : u_complexity,
+      0.01
+    );
+
+    uniforms.u_audioLevels.value = isListening || isSpeaking ? audioLevels : [];
   });
 
   useEffect(() => {
@@ -139,15 +144,14 @@ const Aura = ({ vertex, fragment }: { vertex: string; fragment: string }) => {
       u_background: { value: new THREE.Vector4(0.043, 0.008, 0.086, 1.0) },
       u_speed: { value: u_speed },
       u_detail: { value: u_detail },
-      u_scale: { value: u_scale },
+      u_scale: { value: 0.0 },
       u_distance: { value: u_distance },
       u_bloom: { value: u_bloom },
       u_center_size: { value: u_center_size },
       u_complexity: { value: 0.0 },
+      u_audioLevels: { value: new Uint8Array(20) },
     };
   }, []);
-
-  // TODO: create control logic for orb states
 
   return (
     <mesh ref={meshRef} position={[0, 0, 0]} scale={1} rotation={[0, 0, 0]}>
