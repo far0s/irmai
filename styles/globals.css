@@ -30,6 +30,7 @@ body {
   font-family: var(--font-poppins), sans-serif;
 }
 
-#leva_root {
+body div#leva_root,
+body div#leva_root * {
   display: none !important; /* hide leva ui */
 }
