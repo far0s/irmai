@@ -48,13 +48,17 @@
   transition: 0.8s ease-out;
 }
 
+.cardFront {
+  transform: rotateY(0deg) translateZ(1px);
+}
+
 .cardBack {
   gap: var(--padding-s);
   transform: rotateY(-180deg);
 }
 
 .card[data-is-hidden="true"] .cardFront {
-  transform: rotateY(180deg);
+  transform: rotateY(180deg) translateZ(1px);
 }
 
 .card[data-is-hidden="true"] .cardBack {
