@@ -79,7 +79,7 @@ export type Store = State & Actions;
 
 export const initStore = (): State => {
   return {
-    debug: /* process.env.NODE_ENV === "development", */ true,
+    debug: process.env.NODE_ENV === "development",
     globalState: "splash",
     isReadyToAskForMic: false,
     isMicReady: false,
@@ -99,9 +99,7 @@ export const initStore = (): State => {
 };
 
 export const defaultInitState: State = {
-  debug:
-    /* process.env.NODE_ENV === "development", */
-    true,
+  debug: process.env.NODE_ENV === "development",
   globalState: "splash",
   isReadyToAskForMic: false,
   isMicReady: false,
@@ -141,7 +139,14 @@ export const createZStore = (initState: State = defaultInitState) => {
           setAllCards: (cards: any[]) => set({ allCards: cards }),
           setSelectedCards: (cards: any[]) => set({ selectedCards: cards }),
           setConclusion: (conclusion: string) => set({ conclusion }),
-          reset: () => set(initState),
+          reset: () =>
+            set({
+              ...initState,
+              globalState: "splash",
+              hasSeenSplash: true,
+              isReadyToAskForMic: true,
+              isMicReady: true,
+            }),
 
           setHideApp: (hideApp: boolean) => set({ hideApp }),
         }),
