@@ -64,7 +64,7 @@
   padding-bottom: 40px;
 }
 
-.transcriptBlock span {
+.transcriptBlock span[data-header="true"] {
   font-family: var(--font-cirka), serif;
   text-wrap: balance;
   display: inline-block;
@@ -104,37 +104,12 @@
 
 .transcriptCards {
   padding-top: 16px;
-  padding-bottom: 40px;
+  padding-bottom: 64px;
   display: flex;
   flex-flow: row nowrap;
   justify-content: center;
   align-items: flex-start;
-  gap: 16px;
-}
-
-.transcriptCard {
-  flex: 0 1 auto;
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: center;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-.transcriptCardPicture {
-  border-radius: 3px;
-  border: 2px solid currentColor;
-  width: 64px;
-  height: 100px;
-}
-
-.transcriptCardTitle {
-  margin-top: 0.5rem;
-  font-size: 14px;
-  font-style: italic;
-  text-align: center;
-  width: calc(100% - 4px);
-  text-wrap: pretty;
+  gap: 24px;
 }
 
 .transcriptTranscript {

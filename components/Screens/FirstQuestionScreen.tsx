@@ -19,7 +19,6 @@ type TPartToShow = null | "idle" | "recording" | "recap";
 const FirstQuestionScreen = ({ isActive }: { isActive: boolean }) => {
   const {
     setGlobalState,
-    setIsSpeaking,
     setIsListening,
     setIsThinking,
     firstQuestion,
@@ -93,10 +92,11 @@ const FirstQuestionScreen = ({ isActive }: { isActive: boolean }) => {
         <section className={s.screenPartWrapper}>
           <FadeInWrapper show={partToShow === "idle"} delay={1000}>
             <TextBlock>
-              <span>Question</span> Lorem ipsum dolor sit amet consectetur. Leo
-              nisi odio aliquam cursus egestas. Augue venenatis tincidunt in
-              volutpat. Nascetur amet auctor sem non fermentum. Velit sem
-              ullamcorper tellus sed scelerisque ipsum elementum.
+              <span data-header="true">Question</span> Lorem ipsum dolor sit
+              amet consectetur. Leo nisi odio aliquam cursus egestas. Augue
+              venenatis tincidunt in volutpat. Nascetur amet auctor sem non
+              fermentum. Velit sem ullamcorper tellus sed scelerisque ipsum
+              elementum.
             </TextBlock>
           </FadeInWrapper>
         </section>

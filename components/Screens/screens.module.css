@@ -23,7 +23,7 @@
   border-top: 2px solid currentColor;
 }
 
-.copy span {
+.copy > p > span {
   font-family: var(--font-cirka), serif;
   text-wrap: balance;
   display: inline-block;

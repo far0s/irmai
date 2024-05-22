@@ -45,7 +45,7 @@ const CardsShaker = ({
     const cards = allCards.sort(() => Math.random() - 0.5);
     const randomized = cards.map((card) => ({
       ...card,
-      reverse: Math.random() < 0.5,
+      reverse: Math.random() < 0.25, // the card has a 25% chance of being reversed
     }));
     return setRandomizedCards(randomized);
   };
