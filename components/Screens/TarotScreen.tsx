@@ -36,7 +36,10 @@ const TarotScreen = ({ isActive }: { isActive: boolean }) => {
   return (
     <Screen isActive={isActive}>
       <div className={s.wrapper} data-show={partToShow}>
-        <section className={s.screenPartWrapper}>
+        <section
+          className={s.screenPartWrapper}
+          data-interactive={partToShow === "overview"}
+        >
           <FadeInWrapper
             show={partToShow === "overview" && firstQuestion.length > 0}
             delay={1000}
@@ -71,7 +74,10 @@ const TarotScreen = ({ isActive }: { isActive: boolean }) => {
           </FadeInWrapper>
         </section>
 
-        <section className={s.screenPartWrapper}>
+        <section
+          className={s.screenPartWrapper}
+          data-interactive={partToShow === "pulling"}
+        >
           <FadeInWrapper show={partToShow === "pulling"} variant="fade">
             <CardsShaker
               setPartToShow={setPartToShow}

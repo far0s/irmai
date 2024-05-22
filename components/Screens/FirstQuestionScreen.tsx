@@ -89,7 +89,10 @@ const FirstQuestionScreen = ({ isActive }: { isActive: boolean }) => {
   return (
     <Screen isActive={isActive}>
       <div className={s.wrapper}>
-        <section className={s.screenPartWrapper}>
+        <section
+          className={s.screenPartWrapper}
+          data-interactive={partToShow === "idle"}
+        >
           <FadeInWrapper show={partToShow === "idle"} delay={1000}>
             <TextBlock>
               <span data-header="true">Question</span> Lorem ipsum dolor sit
@@ -100,7 +103,10 @@ const FirstQuestionScreen = ({ isActive }: { isActive: boolean }) => {
             </TextBlock>
           </FadeInWrapper>
         </section>
-        <section className={s.screenPartWrapper}>
+        <section
+          className={s.screenPartWrapper}
+          data-interactive={partToShow === "recap"}
+        >
           <FadeInWrapper
             show={partToShow === "recap" && firstQuestion.length > 0}
             delay={1000}

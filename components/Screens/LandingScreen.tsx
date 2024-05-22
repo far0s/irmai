@@ -41,7 +41,10 @@ const LandingScreen = ({
     <Screen isActive={isActive}>
       <div className={s.wrapper} data-show={partToShow}>
         {/* Part 1 - welcome */}
-        <section className={s.screenPartWrapper}>
+        <section
+          className={s.screenPartWrapper}
+          data-interactive={partToShow === "welcome"}
+        >
           <FadeInWrapper
             show={partToShow === "welcome"}
             className={s.copy}
@@ -77,7 +80,10 @@ const LandingScreen = ({
         </section>
 
         {/* Part 2 - question */}
-        <section className={s.screenPartWrapper}>
+        <section
+          className={s.screenPartWrapper}
+          data-interactive={partToShow === "question"}
+        >
           <FadeInWrapper
             show={partToShow === "question"}
             className={s.copy}

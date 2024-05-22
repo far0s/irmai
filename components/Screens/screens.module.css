@@ -14,6 +14,10 @@
   height: 100%;
 }
 
+.screenPartWrapper[data-interactive="false"] {
+  pointer-events: none;
+}
+
 .screenPartWrapper > div:first-of-type > article {
   margin-top: -2rem;
   border-top: 0;

@@ -21,6 +21,13 @@
   --font-size: 12px;
 }
 
+.card[data-variant="lightbox"] {
+  --size: min(400px, 75vw);
+  --spacing-1: 0.75rem;
+  --spacing-2: 1.5rem;
+  --font-size: 18px;
+}
+
 .cardBack h1:nth-of-type(2) {
   transform: rotate(180deg);
 }
@@ -105,8 +112,31 @@
 
 .cardImage {
   padding: var(--spacing-1);
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
 }
 
 .card[data-is-reverse="true"] .cardImage {
   transform: rotateZ(180deg);
+}
+
+.lightbox {
+  position: fixed;
+  top: calc(-1 * var(--header-safe-zone));
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  margin: 0 calc(-1 * var(--padding-s));
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.3s ease;
+  z-index: 99;
+}
+
+.lightboxContent {
+  max-width: 90%;
+  max-height: 90%;
 }

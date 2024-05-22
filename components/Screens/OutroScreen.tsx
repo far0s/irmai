@@ -48,7 +48,10 @@ const OutroScreen = ({
   return (
     <Screen isActive={isActive}>
       <div className={s.wrapper}>
-        <section className={s.screenPartWrapper}>
+        <section
+          className={s.screenPartWrapper}
+          data-interactive={partToShow === "outro"}
+        >
           <FadeInWrapper
             show={partToShow === "outro" && conclusion.length > 0}
             delay={1000}
