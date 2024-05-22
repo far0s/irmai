@@ -27,6 +27,7 @@ const Debug = () => {
     reset();
     window.location.reload();
   };
+
   useControls({
     reset: button(() => handleReset()),
     levaHideApp: {
@@ -71,7 +72,6 @@ const Debug = () => {
         }
       },
     },
-    resetCards: button(() => setSelectedCards([])),
   });
 
   useEffect(() => {
