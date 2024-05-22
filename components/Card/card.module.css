@@ -136,8 +136,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: opacity 0.3s ease;
   z-index: 99;
+}
+
+[data-show="overview"] .lightbox {
+  top: calc(-2 * var(--header-safe-zone));
 }
 
 .lightboxContent {
