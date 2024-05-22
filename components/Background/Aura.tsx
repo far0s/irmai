@@ -118,7 +118,8 @@ const Aura = ({ vertex, fragment }: { vertex: string; fragment: string }) => {
       0.01
     );
 
-    uniforms.u_audioLevels.value = isListening || isSpeaking ? audioLevels : [];
+    uniforms.u_audioLevels.value =
+      isListening || isSpeaking ? audioLevels : new Array(20).fill(0);
   });
 
   useEffect(() => {
