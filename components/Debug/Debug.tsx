@@ -9,16 +9,11 @@ const Debug = () => {
   const {
     reset,
     debug,
-    isSpeaking,
-    isListening,
-    isThinking,
     setIsSpeaking,
     setIsListening,
     setIsThinking,
     globalState,
     setGlobalState,
-    setSelectedCards,
-
     hideApp,
     setHideApp,
   } = useIrmaiStore((s) => s);
@@ -81,7 +76,7 @@ const Debug = () => {
     }
   }, [hideApp]);
 
-  return debug && <Leva flat collapsed />;
+  return debug && <Leva hidden flat collapsed />;
 };
 
 export default memo(Debug);
