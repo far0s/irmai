@@ -97,7 +97,7 @@ const Aura = ({ vertex, fragment }: { vertex: string; fragment: string }) => {
   useFrame((state) => {
     if (!meshRef.current) return;
     let time = state.clock.getElapsedTime();
-    const isReady = time > 10;
+    const isReady = time > 15;
     const { uniforms } = meshRef.current.material as THREE.ShaderMaterial;
 
     uniforms.u_time.value = time + 1;

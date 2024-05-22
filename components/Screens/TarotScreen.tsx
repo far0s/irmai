@@ -28,7 +28,7 @@ const TarotScreen = ({ isActive }: { isActive: boolean }) => {
   }, [isActive]);
 
   const handleCTAPress = () => {
-    selectedCards.length === 0
+    selectedCards.length < 3
       ? setPartToShow("pulling")
       : setGlobalState("discussion");
   };

@@ -62,11 +62,10 @@ const DiscussionScreen = ({
   };
 
   useEffect(() => {
-    setPartToShow(
-      isActive ? (checkIfIrmaiHasAlreadyAnswered() ? "idle" : "thinking") : null
-    );
-    const alreadyHasAnswered = checkIfIrmaiHasAlreadyAnswered();
-    isActive && !alreadyHasAnswered && handleSendFirstQuestion();
+    if (!isActive) return;
+    const hasAlreadyAnswered = checkIfIrmaiHasAlreadyAnswered();
+    setPartToShow(hasAlreadyAnswered ? "idle" : "thinking");
+    !hasAlreadyAnswered && handleSendFirstQuestion();
   }, [isActive]);
 
   const handleSendFirstQuestion = () => {

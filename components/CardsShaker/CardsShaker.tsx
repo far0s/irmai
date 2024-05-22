@@ -19,15 +19,14 @@ const CardsShaker = ({
   const { allCards, setSelectedCards } = useIrmaiStore((s) => s);
   const [randomizedCards, setRandomizedCards] = useState(allCards);
   const [tempSelectedCards, setTempSelectedCards] = useState<any[]>([]);
-  const [showReset, setShowReset] = useState(false);
 
   useEffect(() => {
     if (show) {
       setSelectedCards([]);
-      setShowReset(true);
       randomizeCards();
+      setTempSelectedCards([]);
     } else {
-      setShowReset(false);
+      setTempSelectedCards([]);
     }
   }, [show]);
 
