@@ -1,16 +1,20 @@
 "use client";
+import { memo } from "react";
+
+import Card from "@/components/Card/Card";
+
 import { dateDDMMYYYY, timeHHMM } from "@/utils";
 
 import s from "./transcript.module.css";
 
-export const TimeKeeper = () => {
+export const TimeKeeper = memo(() => {
   return (
     <div className={s.timeKeeper}>
       <span className={s.timeDate}>{dateDDMMYYYY()}</span>
       <span className={s.timeTime}>{timeHHMM()}</span>
     </div>
   );
-};
+});
 
 export const HighlightBlock = ({
   header,
@@ -50,18 +54,13 @@ export const CardsOverviewBlock = ({ cards }: { cards: any[] }) => {
       <header className={s.transcriptHeader}>Your cards</header>
       <div className={s.transcriptCards}>
         {cards.map((card: any) => (
-          <div key={card.name_short} className={s.transcriptCard}>
-            <div className={s.transcriptCardPicture}></div>
-            <p className={s.transcriptCardTitle}>
-              {card.name}
-              {card.reverse === true && (
-                <>
-                  <br />
-                  (reverse)
-                </>
-              )}
-            </p>
-          </div>
+          <Card
+            key={card.name}
+            card={card}
+            hidden={false}
+            reverse={card.reverse}
+            variant="small"
+          />
         ))}
       </div>
     </article>

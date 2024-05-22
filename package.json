@@ -1,6 +1,6 @@
 {
   "name": "irmai",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "private": true,
   "scripts": {
     "dev": "next dev --turbo --experimental-https",
@@ -9,12 +9,17 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@react-three/drei": "^9.105.6",
+    "@react-three/fiber": "^8.16.3",
+    "@types/three": "^0.164.0",
     "@vercel/analytics": "^1.2.2",
     "ai": "3.1.12",
+    "leva": "^0.9.35",
     "next": "14.2.3",
     "openai": "4.47.1",
     "react": "18.3.1",
     "react-dom": "^18.3.1",
+    "three": "^0.164.1",
     "zustand": "^4.5.2"
   },
   "devDependencies": {

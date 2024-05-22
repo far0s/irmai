@@ -1,3 +1,5 @@
+import { Vector3 } from "three";
+
 import { type ChatMessage } from "./shared-types";
 
 export const dateDDMMYYYY = () =>
@@ -23,4 +25,22 @@ export const filteredTranscript = (messages: ChatMessage[]) => {
       !item.content.includes("*INTRO") &&
       !item.content.includes("*CONCLUSION")
   );
+};
+
+export const convertHexToVec3 = (hex: string): Vector3 => {
+  const color = new Vector3();
+  const r = parseInt(hex.substring(1, 3), 16) / 255;
+  const g = parseInt(hex.substring(3, 5), 16) / 255;
+  const b = parseInt(hex.substring(5, 7), 16) / 255;
+  color.set(r, g, b);
+  return color;
+};
+
+export const fetchGLSL = async (
+  path: string,
+  successCallback: (data: string) => void
+) => {
+  const response = await fetch(path);
+  const data = await response.text();
+  successCallback(data);
 };

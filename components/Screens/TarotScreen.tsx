@@ -28,7 +28,7 @@ const TarotScreen = ({ isActive }: { isActive: boolean }) => {
   }, [isActive]);
 
   const handleCTAPress = () => {
-    selectedCards.length === 0
+    selectedCards.length < 3
       ? setPartToShow("pulling")
       : setGlobalState("discussion");
   };
@@ -36,7 +36,10 @@ const TarotScreen = ({ isActive }: { isActive: boolean }) => {
   return (
     <Screen isActive={isActive}>
       <div className={s.wrapper} data-show={partToShow}>
-        <section className={s.screenPartWrapper}>
+        <section
+          className={s.screenPartWrapper}
+          data-interactive={partToShow === "overview"}
+        >
           <FadeInWrapper
             show={partToShow === "overview" && firstQuestion.length > 0}
             delay={1000}
@@ -56,21 +59,25 @@ const TarotScreen = ({ isActive }: { isActive: boolean }) => {
               <CardsOverviewBlock cards={selectedCards} />
             ) : (
               <TextBlock>
-                <span>Cards</span> Each card has symbolic meanings that
-                represent different aspects of your life, such as relationships,
-                career, emotions, and more. As you choose the cards, I will
-                interpret the symbols and archetypes to provide you with
-                personalized insights and guidance. The cards are not meant to
-                predict the future, but rather to offer a fresh perspective on
-                your current situation and potential paths forward. My role is
-                to be an intuitive guide, and we will work together to explore
-                the messages the cards reveal and how they apply to your life.
+                <span data-header="true">Cards</span> Each card has symbolic
+                meanings that represent different aspects of your life, such as
+                relationships, career, emotions, and more. As you choose the
+                cards, I will interpret the symbols and archetypes to provide
+                you with personalized insights and guidance. The cards are not
+                meant to predict the future, but rather to offer a fresh
+                perspective on your current situation and potential paths
+                forward. My role is to be an intuitive guide, and we will work
+                together to explore the messages the cards reveal and how they
+                apply to your life.
               </TextBlock>
             )}
           </FadeInWrapper>
         </section>
 
-        <section className={s.screenPartWrapper}>
+        <section
+          className={s.screenPartWrapper}
+          data-interactive={partToShow === "pulling"}
+        >
           <FadeInWrapper show={partToShow === "pulling"} variant="fade">
             <CardsShaker
               setPartToShow={setPartToShow}

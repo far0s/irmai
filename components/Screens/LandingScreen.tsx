@@ -17,7 +17,7 @@ const LandingScreen = ({
   assistantProps,
 }: {
   isActive: boolean;
-  assistantProps: UseAssistantHelpers;
+  assistantProps?: UseAssistantHelpers;
 }) => {
   const { setGlobalState } = useIrmaiStore((s) => s);
   const [partToShow, setPartToShow] = useDebounce<TPartToShow>(null, 100);
@@ -41,11 +41,14 @@ const LandingScreen = ({
     <Screen isActive={isActive}>
       <div className={s.wrapper} data-show={partToShow}>
         {/* Part 1 - welcome */}
-        <section className={s.screenPartWrapper}>
+        <section
+          className={s.screenPartWrapper}
+          data-interactive={partToShow === "welcome"}
+        >
           <FadeInWrapper
             show={partToShow === "welcome"}
             className={s.copy}
-            delay={1000}
+            delay={1500}
             variant="fade"
           >
             <p>
@@ -58,7 +61,7 @@ const LandingScreen = ({
           <FadeInWrapper
             show={partToShow === "welcome"}
             className={s.copy}
-            delay={1500}
+            delay={2000}
             variant="fade"
           >
             <p>There is power within your fingertips.</p>
@@ -66,7 +69,7 @@ const LandingScreen = ({
           <FadeInWrapper
             show={partToShow === "welcome"}
             className={s.copy}
-            delay={2000}
+            delay={2500}
             variant="fade"
           >
             <p>
@@ -77,7 +80,10 @@ const LandingScreen = ({
         </section>
 
         {/* Part 2 - question */}
-        <section className={s.screenPartWrapper}>
+        <section
+          className={s.screenPartWrapper}
+          data-interactive={partToShow === "question"}
+        >
           <FadeInWrapper
             show={partToShow === "question"}
             className={s.copy}

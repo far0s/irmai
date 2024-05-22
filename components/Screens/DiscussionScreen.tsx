@@ -62,11 +62,10 @@ const DiscussionScreen = ({
   };
 
   useEffect(() => {
-    setPartToShow(
-      isActive ? (checkIfIrmaiHasAlreadyAnswered() ? "idle" : "thinking") : null
-    );
-    const alreadyHasAnswered = checkIfIrmaiHasAlreadyAnswered();
-    isActive && !alreadyHasAnswered && handleSendFirstQuestion();
+    if (!isActive) return;
+    const hasAlreadyAnswered = checkIfIrmaiHasAlreadyAnswered();
+    setPartToShow(hasAlreadyAnswered ? "idle" : "thinking");
+    !hasAlreadyAnswered && handleSendFirstQuestion();
   }, [isActive]);
 
   const handleSendFirstQuestion = () => {
@@ -166,7 +165,10 @@ const DiscussionScreen = ({
   return (
     <Screen isActive={isActive}>
       <div className={s.wrapper}>
-        <section className={s.screenPartWrapper}>
+        <section
+          className={s.screenPartWrapper}
+          data-interactive={partToShow === "idle"}
+        >
           <FadeInWrapper
             show={partToShow === "idle" && firstQuestion.length > 0}
             delay={1000}

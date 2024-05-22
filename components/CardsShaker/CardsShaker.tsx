@@ -19,15 +19,14 @@ const CardsShaker = ({
   const { allCards, setSelectedCards } = useIrmaiStore((s) => s);
   const [randomizedCards, setRandomizedCards] = useState(allCards);
   const [tempSelectedCards, setTempSelectedCards] = useState<any[]>([]);
-  const [showReset, setShowReset] = useState(false);
 
   useEffect(() => {
     if (show) {
       setSelectedCards([]);
-      setShowReset(true);
       randomizeCards();
+      setTempSelectedCards([]);
     } else {
-      setShowReset(false);
+      setTempSelectedCards([]);
     }
   }, [show]);
 
@@ -45,7 +44,7 @@ const CardsShaker = ({
     const cards = allCards.sort(() => Math.random() - 0.5);
     const randomized = cards.map((card) => ({
       ...card,
-      reverse: Math.random() < 0.5,
+      reverse: Math.random() < 0.25, // the card has a 25% chance of being reversed
     }));
     return setRandomizedCards(randomized);
   };

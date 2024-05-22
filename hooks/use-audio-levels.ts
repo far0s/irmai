@@ -1,11 +1,13 @@
 import { useState, useEffect, useRef } from "react";
 
 function useAudioLevels({
+  isReady = false,
   isOn = false,
   audioRef,
   numLevels = 64,
   setIsMicReady,
 }: {
+  isReady?: boolean;
   isOn: boolean;
   audioRef?: MediaStreamAudioSourceNode | any;
   numLevels?: number;
@@ -19,6 +21,7 @@ function useAudioLevels({
   const audioSource = useRef<MediaStreamAudioSourceNode | any>(null);
 
   useEffect(() => {
+    if (!isReady) return;
     let cleanup = () => {};
 
     async function initAudioSource() {
@@ -64,7 +67,7 @@ function useAudioLevels({
     }
 
     return cleanup;
-  }, [isOn, audioRef, numLevels]);
+  }, [isReady, isOn, audioRef, numLevels]);
 
   function updateAudioLevels() {
     const bufferLength = analyserNode.current.frequencyBinCount;

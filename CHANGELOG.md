@@ -2,8 +2,6 @@
 
 ## Todo's in order of importance (move these to releases when in progress or done)
 
-- [ ] FEATURE/UI: add 'The Orb', animated centerpiece reacting to app's state and AI's outputs
-- [ ] FEATURE/ART: add tarot cards
 - [ ] FEATURE/UI: style outro screen
 - [ ] FEATURE/AI: update TTS API route to use ElevenLabs instead of OpenAI's Whisper
 - [ ] FEATURE/AI: "Chaos Mode" – based on trigger X in the conversation, the AI will become more chaotic, sarcastic, humourous, unhinged, etc.
@@ -13,6 +11,12 @@
 - [ ] BUGFIX: solve minified React errors in production (418, 423, 425)
 
 ## Releases
+
+### 0.5.0 - released 22/05/2024
+
+- [x] FEATURE/UI: add 'The Orb', animated centerpiece reacting to app's state and AI's outputs
+- [x] FEATURE/ART: add tarot cards
+- [x] FEATURE/UI: update splash screen to properly ask for mic permissions
 
 ### 0.4.0 - released 16/05/2024
 

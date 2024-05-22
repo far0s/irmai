@@ -10,9 +10,9 @@
   --header-transition-delay: 100s;
 }
 
+.header[data-is-splash-active="true"],
 .header[data-is-mic-ready="true"] {
-  /* once the mic is ready, we start the header+logo transitions */
-  --header-transition-delay: 0s;
+  --header-transition-delay: 1s;
 }
 
 .headerRow {
@@ -59,7 +59,7 @@
   top: var(--header-margin);
   left: var(--padding-s);
   cursor: pointer;
-  z-index: 10;
+  z-index: 1;
   aspect-ratio: 196 / 50;
   height: min(5dvh, var(--header-height));
   opacity: 0;
