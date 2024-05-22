@@ -59,7 +59,11 @@ const OutroScreen = ({
           >
             <HighlightBlock header="Conclusion">
               <p>
-                <em>{conclusion}</em>
+                <em>
+                  {conclusion.startsWith(": ")
+                    ? conclusion.slice(2)
+                    : conclusion}
+                </em>
               </p>
             </HighlightBlock>
           </FadeInWrapper>
