@@ -6,7 +6,9 @@ import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStorePro
 import s from "./header.module.css";
 
 const Header = () => {
-  const { globalState, isMicReady, reset } = useIrmaiStore((s) => s);
+  const { globalState, isReadyToAskForMic, isMicReady, reset } = useIrmaiStore(
+    (s) => s
+  );
   const isSplash = globalState === "splash";
 
   const handleReset = () => {
@@ -29,7 +31,7 @@ const Header = () => {
         </div>
         <TranscriptToggle />
       </div>
-      <UserAudioFeedback />
+      {isReadyToAskForMic && <UserAudioFeedback />}
     </header>
   );
 };

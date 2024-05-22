@@ -26,12 +26,14 @@ const generateUserAudioLevels = (
 };
 
 const UserAudioFeedback = () => {
-  const { globalState, setIsMicReady, isListening } = useIrmaiStore((s) => s);
+  const { globalState, isReadyToAskForMic, setIsMicReady, isListening } =
+    useIrmaiStore((s) => s);
   const [numLevels, setNumLevels] = useState<number>(16);
 
   const isNotSplash = globalState !== "splash";
 
   const audioLevels: Uint8Array | null = useAudioLevels({
+    isReady: isReadyToAskForMic,
     isOn: isListening,
     numLevels: numLevels,
     setIsMicReady: setIsMicReady,

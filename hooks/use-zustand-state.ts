@@ -6,6 +6,8 @@ interface IStore {
   debug: boolean;
   globalState: TGlobalState;
   setGlobalState: (state: TGlobalState) => void;
+  isReadyToAskForMic: boolean;
+  setIsReadyToAskForMic: (isReadyToAskForMic: boolean) => void;
   isMicReady: boolean;
   setIsMicReady: (isMicReady: boolean) => void;
   hasSeenSplash: boolean;
@@ -38,6 +40,7 @@ interface IStore {
 export type State = {
   debug: boolean;
   globalState: TGlobalState;
+  isReadyToAskForMic: boolean;
   isMicReady: boolean;
   hasSeenSplash: boolean;
   isSpeaking: boolean;
@@ -55,6 +58,7 @@ export type State = {
 
 export type Actions = {
   setGlobalState: (state: TGlobalState) => void;
+  setIsReadyToAskForMic: (isReadyToAskForMic: boolean) => void;
   setIsMicReady: (isMicReady: boolean) => void;
   setHasSeenSplash: (hasSeenSplash: boolean) => void;
   setIsSpeaking: (isSpeaking: boolean) => void;
@@ -77,6 +81,7 @@ export const initStore = (): State => {
   return {
     debug: /* process.env.NODE_ENV === "development", */ true,
     globalState: "splash",
+    isReadyToAskForMic: false,
     isMicReady: false,
     hasSeenSplash: false,
     isSpeaking: false,
@@ -98,6 +103,7 @@ export const defaultInitState: State = {
     /* process.env.NODE_ENV === "development", */
     true,
   globalState: "splash",
+  isReadyToAskForMic: false,
   isMicReady: false,
   hasSeenSplash: false,
   isSpeaking: false,
@@ -120,6 +126,8 @@ export const createZStore = (initState: State = defaultInitState) => {
         (set) => ({
           ...initState,
           setGlobalState: (state: TGlobalState) => set({ globalState: state }),
+          setIsReadyToAskForMic: (isReadyToAskForMic: boolean) =>
+            set({ isReadyToAskForMic }),
           setIsMicReady: (isMicReady: boolean) => set({ isMicReady }),
           setHasSeenSplash: (hasSeenSplash: boolean) => set({ hasSeenSplash }),
           setIsSpeaking: (isSpeaking: boolean) => set({ isSpeaking }),

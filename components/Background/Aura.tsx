@@ -66,7 +66,9 @@ const initControls = {
 };
 
 const Aura = ({ vertex, fragment }: { vertex: string; fragment: string }) => {
-  const { isListening, isThinking, isSpeaking } = useIrmaiStore((s) => s);
+  const { isMicReady, isListening, isThinking, isSpeaking } = useIrmaiStore(
+    (s) => s
+  );
   const meshRef = useRef<THREE.Mesh>(null!);
   const [dimensions, setDimensions] = useState({
     width: window.innerWidth,
@@ -87,6 +89,7 @@ const Aura = ({ vertex, fragment }: { vertex: string; fragment: string }) => {
   } = useControls(initControls);
 
   const audioLevels: Uint8Array | null = useAudioLevels({
+    isReady: isMicReady,
     isOn: isListening,
     numLevels: 1 + 20 * u_detail,
   });

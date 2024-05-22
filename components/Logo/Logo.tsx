@@ -6,7 +6,7 @@ import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStorePro
 import s from "./logo.module.css";
 
 const Logo = () => {
-  const { isMicReady } = useIrmaiStore((s) => s);
+  const { globalState, isReadyToAskForMic } = useIrmaiStore((s) => s);
   const logoRef = useRef<SVGSVGElement>(null);
 
   const generateRandomDelaysForLetters = () => {
@@ -22,8 +22,8 @@ const Logo = () => {
   };
 
   useEffect(() => {
-    isMicReady && generateRandomDelaysForLetters();
-  }, [isMicReady]);
+    globalState === "splash" && generateRandomDelaysForLetters();
+  }, [globalState]);
 
   return (
     <h1>

@@ -34,6 +34,8 @@ const useRecorder = (): Recorder => {
       setTime((prevTime) => prevTime + 1);
     }, 1000);
 
+    console.log("startRecording");
+
     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
     mediaRecorderRef.current = new MediaRecorder(stream);
     const chunks: BlobPart[] = [];

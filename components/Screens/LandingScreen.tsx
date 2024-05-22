@@ -48,7 +48,7 @@ const LandingScreen = ({
           <FadeInWrapper
             show={partToShow === "welcome"}
             className={s.copy}
-            delay={1000}
+            delay={1500}
             variant="fade"
           >
             <p>
@@ -61,7 +61,7 @@ const LandingScreen = ({
           <FadeInWrapper
             show={partToShow === "welcome"}
             className={s.copy}
-            delay={1500}
+            delay={2000}
             variant="fade"
           >
             <p>There is power within your fingertips.</p>
@@ -69,7 +69,7 @@ const LandingScreen = ({
           <FadeInWrapper
             show={partToShow === "welcome"}
             className={s.copy}
-            delay={2000}
+            delay={2500}
             variant="fade"
           >
             <p>
