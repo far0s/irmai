@@ -12,6 +12,10 @@
 
 ## Releases
 
+### 0.5.1 - released 22/05/2024
+
+- [x] CHORE: clean up reset/restart functionality
+
 ### 0.5.0 - released 22/05/2024
 
 - [x] FEATURE/UI: add 'The Orb', animated centerpiece reacting to app's state and AI's outputs

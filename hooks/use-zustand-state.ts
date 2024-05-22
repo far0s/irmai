@@ -139,7 +139,14 @@ export const createZStore = (initState: State = defaultInitState) => {
           setAllCards: (cards: any[]) => set({ allCards: cards }),
           setSelectedCards: (cards: any[]) => set({ selectedCards: cards }),
           setConclusion: (conclusion: string) => set({ conclusion }),
-          reset: () => set(initState),
+          reset: () =>
+            set({
+              ...initState,
+              globalState: "splash",
+              hasSeenSplash: true,
+              isReadyToAskForMic: true,
+              isMicReady: true,
+            }),
 
           setHideApp: (hideApp: boolean) => set({ hideApp }),
         }),

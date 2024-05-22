@@ -75,13 +75,7 @@ const OutroScreen = ({
           label="Show transcript"
           onPress={() => setShowTranscript(true)}
         />
-        <PressCTA
-          label="New Reading"
-          onPress={() => {
-            reset();
-            window.location.reload();
-          }}
-        />
+        <PressCTA label="New Reading" onPress={reset} />
       </footer>
     </Screen>
   );

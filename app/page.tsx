@@ -39,8 +39,8 @@ const IrmaiHome = () => {
   );
 
   useEffect(() => {
-    fetchAllTarotCards();
-  }, []);
+    globalState === "splash" && fetchAllTarotCards();
+  }, [globalState]);
 
   const fetchAllTarotCards = async () =>
     await fetch("/api/tarot")

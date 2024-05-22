@@ -90,13 +90,7 @@ const Transcript = ({ assistantProps }: any) => {
               [ADD OUTRO ACTIONS HERE]
             </header>
             <p>
-              <PressCTA
-                label="New Reading"
-                onPress={() => {
-                  reset();
-                  window.location.reload();
-                }}
-              />
+              <PressCTA label="New Reading" onPress={reset} />
             </p>
           </article>
         )}
