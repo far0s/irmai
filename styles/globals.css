@@ -29,3 +29,7 @@ body {
   color: var(--cream);
   font-family: var(--font-poppins), sans-serif;
 }
+
+#leva_root {
+  display: none !important; /* hide leva ui */
+}
