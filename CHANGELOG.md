@@ -12,6 +12,10 @@
 
 ## Releases
 
+### 0.5.2 - released 24/05/2024
+
+- [x] BUGFIX: debounce causing reload issue on safari at cardsShaker
+
 ### 0.5.1 - released 22/05/2024
 
 - [x] CHORE: clean up reset/restart functionality
