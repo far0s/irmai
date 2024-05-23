@@ -21,6 +21,7 @@ const Transcript = ({ assistantProps }: any) => {
     selectedCards,
     conclusion,
     reset,
+    setGlobalState,
   } = useIrmaiStore((s) => s);
   const transcriptInnerElem = useRef<HTMLDivElement | null>(null);
   const { messages } = assistantProps;
@@ -31,6 +32,11 @@ const Transcript = ({ assistantProps }: any) => {
   useEffect(() => {
     setShowTranscript(false);
   }, []);
+
+  const handleReset = () => {
+    reset();
+    window.location.reload();
+  };
 
   // TODO: refactor remaining transcript blocks
 
@@ -45,6 +51,17 @@ const Transcript = ({ assistantProps }: any) => {
         )}
         {selectedCards.length > 0 && (
           <CardsOverviewBlock cards={selectedCards} />
+        )}
+        {selectedCards.length > 0 && transcript.length === 0 && (
+          // <article className={s.transcriptBlock}>
+          <PressCTA
+            label="continue"
+            onPress={() => {
+              setShowTranscript(false);
+              setGlobalState("discussion");
+            }}
+          />
+          // </article>
         )}
         {firstQuestion.length > 0 && (
           <article className={s.transcriptBlock}>
@@ -90,7 +107,7 @@ const Transcript = ({ assistantProps }: any) => {
               [ADD OUTRO ACTIONS HERE]
             </header>
             <p>
-              <PressCTA label="New Reading" onPress={reset} />
+              <PressCTA label="New Reading" onPress={handleReset} />
             </p>
           </article>
         )}

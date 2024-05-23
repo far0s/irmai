@@ -18,13 +18,13 @@ const Debug = () => {
     setHideApp,
   } = useIrmaiStore((s) => s);
 
-  const handleReset = () => {
+  /* const handleReset = () => {
     reset();
     window.location.reload();
   };
-
+ */
   useControls({
-    reset: button(() => handleReset()),
+    // reset: button(() => handleReset()),
     levaHideApp: {
       value: hideApp,
       label: "Hide App",

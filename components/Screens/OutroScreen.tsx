@@ -45,6 +45,11 @@ const OutroScreen = ({
     handleMessagesChange(messages, setConclusion);
   }, [messages]);
 
+  const handleReset = () => {
+    reset();
+    window.location.reload();
+  };
+
   return (
     <Screen isActive={isActive}>
       <div className={s.wrapper}>
@@ -75,7 +80,7 @@ const OutroScreen = ({
           label="Show transcript"
           onPress={() => setShowTranscript(true)}
         />
-        <PressCTA label="New Reading" onPress={reset} />
+        <PressCTA label="New Reading" onPress={handleReset} />
       </footer>
     </Screen>
   );

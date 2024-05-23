@@ -11,6 +11,11 @@ const Header = () => {
   );
   const isSplash = globalState === "splash";
 
+  const handleReset = () => {
+    reset();
+    window.location.reload();
+  };
+
   return (
     <header
       className={s.header}
@@ -18,7 +23,7 @@ const Header = () => {
       data-is-mic-ready={isMicReady}
     >
       <div className={s.headerRow}>
-        <button className={s.logoShadow} onClick={reset}>
+        <button className={s.logoShadow} onClick={handleReset}>
           shadow
         </button>
         <div className={s.logoWrapper}>
