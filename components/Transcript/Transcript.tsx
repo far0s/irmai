@@ -52,17 +52,6 @@ const Transcript = ({ assistantProps }: any) => {
         {selectedCards.length > 0 && (
           <CardsOverviewBlock cards={selectedCards} />
         )}
-        {selectedCards.length > 0 && transcript.length === 0 && (
-          // <article className={s.transcriptBlock}>
-          <PressCTA
-            label="continue"
-            onPress={() => {
-              setShowTranscript(false);
-              setGlobalState("discussion");
-            }}
-          />
-          // </article>
-        )}
         {firstQuestion.length > 0 && (
           <article className={s.transcriptBlock}>
             <ul className={s.transcriptTranscript}>

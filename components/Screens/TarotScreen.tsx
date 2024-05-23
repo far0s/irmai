@@ -1,6 +1,6 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
-import { useDebounce } from "@/hooks/use-debounce";
+// import { useDebounce } from "@/hooks/use-debounce";
 
 import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
 import PressCTA from "@/components/PressCTA/PressCTA";
@@ -21,7 +21,7 @@ const TarotScreen = ({ isActive }: { isActive: boolean }) => {
   const { setGlobalState, selectedCards, firstQuestion } = useIrmaiStore(
     (s) => s
   );
-  const [partToShow, setPartToShow] = useDebounce<TPartToShow>(null, 100);
+  const [partToShow, setPartToShow] = useState<TPartToShow>(null);
 
   useEffect(() => {
     setPartToShow(isActive ? "overview" : null);
@@ -80,7 +80,7 @@ const TarotScreen = ({ isActive }: { isActive: boolean }) => {
         >
           <FadeInWrapper show={partToShow === "pulling"} variant="fade">
             <CardsShaker
-              setPartToShow={() => setPartToShow("overview")}
+              showOverview={() => setPartToShow("overview")}
               show={partToShow === "pulling"}
             />
           </FadeInWrapper>

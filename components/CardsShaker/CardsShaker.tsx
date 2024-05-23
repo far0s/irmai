@@ -8,10 +8,10 @@ import { ITarotCard } from "@/utils/shared-types";
 import s from "./cardsShaker.module.css";
 
 const CardsShaker = ({
-  setPartToShow,
+  showOverview,
   show,
 }: {
-  setPartToShow: any;
+  showOverview: any;
   show: boolean;
 }) => {
   const { allCards, setSelectedCards } = useIrmaiStore((s) => s);
@@ -32,7 +32,7 @@ const CardsShaker = ({
     if (tempSelectedCards.length === 3) {
       setSelectedCards(tempSelectedCards);
       window.setTimeout(() => {
-        setPartToShow();
+        showOverview();
       }, 1300);
     }
   }, [tempSelectedCards]);
