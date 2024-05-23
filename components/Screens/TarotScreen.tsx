@@ -15,7 +15,7 @@ import CardsShaker from "@/components/CardsShaker/CardsShaker";
 
 import s from "./screens.module.css";
 
-type TPartToShow = null | "overview" | "pulling" | "result";
+type TPartToShow = null | "overview" | "pulling";
 
 const TarotScreen = ({ isActive }: { isActive: boolean }) => {
   const { setGlobalState, selectedCards, firstQuestion } = useIrmaiStore(
@@ -80,7 +80,7 @@ const TarotScreen = ({ isActive }: { isActive: boolean }) => {
         >
           <FadeInWrapper show={partToShow === "pulling"} variant="fade">
             <CardsShaker
-              setPartToShow={setPartToShow}
+              setPartToShow={() => setPartToShow("overview")}
               show={partToShow === "pulling"}
             />
           </FadeInWrapper>

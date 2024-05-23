@@ -1,8 +1,6 @@
 import { useEffect, useState, Fragment } from "react";
 
 import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
-import PressCTA from "@/components/PressCTA/PressCTA";
-import { CardsOverviewBlock } from "@/components/Transcript/Transcript.utils";
 import Card from "@/components/Card/Card";
 
 import { ITarotCard } from "@/utils/shared-types";
@@ -32,15 +30,15 @@ const CardsShaker = ({
 
   useEffect(() => {
     if (tempSelectedCards.length === 3) {
+      setSelectedCards(tempSelectedCards);
       window.setTimeout(() => {
-        setSelectedCards(tempSelectedCards);
-        setPartToShow("overview");
-        setTempSelectedCards([]);
+        setPartToShow();
       }, 1300);
     }
   }, [tempSelectedCards]);
 
   const randomizeCards = () => {
+    if (allCards?.length === 0) return;
     const cards = allCards.sort(() => Math.random() - 0.5);
     const randomized = cards.map((card) => ({
       ...card,
