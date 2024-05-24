@@ -47,7 +47,7 @@ const OutroScreen = ({
 
   const handleReset = () => {
     reset();
-    window.location.reload();
+    // window.location.reload();
   };
 
   return (

@@ -27,6 +27,14 @@ const TarotScreen = ({ isActive }: { isActive: boolean }) => {
     setPartToShow(isActive ? "overview" : null);
   }, [isActive]);
 
+  useEffect(() => {
+    if (selectedCards.length === 3) {
+      window.setTimeout(() => {
+        setPartToShow("overview");
+      }, 1300);
+    }
+  }, [selectedCards]);
+
   const handleCTAPress = () => {
     selectedCards.length < 3
       ? setPartToShow("pulling")
@@ -79,10 +87,7 @@ const TarotScreen = ({ isActive }: { isActive: boolean }) => {
           data-interactive={partToShow === "pulling"}
         >
           <FadeInWrapper show={partToShow === "pulling"} variant="fade">
-            <CardsShaker
-              showOverview={() => setPartToShow("overview")}
-              show={partToShow === "pulling"}
-            />
+            <CardsShaker show={partToShow === "pulling"} />
           </FadeInWrapper>
         </section>
       </div>

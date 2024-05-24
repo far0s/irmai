@@ -7,33 +7,22 @@ import { ITarotCard } from "@/utils/shared-types";
 
 import s from "./cardsShaker.module.css";
 
-const CardsShaker = ({
-  showOverview,
-  show,
-}: {
-  showOverview: any;
-  show: boolean;
-}) => {
+const CardsShaker = ({ show }: { show: boolean }) => {
   const { allCards, setSelectedCards } = useIrmaiStore((s) => s);
   const [randomizedCards, setRandomizedCards] = useState(allCards);
   const [tempSelectedCards, setTempSelectedCards] = useState<any[]>([]);
 
   useEffect(() => {
     if (show) {
+      setTempSelectedCards([]);
       setSelectedCards([]);
       randomizeCards();
-      setTempSelectedCards([]);
-    } else {
-      setTempSelectedCards([]);
     }
   }, [show]);
 
   useEffect(() => {
     if (tempSelectedCards.length === 3) {
       setSelectedCards(tempSelectedCards);
-      window.setTimeout(() => {
-        showOverview();
-      }, 1300);
     }
   }, [tempSelectedCards]);
 
@@ -60,7 +49,6 @@ const CardsShaker = ({
           {randomizedCards.map((card) => (
             <Fragment key={card.name_short}>
               <Card
-                key={card.name_short}
                 card={card}
                 hidden={!tempSelectedCards.includes(card)}
                 reverse={card.reverse}

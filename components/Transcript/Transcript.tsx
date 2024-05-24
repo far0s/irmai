@@ -35,7 +35,6 @@ const Transcript = ({ assistantProps }: any) => {
 
   const handleReset = () => {
     reset();
-    window.location.reload();
   };
 
   // TODO: refactor remaining transcript blocks

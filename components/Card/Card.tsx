@@ -18,7 +18,7 @@ const Card = ({
   card: ITarotCard;
   hidden: boolean;
   reverse: boolean;
-  onClick?: () => void;
+  onClick?: any;
   variant?: "default" | "small";
 }) => {
   const [lightboxOpen, setLightboxOpen] = useState(false);
@@ -42,7 +42,9 @@ const Card = ({
         data-variant={variant}
         onClick={handleCardClick}
       >
-        <div className={s.cardBack}>
+        <button onClick={() => onClick}>{card.name}</button>
+        {/* FIXME: page crash reload after 3 cards are selected and view changes, not sure why */}
+        {/* <div className={s.cardBack}>
           <Logo />
           <Logo />
         </div>
@@ -62,10 +64,10 @@ const Card = ({
         <TransitionWrapper className={s.cardName} show={!hidden} delay={200}>
           <span>{card.name}</span>
           {reverse === true && <span>(reverse)</span>}
-        </TransitionWrapper>
+        </TransitionWrapper> */}
       </div>
 
-      {lightboxOpen && (
+      {/* {lightboxOpen && (
         <div className={s.lightbox} onClick={() => setLightboxOpen(false)}>
           <div className={s.lightboxContent}>
             <div
@@ -101,7 +103,7 @@ const Card = ({
             </div>
           </div>
         </div>
-      )}
+      )} */}
     </>
   );
 };
