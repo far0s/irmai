@@ -8,9 +8,12 @@
 - [ ] FEATURE: add an about page with a short description of the project, the team, etc.
 - [ ] CHORE: update metatags and SEO
 - [ ] BUGFIX/SAFARI: logo filter blur not working
-- [ ] BUGFIX: solve minified React errors in production (418, 423, 425)
 
 ## Releases
+
+### 0.5.3 - released 27/05/2024
+
+- [x] BUGFIX: solve minified React errors in production (418, 423, 425)
 
 ### 0.5.2 - released 24/05/2024
 
