@@ -50,8 +50,8 @@
   flex-flow: row nowrap;
   justify-content: space-between;
   align-items: center;
-  padding: 0.5rem 0;
-  font-size: 20px;
+  padding: calc(var(--text-size-m) * 0.5) 0;
+  font-size: var(--text-size-l);
   font-weight: 500;
 }
 
@@ -60,7 +60,7 @@
 }
 
 .transcriptBlock > p {
-  padding-top: 16px;
+  padding-top: var(--text-size-s);
   padding-bottom: 40px;
 }
 
@@ -68,7 +68,7 @@
   font-family: var(--font-cirka), serif;
   text-wrap: balance;
   display: inline-block;
-  font-size: 1.5rem;
+  font-size: var(--text-size-l);
   line-height: 1;
   font-weight: 600;
   text-transform: uppercase;
@@ -76,22 +76,22 @@
 }
 
 .transcriptHeader {
-  padding: 0.5rem 0;
+  padding: calc(var(--text-size-m) * 0.5) 0;
   font-family: var(--font-cirka), serif;
   text-transform: uppercase;
-  font-size: 20px;
+  font-size: var(--text-size-l);
   font-weight: 600;
 }
 
 .transcriptHighlight {
   width: 100%;
-  padding-top: 16px;
+  padding-top: var(--text-size-s);
   padding-bottom: 40px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-size: 24px;
+  font-size: var(--text-size-l);
   letter-spacing: -0.02em;
   text-align: center;
   text-wrap: balance;
@@ -103,7 +103,7 @@
 }
 
 .transcriptCards {
-  padding-top: 16px;
+  padding-top: var(--text-size-s);
   padding-bottom: 64px;
   display: flex;
   flex-flow: row nowrap;
@@ -123,7 +123,7 @@
   font-family: var(--font-cirka), serif;
   text-transform: uppercase;
   font-weight: 600;
-  font-size: 12px;
+  font-size: var(--text-size-s);
 }
 
 .transcriptItemAi p {

@@ -46,7 +46,7 @@
   margin-top: var(--header-safe-zone);
   max-width: 90vw;
   text-wrap: balance;
-  font-size: 14px;
+  font-size: var(--text-size-m);
 }
 
 .footer {

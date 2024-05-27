@@ -6,12 +6,15 @@
   justify-content: center;
   user-select: none !important;
   -webkit-user-select: none !important;
+
+  --cta-size: calc(var(--text-size-s) * 7);
+  --cta-y-offset: calc(var(--text-size-s) * 2);
 }
 
 .circleWrapper {
   position: relative;
-  width: 84px;
-  height: 84px;
+  width: var(--cta-size);
+  height: var(--cta-size);
   border: 1px dashed var(--cream);
   border-radius: 100%;
   display: flex;
@@ -29,8 +32,8 @@
 
 .circleGlow {
   position: absolute;
-  width: 84px;
-  height: 84px;
+  width: var(--cta-size);
+  height: var(--cta-size);
   border-radius: 100%;
   background: var(--cream);
   filter: blur(5.60534px);
@@ -48,27 +51,27 @@
 .copy,
 .copyWhilePress {
   position: absolute;
-  top: calc(100% + 24px);
-  font-size: 12px;
-  line-height: 15px;
+  top: calc(100% + var(--cta-y-offset));
+  font-size: var(--text-size-s);
+  line-height: 1.25;
   transform: translateY(0);
   transition: 0.5s ease-in-out 0.3s;
 }
 
 .circleCopy {
-  font-size: 12px;
-  line-height: 15px;
+  font-size: var(--text-size-s);
+  line-height: 1.25;
   font-style: italic;
 }
 
 .copyWhilePress {
   opacity: 0;
-  transform: translateY(24px);
+  transform: translateY(var(--cta-y-offset));
 }
 
 [data-is-pressed="true"] .copy {
   opacity: 0;
-  transform: translateY(-24px);
+  transform: translateY(calc(-1 * var(--cta-y-offset)));
 }
 
 [data-is-pressed="true"] .copyWhilePress {

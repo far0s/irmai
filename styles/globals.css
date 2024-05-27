@@ -22,12 +22,34 @@
 
   /* radii */
   --radius-s: 5px;
+
+  /* typography */
+  --text-size-s: 12px;
+  --text-size-m: 16px;
+  --text-size-l: 20px;
+}
+
+@media screen and (min-width: 992px) {
+  :root {
+    --text-size-s: 13.5px;
+    --text-size-m: 18px;
+    --text-size-l: 25px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  :root {
+    --text-size-s: 16px;
+    --text-size-m: 22px;
+    --text-size-l: 28px;
+  }
 }
 
 body {
   background-color: var(--black);
   color: var(--cream);
   font-family: var(--font-poppins), sans-serif;
+  font-size: var(--text-size-m);
 }
 
 [class*="leva"] {

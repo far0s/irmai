@@ -10,7 +10,6 @@ const SplashScreen = ({ isActive }: { isActive: boolean }) => {
   const {
     globalState,
     setGlobalState,
-    isReadyToAskForMic,
     setIsReadyToAskForMic,
     isMicReady,
     hasSeenSplash,
