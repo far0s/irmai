@@ -1,5 +1,5 @@
 "use client";
-import { memo } from "react";
+import { useState, useEffect } from "react";
 
 import Card from "@/components/Card/Card";
 
@@ -7,14 +7,22 @@ import { dateDDMMYYYY, timeHHMM } from "@/utils";
 
 import s from "./transcript.module.css";
 
-export const TimeKeeper = memo(() => {
+export const TimeKeeper = () => {
+  const [date, setDate] = useState("");
+  const [time, setTime] = useState("");
+
+  useEffect(() => {
+    setDate(dateDDMMYYYY());
+    setTime(timeHHMM());
+  }, []);
+
   return (
     <div className={s.timeKeeper}>
-      <span className={s.timeDate}>{dateDDMMYYYY()}</span>
-      <span className={s.timeTime}>{timeHHMM()}</span>
+      <span className={s.timeDate}>{date}</span>
+      <span className={s.timeTime}>{time}</span>
     </div>
   );
-});
+};
 
 export const HighlightBlock = ({
   header,

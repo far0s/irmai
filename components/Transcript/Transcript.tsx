@@ -21,7 +21,6 @@ const Transcript = ({ assistantProps }: any) => {
     selectedCards,
     conclusion,
     reset,
-    setGlobalState,
   } = useIrmaiStore((s) => s);
   const transcriptInnerElem = useRef<HTMLDivElement | null>(null);
   const { messages } = assistantProps;
