@@ -4,8 +4,9 @@
 
 uniform vec2 u_resolution;
 uniform float u_time;
-uniform vec3 u_color;
-uniform vec3 u_color2;
+uniform vec3 u_startColor;
+uniform vec3 u_midColor;
+uniform vec3 u_endColor;
 uniform float u_colorLimit;
 uniform vec4 u_background;
 uniform float u_speed;
@@ -35,7 +36,7 @@ float map(vec3 p) {
 }
 
 void mainImage ( out vec4 fragColor, in vec2 fragCoord ) {
-  vec2 a = (fragCoord.xy - u_resolution.xy) / max(u_resolution.y, u_resolution.x) * -3.0 * u_scale;
+  vec2 a = (fragCoord.xy - u_resolution.xy) / min(u_resolution.y, u_resolution.x) * -3.0 * u_scale;
   vec3 cl = vec3(0.0);
   float d = 2.5;
 
@@ -43,10 +44,11 @@ void mainImage ( out vec4 fragColor, in vec2 fragCoord ) {
     vec3 p = vec3(0, 0, 4.0) + normalize(vec3(a, -1.0)) * d;
     float rz = map(p);
     float f =  clamp((rz - map(p + 0.1)) * 0.5, -u_colorLimit, u_colorLimit);
-    vec3 startColor = u_color;
-    vec3 endColor = u_color2 * 10.0;
-    vec3 l = startColor + endColor * f;
-    float audioBoost = u_audioLevels[int(i)] / 50.0;
+    vec3 startColor = u_startColor;
+    vec3 midColor = u_midColor * 5.0;
+    vec3 endColor = u_endColor * 7.5;
+    vec3 l = startColor + midColor * f * 1.0 + endColor * f * 2.0;
+    float audioBoost = u_audioLevels[int(20. * u_detail - i)] / 100.0;
     cl = cl * l + smoothstep(u_bloom + audioBoost , u_center_size, rz) * 1.0 * l;
     d += min(rz, 1.0);
   }

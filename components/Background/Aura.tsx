@@ -21,10 +21,13 @@ const initControls = {
     max: 0.5,
     step: 0.001,
   },
-  u_color: {
+  u_startColor: {
     value: "#194c66",
   },
-  u_color2: {
+  u_midColor: {
+    value: "#6a13a4",
+  },
+  u_endColor: {
     value: "#7f3f4c",
   },
   u_colorLimit: {
@@ -78,8 +81,9 @@ const Aura = ({ vertex, fragment }: { vertex: string; fragment: string }) => {
   const {
     u_speed,
     u_detail,
-    u_color,
-    u_color2,
+    u_startColor,
+    u_midColor,
+    u_endColor,
     u_colorLimit,
     u_scale,
     u_distance,
@@ -104,8 +108,9 @@ const Aura = ({ vertex, fragment }: { vertex: string; fragment: string }) => {
     uniforms.u_resolution.value.set(dimensions.width, dimensions.height);
     uniforms.u_speed.value = u_speed;
     uniforms.u_detail.value = u_detail;
-    uniforms.u_color.value = convertHexToVec3(u_color);
-    uniforms.u_color2.value = convertHexToVec3(u_color2);
+    uniforms.u_startColor.value = convertHexToVec3(u_startColor);
+    uniforms.u_midColor.value = convertHexToVec3(u_midColor);
+    uniforms.u_endColor.value = convertHexToVec3(u_endColor);
     uniforms.u_colorLimit.value = u_colorLimit;
     uniforms.u_scale.value = THREE.MathUtils.lerp(
       uniforms.u_scale.value,
@@ -142,8 +147,9 @@ const Aura = ({ vertex, fragment }: { vertex: string; fragment: string }) => {
         value: new THREE.Vector2(dimensions.width, dimensions.height),
       },
       u_time: { value: new Date().getTime() },
-      u_color: { value: convertHexToVec3(u_color) },
-      u_color2: { value: convertHexToVec3(u_color2) },
+      u_startColor: { value: convertHexToVec3(u_startColor) },
+      u_midColor: { value: convertHexToVec3(u_midColor) },
+      u_endColor: { value: convertHexToVec3(u_endColor) },
       u_colorLimit: { value: u_colorLimit },
       u_background: { value: new THREE.Vector4(0.043, 0.008, 0.086, 1.0) },
       u_speed: { value: u_speed },
