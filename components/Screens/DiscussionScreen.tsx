@@ -109,12 +109,10 @@ const DiscussionScreen = ({
           if (!firstQuestion) setFirstQuestion(withoutTrailingPeriod(res.text));
           resetRecording?.();
           append?.({
-            content: !firstQuestion
-              ? prepareFirstPrompt({
-                  firstQuestion: withoutTrailingPeriod(res.text),
-                  cards: selectedCards,
-                })
-              : res.text,
+            content: prepareFirstPrompt({
+              firstQuestion: withoutTrailingPeriod(res.text),
+              cards: selectedCards,
+            }),
             role: "user",
           } as any);
         },
