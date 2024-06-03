@@ -87,7 +87,7 @@ const Aura = ({ vertex, fragment }: { vertex: string; fragment: string }) => {
 
   const audioLevels: Uint8Array | null = useAudioLevels({
     isReady: isMicReady,
-    isOn: isListening,
+    isOn: isListening || isSpeaking,
     numLevels: 1 + 20 * u_detail,
   });
 
