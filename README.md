@@ -17,7 +17,7 @@
 
 ## .env
 
-You will need an `.env` file in the root of the project with an `OPENAI_API_KEY`. You can either use your own (get one here https://platform.openai.com/api-keys) or pull the one we're using from Vercel (you will have to link your local project to the Vercel project fist):
+You will need an `.env` file in the root of the project with an `OPENAI_API_KEY` and an `ELEVEN_LABS_API_KEY`. You can either use your own (get one here https://platform.openai.com/api-keys, same thing for ElevenLabs) or pull the one we're using from Vercel (you will have to link your local project to the Vercel project fist):
 ```bash
 vercel env pull
 ```
