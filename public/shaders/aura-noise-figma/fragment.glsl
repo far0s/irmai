@@ -7,7 +7,6 @@ uniform float u_time;
 uniform vec3 u_startColor;
 uniform vec3 u_midColor;
 uniform vec3 u_endColor;
-uniform float u_colorLimit;
 uniform vec4 u_background;
 uniform float u_speed;
 uniform float u_detail;
@@ -30,9 +29,9 @@ mat2 m(float a) {
 float map(vec3 p) {
   float t = u_time * u_speed;
   p.xz *= m(t * 0.4);
-  p.xy*= m(t * 0.1);
+  p.xy *= m(t * 0.1);
   vec3 q = p * u_complexity + t;
-  return length(p+vec3(sin((t*u_speed) * 0.1))) * log(length(p) + 0.9) + cos(q.x + sin(q.z + cos(q.y))) * 0.5 - u_distance;
+  return length(p+vec3(sin((t*0.6) * 0.1))) * log(length(p) + 0.9) + cos(q.x + sin(q.z + cos(q.y))) * 0.5 - u_distance;
 }
 
 void mainImage ( out vec4 fragColor, in vec2 fragCoord ) {
@@ -43,13 +42,14 @@ void mainImage ( out vec4 fragColor, in vec2 fragCoord ) {
   for (float i = 0.; i <= (1. + 20. * u_detail); i++) {
     vec3 p = vec3(0, 0, 4.0) + normalize(vec3(a, -1.0)) * d;
     float rz = map(p);
-    float f =  clamp((rz - map(p + 0.1)) * 0.5, -u_colorLimit, u_colorLimit);
+    float f =  clamp((rz - map(p + 0.1)) * 0.5, -0.1, 0.1);
     vec3 startColor = u_startColor;
     vec3 midColor = u_midColor * 5.0;
     vec3 endColor = u_endColor * 7.5;
     vec3 l = startColor + midColor * f * 1.0 + endColor * f * 2.0;
     float audioBoost = u_audioLevels[int(20. * u_detail - i)] / 100.0;
-    cl = cl * l + smoothstep(u_bloom + audioBoost , u_center_size, rz) * 1.0 * l;
+    float clamped_center_size = u_center_size >= u_bloom ? u_bloom - 0.1 : u_center_size;
+    cl = cl * l + smoothstep(u_bloom + audioBoost , clamped_center_size, rz) * 1.0 * l;
     d += min(rz, 1.0);
   }
 

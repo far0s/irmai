@@ -5,7 +5,7 @@ import { useControls } from "leva";
 
 import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
 
-import { convertHexToVec3 } from "@/utils";
+import { convertHexToVec3, lerp } from "@/utils";
 import useAudioLevels from "@/hooks/use-audio-levels";
 
 const initControls = {
@@ -29,12 +29,6 @@ const initControls = {
   },
   u_endColor: {
     value: "#7f3f4c",
-  },
-  u_colorLimit: {
-    value: 0.1,
-    min: 0.0,
-    max: 0.5,
-    step: 0.01,
   },
   u_scale: {
     value: 1.0,
@@ -84,7 +78,6 @@ const Aura = ({ vertex, fragment }: { vertex: string; fragment: string }) => {
     u_startColor,
     u_midColor,
     u_endColor,
-    u_colorLimit,
     u_scale,
     u_distance,
     u_bloom,
@@ -106,21 +99,28 @@ const Aura = ({ vertex, fragment }: { vertex: string; fragment: string }) => {
 
     uniforms.u_time.value = time + 1;
     uniforms.u_resolution.value.set(dimensions.width, dimensions.height);
-    uniforms.u_speed.value = u_speed;
+    uniforms.u_speed.value = lerp(uniforms.u_speed.value, u_speed, 0.1);
     uniforms.u_detail.value = u_detail;
     uniforms.u_startColor.value = convertHexToVec3(u_startColor);
     uniforms.u_midColor.value = convertHexToVec3(u_midColor);
     uniforms.u_endColor.value = convertHexToVec3(u_endColor);
-    uniforms.u_colorLimit.value = u_colorLimit;
-    uniforms.u_scale.value = THREE.MathUtils.lerp(
+    uniforms.u_scale.value = lerp(
       uniforms.u_scale.value,
       u_scale,
       isReady ? 0.01 : 0.002
     );
-    uniforms.u_distance.value = u_distance;
-    uniforms.u_bloom.value = u_bloom;
-    uniforms.u_center_size.value = u_center_size;
-    uniforms.u_complexity.value = THREE.MathUtils.lerp(
+    uniforms.u_distance.value = lerp(
+      uniforms.u_distance.value,
+      u_distance,
+      0.1
+    );
+    uniforms.u_bloom.value = lerp(uniforms.u_bloom.value, u_bloom, 0.1);
+    uniforms.u_center_size.value = lerp(
+      uniforms.u_center_size.value,
+      u_center_size,
+      0.1
+    );
+    uniforms.u_complexity.value = lerp(
       uniforms.u_complexity.value,
       isSpeaking ? 2.5 : u_complexity,
       0.01
@@ -150,7 +150,6 @@ const Aura = ({ vertex, fragment }: { vertex: string; fragment: string }) => {
       u_startColor: { value: convertHexToVec3(u_startColor) },
       u_midColor: { value: convertHexToVec3(u_midColor) },
       u_endColor: { value: convertHexToVec3(u_endColor) },
-      u_colorLimit: { value: u_colorLimit },
       u_background: { value: new THREE.Vector4(0.043, 0.008, 0.086, 1.0) },
       u_speed: { value: u_speed },
       u_detail: { value: u_detail },

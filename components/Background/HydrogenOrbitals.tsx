@@ -3,7 +3,7 @@ import * as THREE from "three";
 import { useFrame } from "@react-three/fiber";
 import { useControls } from "leva";
 
-import { convertHexToVec3 } from "@/utils";
+import { convertHexToVec3, lerp } from "@/utils";
 
 const initControls = {
   n: {
@@ -82,23 +82,23 @@ const HydrogenOrbitals = ({
     let time = state.clock.getElapsedTime();
 
     if (meshRef.current) {
-      const material = meshRef.current.material as THREE.ShaderMaterial;
-      material.uniforms.u_time.value = time + 1;
-      material.uniforms.u_resolution.value.set(width, height);
-      material.uniforms.u_frame.value += 1;
-      material.uniforms.n.value = n;
-      material.uniforms.l.value = l;
-      material.uniforms.m.value = m;
-      material.uniforms.u_scale.value = THREE.MathUtils.lerp(
-        material.uniforms.u_scale.value,
-        u_scale,
+      const { uniforms } = meshRef.current.material as THREE.ShaderMaterial;
+      uniforms.u_time.value = time + 1;
+      uniforms.u_resolution.value.set(width, height);
+      uniforms.u_frame.value += 1;
+      uniforms.n.value = lerp(uniforms.n.value, n, 0.1);
+      uniforms.l.value = lerp(uniforms.l.value, l, 0.1);
+      uniforms.m.value = lerp(uniforms.m.value, m, 0.1);
+      uniforms.u_scale.value = lerp(uniforms.u_scale.value, u_scale, 0.1);
+      uniforms.u_pos_color.value = convertHexToVec3(u_pos_color);
+      uniforms.u_neg_color.value = convertHexToVec3(u_neg_color);
+      uniforms.u_exposure.value = lerp(
+        uniforms.u_exposure.value,
+        u_exposure,
         0.1
       );
-      material.uniforms.u_pos_color.value = convertHexToVec3(u_pos_color);
-      material.uniforms.u_neg_color.value = convertHexToVec3(u_neg_color);
-      material.uniforms.u_exposure.value = u_exposure;
-      material.uniforms.u_opacity.value = u_opacity;
-      material.uniforms.u_att_color.value = convertHexToVec3(u_att_color);
+      uniforms.u_opacity.value = lerp(uniforms.u_opacity.value, u_opacity, 0.1);
+      uniforms.u_att_color.value = convertHexToVec3(u_att_color);
     }
   });
 

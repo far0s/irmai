@@ -1,4 +1,4 @@
-import { Vector3 } from "three";
+import { Vector3, MathUtils } from "three";
 
 import { type ChatMessage } from "./shared-types";
 
@@ -43,4 +43,8 @@ export const fetchGLSL = async (
   const response = await fetch(path);
   const data = await response.text();
   successCallback(data);
+};
+
+export const lerp = (start: number, end: number, t: number = 0.1) => {
+  return MathUtils.lerp(start, end, t);
 };
