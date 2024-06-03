@@ -3,13 +3,16 @@
 ## Todo's in order of importance (move these to releases when in progress or done)
 
 - [ ] FEATURE/UI: style outro screen
-- [ ] FEATURE/AI: update TTS API route to use ElevenLabs instead of OpenAI's Whisper
-- [ ] FEATURE/AI: "Chaos Mode" – based on trigger X in the conversation, the AI will become more chaotic, sarcastic, humourous, unhinged, etc.
 - [ ] FEATURE: add an about page with a short description of the project, the team, etc.
 - [ ] CHORE: update metatags and SEO
 - [ ] BUGFIX/SAFARI: logo filter blur not working
 
 ## Releases
+
+### 0.6.0 - wip
+
+- [x] FEATURE/AI: update TTS API route to use ElevenLabs instead of OpenAI's Whisper
+- [x] FEATURE/AI: "Chaos Mode" – based on trigger X in the conversation, the AI will become more chaotic, sarcastic, humourous, unhinged, etc.
 
 ### 0.5.3 - released 27/05/2024
 
