@@ -46,6 +46,7 @@
   overflow: hidden;
   backface-visibility: hidden;
   transition: 0.8s ease-out;
+  will-change: transform;
 }
 
 .cardFront {
@@ -99,14 +100,6 @@
 .cardFront::before {
   box-shadow: 0 0 var(--spacing-1) var(--spacing-2) var(--purple) inset;
   z-index: 1;
-  backdrop-filter: blur(var(--spacing-1));
-  transition: var(--transition-slow-flow);
-  transition-delay: 0s;
-}
-
-.card[data-is-hidden="false"] .cardFront::before {
-  backdrop-filter: blur(0);
-  transition-delay: 0.2s;
 }
 
 .cardFront::after {

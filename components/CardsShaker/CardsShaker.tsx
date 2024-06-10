@@ -1,4 +1,5 @@
-import { useEffect, useState, Fragment } from "react";
+"use client";
+import { useEffect, useState } from "react";
 
 import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
 import Card from "@/components/Card/Card";
@@ -27,7 +28,7 @@ const CardsShaker = ({ show }: { show: boolean }) => {
   }, [tempSelectedCards]);
 
   const randomizeCards = () => {
-    if (allCards?.length === 0) return;
+    if (allCards?.length === 0) return setRandomizedCards([]);
     const cards = allCards.sort(() => Math.random() - 0.5);
     const randomized = cards.map((card) => ({
       ...card,
@@ -47,14 +48,13 @@ const CardsShaker = ({ show }: { show: boolean }) => {
       <div className={s.shakerSpace}>
         <div className={s.cardsGrid}>
           {randomizedCards.map((card) => (
-            <Fragment key={card.name_short}>
-              <Card
-                card={card}
-                hidden={!tempSelectedCards.includes(card)}
-                reverse={card.reverse}
-                onClick={() => handleAddCardToTempSelectedCards(card)}
-              />
-            </Fragment>
+            <Card
+              key={card.name_short}
+              card={card}
+              hidden={!tempSelectedCards.includes(card)}
+              reverse={card.reverse}
+              onClick={() => show && handleAddCardToTempSelectedCards(card)}
+            />
           ))}
         </div>
       </div>
