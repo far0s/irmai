@@ -79,9 +79,9 @@ const Debug = () => {
 
   return (
     debug && (
-      <div ref={debugRef} className={s.debug}>
-        <Leva flat collapsed />
-      </div>
+      // <div ref={debugRef} className={s.debug}>
+      <Leva flat collapsed />
+      // </div>
     )
   );
 };
