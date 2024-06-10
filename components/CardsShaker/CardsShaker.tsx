@@ -17,9 +17,14 @@ const CardsShaker = ({ show }: { show: boolean }) => {
     if (show) {
       setTempSelectedCards([]);
       setSelectedCards([]);
-      randomizeCards();
     }
   }, [show]);
+
+  useEffect(() => {
+    if (allCards?.length > 0) {
+      randomizeCards();
+    }
+  }, [allCards]);
 
   useEffect(() => {
     if (tempSelectedCards.length === 3) {
