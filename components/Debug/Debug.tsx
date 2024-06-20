@@ -1,4 +1,5 @@
 import { memo, useEffect, useRef } from "react";
+import { useSearchParams } from "next/navigation";
 import { Leva, useControls, button } from "leva";
 
 import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
@@ -10,6 +11,7 @@ const Debug = () => {
   const {
     reset,
     debug,
+    setDebug,
     setIsSpeaking,
     setIsListening,
     setIsThinking,
@@ -18,11 +20,17 @@ const Debug = () => {
     hideApp,
     setHideApp,
   } = useIrmaiStore((s) => s);
+  const searchParams = useSearchParams();
+  const hasDebugParam = searchParams.get("debug") !== null;
 
   const handleReset = () => {
     reset();
     window.location.reload();
   };
+
+  useEffect(() => {
+    setDebug(hasDebugParam);
+  }, [searchParams]);
 
   useControls({
     reset: button(() => handleReset()),
@@ -78,11 +86,9 @@ const Debug = () => {
   }, [hideApp]);
 
   return (
-    debug && (
-      // <div ref={debugRef} className={s.debug}>
-      <Leva flat collapsed />
-      // </div>
-    )
+    <div ref={debugRef} className={s.debug}>
+      <Leva flat collapsed hidden={!debug} />
+    </div>
   );
 };
 

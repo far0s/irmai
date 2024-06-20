@@ -4,6 +4,7 @@ import { TGlobalState, ITarotCard } from "@/utils/shared-types";
 
 interface IStore {
   debug: boolean;
+  setDebug: (debug: boolean) => void;
   globalState: TGlobalState;
   setGlobalState: (state: TGlobalState) => void;
   isReadyToAskForMic: boolean;
@@ -57,6 +58,7 @@ export type State = {
 };
 
 export type Actions = {
+  setDebug: (debug: boolean) => void;
   setGlobalState: (state: TGlobalState) => void;
   setIsReadyToAskForMic: (isReadyToAskForMic: boolean) => void;
   setIsMicReady: (isMicReady: boolean) => void;
@@ -121,8 +123,9 @@ export const createZStore = (initState: State = defaultInitState) => {
   return createStore<IStore>()(
     devtools(
       persist(
-        (set) => ({
+        (set: any) => ({
           ...initState,
+          setDebug: (debug: boolean) => set({ debug }),
           setGlobalState: (state: TGlobalState) => set({ globalState: state }),
           setIsReadyToAskForMic: (isReadyToAskForMic: boolean) =>
             set({ isReadyToAskForMic }),

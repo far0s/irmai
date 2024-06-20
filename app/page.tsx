@@ -1,5 +1,5 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, Suspense } from "react";
 import { useAssistant, UseAssistantHelpers } from "ai/react";
 
 import Header from "@/components/Header/Header";
@@ -50,22 +50,24 @@ const IrmaiHome = () => {
 
   return (
     <main className={s.page}>
-      <div className={s.pageContainer}>
-        <Stage>
-          {Object.entries(Screens).map(([key, Component]) => (
-            <Component
-              key={key}
-              isActive={globalState === key}
-              assistantProps={assistantProps}
-            />
-          ))}
-        </Stage>
-        <Header />
-        <Transcript assistantProps={assistantProps} />
-      </div>
+      <Suspense>
+        <div className={s.pageContainer}>
+          <Stage>
+            {Object.entries(Screens).map(([key, Component]) => (
+              <Component
+                key={key}
+                isActive={globalState === key}
+                assistantProps={assistantProps}
+              />
+            ))}
+          </Stage>
+          <Header />
+          <Transcript assistantProps={assistantProps} />
+        </div>
 
-      <Debug />
-      <Background />
+        <Debug />
+        <Background />
+      </Suspense>
     </main>
   );
 };

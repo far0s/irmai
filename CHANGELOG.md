@@ -9,7 +9,11 @@
 
 ## Releases
 
-### 0.6.0 - wip
+### 0.6.1 - released 20/06/2024
+
+- [x] BUGFIX/DEBUG: better debug management
+
+### 0.6.0 - released 10/06/2024
 
 - [X] BUGFIX/CARDS: fix cards crashing the app (we now limit to 50 cards loaded at a time)
 - [x] FEATURE/AI: update TTS API route to use ElevenLabs instead of OpenAI's Whisper

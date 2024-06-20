@@ -51,9 +51,3 @@ body {
   font-family: var(--font-poppins), sans-serif;
   font-size: var(--text-size-m);
 }
-
-[class*="leva"] {
-  position: fixed;
-  left: 10000000px;
-  top: 100000000px;
-}
