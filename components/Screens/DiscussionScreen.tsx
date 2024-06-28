@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { UseAssistantHelpers } from "ai/react";
 
 import { withoutTrailingPeriod } from "@/utils";
 import { prepareFirstPrompt } from "@/utils/prompts";
@@ -29,7 +28,7 @@ const DiscussionScreen = ({
   assistantProps,
 }: {
   isActive: boolean;
-  assistantProps: UseAssistantHelpers;
+  assistantProps: any;
 }) => {
   const {
     setGlobalState,
@@ -42,7 +41,7 @@ const DiscussionScreen = ({
   } = useIrmaiStore((s) => s);
   const [partToShow, setPartToShow] = useState<TPartToShow>(null);
 
-  const { messages, append }: UseAssistantHelpers = assistantProps;
+  const { messages, append }: any = assistantProps;
 
   const {
     startRecording,
@@ -55,7 +54,7 @@ const DiscussionScreen = ({
 
   const checkIfIrmaiHasAlreadyAnswered = () => {
     const msgs: ChatMessage[] | undefined = messages?.filter(
-      (message) => message.role === "assistant"
+      (message: ChatMessage) => message.role === "assistant"
     );
 
     return (msgs && msgs.length > 0) || false;

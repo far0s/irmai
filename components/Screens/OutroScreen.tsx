@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { UseAssistantHelpers } from "ai/react";
 
 import { prepareConclusionPrompt } from "@/utils/prompts";
 
@@ -27,14 +26,14 @@ const OutroScreen = ({
   assistantProps,
 }: {
   isActive: boolean;
-  assistantProps: UseAssistantHelpers;
+  assistantProps: any;
 }) => {
   const { reset, setShowTranscript, conclusion, setConclusion } = useIrmaiStore(
     (s) => s
   );
   const [partToShow, setPartToShow] = useState<null | "outro">(null);
 
-  const { messages, append }: UseAssistantHelpers = assistantProps;
+  const { messages, append }: any = assistantProps;
 
   useEffect(() => {
     setPartToShow(isActive ? "outro" : null);

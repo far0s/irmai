@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { UseAssistantHelpers } from "ai/react";
 
 import { useDebounce } from "@/hooks/use-debounce";
 
@@ -17,7 +16,7 @@ const LandingScreen = ({
   assistantProps,
 }: {
   isActive: boolean;
-  assistantProps?: UseAssistantHelpers;
+  assistantProps?: any;
 }) => {
   const { setGlobalState } = useIrmaiStore((s) => s);
   const [partToShow, setPartToShow] = useDebounce<TPartToShow>(null, 100);
