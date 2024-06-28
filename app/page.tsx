@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, Suspense } from "react";
-import { useAssistant, UseAssistantHelpers } from "ai/react";
+import { useAssistant } from "ai/react";
 
 import Header from "@/components/Header/Header";
 import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
@@ -29,7 +29,7 @@ const Screens = {
 const IrmaiHome = () => {
   const { globalState, setIsThinking, setAllCards } = useIrmaiStore((s) => s);
 
-  const assistantProps: UseAssistantHelpers = useAssistant({
+  const assistantProps = useAssistant({
     api: "/api/assistant",
   });
 
