@@ -51,3 +51,8 @@ body {
   font-family: var(--font-poppins), sans-serif;
   font-size: var(--text-size-m);
 }
+
+::selection {
+  background-color: var(--purple);
+  color: var(--cream);
+}
