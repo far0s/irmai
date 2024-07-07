@@ -14,7 +14,7 @@
   opacity: 1;
   transform: translateY(0);
   filter: blur(0);
-  transition: 0.5s ease-out;
+  transition: 0.5s ease-out 0.5s;
 }
 
 :not([data-show="true"]) > .cardsShaker {
@@ -26,27 +26,65 @@
 
 .shakerSpace {
   position: relative;
-  width: calc(100% + var(--padding-s) * 2);
-  height: 100%;
-  overflow: hidden;
-  padding: var(--padding-s);
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: center;
-  align-items: center;
-  overflow-x: scroll;
+  width: 30rem;
+  height: min(40rem, 70vh);
 }
 
-.shakerSpace::-webkit-scrollbar {
+.scrollableContainer {
+  display: flex;
+  overflow-x: scroll;
+  height: 100%;
+  scroll-snap-type: x mandatory;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.scrollableContainer::-webkit-scrollbar {
   display: none;
 }
 
+/* Hide scrollbar for IE, Edge and Firefox */
+.scrollableContainer {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+.scrollableContainer > * {
+  flex: 1 0 100%;
+  width: 100%;
+  height: 100%;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+.cardsGrid {
+  perspective: calc(40rem * 2);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.cardsGrid > * {
+  display: flex;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+  transform-style: preserve-3d;
+  will-change: transform, z-index;
+}
+
 .shakerDock {
-  position: relative;
+  position: absolute;
+  bottom: 0;
   width: 100%;
   height: 84px;
   padding: calc(var(--padding-s) * 2);
-  margin-bottom: calc(var(--footer-margin) / 2);
+  /* margin-bottom: calc(var(--footer-margin) / 2); */
   border-top: 1px solid currentColor;
   border-bottom: 1px solid currentColor;
   display: flex;
@@ -73,15 +111,4 @@
 
 .card[data-is-selected="true"] {
   opacity: 0;
-}
-
-.cardsGrid {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: stretch;
-  align-items: center;
-  gap: var(--padding-s);
 }

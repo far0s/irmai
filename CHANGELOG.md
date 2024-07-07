@@ -9,6 +9,10 @@
 
 ## Releases
 
+### 0.7.0 - WIP
+
+- [ ] FEATURE/UI: card stack animation
+
 ### 0.6.1 - released 20/06/2024
 
 - [x] BUGFIX/DEBUG: better debug management
