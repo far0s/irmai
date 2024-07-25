@@ -9,9 +9,10 @@
 
 ## Releases
 
-### 0.7.0 - WIP
+### 0.7.0 - released 25/07/2024
 
-- [ ] FEATURE/UI: card stack animation
+- [x] FEATURE/UI: card stack animation
+- [x] FEATURE/UI: aura becomes more complex the longer the conversation goes
 
 ### 0.6.1 - released 20/06/2024
 

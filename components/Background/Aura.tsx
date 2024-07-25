@@ -7,6 +7,7 @@ import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStorePro
 
 import { convertHexToVec3, lerp } from "@/utils";
 import useAudioLevels from "@/hooks/use-audio-levels";
+import useTranscript from "@/hooks/use-transcript";
 
 const initControls = {
   u_speed: {
@@ -62,7 +63,15 @@ const initControls = {
   },
 };
 
-const Aura = ({ vertex, fragment }: { vertex: string; fragment: string }) => {
+const Aura = ({
+  vertex,
+  fragment,
+  assistantProps,
+}: {
+  vertex: string;
+  fragment: string;
+  assistantProps: any;
+}) => {
   const { isMicReady, isListening, isThinking, isSpeaking } = useIrmaiStore(
     (s) => s
   );
@@ -71,6 +80,14 @@ const Aura = ({ vertex, fragment }: { vertex: string; fragment: string }) => {
     width: window.innerWidth,
     height: window.innerHeight,
   });
+  const { messages } = assistantProps;
+  const transcript = useTranscript(messages);
+  const [transcriptLength, setTranscriptLength] = useState(0);
+
+  useEffect(() => {
+    transcript.length > transcriptLength &&
+      setTranscriptLength(transcript.length);
+  }, [transcript]);
 
   const {
     u_speed,
@@ -117,12 +134,12 @@ const Aura = ({ vertex, fragment }: { vertex: string; fragment: string }) => {
     uniforms.u_bloom.value = lerp(uniforms.u_bloom.value, u_bloom, 0.1);
     uniforms.u_center_size.value = lerp(
       uniforms.u_center_size.value,
-      u_center_size,
+      isSpeaking ? 2.0 : u_center_size,
       0.1
     );
     uniforms.u_complexity.value = lerp(
       uniforms.u_complexity.value,
-      isSpeaking ? 2.5 : u_complexity,
+      u_complexity + transcriptLength * 0.25,
       0.01
     );
 

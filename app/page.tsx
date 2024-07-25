@@ -66,7 +66,7 @@ const IrmaiHome = () => {
         </div>
 
         <Debug />
-        <Background />
+        <Background assistantProps={assistantProps} />
       </Suspense>
     </main>
   );
