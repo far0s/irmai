@@ -70,7 +70,7 @@ const Aura = ({
 }: {
   vertex: string;
   fragment: string;
-  assistantProps: any;
+  assistantProps?: any;
 }) => {
   const { isMicReady, isListening, isThinking, isSpeaking } = useIrmaiStore(
     (s) => s
@@ -81,7 +81,7 @@ const Aura = ({
     height: window.innerHeight,
   });
   const { messages } = assistantProps;
-  const transcript = useTranscript(messages);
+  const transcript = messages?.length > 0 ? useTranscript(messages) : [];
   const [transcriptLength, setTranscriptLength] = useState(0);
 
   useEffect(() => {
