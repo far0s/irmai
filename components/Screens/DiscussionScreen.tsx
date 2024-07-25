@@ -105,15 +105,17 @@ const DiscussionScreen = ({
           setPartToShow("idle");
         },
         successCallback: (res) => {
-          if (!firstQuestion) setFirstQuestion(withoutTrailingPeriod(res.text));
           resetRecording?.();
           append?.({
-            content: prepareFirstPrompt({
-              firstQuestion: withoutTrailingPeriod(res.text),
-              cards: selectedCards,
-            }),
+            content: !firstQuestion
+              ? prepareFirstPrompt({
+                  firstQuestion: withoutTrailingPeriod(res.text),
+                  cards: selectedCards,
+                })
+              : res.text,
             role: "user",
           } as any);
+          if (!firstQuestion) setFirstQuestion(withoutTrailingPeriod(res.text));
         },
       });
     }
