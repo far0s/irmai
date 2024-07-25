@@ -6,12 +6,14 @@ import Card from "@/components/Card/Card";
 
 import { ITarotCard } from "@/utils/shared-types";
 
+import CardStack from "./cardStack.js";
 import s from "./cardsShaker.module.css";
 
 const CardsShaker = ({ show }: { show: boolean }) => {
   const { allCards, setSelectedCards } = useIrmaiStore((s) => s);
   const [randomizedCards, setRandomizedCards] = useState(allCards);
   const [tempSelectedCards, setTempSelectedCards] = useState<any[]>([]);
+  const [cardStack, setCardStack] = useState<any>(null);
 
   useEffect(() => {
     if (show) {
@@ -23,6 +25,12 @@ const CardsShaker = ({ show }: { show: boolean }) => {
   useEffect(() => {
     if (allCards?.length > 0) {
       randomizeCards();
+      if (!cardStack) {
+        setCardStack(true);
+        window.setTimeout(() => {
+          setCardStack(new CardStack());
+        }, 500);
+      }
     }
   }, [allCards]);
 
@@ -43,6 +51,7 @@ const CardsShaker = ({ show }: { show: boolean }) => {
   };
 
   const handleAddCardToTempSelectedCards = (card: ITarotCard) => {
+    if (!show) return;
     if (tempSelectedCards.length === 3) return;
     if (tempSelectedCards.includes(card)) return;
     setTempSelectedCards([...tempSelectedCards, card]);
@@ -51,14 +60,23 @@ const CardsShaker = ({ show }: { show: boolean }) => {
   return (
     <div className={s.cardsShaker}>
       <div className={s.shakerSpace}>
-        <div className={s.cardsGrid}>
+        <div className={s.scrollableContainer} id="scrollable-container">
+          {randomizedCards.map((card) => (
+            <div
+              key={card.name_short}
+              className="scrollable-card"
+              onClick={() => handleAddCardToTempSelectedCards(card)}
+            />
+          ))}
+        </div>
+        <div className={s.cardsGrid} id="visible-cards-container">
           {randomizedCards.map((card) => (
             <Card
               key={card.name_short}
               card={card}
               hidden={!tempSelectedCards.includes(card)}
               reverse={card.reverse}
-              onClick={() => show && handleAddCardToTempSelectedCards(card)}
+              onClick={() => handleAddCardToTempSelectedCards(card)}
             />
           ))}
         </div>

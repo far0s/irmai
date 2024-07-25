@@ -68,6 +68,7 @@ export const CardsOverviewBlock = ({ cards }: { cards: any[] }) => {
             hidden={false}
             reverse={card.reverse}
             variant="small"
+            enableLightbox={true}
           />
         ))}
       </div>

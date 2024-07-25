@@ -24,7 +24,7 @@ const shaders = [
   },
 ];
 
-const Background = () => {
+const Background = ({ assistantProps }: { assistantProps?: any }) => {
   const [selectedShader, setSelectedShader] = useState<any>(shaders[0]);
   const [vertex, setVertex] = useState("");
   const [fragment, setFragment] = useState("");
@@ -50,7 +50,11 @@ const Background = () => {
       <Canvas style={{ width: "100vw", height: "100vh" }} dpr={2}>
         <Suspense fallback={null}>
           {selectedShader && vertex && fragment && (
-            <selectedShader.Component vertex={vertex} fragment={fragment} />
+            <selectedShader.Component
+              vertex={vertex}
+              fragment={fragment}
+              assistantProps={assistantProps}
+            />
           )}
         </Suspense>
       </Canvas>
