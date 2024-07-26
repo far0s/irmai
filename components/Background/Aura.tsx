@@ -7,7 +7,6 @@ import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStorePro
 
 import { convertHexToVec3, lerp } from "@/utils";
 import useAudioLevels from "@/hooks/use-audio-levels";
-import useTranscript from "@/hooks/use-transcript";
 
 const initControls = {
   u_speed: {
@@ -66,11 +65,11 @@ const initControls = {
 const Aura = ({
   vertex,
   fragment,
-  assistantProps,
+  transcriptLength,
 }: {
   vertex: string;
   fragment: string;
-  assistantProps?: any;
+  transcriptLength: number;
 }) => {
   const { isMicReady, isListening, isThinking, isSpeaking } = useIrmaiStore(
     (s) => s
@@ -80,14 +79,6 @@ const Aura = ({
     width: window.innerWidth,
     height: window.innerHeight,
   });
-  const { messages } = assistantProps;
-  const transcript = messages?.length > 0 ? useTranscript(messages) : [];
-  const [transcriptLength, setTranscriptLength] = useState(0);
-
-  useEffect(() => {
-    transcript.length > transcriptLength &&
-      setTranscriptLength(transcript.length);
-  }, [transcript]);
 
   const {
     u_speed,

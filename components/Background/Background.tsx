@@ -24,7 +24,7 @@ const shaders = [
   },
 ];
 
-const Background = ({ assistantProps }: { assistantProps?: any }) => {
+const Background = ({ transcriptLength }: { transcriptLength?: number }) => {
   const [selectedShader, setSelectedShader] = useState<any>(shaders[0]);
   const [vertex, setVertex] = useState("");
   const [fragment, setFragment] = useState("");
@@ -53,7 +53,7 @@ const Background = ({ assistantProps }: { assistantProps?: any }) => {
             <selectedShader.Component
               vertex={vertex}
               fragment={fragment}
-              assistantProps={assistantProps}
+              transcriptLength={transcriptLength}
             />
           )}
         </Suspense>

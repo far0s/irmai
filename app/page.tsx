@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, Suspense } from "react";
+import { useEffect, Suspense, useState } from "react";
 import { useAssistant } from "ai/react";
 
 import Header from "@/components/Header/Header";
@@ -14,6 +14,8 @@ import TarotScreen from "@/components/Screens/TarotScreen";
 import DiscussionScreen from "@/components/Screens/DiscussionScreen";
 import OutroScreen from "@/components/Screens/OutroScreen";
 import Background from "@/components/Background/Background";
+
+import useTranscript from "@/hooks/use-transcript";
 
 import s from "./page.module.css";
 
@@ -48,6 +50,14 @@ const IrmaiHome = () => {
       .then((data) => setAllCards(data))
       .catch((err) => console.error(err));
 
+  const transcript = useTranscript(assistantProps.messages);
+  const [transcriptLength, setTranscriptLength] = useState<number>(0);
+
+  useEffect(() => {
+    transcript?.length > transcriptLength &&
+      setTranscriptLength(transcript.length);
+  }, [transcript]);
+
   return (
     <main className={s.page}>
       <Suspense>
@@ -66,7 +76,7 @@ const IrmaiHome = () => {
         </div>
 
         <Debug />
-        <Background assistantProps={assistantProps} />
+        <Background transcriptLength={transcriptLength} />
       </Suspense>
     </main>
   );
