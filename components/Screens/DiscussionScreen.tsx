@@ -173,7 +173,9 @@ const DiscussionScreen = ({
             delay={1000}
             variant="fade"
           >
-            <HighlightBlock header="Question"></HighlightBlock>
+            <HighlightBlock header="Question" expandable>
+              <p>{firstQuestion}</p>
+            </HighlightBlock>
           </FadeInWrapper>
           <FadeInWrapper
             className={s.copy}
@@ -181,7 +183,7 @@ const DiscussionScreen = ({
             delay={1500}
             variant="fade"
           >
-            <HighlightBlock header="Your cards"></HighlightBlock>
+            <CardsOverviewBlock cards={selectedCards} expandable />
           </FadeInWrapper>
           <FadeInWrapper
             show={partToShow === "idle" && messages && messages.length > 1}

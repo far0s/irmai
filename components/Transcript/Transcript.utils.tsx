@@ -27,12 +27,22 @@ export const TimeKeeper = () => {
 export const HighlightBlock = ({
   header,
   children,
+  expandable,
 }: {
   header: string;
   children?: React.ReactNode;
+  expandable?: boolean;
 }) => {
+  const [expanded, setExpanded] = useState(false);
+  const handleToggleExpand = () => expandable && setExpanded(!expanded);
+
   return (
-    <article className={s.transcriptBlock}>
+    <article
+      className={s.transcriptBlock}
+      onClick={handleToggleExpand}
+      data-is-expandable={expandable}
+      data-expanded={expandable ? expanded : true}
+    >
       {header && <header className={s.transcriptHeader}>{header}</header>}
       {children && <div className={s.transcriptHighlight}>{children}</div>}
     </article>
@@ -42,12 +52,22 @@ export const HighlightBlock = ({
 export const TextBlock = ({
   header,
   children,
+  expandable,
 }: {
   header?: string;
   children: React.ReactNode;
+  expandable?: boolean;
 }) => {
+  const [expanded, setExpanded] = useState(false);
+  const handleToggleExpand = () => expandable && setExpanded(!expanded);
+
   return (
-    <article className={s.transcriptBlock}>
+    <article
+      className={s.transcriptBlock}
+      onClick={handleToggleExpand}
+      data-is-expandable={expandable}
+      data-expanded={expandable ? expanded : true}
+    >
       {header && header.length > 0 && (
         <header className={s.transcriptHeader}>{header}</header>
       )}
@@ -56,9 +76,23 @@ export const TextBlock = ({
   );
 };
 
-export const CardsOverviewBlock = ({ cards }: { cards: any[] }) => {
+export const CardsOverviewBlock = ({
+  cards,
+  expandable,
+}: {
+  cards: any[];
+  expandable?: boolean;
+}) => {
+  const [expanded, setExpanded] = useState(false);
+  const handleToggleExpand = () => expandable && setExpanded(!expanded);
+
   return (
-    <article className={s.transcriptBlock}>
+    <article
+      className={s.transcriptBlock}
+      onClick={handleToggleExpand}
+      data-is-expandable={expandable}
+      data-expanded={expandable ? expanded : true}
+    >
       <header className={s.transcriptHeader}>Your cards</header>
       <div className={s.transcriptCards}>
         {cards.map((card: any) => (

@@ -85,6 +85,7 @@
 
 .transcriptHighlight {
   width: 100%;
+  height: 100%;
   padding-top: var(--text-size-s);
   padding-bottom: 40px;
   display: flex;
@@ -95,6 +96,7 @@
   letter-spacing: -0.02em;
   text-align: center;
   text-wrap: balance;
+  overflow: hidden;
 }
 
 .transcriptHighlight em {
@@ -103,6 +105,7 @@
 }
 
 .transcriptCards {
+  height: 100%;
   padding-top: var(--text-size-s);
   padding-bottom: 64px;
   display: flex;
@@ -110,6 +113,7 @@
   justify-content: center;
   align-items: flex-start;
   gap: 24px;
+  overflow: hidden;
 }
 
 .transcriptTranscript {
@@ -129,4 +133,15 @@
 .transcriptItemAi p {
   font-style: italic;
   font-weight: 300;
+}
+
+.transcriptBlock[data-is-expandable="true"] .transcriptHeader {
+  cursor: pointer;
+}
+
+.transcriptBlock[data-expanded="false"] > p,
+.transcriptBlock[data-expanded="false"] .transcriptHighlight,
+.transcriptBlock[data-expanded="false"] .transcriptCards {
+  height: 0;
+  padding: 0;
 }
