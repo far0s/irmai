@@ -105,6 +105,11 @@ const DiscussionScreen = ({
           setPartToShow("idle");
         },
         successCallback: (res) => {
+          if (!res.text) {
+            window.alert("Sorry, I didn't catch that. Can you repeat?");
+            setPartToShow("idle");
+            return;
+          }
           resetRecording?.();
           append?.({
             content: !firstQuestion
