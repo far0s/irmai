@@ -5,9 +5,13 @@ import s from "@/components/PressAndHoldCTA/pressAndHoldCTA.module.css";
 const PressCTA = ({
   onPress,
   label = "Press",
+  labelIsOutside = false,
+  icon = false,
 }: {
   onPress?: () => void;
   label?: string;
+  labelIsOutside?: boolean;
+  icon?: React.ReactNode | null;
 }) => {
   const [isPressed, setIsPressed] = useState(false);
 
@@ -31,8 +35,10 @@ const PressCTA = ({
       className={s.pressAndHoldCTA}
     >
       <div className={s.circleWrapper}>
-        <span className={s.circleCopy}>{label}</span>
+        {!labelIsOutside && <span className={s.circleCopy}>{label}</span>}
+        {labelIsOutside && icon && <div className={s.icon}>{icon}</div>}
       </div>
+      {labelIsOutside && <span className={s.copy}>{label}</span>}
     </button>
   );
 };

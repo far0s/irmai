@@ -57,6 +57,22 @@ const OutroScreen = ({
           data-interactive={partToShow === "outro"}
         >
           <FadeInWrapper
+            show={partToShow === "outro" && conclusion.length === 0}
+            delay={500}
+            variant="fade"
+          >
+            <HighlightBlock header="Conclusion">
+              <p>
+                <em>Summarizing your reading...</em>
+              </p>
+            </HighlightBlock>
+          </FadeInWrapper>
+        </section>
+        <section
+          className={s.screenPartWrapper}
+          data-interactive={partToShow === "outro"}
+        >
+          <FadeInWrapper
             show={partToShow === "outro" && conclusion.length > 0}
             delay={1000}
             variant="fade"

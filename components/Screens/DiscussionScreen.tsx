@@ -199,7 +199,6 @@ const DiscussionScreen = ({
               You can ask another question or we can end the conversation here.
               To ask a follow up press and hold. To end tap the close button on
               the top right.
-              <PressCTA label="[End]" onPress={handleGoToOutro} />
             </TextBlock>
           </FadeInWrapper>
         </section>
@@ -250,8 +249,37 @@ const DiscussionScreen = ({
               onEndPress={() => handleStopRecording()}
               onRelease={() => handleStopRecording()}
               pressDuration={360000}
-              idleChildren="Press & hold to record"
+              idleChildren={
+                messages && messages.length > 1
+                  ? "Record a new question"
+                  : "Press & hold to record"
+              }
               activeChildren="Release to stop"
+            />
+          )}
+          {partToShow === "idle" && messages && messages.length > 1 && (
+            <PressCTA
+              label="Or end the reading"
+              onPress={handleGoToOutro}
+              icon={
+                <svg
+                  width="14"
+                  height="13"
+                  viewBox="0 0 14 13"
+                  stroke="currentColor"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M1.37573 1.11475L12.5746 12.3135"
+                    strokeWidth="1.5"
+                  />
+                  <path
+                    d="M12.5746 1.11475L1.37573 12.3135"
+                    strokeWidth="1.5"
+                  />
+                </svg>
+              }
+              labelIsOutside
             />
           )}
         </footer>
