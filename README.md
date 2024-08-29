@@ -17,11 +17,9 @@
 
 ## .env
 
-You will need an `.env` file in the root of the project with an `OPENAI_API_KEY` and an `ELEVEN_LABS_API_KEY`. You can either use your own (get one here https://platform.openai.com/api-keys, same thing for ElevenLabs) or pull the one we're using from Vercel (you will have to link your local project to the Vercel project fist):
+You will need an `.env` file in the root of the project with an `OPENAI_API_KEY`. You can either use your own (get one here https://platform.openai.com/api-key) or pull the one we're using from Vercel (you will have to link your local project to the Vercel project fist):
 ```bash
 vercel env pull
-```
-
 ```
 
 ## Installation/local development
@@ -35,6 +33,3 @@ vercel env pull
 Every commit triggers a deployment to Vercel, so you can see the latest changes at [irmai.vercel.app](https://irmai.vercel.app).
 If you commit inside of a branch, it will be deployed to a preview URL.
 If you commit to the `main` branch, it will be deployed to the main URL.
-
-
-## TODO: complete this README
