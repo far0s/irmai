@@ -24,7 +24,11 @@ const shaders = [
   },
 ];
 
-const Background = ({ transcriptLength }: { transcriptLength?: number }) => {
+const Background = ({
+  transcriptLength = 1,
+}: {
+  transcriptLength?: number;
+}) => {
   const [selectedShader, setSelectedShader] = useState<any>(shaders[0]);
   const [vertex, setVertex] = useState("");
   const [fragment, setFragment] = useState("");
