@@ -34,6 +34,7 @@ const DiscussionScreen = ({
     setGlobalState,
     selectedCards,
     setIsSpeaking,
+    isSpeaking,
     setIsListening,
     setIsThinking,
     firstQuestion,
@@ -132,6 +133,7 @@ const DiscussionScreen = ({
 
   useEffect(() => {
     if (!isActive) return;
+    if (isSpeaking) return;
     if (firstQuestion?.length === 0) return;
     if (messages?.length === 0) return;
 
