@@ -23,7 +23,6 @@
 ### 0.6.0 - released 10/06/2024
 
 - [X] BUGFIX/CARDS: fix cards crashing the app (we now limit to 50 cards loaded at a time)
-- [x] FEATURE/AI: update TTS API route to use ElevenLabs instead of OpenAI's Whisper
 - [x] FEATURE/AI: "Chaos Mode" – based on trigger X in the conversation, the AI will become more chaotic, sarcastic, humourous, unhinged, etc.
 
 ### 0.5.3 - released 27/05/2024
