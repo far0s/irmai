@@ -6,10 +6,14 @@
 - [ ] FEATURE/UI: outro screen (including a shareable image recapping the reading)
 - [ ] FEATURE: about page with a short description of the project, the team, etc.
 - [ ] CHORE: update metatags and SEO
-- [ ] FEATURE/UI: improve/pimp card view
 - [ ] BUGFIX/SAFARI: logo filter blur not working
 
 ## Releases
+
+### 0.8.0 - WIP
+
+- [x] FEATURE/UI: improve/pimp card view
+
 
 ### 0.7.0 - released 25/07/2024
 
