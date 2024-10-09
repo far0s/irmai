@@ -32,3 +32,16 @@ export type ITarotCard = {
   image: string;
   reverse: boolean;
 };
+
+export type TConvertedSTTResponse = {
+  task: string;
+  language: "english" | string;
+  text: string;
+  duration: number;
+  input?: string;
+  words: {
+    word: string;
+    start: number;
+    end: number;
+  }[];
+};

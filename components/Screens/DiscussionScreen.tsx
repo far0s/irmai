@@ -17,7 +17,7 @@ import {
   TextBlock,
   HighlightBlock,
   CardsOverviewBlock,
-} from "../Transcript/Transcript.utils";
+} from "@/components/Transcript/Transcript.utils";
 
 import s from "./screens.module.css";
 

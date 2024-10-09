@@ -2,9 +2,11 @@
 
 ## Todo's in order of importance (move these to releases when in progress or done)
 
-- [ ] FEATURE/UI: style outro screen
-- [ ] FEATURE: add an about page with a short description of the project, the team, etc.
+- [ ] FEATURE/UI: live transcript as the AI speaks
+- [ ] FEATURE/UI: outro screen (including a shareable image recapping the reading)
+- [ ] FEATURE: about page with a short description of the project, the team, etc.
 - [ ] CHORE: update metatags and SEO
+- [ ] FEATURE/UI: improve/pimp card view
 - [ ] BUGFIX/SAFARI: logo filter blur not working
 
 ## Releases

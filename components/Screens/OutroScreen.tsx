@@ -8,7 +8,7 @@ import PressCTA from "@/components/PressCTA/PressCTA";
 import { HighlightBlock } from "@/components/Transcript/Transcript.utils";
 
 import s from "./screens.module.css";
-import FadeInWrapper from "../TransitionWrapper/TransitionWrapper";
+import FadeInWrapper from "@/components/TransitionWrapper/TransitionWrapper";
 
 const handleMessagesChange = (messages: any, setConclusion: any) => {
   if (messages?.length === 0) return;

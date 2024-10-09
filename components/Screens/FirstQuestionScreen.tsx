@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 
-import { withoutTrailingPeriod } from "@/utils";
 import convertSpeechToText from "@/utils/speech-to-text";
 
 import useRecorder from "@/hooks/use-recorder";
@@ -12,7 +11,10 @@ import PressAndHoldCTA from "@/components/PressAndHoldCTA/PressAndHoldCTA";
 import FadeInWrapper from "@/components/TransitionWrapper/TransitionWrapper";
 
 import s from "./screens.module.css";
-import { HighlightBlock, TextBlock } from "../Transcript/Transcript.utils";
+import {
+  HighlightBlock,
+  TextBlock,
+} from "@/components/Transcript/Transcript.utils";
 
 type TPartToShow = null | "idle" | "recording" | "recap";
 

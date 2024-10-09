@@ -3,7 +3,7 @@ import Image from "next/image";
 import { useState } from "react";
 
 import Logo from "@/components/Logo/Logo";
-import TransitionWrapper from "../TransitionWrapper/TransitionWrapper";
+import TransitionWrapper from "@/components/TransitionWrapper/TransitionWrapper";
 
 import { ITarotCard } from "@/utils/shared-types";
 

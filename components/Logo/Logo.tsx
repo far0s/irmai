@@ -10,7 +10,7 @@ const Logo = () => {
     const paths = logoRef.current?.querySelectorAll("path");
     if (!paths) return;
     const randomDelays = Array.from({ length: paths.length }, () =>
-      (Math.random() * 0.5 + 0.5).toFixed(2)
+      (Math.random() * 0.5 + 0.75).toFixed(2)
     );
     paths.forEach((path, i) => {
       path.style.transitionDelay = `${randomDelays[i]}s`;
