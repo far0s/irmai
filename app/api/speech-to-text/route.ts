@@ -27,6 +27,8 @@ export async function POST(req: Request) {
     model: "whisper-1",
     language: "en",
     file: input,
+    response_format: "verbose_json",
+    timestamp_granularities: ["word"],
   });
 
   return new Response(JSON.stringify(res), {
@@ -46,6 +48,8 @@ export async function GET(req: Request) {
     model: "whisper-1",
     language: "en",
     file: input,
+    response_format: "verbose_json",
+    timestamp_granularities: ["word"],
   });
 
   return new Response(

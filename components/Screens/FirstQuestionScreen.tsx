@@ -15,6 +15,7 @@ import {
   HighlightBlock,
   TextBlock,
 } from "@/components/Transcript/Transcript.utils";
+import { TConvertedSTTResponse } from "@/utils/shared-types";
 
 type TPartToShow = null | "idle" | "recording" | "recap";
 
@@ -62,8 +63,20 @@ const FirstQuestionScreen = ({ isActive }: { isActive: boolean }) => {
           setIsThinking(false);
           setPartToShow("idle");
         },
-        successCallback: (res) => {
-          if (!firstQuestion) setFirstQuestion(withoutTrailingPeriod(res.text));
+        successCallback: (res: TConvertedSTTResponse) => {
+          if (!firstQuestion) {
+            setFirstQuestion(" ");
+            let question = "";
+            let timer = 1100;
+            res.words.forEach((word) => {
+              setTimeout(() => {
+                question += word.word + " ";
+                setFirstQuestion(question);
+              }, timer);
+              timer += 80;
+            });
+          }
+
           resetRecording?.();
           setIsThinking(false);
           setPartToShow("recap");
