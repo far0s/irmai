@@ -14,7 +14,6 @@
 
 - [x] FEATURE/UI: improve/pimp card view
 
-
 ### 0.7.0 - released 25/07/2024
 
 - [x] FEATURE/UI: card stack animation

@@ -118,7 +118,7 @@ const LandingScreen = ({
             delay={2500}
             variant="fade"
           >
-            <PressCTA onPress={handleNextPart} label="Next" />
+            <PressCTA onPress={handleNextPart} label="Start" />
           </FadeInWrapper>
           <FadeInWrapper
             className={s.footerPart}

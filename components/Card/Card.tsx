@@ -83,12 +83,29 @@ const Card = ({
           />
         )}
       </div>
+
+      <TransitionWrapper className={s.cardName} show={!hidden} delay={200}>
+        <span>{card.name}</span>
+        {reverse === true && <span>(reverse)</span>}
+      </TransitionWrapper>
     </div>
   );
 
   const lightboxContent = (
     <div className={s.lightboxContent}>
-      <Tilt perspective={1000} trackOnWindow={true} gyroscope={true}>
+      <Tilt
+        tiltEnable={true}
+        tiltReverse={true}
+        tiltAngleXInitial={0}
+        tiltAngleYInitial={0}
+        tiltMaxAngleX={35}
+        tiltMaxAngleY={35}
+        perspective={2000}
+        trackOnWindow={true}
+        transitionSpeed={2000}
+        gyroscope={true}
+        // FIXME: on mobile, on enter, the card's gamma/beta values should be normalized
+      >
         <div className={s.card} data-is-hidden={false} data-variant="lightbox">
           <div className={s.cardBack}>
             <Logo />
