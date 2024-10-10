@@ -123,13 +123,12 @@ const Card = ({
               />
             )}
           </div>
-
-          <TransitionWrapper className={s.cardName} show={!hidden} delay={200}>
-            <span>{card.name}</span>
-            {reverse === true && <span>(reverse)</span>}
-          </TransitionWrapper>
         </div>
       </Tilt>
+      <TransitionWrapper className={s.cardName} show={!hidden} delay={200}>
+        <span>{card.name}</span>
+        {reverse === true && <span>(reverse)</span>}
+      </TransitionWrapper>
     </div>
   );
 

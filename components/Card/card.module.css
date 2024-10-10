@@ -70,7 +70,8 @@
 
 .cardName {
   position: absolute;
-  bottom: calc(-1 * var(--spacing-2));
+  bottom: calc(-1 * var(--padding-s));
+  width: 100%;
   height: 0;
   display: flex;
   flex-direction: column;
