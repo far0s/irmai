@@ -11,13 +11,12 @@ import PressAndHoldCTA from "@/components/PressAndHoldCTA/PressAndHoldCTA";
 import FadeInWrapper from "@/components/TransitionWrapper/TransitionWrapper";
 
 import s from "./screens.module.css";
-import {
-  HighlightBlock,
-  TextBlock,
-} from "@/components/Transcript/Transcript.utils";
+import { HighlightBlock } from "@/components/Transcript/Transcript.utils";
 import { TConvertedSTTResponse } from "@/utils/shared-types";
 
 type TPartToShow = null | "idle" | "recording" | "recap";
+
+const DELAY_UNIT = 400;
 
 const FirstQuestionScreen = ({ isActive }: { isActive: boolean }) => {
   const {
@@ -108,14 +107,23 @@ const FirstQuestionScreen = ({ isActive }: { isActive: boolean }) => {
           className={s.screenPartWrapper}
           data-interactive={partToShow === "idle"}
         >
-          <FadeInWrapper show={partToShow === "idle"} delay={1000}>
-            <TextBlock>
-              <span data-header="true">Question</span> Lorem ipsum dolor sit
-              amet consectetur. Leo nisi odio aliquam cursus egestas. Augue
-              venenatis tincidunt in volutpat. Nascetur amet auctor sem non
-              fermentum. Velit sem ullamcorper tellus sed scelerisque ipsum
-              elementum.
-            </TextBlock>
+          <FadeInWrapper
+            show={partToShow === "idle"}
+            delay={2 * DELAY_UNIT}
+            className={s.copy}
+          >
+            <p>
+              <span data-header="true">Question</span>
+              Now is the time to ask your question to irmai. This will guide the
+              type of conversation you would like to have.
+            </p>
+          </FadeInWrapper>
+          <FadeInWrapper
+            show={partToShow === "idle"}
+            delay={3 * DELAY_UNIT}
+            className={s.copy}
+          >
+            <p>Press and hold the button below to record your question.</p>
           </FadeInWrapper>
         </section>
         <section
@@ -124,7 +132,7 @@ const FirstQuestionScreen = ({ isActive }: { isActive: boolean }) => {
         >
           <FadeInWrapper
             show={partToShow === "recap" && firstQuestion.length > 0}
-            delay={1000}
+            delay={2 * DELAY_UNIT}
           >
             <HighlightBlock header="Question">
               <p>{firstQuestion}</p>
@@ -136,11 +144,6 @@ const FirstQuestionScreen = ({ isActive }: { isActive: boolean }) => {
         </section>
 
         <section className={`${s.screenPartWrapper} ${s.tempAiFeedback}`}>
-          <FadeInWrapper show={partToShow === "idle"} delay={100}>
-            <div className={s.idle}>
-              <p>"What is your question?"</p>
-            </div>
-          </FadeInWrapper>
           <FadeInWrapper show={partToShow === "recording"} delay={100}>
             <div className={s.recording}>
               <p>"Listening..."</p>
@@ -152,7 +155,7 @@ const FirstQuestionScreen = ({ isActive }: { isActive: boolean }) => {
           <FadeInWrapper
             className={s.footerPart}
             show={partToShow === "idle" || partToShow === "recording"}
-            delay={100}
+            delay={4 * DELAY_UNIT}
           >
             <PressAndHoldCTA
               onBeginPress={() => handleStartRecording()}

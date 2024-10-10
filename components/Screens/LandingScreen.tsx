@@ -9,11 +9,12 @@ import FadeInWrapper from "@/components/TransitionWrapper/TransitionWrapper";
 
 import s from "./screens.module.css";
 
-type TPartToShow = null | "welcome" | "question";
+type TPartToShow = null | "landing";
+
+const DELAY_UNIT = 400;
 
 const LandingScreen = ({
   isActive,
-  assistantProps,
 }: {
   isActive: boolean;
   assistantProps?: any;
@@ -22,86 +23,65 @@ const LandingScreen = ({
   const [partToShow, setPartToShow] = useDebounce<TPartToShow>(null, 100);
 
   useEffect(() => {
-    setPartToShow(isActive ? "welcome" : null);
+    setPartToShow(isActive ? "landing" : null);
   }, [isActive]);
 
-  const handleNextPart = () => {
-    setPartToShow("question");
-  };
-
   const handleNextScreen = () => {
-    if (partToShow === "question") {
-      setPartToShow(null);
-      setGlobalState("firstQuestion");
-    }
+    setPartToShow(null);
+    setGlobalState("firstQuestion");
   };
 
   return (
     <Screen isActive={isActive}>
       <div className={s.wrapper} data-show={partToShow}>
-        {/* Part 1 - welcome */}
         <section
           className={s.screenPartWrapper}
-          data-interactive={partToShow === "welcome"}
+          data-interactive={partToShow === "landing"}
         >
           <FadeInWrapper
-            show={partToShow === "welcome"}
+            show={partToShow === "landing"}
             className={s.copy}
-            delay={1500}
+            delay={4 * DELAY_UNIT}
           >
             <p>
               <span>Welcome</span>
-              irmai is your audio-visual spiritual guide. This is a journey of
-              self-discovery and inner peace to nurture your spiritual growth
-              and self connection.
+              irmai is your audio-visual spiritual guide.
             </p>
           </FadeInWrapper>
           <FadeInWrapper
-            show={partToShow === "welcome"}
+            show={partToShow === "landing"}
             className={s.copy}
-            delay={2000}
-          >
-            <p>There is power within your fingertips.</p>
-          </FadeInWrapper>
-          <FadeInWrapper
-            show={partToShow === "welcome"}
-            className={s.copy}
-            delay={2500}
+            delay={5 * DELAY_UNIT}
           >
             <p>
-              Pressing, holding, and speaking, will let you connect with your
-              spiritual guide.
+              This is a journey of self-discovery and inner peace to nurture
+              your spiritual growth and self connection.
             </p>
-          </FadeInWrapper>
-        </section>
 
-        {/* Part 2 - question */}
-        <section
-          className={s.screenPartWrapper}
-          data-interactive={partToShow === "question"}
-        >
+            <p style={{ textAlign: "center" }}>***</p>
+          </FadeInWrapper>
+
           <FadeInWrapper
-            show={partToShow === "question"}
+            show={partToShow === "landing"}
             className={s.copy}
-            delay={1000}
+            delay={6 * DELAY_UNIT}
           >
             <p>
               <span>Question</span>
-              to form an intention for a tarot reading, reflect on your current
+              To form an intention for a tarot reading, reflect on your current
               situation and distill it into a clear, specific question or
-              intention. Phrase your question carefully to invite actionable
-              guidance and insight, ensuring it captures the essence of what you
-              want to explore.
+              intention.
             </p>
           </FadeInWrapper>
           <FadeInWrapper
-            show={partToShow === "question"}
+            show={partToShow === "landing"}
             className={s.copy}
-            delay={1500}
+            delay={7 * DELAY_UNIT}
           >
             <p>
-              Now is the time to ask your question to IRMAI. This will guide the
-              type of conversation you would like to have.
+              Phrase your question carefully to invite actionable guidance and
+              insight, ensuring it captures the essence of what you want to
+              explore.
             </p>
           </FadeInWrapper>
         </section>
@@ -109,17 +89,10 @@ const LandingScreen = ({
         <footer className={s.footer}>
           <FadeInWrapper
             className={s.footerPart}
-            show={partToShow === "welcome"}
-            delay={2500}
+            show={partToShow === "landing"}
+            delay={8 * DELAY_UNIT}
           >
-            <PressCTA onPress={handleNextPart} label="Start" />
-          </FadeInWrapper>
-          <FadeInWrapper
-            className={s.footerPart}
-            show={partToShow === "question"}
-            delay={2000}
-          >
-            <PressCTA onPress={handleNextScreen} label="Next" />
+            <PressCTA onPress={handleNextScreen} label="Start" />
           </FadeInWrapper>
         </footer>
       </div>

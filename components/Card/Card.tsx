@@ -17,6 +17,9 @@ const CardWithLightbox = ({
   cardContent: JSX.Element;
   lightboxContent: JSX.Element;
 }) => {
+  // FIXME: drawer trigger stays active after closing the drawer
+  // on mobile
+  // (and blocks the transcript overlay somehow)
   return (
     <Drawer.Root>
       <Drawer.Trigger>{cardContent}</Drawer.Trigger>
