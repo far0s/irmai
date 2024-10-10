@@ -51,7 +51,6 @@ const TarotScreen = ({ isActive }: { isActive: boolean }) => {
           <FadeInWrapper
             show={partToShow === "overview" && firstQuestion.length > 0}
             delay={1000}
-            variant="fade"
           >
             <HighlightBlock header="Question">
               <p>{firstQuestion}</p>
@@ -61,7 +60,6 @@ const TarotScreen = ({ isActive }: { isActive: boolean }) => {
             className={s.copy}
             show={partToShow === "overview"}
             delay={1000}
-            variant="fade"
           >
             {selectedCards.length > 0 ? (
               <CardsOverviewBlock cards={selectedCards} />
@@ -86,7 +84,7 @@ const TarotScreen = ({ isActive }: { isActive: boolean }) => {
           className={s.screenPartWrapper}
           data-interactive={partToShow === "pulling"}
         >
-          <FadeInWrapper show={partToShow === "pulling"} variant="fade">
+          <FadeInWrapper show={partToShow === "pulling"}>
             <CardsShaker show={partToShow === "pulling"} />
           </FadeInWrapper>
         </section>
@@ -97,7 +95,6 @@ const TarotScreen = ({ isActive }: { isActive: boolean }) => {
           className={s.footerPart}
           show={partToShow === "overview"}
           delay={1000}
-          variant="fade"
         >
           <PressCTA
             onPress={handleCTAPress}

@@ -9,14 +9,11 @@
   box-sizing: border-box;
   z-index: 1;
   overflow-y: scroll;
-  opacity: 0;
-  transition: 0.4s;
   pointer-events: none;
   color: var(--cream);
 }
 
 .transcript[data-show="true"] {
-  opacity: 1;
   pointer-events: initial;
 }
 
@@ -37,12 +34,6 @@
   display: flex;
   flex-flow: column nowrap;
   padding: var(--header-margin) 0;
-  transform: translateY(-2rem);
-  transition: 0.4s ease-out;
-}
-
-.transcript[data-show="true"] .transcriptInner {
-  transform: translateY(0);
 }
 
 .timeKeeper {

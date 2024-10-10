@@ -17,6 +17,7 @@
     "ai": "3.4.9",
     "framer-motion": "^11.11.7",
     "leva": "^0.9.35",
+    "markdown-to-jsx": "^7.5.0",
     "next": "14.2.15",
     "openai": "4.67.3",
     "react": "18.3.1",

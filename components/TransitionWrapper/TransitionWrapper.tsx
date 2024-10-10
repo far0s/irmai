@@ -1,31 +1,46 @@
+import { motion } from "framer-motion";
+
 import s from "./transitionWrapper.module.css";
 
 const TransitionWrapper = ({
   show = false,
   delay = 0,
   className,
-  variant = "fade",
   children,
 }: {
   show?: boolean;
   delay?: number;
   className?: string;
-  variant?: "fade" | null;
   children: React.ReactNode;
 }) => {
   return (
-    <div
+    <motion.div
       className={`${s.transitionWrapper} ${className || ""}`}
       data-show={show}
-      data-variant={variant}
+      initial={{
+        opacity: 0,
+        y: "2rem",
+        filter: "blur(10px)",
+      }}
+      animate={{
+        opacity: show ? 1 : 0,
+        y: show ? "0rem" : "2rem",
+        filter: show ? "blur(0px)" : "blur(10px)",
+      }}
+      exit={{
+        opacity: 0,
+        y: "2rem",
+        filter: "blur(10px)",
+      }}
+      transition={{
+        delay: show ? delay / 1000 : 0,
+        type: "spring",
+        stiffness: 600,
+        damping: 100,
+      }}
     >
-      <style jsx>{`
-        .${s.transitionWrapper} {
-          --delay: ${delay}ms;
-        }
-      `}</style>
       {children}
-    </div>
+    </motion.div>
   );
 };
 

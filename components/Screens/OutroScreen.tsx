@@ -59,7 +59,6 @@ const OutroScreen = ({
           <FadeInWrapper
             show={partToShow === "outro" && conclusion.length === 0}
             delay={500}
-            variant="fade"
           >
             <HighlightBlock header="Conclusion">
               <p>
@@ -75,7 +74,6 @@ const OutroScreen = ({
           <FadeInWrapper
             show={partToShow === "outro" && conclusion.length > 0}
             delay={1000}
-            variant="fade"
           >
             <HighlightBlock header="Conclusion">
               <p>

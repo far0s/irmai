@@ -43,21 +43,13 @@ const SplashScreen = ({ isActive }: { isActive: boolean }) => {
   return (
     <Screen isActive={isActive}>
       <div className={s.splashCopy}>
-        <TransitionWrapper
-          show={showSplash && !hasSeenSplash}
-          delay={1500}
-          variant="fade"
-        >
+        <TransitionWrapper show={showSplash && !hasSeenSplash} delay={1500}>
           <p>
             Irmai uses the microphone to <em>hear</em> and <em>speak</em> to
             you.
           </p>
         </TransitionWrapper>
-        <TransitionWrapper
-          show={showSplash && !hasSeenSplash}
-          delay={2000}
-          variant="fade"
-        >
+        <TransitionWrapper show={showSplash && !hasSeenSplash} delay={2000}>
           <p>Please allow us to use it to proceed.</p>
         </TransitionWrapper>
       </div>

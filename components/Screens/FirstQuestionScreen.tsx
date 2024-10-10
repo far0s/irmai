@@ -125,7 +125,6 @@ const FirstQuestionScreen = ({ isActive }: { isActive: boolean }) => {
           <FadeInWrapper
             show={partToShow === "recap" && firstQuestion.length > 0}
             delay={1000}
-            variant="fade"
           >
             <HighlightBlock header="Question">
               <p>{firstQuestion}</p>
@@ -137,20 +136,12 @@ const FirstQuestionScreen = ({ isActive }: { isActive: boolean }) => {
         </section>
 
         <section className={`${s.screenPartWrapper} ${s.tempAiFeedback}`}>
-          <FadeInWrapper
-            show={partToShow === "idle"}
-            delay={100}
-            variant="fade"
-          >
+          <FadeInWrapper show={partToShow === "idle"} delay={100}>
             <div className={s.idle}>
               <p>"What is your question?"</p>
             </div>
           </FadeInWrapper>
-          <FadeInWrapper
-            show={partToShow === "recording"}
-            delay={100}
-            variant="fade"
-          >
+          <FadeInWrapper show={partToShow === "recording"} delay={100}>
             <div className={s.recording}>
               <p>"Listening..."</p>
             </div>
@@ -162,7 +153,6 @@ const FirstQuestionScreen = ({ isActive }: { isActive: boolean }) => {
             className={s.footerPart}
             show={partToShow === "idle" || partToShow === "recording"}
             delay={100}
-            variant="fade"
           >
             <PressAndHoldCTA
               onBeginPress={() => handleStartRecording()}
@@ -177,7 +167,6 @@ const FirstQuestionScreen = ({ isActive }: { isActive: boolean }) => {
             className={s.footerPart}
             show={partToShow === "recap"}
             delay={100}
-            variant="fade"
           >
             <PressCTA onPress={handleGoToNextScreen} label="Next" />
           </FadeInWrapper>

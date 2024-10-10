@@ -48,7 +48,6 @@ const LandingScreen = ({
             show={partToShow === "welcome"}
             className={s.copy}
             delay={1500}
-            variant="fade"
           >
             <p>
               <span>Welcome</span>
@@ -61,7 +60,6 @@ const LandingScreen = ({
             show={partToShow === "welcome"}
             className={s.copy}
             delay={2000}
-            variant="fade"
           >
             <p>There is power within your fingertips.</p>
           </FadeInWrapper>
@@ -69,7 +67,6 @@ const LandingScreen = ({
             show={partToShow === "welcome"}
             className={s.copy}
             delay={2500}
-            variant="fade"
           >
             <p>
               Pressing, holding, and speaking, will let you connect with your
@@ -87,7 +84,6 @@ const LandingScreen = ({
             show={partToShow === "question"}
             className={s.copy}
             delay={1000}
-            variant="fade"
           >
             <p>
               <span>Question</span>
@@ -102,7 +98,6 @@ const LandingScreen = ({
             show={partToShow === "question"}
             className={s.copy}
             delay={1500}
-            variant="fade"
           >
             <p>
               Now is the time to ask your question to IRMAI. This will guide the
@@ -116,7 +111,6 @@ const LandingScreen = ({
             className={s.footerPart}
             show={partToShow === "welcome"}
             delay={2500}
-            variant="fade"
           >
             <PressCTA onPress={handleNextPart} label="Start" />
           </FadeInWrapper>
@@ -124,7 +118,6 @@ const LandingScreen = ({
             className={s.footerPart}
             show={partToShow === "question"}
             delay={2000}
-            variant="fade"
           >
             <PressCTA onPress={handleNextScreen} label="Next" />
           </FadeInWrapper>

@@ -15,7 +15,6 @@ export const Screen = ({
     <FadeInWrapper
       show={isActive}
       delay={isActive ? 500 : 0}
-      variant="fade"
       className={s.screen}
     >
       {children}

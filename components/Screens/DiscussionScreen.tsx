@@ -178,7 +178,6 @@ const DiscussionScreen = ({
           <FadeInWrapper
             show={partToShow === "idle" && firstQuestion.length > 0}
             delay={1000}
-            variant="fade"
           >
             <HighlightBlock header="Question" expandable>
               <p>{firstQuestion}</p>
@@ -188,14 +187,12 @@ const DiscussionScreen = ({
             className={s.copy}
             show={partToShow === "idle"}
             delay={1500}
-            variant="fade"
           >
             <CardsOverviewBlock cards={selectedCards} expandable />
           </FadeInWrapper>
           <FadeInWrapper
             show={partToShow === "idle" && messages && messages.length > 1}
             delay={1500}
-            variant="fade"
           >
             <TextBlock>
               You can ask another question or we can end the conversation here.
@@ -206,38 +203,22 @@ const DiscussionScreen = ({
         </section>
 
         <section className={`${s.screenPartWrapper} ${s.tempAiFeedback}`}>
-          <FadeInWrapper
-            show={partToShow === "idle"}
-            delay={100}
-            variant="fade"
-          >
+          <FadeInWrapper show={partToShow === "idle"} delay={100}>
             <div className={s.idle}>
               <p>"What is your question?"</p>
             </div>
           </FadeInWrapper>
-          <FadeInWrapper
-            show={partToShow === "recording"}
-            delay={100}
-            variant="fade"
-          >
+          <FadeInWrapper show={partToShow === "recording"} delay={100}>
             <div className={s.recording}>
               <p>"Listening..."</p>
             </div>
           </FadeInWrapper>
-          <FadeInWrapper
-            show={partToShow === "thinking"}
-            delay={100}
-            variant="fade"
-          >
+          <FadeInWrapper show={partToShow === "thinking"} delay={100}>
             <div className={s.thinking}>
               <p>"Thinking..."</p>
             </div>
           </FadeInWrapper>
-          <FadeInWrapper
-            show={partToShow === "speaking"}
-            delay={100}
-            variant="fade"
-          >
+          <FadeInWrapper show={partToShow === "speaking"} delay={100}>
             <div className={s.speaking}>
               <p>"Speaking..."</p>
             </div>

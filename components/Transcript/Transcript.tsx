@@ -1,4 +1,6 @@
 import { memo, useEffect, useRef } from "react";
+import { motion } from "framer-motion";
+import Markdown from "markdown-to-jsx";
 
 import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
 import {
@@ -39,8 +41,28 @@ const Transcript = ({ assistantProps }: any) => {
   // TODO: refactor remaining transcript blocks
 
   return (
-    <div className={`${s.transcript}`} data-show={showTranscript}>
-      <main className={s.transcriptInner} ref={transcriptInnerElem}>
+    <motion.div
+      className={`${s.transcript}`}
+      data-show={showTranscript}
+      initial={{
+        opacity: 0,
+      }}
+      animate={{
+        opacity: showTranscript ? 1 : 0,
+      }}
+      transition={{ type: "spring", duration: 0.4 }}
+    >
+      <motion.main
+        className={s.transcriptInner}
+        ref={transcriptInnerElem}
+        initial={{
+          y: "-2rem",
+        }}
+        animate={{
+          y: showTranscript ? "0" : "-2rem",
+        }}
+        transition={{ type: "spring", duration: 0.4 }}
+      >
         <TimeKeeper />
         {firstQuestion.length > 0 && (
           <HighlightBlock header="Starting Question">
@@ -64,7 +86,7 @@ const Transcript = ({ assistantProps }: any) => {
                     }
                   >
                     <span>{item.role === "assistant" ? "irmai" : "you"}</span>
-                    <p>{item.content}</p>
+                    <Markdown className={s.markdown}>{item.content}</Markdown>
                   </li>
                 ))}
 
@@ -98,8 +120,8 @@ const Transcript = ({ assistantProps }: any) => {
             </p>
           </article>
         )}
-      </main>
-    </div>
+      </motion.main>
+    </motion.div>
   );
 };
 

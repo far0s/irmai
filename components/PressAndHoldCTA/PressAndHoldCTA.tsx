@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+import { motion } from "framer-motion";
 
 import s from "./pressAndHoldCTA.module.css";
 
@@ -44,7 +45,7 @@ const PressAndHoldCTA = ({
   };
 
   return (
-    <button
+    <motion.button
       onMouseDown={handlePress}
       onMouseUp={handleRelease}
       onTouchStart={handlePress}
@@ -55,6 +56,10 @@ const PressAndHoldCTA = ({
       style={
         { "--press-duration": `${pressDuration}ms` } as React.CSSProperties
       }
+      initial={{ scale: 1 }}
+      whileHover={{ scale: 1.1 }}
+      whileTap={{ scale: 1 }}
+      transition={{ type: "spring", stiffness: 200, damping: 17 }}
     >
       <div className={s.circleWrapper}>
         <span className={s.circleGlow}></span>
@@ -71,7 +76,7 @@ const PressAndHoldCTA = ({
       <span className={s.copyWhilePress}>
         {activeChildren || "Keep holding"}
       </span>
-    </button>
+    </motion.button>
   );
 };
 
