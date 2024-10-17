@@ -8,7 +8,7 @@
 
   /* header */
   --header-margin: 36px;
-  --header-height: 36px;
+  --header-height: 32px;
   --header-safe-zone: calc(var(--header-margin) * 2 + var(--header-height));
   --footer-margin: calc(55px + 1svh);
 

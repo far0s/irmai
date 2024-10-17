@@ -12,8 +12,8 @@ const TranscriptToggle = () => {
   } = useIrmaiStore((s) => s);
 
   const isNotSplash = globalState !== "splash";
-  const showTranscriptToggle =
-    transcript.length > 0 || firstQuestion.length > 0;
+  const showTranscriptToggle = true;
+  // transcript.length > 0 || firstQuestion.length > 0;
 
   return (
     <button

@@ -61,6 +61,6 @@
   cursor: pointer;
   z-index: 1;
   aspect-ratio: 196 / 50;
-  height: min(5dvh, var(--header-height));
+  height: min(5dvh, var(--header-margin));
   opacity: 0;
 }

@@ -1,6 +1,6 @@
 {
   "name": "irmai",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "private": true,
   "scripts": {
     "dev": "next dev --turbo --experimental-https",
@@ -9,33 +9,33 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@ai-sdk/openai": "^0.0.66",
-    "@react-three/drei": "^9.114.3",
+    "@ai-sdk/openai": "^0.0.67",
+    "@react-three/drei": "^9.114.4",
     "@react-three/fiber": "^8.17.10",
     "@types/three": "^0.169.0",
     "@vercel/analytics": "^1.3.1",
-    "ai": "3.4.9",
-    "framer-motion": "^11.11.7",
+    "ai": "3.4.13",
+    "framer-motion": "^11.11.9",
     "leva": "^0.9.35",
     "markdown-to-jsx": "^7.5.0",
     "next": "14.2.15",
     "openai": "4.67.3",
     "react": "18.3.1",
     "react-dom": "^18.3.1",
-    "react-parallax-tilt": "^1.7.245",
+    "react-parallax-tilt": "^1.7.247",
     "three": "^0.169.0",
-    "vaul": "^1.0.0",
-    "zustand": "^4.5.5"
+    "vaul": "^1.1.0",
+    "zustand": "^5.0.0"
   },
   "devDependencies": {
-    "@types/node": "^22.7.5",
+    "@types/node": "^22.7.6",
     "@types/react": "^18.3.11",
-    "@types/react-dom": "^18.3.0",
+    "@types/react-dom": "^18.3.1",
     "autoprefixer": "^10.4.20",
     "eslint": "^8.57.0",
     "eslint-config-next": "^14.2.15",
     "postcss": "^8.4.47",
-    "tailwindcss": "^3.4.13",
+    "tailwindcss": "^3.4.14",
     "typescript": "5.6.3"
   }
 }

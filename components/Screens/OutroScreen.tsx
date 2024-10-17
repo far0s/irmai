@@ -28,9 +28,13 @@ const OutroScreen = ({
   isActive: boolean;
   assistantProps: any;
 }) => {
-  const { reset, setShowTranscript, conclusion, setConclusion } = useIrmaiStore(
-    (s) => s
-  );
+  const {
+    reset,
+    setShowTranscript,
+    setGlobalState,
+    conclusion,
+    setConclusion,
+  } = useIrmaiStore((s) => s);
   const [partToShow, setPartToShow] = useState<null | "outro">(null);
 
   const { messages, append }: any = assistantProps;
@@ -46,7 +50,7 @@ const OutroScreen = ({
 
   const handleReset = () => {
     reset();
-    // window.location.reload();
+    window.location.reload();
   };
 
   return (
@@ -90,8 +94,11 @@ const OutroScreen = ({
 
       <footer className={s.footer}>
         <PressCTA
-          label="Show transcript"
-          onPress={() => setShowTranscript(true)}
+          label="Back to my reading"
+          onPress={() => {
+            setPartToShow(null);
+            setGlobalState("chat");
+          }}
         />
         <PressCTA label="New Reading" onPress={handleReset} />
       </footer>

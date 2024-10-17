@@ -8,10 +8,8 @@ import Stage from "@/components/Stage/Stage";
 import Debug from "@/components/Debug/Debug";
 import Transcript from "@/components/Transcript/Transcript";
 import SplashScreen from "@/components/Screens/SplashScreen";
-import LandingScreen from "@/components/Screens/LandingScreen";
-import FirstQuestionScreen from "@/components/Screens/FirstQuestionScreen";
-import TarotScreen from "@/components/Screens/TarotScreen";
-import DiscussionScreen from "@/components/Screens/DiscussionScreen";
+import IntroScreen from "@/components/Screens/IntroScreen";
+import ChatScreen from "@/components/Screens/ChatScreen";
 import OutroScreen from "@/components/Screens/OutroScreen";
 import Background from "@/components/Background/Background";
 
@@ -21,10 +19,8 @@ import s from "./page.module.css";
 
 const Screens = {
   splash: SplashScreen,
-  landing: LandingScreen,
-  firstQuestion: FirstQuestionScreen,
-  tarot: TarotScreen,
-  discussion: DiscussionScreen,
+  intro: IntroScreen,
+  chat: ChatScreen,
   outro: OutroScreen,
 };
 

@@ -9,11 +9,11 @@ import FadeInWrapper from "@/components/TransitionWrapper/TransitionWrapper";
 
 import s from "./screens.module.css";
 
-type TPartToShow = null | "landing";
+type TPartToShow = null | "intro";
 
 const DELAY_UNIT = 400;
 
-const LandingScreen = ({
+const IntroScreen = ({
   isActive,
 }: {
   isActive: boolean;
@@ -23,12 +23,12 @@ const LandingScreen = ({
   const [partToShow, setPartToShow] = useDebounce<TPartToShow>(null, 100);
 
   useEffect(() => {
-    setPartToShow(isActive ? "landing" : null);
+    setPartToShow(isActive ? "intro" : null);
   }, [isActive]);
 
   const handleNextScreen = () => {
     setPartToShow(null);
-    setGlobalState("firstQuestion");
+    setGlobalState("chat");
   };
 
   return (
@@ -36,10 +36,10 @@ const LandingScreen = ({
       <div className={s.wrapper} data-show={partToShow}>
         <section
           className={s.screenPartWrapper}
-          data-interactive={partToShow === "landing"}
+          data-interactive={partToShow === "intro"}
         >
           <FadeInWrapper
-            show={partToShow === "landing"}
+            show={partToShow === "intro"}
             className={s.copy}
             delay={4 * DELAY_UNIT}
           >
@@ -49,7 +49,7 @@ const LandingScreen = ({
             </p>
           </FadeInWrapper>
           <FadeInWrapper
-            show={partToShow === "landing"}
+            show={partToShow === "intro"}
             className={s.copy}
             delay={5 * DELAY_UNIT}
           >
@@ -58,11 +58,11 @@ const LandingScreen = ({
               your spiritual growth and self connection.
             </p>
 
-            <p style={{ textAlign: "center" }}>***</p>
+            <p style={{ textAlign: "center" }}>✳︎✳︎✳︎</p>
           </FadeInWrapper>
 
           <FadeInWrapper
-            show={partToShow === "landing"}
+            show={partToShow === "intro"}
             className={s.copy}
             delay={6 * DELAY_UNIT}
           >
@@ -74,7 +74,7 @@ const LandingScreen = ({
             </p>
           </FadeInWrapper>
           <FadeInWrapper
-            show={partToShow === "landing"}
+            show={partToShow === "intro"}
             className={s.copy}
             delay={7 * DELAY_UNIT}
           >
@@ -89,7 +89,7 @@ const LandingScreen = ({
         <footer className={s.footer}>
           <FadeInWrapper
             className={s.footerPart}
-            show={partToShow === "landing"}
+            show={partToShow === "intro"}
             delay={8 * DELAY_UNIT}
           >
             <PressCTA onPress={handleNextScreen} label="Start" />
@@ -100,4 +100,4 @@ const LandingScreen = ({
   );
 };
 
-export default LandingScreen;
+export default IntroScreen;

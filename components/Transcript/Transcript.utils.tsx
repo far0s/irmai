@@ -71,7 +71,7 @@ export const TextBlock = ({
       {header && header.length > 0 && (
         <header className={s.transcriptHeader}>{header}</header>
       )}
-      <p>{children}</p>
+      <div className={s.transcriptBlockText}>{children}</div>
     </article>
   );
 };

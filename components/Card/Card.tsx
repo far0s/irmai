@@ -107,6 +107,12 @@ const Card = ({
         trackOnWindow={true}
         transitionSpeed={2000}
         gyroscope={true}
+        glareEnable={true}
+        glareMaxOpacity={0.5}
+        glareColor="#fffbf2"
+        glarePosition="all"
+        glareBorderRadius="1rem"
+        glareReverse={true}
         // FIXME: on mobile, on enter, the card's gamma/beta values should be normalized
       >
         <div className={s.card} data-is-hidden={false} data-variant="lightbox">
