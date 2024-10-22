@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { Drawer } from "vaul";
 import Tilt from "react-parallax-tilt";
+import { motion } from "framer-motion";
 
 import Logo from "@/components/Logo/Logo";
 import TransitionWrapper from "@/components/TransitionWrapper/TransitionWrapper";
@@ -63,12 +64,14 @@ const Card = ({
   };
 
   const cardContent = (
-    <div
+    <motion.div
       className={s.card}
       data-is-hidden={hidden}
       data-is-reverse={reverse}
       data-variant={variant}
       onClick={handleCardClick}
+      whileHover={{ scale: 1.05 }}
+      transition={{ type: "spring", stiffness: 200, damping: 17 }}
     >
       <div className={s.cardBack}>
         <Logo />
@@ -91,7 +94,7 @@ const Card = ({
         <span>{card.name}</span>
         {reverse === true && <span>(reverse)</span>}
       </TransitionWrapper>
-    </div>
+    </motion.div>
   );
 
   const lightboxContent = (
