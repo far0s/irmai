@@ -2,6 +2,7 @@
 import Image from "next/image";
 import { Drawer } from "vaul";
 import Tilt from "react-parallax-tilt";
+import { motion } from "framer-motion";
 
 import Logo from "@/components/Logo/Logo";
 import TransitionWrapper from "@/components/TransitionWrapper/TransitionWrapper";
@@ -17,6 +18,9 @@ const CardWithLightbox = ({
   cardContent: JSX.Element;
   lightboxContent: JSX.Element;
 }) => {
+  // FIXME: drawer trigger stays active after closing the drawer
+  // on mobile
+  // (and blocks the transcript overlay somehow)
   return (
     <Drawer.Root>
       <Drawer.Trigger>{cardContent}</Drawer.Trigger>
@@ -60,12 +64,14 @@ const Card = ({
   };
 
   const cardContent = (
-    <div
+    <motion.div
       className={s.card}
       data-is-hidden={hidden}
       data-is-reverse={reverse}
       data-variant={variant}
       onClick={handleCardClick}
+      whileHover={{ scale: 1.05 }}
+      transition={{ type: "spring", stiffness: 200, damping: 17 }}
     >
       <div className={s.cardBack}>
         <Logo />
@@ -88,7 +94,7 @@ const Card = ({
         <span>{card.name}</span>
         {reverse === true && <span>(reverse)</span>}
       </TransitionWrapper>
-    </div>
+    </motion.div>
   );
 
   const lightboxContent = (
@@ -104,6 +110,12 @@ const Card = ({
         trackOnWindow={true}
         transitionSpeed={2000}
         gyroscope={true}
+        glareEnable={true}
+        glareMaxOpacity={0.5}
+        glareColor="#fffbf2"
+        glarePosition="all"
+        glareBorderRadius="1rem"
+        glareReverse={true}
         // FIXME: on mobile, on enter, the card's gamma/beta values should be normalized
       >
         <div className={s.card} data-is-hidden={false} data-variant="lightbox">

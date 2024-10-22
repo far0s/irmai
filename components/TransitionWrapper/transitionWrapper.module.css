@@ -7,7 +7,7 @@
 }
 
 .transitionWrapper[data-show="true"] {
-  pointer-events: auto;
+  pointer-events: initial;
 }
 
 .transitionWrapper[data-show="false"] {

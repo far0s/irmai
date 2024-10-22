@@ -19,6 +19,10 @@ const PressCTA = ({
   const handlePress = () => {
     onPress && onPress();
     setIsPressed(true);
+
+    window.setTimeout(() => {
+      setIsPressed(false);
+    }, 4000);
   };
 
   const handleRelease = () => {

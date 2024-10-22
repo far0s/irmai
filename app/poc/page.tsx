@@ -20,7 +20,7 @@ export default function Chat() {
   // [] custom instructions (the AI should be proficient with astrology, etc.)
 
   const pickTarotCards = async () => {
-    const response = await fetch("/api/tarot");
+    const response = await fetch("/api/tarot?n=3");
     const cards = await response.json();
     setTarotCards(cards);
   };

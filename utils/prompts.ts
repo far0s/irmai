@@ -11,6 +11,7 @@ export const prepareFirstPrompt = ({
     .map((card) => card.name)
     .join(", ")}.
     Keep your response to a maximum of 150 words.
+    Wrap the cards names with double asterisks (**) to bold them.
     Finish your answer by asking me a followup question about my reading.
   `;
 };

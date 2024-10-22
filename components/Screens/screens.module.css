@@ -6,11 +6,17 @@
   width: 100%;
   height: 100%;
   padding: 2rem 0;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  scroll-behavior: smooth;
 }
 
 .screenPartWrapper {
   position: absolute;
   width: 100%;
+  padding-bottom: 4rem;
 }
 
 .screenPartWrapper[data-interactive="false"] {
@@ -41,6 +47,14 @@
   margin-bottom: 1rem;
 }
 
+.copy li > p {
+  margin-bottom: initial;
+}
+
+.markdown p {
+  margin-bottom: 0.5rem;
+}
+
 .splashCopy {
   text-align: center;
   margin-top: var(--header-safe-zone);
@@ -50,9 +64,11 @@
 }
 
 .footer {
-  position: relative !important;
-  width: 100%;
-  padding-bottom: 2rem;
+  position: fixed !important;
+  bottom: -5rem;
+  padding-bottom: 5rem;
+  width: 100vw;
+  height: calc(var(--header-safe-zone) + 5rem);
   margin-top: auto;
   display: flex;
   flex-direction: row;
@@ -61,10 +77,37 @@
   gap: 2rem;
   transition: 0.5s ease-out;
   z-index: 2;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: calc(var(--header-safe-zone) + 8rem);
+    background: linear-gradient(
+      to bottom,
+      rgba(11, 2, 22, 0) 0%,
+      rgba(11, 2, 22, 0.8) 30%,
+      rgba(11, 2, 22, 1) 70%
+    );
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0;
+    transition: 0.5s ease-out;
+  }
+
+  &[data-show-backdrop="true"]:has(> [data-show="true"])::after {
+    opacity: 1;
+  }
 }
 
 .footerPart {
   position: absolute;
+
+  &[data-show="true"] ~ [data-show="true"] {
+    transform: translateX(calc(100% + var(--text-size-m))) !important;
+  }
 }
 
 .idle,
@@ -125,4 +168,24 @@
   margin-top: 0.5rem;
   text-decoration: underline;
   cursor: pointer;
+}
+
+.transcriptTranscript {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 1rem;
+  padding: calc(var(--text-size-m) * 0.5) 0;
+  margin-bottom: 40px;
+}
+
+.transcriptItemRole {
+  font-family: var(--font-cirka), serif;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-size: var(--text-size-l);
+}
+
+.transcriptItemAi .markdown {
+  font-style: italic;
+  font-weight: 300;
 }

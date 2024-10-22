@@ -5,9 +5,9 @@
 ## Team
 
 - [Seb Dancer-Michel](https://seb.cat)
-- [AJ Marshall](https://ajmarshall.ca/)
-- [Sunniva Ottestad](https://www.instagram.com/hypercampina/)
-- [Zelda Colombo](https://zeldacolombo.com/)
+- [AJ Marshall](https://ajmarshall.ca)
+- [Sunniva Ottestad](https://www.instagram.com/hypercampina)
+- [Zelda Colombo](https://zeldacolombo.com)
 
 ## Tech stack
 

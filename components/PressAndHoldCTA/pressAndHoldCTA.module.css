@@ -8,7 +8,7 @@
   -webkit-user-select: none !important;
 
   --cta-size: calc(var(--text-size-s) * 7);
-  --cta-y-offset: calc(var(--text-size-s) * 2);
+  --cta-y-offset: var(--text-size-s);
 }
 
 .circleWrapper {

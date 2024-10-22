@@ -12,13 +12,7 @@ type JSONValue =
     }
   | Array<JSONValue>;
 
-export type TGlobalState =
-  | "splash"
-  | "landing"
-  | "firstQuestion"
-  | "tarot"
-  | "discussion"
-  | "outro";
+export type TGlobalState = "splash" | "intro" | "chat" | "outro";
 
 export type ITarotCard = {
   type: string;

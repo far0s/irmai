@@ -8,10 +8,8 @@ import Stage from "@/components/Stage/Stage";
 import Debug from "@/components/Debug/Debug";
 import Transcript from "@/components/Transcript/Transcript";
 import SplashScreen from "@/components/Screens/SplashScreen";
-import LandingScreen from "@/components/Screens/LandingScreen";
-import FirstQuestionScreen from "@/components/Screens/FirstQuestionScreen";
-import TarotScreen from "@/components/Screens/TarotScreen";
-import DiscussionScreen from "@/components/Screens/DiscussionScreen";
+import IntroScreen from "@/components/Screens/IntroScreen";
+import ChatScreen from "@/components/Screens/ChatScreen";
 import OutroScreen from "@/components/Screens/OutroScreen";
 import Background from "@/components/Background/Background";
 
@@ -21,10 +19,8 @@ import s from "./page.module.css";
 
 const Screens = {
   splash: SplashScreen,
-  landing: LandingScreen,
-  firstQuestion: FirstQuestionScreen,
-  tarot: TarotScreen,
-  discussion: DiscussionScreen,
+  intro: IntroScreen,
+  chat: ChatScreen,
   outro: OutroScreen,
 };
 
@@ -34,11 +30,6 @@ const IrmaiHome = () => {
   const assistantProps = useAssistant({
     api: "/api/assistant",
   });
-
-  useEffect(
-    () => setIsThinking(assistantProps.status === "in_progress" || false),
-    [assistantProps.status]
-  );
 
   useEffect(() => {
     fetchAllTarotCards();
@@ -50,7 +41,12 @@ const IrmaiHome = () => {
       .then((data) => setAllCards(data))
       .catch((err) => console.error(err));
 
-  const transcript = useTranscript(assistantProps.messages);
+  const transcript = useTranscript(
+    assistantProps.messages,
+    globalState
+      ? assistantProps.messages[assistantProps.messages.length - 1]
+      : null
+  );
   const [transcriptLength, setTranscriptLength] = useState<number>(0);
 
   useEffect(() => {

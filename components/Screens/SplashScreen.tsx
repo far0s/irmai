@@ -20,7 +20,7 @@ const SplashScreen = ({ isActive }: { isActive: boolean }) => {
   useEffect(() => {
     // this is called on load
     if (globalState !== "splash") return;
-    if (hasSeenSplash) return setGlobalState("landing");
+    if (hasSeenSplash) return setGlobalState("intro");
     setShowSplash(true);
 
     window.setTimeout(() => {
@@ -35,7 +35,7 @@ const SplashScreen = ({ isActive }: { isActive: boolean }) => {
 
     window.setTimeout(() => {
       setShowSplash(false);
-      setGlobalState("landing");
+      setGlobalState("intro");
       setHasSeenSplash(true);
     }, 500);
   }, [isMicReady, globalState]);

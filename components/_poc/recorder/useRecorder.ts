@@ -22,8 +22,8 @@ const useRecorder = (): Recorder => {
   const [audioURL, setAudioURL] = useState<string>("");
   const [time, setTime] = useState<number>(0);
   const [blob, setBlob] = useState<Blob | null>(null);
-  const timerRef = useRef<number>();
-  const mediaRecorderRef = useRef<MediaRecorder>();
+  const timerRef = useRef<number>(0);
+  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
   const [audioFile, setAudioFile] = useState<File | null>(null);
 
   // Function to start recording
