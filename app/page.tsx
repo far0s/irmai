@@ -31,11 +31,6 @@ const IrmaiHome = () => {
     api: "/api/assistant",
   });
 
-  useEffect(
-    () => setIsThinking(assistantProps.status === "in_progress" || false),
-    [assistantProps.status]
-  );
-
   useEffect(() => {
     fetchAllTarotCards();
   }, []);
@@ -46,7 +41,12 @@ const IrmaiHome = () => {
       .then((data) => setAllCards(data))
       .catch((err) => console.error(err));
 
-  const transcript = useTranscript(assistantProps.messages);
+  const transcript = useTranscript(
+    assistantProps.messages,
+    globalState
+      ? assistantProps.messages[assistantProps.messages.length - 1]
+      : null
+  );
   const [transcriptLength, setTranscriptLength] = useState<number>(0);
 
   useEffect(() => {

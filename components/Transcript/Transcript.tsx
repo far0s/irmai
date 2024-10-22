@@ -1,34 +1,16 @@
 import { memo, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import Markdown from "markdown-to-jsx";
 
 import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
-import {
-  TimeKeeper,
-  HighlightBlock,
-  CardsOverviewBlock,
-} from "./Transcript.utils";
-import PressCTA from "@/components/PressCTA/PressCTA";
 import TransitionWrapper from "@/components/TransitionWrapper/TransitionWrapper";
 
 import useScrollToTop from "@/hooks/use-scroll-to-top";
-import useTranscript from "@/hooks/use-transcript";
 
 import s from "./transcript.module.css";
-import Link from "next/link";
 
 const Transcript = ({ assistantProps }: any) => {
-  const {
-    firstQuestion,
-    showTranscript,
-    setShowTranscript,
-    selectedCards,
-    conclusion,
-    reset,
-  } = useIrmaiStore((s) => s);
+  const { showTranscript, setShowTranscript, reset } = useIrmaiStore((s) => s);
   const transcriptInnerElem = useRef<HTMLDivElement | null>(null);
-  const { messages } = assistantProps;
-  const transcript = useTranscript(messages);
 
   useScrollToTop(transcriptInnerElem);
 

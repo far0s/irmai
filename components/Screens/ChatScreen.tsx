@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Markdown from "markdown-to-jsx";
 import { motion } from "framer-motion";
 
@@ -59,8 +59,9 @@ const ChatScreen = ({
     conclusion,
   } = useIrmaiStore((s) => s);
   const [partToShow, setPartToShow] = useDebounce<TPartToShow>(null, 100);
+  const [lastMessage, setLastMessage] = useState(null);
   const { messages, append }: any = assistantProps;
-  const transcript = useTranscript(messages);
+  const transcript = useTranscript(messages, lastMessage);
 
   const {
     startRecording,
@@ -72,11 +73,10 @@ const ChatScreen = ({
   } = useRecorder();
 
   useEffect(() => {
-    setPartToShow(isActive ? "idle" : null);
-    if (firstQuestion.length > 0) return;
-    if (selectedCards?.length === 0) return;
-    const hasAlreadyAnswered = checkIfIrmaiHasAlreadyAnswered();
-    if (hasAlreadyAnswered) return setPartToShow("transcript");
+    setPartToShow(
+      isActive ? (firstQuestion?.length > 0 ? "transcript" : "idle") : null
+    );
+    if (checkIfIrmaiHasAlreadyAnswered()) return;
     handleSendFirstQuestion();
   }, [isActive]);
 
@@ -198,7 +198,6 @@ const ChatScreen = ({
     if (messages?.length === 0) return;
 
     const lastMessage = messages?.[messages.length - 1];
-    setIsThinking(true);
 
     const timer = setTimeout(() => {
       const wrapper = document.querySelector(`.${s.wrapper}`);
@@ -210,18 +209,24 @@ const ChatScreen = ({
         });
       }
       if (lastMessage?.role === "assistant") {
-        // TODO: refactor the callbacks
+        setIsThinking(true);
         convertTextToSpeech({
           mediaDevices: navigator.mediaDevices,
           message: lastMessage,
           startSpeakCallback: () => {
             setIsThinking(false);
             setIsSpeaking(true);
+            setLastMessage(lastMessage);
           },
           endSpeakCallback: () => {
             setIsSpeaking(false);
+            setLastMessage(null);
           },
         });
+      } else if (lastMessage?.role === "user") {
+        setIsThinking(false);
+        setIsSpeaking(false);
+        setLastMessage(lastMessage);
       }
     }, 1000);
 
@@ -296,7 +301,11 @@ const ChatScreen = ({
           </TransitionWrapper>
           <TransitionWrapper
             className={s.copy}
-            show={partToShow === "transcript" && messages.length > 1}
+            show={
+              partToShow === "transcript" &&
+              firstQuestion.length > 0 &&
+              selectedCards.length > 0
+            }
             delay={4 * DELAY_UNIT}
           >
             <TextBlock>
@@ -340,13 +349,13 @@ const ChatScreen = ({
                     </li>
                   ))}
 
-                {conclusion.length > 0 && (
+                {/* {conclusion.length > 0 && (
                   <li className={s.transcriptItemAi}>
                     <div className={s.trancriptItemRole}>
-                      [end of conversation]
+                      [end of conversation] {conclusion}
                     </div>
                   </li>
-                )}
+                )} */}
               </ul>
             </TextBlock>
           </TransitionWrapper>
@@ -365,6 +374,7 @@ const ChatScreen = ({
           <TransitionWrapper
             className={s.footerPart}
             show={
+              (!isSpeaking && partToShow === "idle") ||
               (!isThinking && partToShow === "idle") ||
               partToShow === "recording" ||
               (partToShow === "transcript" && messages.length > 1)
@@ -388,12 +398,12 @@ const ChatScreen = ({
             {selectedCards.length === 0 && (
               <PressCTA onPress={handleGoToCards} label="Pull your cards" />
             )}
-            {selectedCards.length > 0 && !isThinking && messages.length < 2 && (
+            {/* {selectedCards.length > 0 && !isThinking && messages.length < 2 && (
               <PressCTA
                 onPress={handleSendFirstQuestion}
                 label="Tell me my future"
               />
-            )}
+            )} */}
             {partToShow === "transcript" && messages.length > 2 && (
               <PressCTA label="Or end the reading" onPress={handleGoToOutro} />
             )}
