@@ -9,10 +9,17 @@ import { ITarotCard } from "@/utils/shared-types";
 import CardStack from "./cardStack.js";
 import s from "./cardsShaker.module.css";
 
-const CardsShaker = ({ show }: { show: boolean }) => {
+const CardsShaker = ({
+  show,
+  tempSelectedCards,
+  setTempSelectedCards,
+}: {
+  show: boolean;
+  tempSelectedCards: any[];
+  setTempSelectedCards: any;
+}) => {
   const { allCards, setSelectedCards } = useIrmaiStore((s) => s);
   const [randomizedCards, setRandomizedCards] = useState(allCards);
-  const [tempSelectedCards, setTempSelectedCards] = useState<any[]>([]);
   const [cardStack, setCardStack] = useState<any>(null);
 
   useEffect(() => {
@@ -81,26 +88,6 @@ const CardsShaker = ({ show }: { show: boolean }) => {
           ))}
         </div>
       </div>
-
-      <footer className={s.shakerDock}>
-        {tempSelectedCards.length > 0 &&
-          tempSelectedCards.map((card: ITarotCard) => (
-            <div key={card.name_short} className={s.card}>
-              {card.name}
-              {card.reverse === true && (
-                <>
-                  <br /> <span>(reverse)</span>
-                </>
-              )}
-            </div>
-          ))}
-        <p
-          className={s.cardPullInstruction}
-          data-show={tempSelectedCards.length === 0}
-        >
-          <em>Choose three cards</em>
-        </p>
-      </footer>
     </div>
   );
 };

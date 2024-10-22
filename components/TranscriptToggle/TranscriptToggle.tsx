@@ -12,15 +12,15 @@ const TranscriptToggle = () => {
   } = useIrmaiStore((s) => s);
 
   const isNotSplash = globalState !== "splash";
-  const showTranscriptToggle = true;
-  // transcript.length > 0 || firstQuestion.length > 0;
+  const show = firstQuestion.length > 0;
 
   return (
     <button
       className={s.transcriptToggle}
       onClick={() => setShowTranscript(!showTranscript)}
-      data-is-visible={showTranscriptToggle}
+      data-is-visible={show}
       data-is-not-splash-active={isNotSplash}
+      aria-label="Hide or show the transcript"
     >
       <div className={s.transcriptToggleInner}>
         {showTranscript ? (

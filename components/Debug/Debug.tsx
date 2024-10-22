@@ -71,13 +71,6 @@ const Debug = () => {
     },
   });
 
-  useEffect(() => {
-    const pageContainer = document.querySelector('[class*="pageContainer"]');
-    if (pageContainer) {
-      pageContainer?.classList.toggle(s.hide, hideApp);
-    }
-  }, [hideApp]);
-
   return (
     <div ref={debugRef} className={s.debug}>
       <Leva flat collapsed hidden={!debug} />

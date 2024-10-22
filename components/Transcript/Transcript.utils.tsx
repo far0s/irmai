@@ -93,7 +93,7 @@ export const CardsOverviewBlock = ({
       data-is-expandable={expandable}
       data-expanded={expandable ? expanded : true}
     >
-      <header className={s.transcriptHeader}>Your cards</header>
+      <header className={s.transcriptHeader}>✳︎ Your cards</header>
       <div className={s.transcriptCards}>
         {cards.map((card: any) => (
           <Card

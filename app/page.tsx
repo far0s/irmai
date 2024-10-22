@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, Suspense, useState } from "react";
 import { useAssistant } from "ai/react";
+import { motion } from "framer-motion";
 
 import Header from "@/components/Header/Header";
 import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
@@ -25,7 +26,8 @@ const Screens = {
 };
 
 const IrmaiHome = () => {
-  const { globalState, setIsThinking, setAllCards } = useIrmaiStore((s) => s);
+  const { globalState, setIsThinking, setAllCards, hideApp, setHideApp } =
+    useIrmaiStore((s) => s);
 
   const assistantProps = useAssistant({
     api: "/api/assistant",
@@ -57,7 +59,18 @@ const IrmaiHome = () => {
   return (
     <main className={s.page}>
       <Suspense>
-        <div className={s.pageContainer}>
+        <motion.div
+          className={s.pageContainer}
+          animate={{
+            opacity: hideApp ? 0 : 1,
+          }}
+          transition={{
+            type: "spring",
+            stiffness: 600,
+            damping: 100,
+          }}
+          onClick={() => hideApp && setHideApp(false)}
+        >
           <Stage>
             {Object.entries(Screens).map(([key, Component]) => (
               <Component
@@ -69,7 +82,7 @@ const IrmaiHome = () => {
           </Stage>
           <Header />
           <Transcript assistantProps={assistantProps} />
-        </div>
+        </motion.div>
 
         <Debug />
         <Background transcriptLength={transcriptLength} />

@@ -1,4 +1,5 @@
 import TranscriptToggle from "@/components/TranscriptToggle/TranscriptToggle";
+import HideToggle from "@/components/HideToggle/HideToggle";
 import Logo from "@/components/Logo/Logo";
 import UserAudioFeedback from "@/components/UserAudioFeedback/UserAudioFeedback";
 import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
@@ -29,6 +30,7 @@ const Header = () => {
         <div className={s.logoWrapper}>
           <Logo />
         </div>
+        <HideToggle />
         <TranscriptToggle />
       </div>
       {isReadyToAskForMic && <UserAudioFeedback />}

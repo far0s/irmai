@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 import useAudioLevels from "@/hooks/use-audio-levels";
 
@@ -14,13 +15,12 @@ const generateUserAudioLevels = (
   numLevels: number
 ) => {
   return [...Array(numLevels)].map((_, i) => (
-    <span
+    <motion.span
       key={i}
-      style={{
-        transform: audioLevels?.[i]
-          ? `scaleY(${audioLevels[i] / scale})`
-          : `scaleY(0)`,
-      }}
+      initial={{ scaleY: 0 }}
+      animate={{ scaleY: audioLevels?.[i] ? audioLevels[i] / scale : 0 }}
+      exit={{ y: 0 }}
+      transition={{ type: "spring", stiffness: 400, damping: 10 }}
     />
   ));
 };

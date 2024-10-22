@@ -8,7 +8,15 @@
 
 ## Releases
 
-### 0.8.0 - WIP
+### 0.8.1 - released 23/10/2024
+
+- [ ] BUGFIX: cardStack does not scale properly on mobile and desktop
+- [ ] BUGFIX: going to OutroScreen crashes the app on mobile
+- [ ] UI: autoscroll transcript on new transcript messages
+- [x] FEATURE/UI: add hide app button in the header (needs to be persistent) (to see the aura in full)\
+- [x] UI: hide scrollbars in Transcript and ChatScreen
+
+### 0.8.0 - released 22/10/2024
 
 - [x] FEATURE/UI: improve/pimp card view
 - [x] FEATURE/UI: live transcript as the AI speaks

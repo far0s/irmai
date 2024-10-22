@@ -34,7 +34,7 @@ const Transcript = ({ assistantProps }: any) => {
       }}
       animate={{
         opacity: showTranscript ? 1 : 0,
-        y: showTranscript ? "0" : "1rem",
+        y: showTranscript ? 0 : "1rem",
       }}
       transition={{ type: "spring", duration: 0.4 }}
     >
@@ -107,12 +107,13 @@ const Transcript = ({ assistantProps }: any) => {
             <span className={s.transcriptHeader}>Forever Free </span>
             Irmai is free to use and will always be. We're paying for every cost
             associated with running this project ourselves, and although they're
-            not huge, they're not zero either. If you want to support us and
+            not huge, they're not zero either. [add tip link here maybe?]{" "}
+            {/* If you want to support us and
             keep the lights on, you can{" "}
             <a className={s.link} href="/">
               tip us here
             </a>{" "}
-            🤍
+            🤍 */}
           </p>
           <br />
         </TransitionWrapper>

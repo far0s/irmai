@@ -9,7 +9,9 @@
   /* header */
   --header-margin: 36px;
   --header-height: 32px;
-  --header-safe-zone: calc(var(--header-margin) * 2 + var(--header-height));
+  --header-safe-zone: calc(
+    var(--header-margin) + var(--padding-s) * 2 + var(--header-height)
+  );
   --footer-margin: calc(55px + 1svh);
 
   /* spacing */
@@ -50,6 +52,10 @@ body {
   color: var(--cream);
   font-family: var(--font-poppins), sans-serif;
   font-size: var(--text-size-m);
+}
+
+strong {
+  font-weight: bold;
 }
 
 ::selection {

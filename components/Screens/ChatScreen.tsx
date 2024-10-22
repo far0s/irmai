@@ -56,10 +56,10 @@ const ChatScreen = ({
     setIsSpeaking,
     isSpeaking,
     isThinking,
-    conclusion,
   } = useIrmaiStore((s) => s);
   const [partToShow, setPartToShow] = useDebounce<TPartToShow>(null, 100);
   const [lastMessage, setLastMessage] = useState(null);
+  const [tempSelectedCards, setTempSelectedCards] = useState<any[]>([]);
   const { messages, append }: any = assistantProps;
   const transcript = useTranscript(messages, lastMessage);
 
@@ -153,6 +153,8 @@ const ChatScreen = ({
   };
 
   const handleGoToOutro = () => {
+    console.log("go to outro");
+
     setGlobalState("outro");
     setIsListening(false);
     resetRecording?.();
@@ -200,14 +202,6 @@ const ChatScreen = ({
     const lastMessage = messages?.[messages.length - 1];
 
     const timer = setTimeout(() => {
-      const wrapper = document.querySelector(`.${s.wrapper}`);
-      if (wrapper) {
-        const height = wrapper.getBoundingClientRect().height;
-        wrapper.scrollTo({
-          top: height * 2,
-          behavior: "smooth",
-        });
-      }
       if (lastMessage?.role === "assistant") {
         setIsThinking(true);
         convertTextToSpeech({
@@ -267,7 +261,7 @@ const ChatScreen = ({
             show={partToShow === "transcript" && firstQuestion.length > 0}
             delay={2 * DELAY_UNIT}
           >
-            <HighlightBlock header="Question">
+            <HighlightBlock header="✳︎ Question">
               <p>{firstQuestion}</p>
 
               {selectedCards.length === 0 && (
@@ -309,6 +303,7 @@ const ChatScreen = ({
             delay={4 * DELAY_UNIT}
           >
             <TextBlock>
+              <span data-header="true">✳︎ Your reading</span>
               <ul className={s.transcriptTranscript}>
                 {transcript.length > 0 &&
                   transcript.map((item, i) => (
@@ -349,6 +344,16 @@ const ChatScreen = ({
                     </li>
                   ))}
 
+                {(transcript.length === 0 || isThinking) && (
+                  <li className={s.transcriptItemAi}>
+                    <div className={s.trancriptItemRole}>
+                      <div className={s.transcriptItemRole}>
+                        irmai is thinking...
+                      </div>
+                    </div>
+                  </li>
+                )}
+
                 {/* {conclusion.length > 0 && (
                   <li className={s.transcriptItemAi}>
                     <div className={s.trancriptItemRole}>
@@ -365,8 +370,23 @@ const ChatScreen = ({
           className={s.screenPartWrapper}
           data-interactive={partToShow === "cards"}
         >
-          <TransitionWrapper show={partToShow === "cards"}>
-            <CardsShaker show={partToShow === "cards"} />
+          <TransitionWrapper show={partToShow === "cards"} className={s.copy}>
+            <p>
+              <span data-header="true">
+                Choose three cards (
+                {selectedCards.length > 0
+                  ? selectedCards.length
+                  : tempSelectedCards.length}
+                /3)
+              </span>
+            </p>
+          </TransitionWrapper>
+          <TransitionWrapper show={partToShow === "cards"} delay={DELAY_UNIT}>
+            <CardsShaker
+              show={partToShow === "cards"}
+              tempSelectedCards={tempSelectedCards}
+              setTempSelectedCards={setTempSelectedCards}
+            />
           </TransitionWrapper>
         </section>
 
@@ -374,10 +394,11 @@ const ChatScreen = ({
           <TransitionWrapper
             className={s.footerPart}
             show={
-              (!isSpeaking && partToShow === "idle") ||
-              (!isThinking && partToShow === "idle") ||
-              partToShow === "recording" ||
-              (partToShow === "transcript" && messages.length > 1)
+              !isThinking &&
+              !isSpeaking &&
+              (partToShow === "idle" ||
+                partToShow === "recording" ||
+                (partToShow === "transcript" && messages.length > 1))
             }
             delay={4 * DELAY_UNIT}
           >
@@ -404,9 +425,15 @@ const ChatScreen = ({
                 label="Tell me my future"
               />
             )} */}
-            {partToShow === "transcript" && messages.length > 2 && (
-              <PressCTA label="Or end the reading" onPress={handleGoToOutro} />
-            )}
+            {!isThinking &&
+              !isSpeaking &&
+              partToShow === "transcript" &&
+              messages.length > 2 && (
+                <PressCTA
+                  label="Or end the reading"
+                  onPress={handleGoToOutro}
+                />
+              )}
           </TransitionWrapper>
         </footer>
       </div>

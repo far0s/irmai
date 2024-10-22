@@ -2,6 +2,8 @@ import React, { memo, useState, useEffect, Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 import { useControls } from "leva";
 
+import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
+
 import { fetchGLSL } from "@/utils";
 
 import s from "./background.module.css";
@@ -32,6 +34,7 @@ const Background = ({
   const [selectedShader, setSelectedShader] = useState<any>(shaders[0]);
   const [vertex, setVertex] = useState("");
   const [fragment, setFragment] = useState("");
+  const { hideApp, setHideApp } = useIrmaiStore((s) => s);
 
   useEffect(() => {
     setVertex("");
@@ -50,7 +53,7 @@ const Background = ({
   });
 
   return (
-    <div className={s.background}>
+    <div className={s.background} onClick={() => hideApp && setHideApp(false)}>
       <Canvas style={{ width: "100vw", height: "100vh" }} dpr={2}>
         <Suspense fallback={null}>
           {selectedShader && vertex && fragment && (

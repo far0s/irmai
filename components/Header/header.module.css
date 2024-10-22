@@ -5,7 +5,7 @@
   padding: 0 var(--padding-s);
   display: flex;
   flex-flow: column nowrap;
-  gap: var(--header-margin);
+  gap: calc(var(--padding-s) * 2);
   z-index: 2;
   --header-transition-delay: 100s;
 
@@ -42,6 +42,7 @@
   flex-flow: row nowrap;
   justify-content: flex-end;
   align-items: center;
+  gap: var(--padding-s);
 }
 
 .logoWrapper {
