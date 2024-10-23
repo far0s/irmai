@@ -29,7 +29,7 @@ const Debug = () => {
   };
 
   useEffect(() => {
-    setDebug(hasDebugParam);
+    setDebug(hasDebugParam && searchParams.get("debug") === "true");
   }, [searchParams]);
 
   useControls({
