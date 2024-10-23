@@ -67,3 +67,7 @@ strong {
   background-color: var(--purple);
   color: var(--cream);
 }
+
+#leva__root {
+  display: none;
+}

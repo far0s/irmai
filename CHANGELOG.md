@@ -33,7 +33,6 @@
 - [x] FEATURE/UI: revamp most of the main flow screens
 - [x] FEATURE: about page with a short description of the project, the team, etc.
 
-
 ### 0.7.0 - released 25/07/2024
 
 - [x] FEATURE/UI: card stack animation
