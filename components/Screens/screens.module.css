@@ -6,7 +6,7 @@
   width: 100%;
   height: 100%;
   padding: 2rem 0;
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
   overflow-x: hidden;
   scrollbar-width: none;
   -ms-overflow-style: none;
@@ -20,7 +20,7 @@
 .screenPartWrapper {
   position: absolute;
   width: 100%;
-  padding-bottom: 4rem;
+  padding: 0 var(--padding-s) 4rem;
 }
 
 .screenPartWrapper[data-interactive="false"] {
@@ -72,7 +72,7 @@
   bottom: -5rem;
   padding-bottom: 5rem;
   width: 100vw;
-  height: calc(var(--header-safe-zone) + 5rem);
+  height: calc(var(--header-safe-zone) + var(--footer-margin) * 2 + 5rem);
   margin-top: auto;
   display: flex;
   flex-direction: row;
@@ -81,6 +81,11 @@
   gap: 2rem;
   transition: 0.5s ease-out;
   z-index: 2;
+
+  @media screen and (max-width: 768px) {
+    bottom: -5rem;
+    height: calc(var(--header-safe-zone) + var(--footer-margin) * 2);
+  }
 
   &::after {
     content: "";
@@ -101,8 +106,12 @@
     transition: 0.5s ease-out;
   }
 
-  &[data-show-backdrop="true"]:has(> [data-show="true"])::after {
+  &:has(> [data-show="true"])::after {
     opacity: 1;
+  }
+
+  &[data-show-backdrop="false"]::after {
+    opacity: 0;
   }
 }
 
@@ -112,31 +121,6 @@
   &[data-show="true"] ~ [data-show="true"] {
     transform: translateX(calc(100% + var(--text-size-m))) !important;
   }
-}
-
-.idle,
-.recording,
-.thinking,
-.speaking {
-  position: absolute;
-  top: 50%;
-  font-style: italic;
-  font-weight: 300;
-  white-space: nowrap;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.tempAiFeedback {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  pointer-events: none;
 }
 
 .cardsInstructions {

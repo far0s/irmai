@@ -54,6 +54,11 @@ body {
   font-size: var(--text-size-m);
 }
 
+html,
+body {
+  overscroll-behavior: none;
+}
+
 strong {
   font-weight: bold;
 }

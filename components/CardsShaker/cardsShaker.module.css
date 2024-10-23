@@ -1,7 +1,8 @@
 .cardsShaker {
   position: relative;
-  width: 100%;
+  width: 100vw;
   height: 100%;
+  margin: 0 calc(-1 * var(--padding-s));
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
@@ -11,8 +12,6 @@
   transform: translateY(0);
   filter: blur(0);
   transition: 0.5s ease-out 0.5s;
-  /* FIXME: the cards need to be visible edge to edge */
-  /* the bottom (copy) as well so it needs to scale better */
 }
 
 :not([data-show="true"]) > .cardsShaker {
@@ -78,6 +77,10 @@
   pointer-events: none;
   transform-style: preserve-3d;
   will-change: transform, z-index;
+
+  @media screen and (max-width: 768px) {
+    top: calc(50% - var(--padding-s) * 2);
+  }
 }
 
 .card[data-is-selected="true"] {

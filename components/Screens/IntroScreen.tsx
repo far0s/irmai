@@ -45,7 +45,8 @@ const IntroScreen = ({
           >
             <p>
               <span>Welcome</span>
-              irmai is your audio-visual spiritual guide.
+              irmai is your audio-visual spiritual guide, and will guide you on
+              a journey of self discovery and inner peace.
             </p>
           </FadeInWrapper>
           <FadeInWrapper
@@ -53,11 +54,6 @@ const IntroScreen = ({
             className={s.copy}
             delay={5 * DELAY_UNIT}
           >
-            <p>
-              This is a journey of self-discovery and inner peace to nurture
-              your spiritual growth and self connection.
-            </p>
-
             <p style={{ textAlign: "center" }}>✳︎✳︎✳︎</p>
           </FadeInWrapper>
 

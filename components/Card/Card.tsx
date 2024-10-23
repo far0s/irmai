@@ -110,8 +110,7 @@ const Card = ({
         trackOnWindow={true}
         transitionSpeed={2000}
         gyroscope={false}
-        // FIXME: there's a bug where the position doesn't reset
-        // relative to the phone's position when opening the lightbox
+        // FIXME:  on mobile, on enter, the card's gamma/beta values should be normalized
         // see github discussion here: https://github.com/mkosir/react-parallax-tilt/discussions/75
         glareEnable={true}
         glareMaxOpacity={0.5}
@@ -119,7 +118,6 @@ const Card = ({
         glarePosition="all"
         glareBorderRadius="1rem"
         glareReverse={true}
-        // FIXME: on mobile, on enter, the card's gamma/beta values should be normalized
       >
         <div className={s.card} data-is-hidden={false} data-variant="lightbox">
           <div className={s.cardBack}>

@@ -103,8 +103,9 @@ const ChatScreen = ({
           setPartToShow(messages.length > 1 ? "transcript" : "idle");
         },
         successCallback: (res: TConvertedSTTResponse) => {
-          if (!res.text) {
+          if (!res?.text) {
             window.alert("Sorry, I didn't catch that. Can you repeat?");
+            resetRecording?.();
             setPartToShow("idle");
             return;
           }
@@ -353,14 +354,6 @@ const ChatScreen = ({
                     </div>
                   </li>
                 )}
-
-                {/* {conclusion.length > 0 && (
-                  <li className={s.transcriptItemAi}>
-                    <div className={s.trancriptItemRole}>
-                      [end of conversation] {conclusion}
-                    </div>
-                  </li>
-                )} */}
               </ul>
             </TextBlock>
           </TransitionWrapper>
@@ -419,12 +412,7 @@ const ChatScreen = ({
             {selectedCards.length === 0 && (
               <PressCTA onPress={handleGoToCards} label="Pull your cards" />
             )}
-            {/* {selectedCards.length > 0 && !isThinking && messages.length < 2 && (
-              <PressCTA
-                onPress={handleSendFirstQuestion}
-                label="Tell me my future"
-              />
-            )} */}
+
             {!isThinking &&
               !isSpeaking &&
               partToShow === "transcript" &&

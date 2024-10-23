@@ -12,7 +12,7 @@
 }
 
 .audioFeedback[data-is-not-splash-active="true"] {
-  animation: appear 0.3s ease-in-out forwards 0.8s;
+  animation: appear 0.3s ease-in-out forwards 2s;
 }
 
 @keyframes appear {

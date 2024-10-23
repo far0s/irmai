@@ -1,14 +1,16 @@
 .stage {
   position: fixed;
   top: var(--header-safe-zone);
-  left: var(--padding-s);
-  right: var(--padding-s);
+  left: 0;
+  right: 0;
   align-self: flex-end;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: calc(100dvh - var(--header-safe-zone) - var(--footer-margin));
+  height: calc(
+    100dvh - var(--header-safe-zone) - calc(var(--footer-margin)) / 2
+  );
 }
 
 .screen {
