@@ -11,10 +11,11 @@ import { StoreProvider } from "@/components/ZustandStoreProvider/ZustandStorePro
 export function generateMetadata(): Metadata {
   return {
     title: "irmai",
-    description: "Ready to embark on a journey of self-discovery?",
+    description:
+      "Ready to embark on a journey of self-discovery? irmai is your audio-visual spiritual guide, and will guide you on a journey of self discovery and inner peace.",
     icons: {
-      icon: "/images/irmai-favicon.png",
-      shortcut: "/images/irmai-favicon.png",
+      icon: "/images/irmai-favicon.jpg",
+      shortcut: "/images/irmai-favicon.jpg",
     },
     appleWebApp: {
       title: "irmai",
