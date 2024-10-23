@@ -51,7 +51,7 @@ const Transcript = ({ assistantProps }: any) => {
       >
         <TransitionWrapper show={showTranscript} delay={DELAY_UNIT}>
           <p>
-            <span className={s.transcriptHeader}>irmai </span>
+            <span className={s.transcriptHeader}>✳︎ irmai </span>
             is an experiment exploring the intersection of spirituality and
             generative AI. For us, a tarot reading is a way to confront yourself
             with possibilities, and to reflect on your life and your choices. We
@@ -63,7 +63,7 @@ const Transcript = ({ assistantProps }: any) => {
 
         <TransitionWrapper show={showTranscript} delay={2 * DELAY_UNIT}>
           <p>
-            <span className={s.transcriptHeader}>The team </span>
+            <span className={s.transcriptHeader}>✳︎ The team </span>
             Irmai was imagined, designed, and built by{" "}
             <a className={s.link} href="https://www.instagram.com/hypercampina">
               Sunniva Ottestad
@@ -90,7 +90,7 @@ const Transcript = ({ assistantProps }: any) => {
 
         <TransitionWrapper show={showTranscript} delay={3 * DELAY_UNIT}>
           <p>
-            <span className={s.transcriptHeader}>Under the hood </span>
+            <span className={s.transcriptHeader}>✳︎ Under the hood </span>
             Irmai is a Next.js web application powered by gpt-4o and whisper,
             and hosted on Vercel. That's about it really! You can inspect the
             source code on{" "}
@@ -104,7 +104,7 @@ const Transcript = ({ assistantProps }: any) => {
 
         <TransitionWrapper show={showTranscript} delay={4 * DELAY_UNIT}>
           <p>
-            <span className={s.transcriptHeader}>Forever Free </span>
+            <span className={s.transcriptHeader}>✳︎ Forever Free </span>
             Irmai is free to use and will always be. We're paying for every cost
             associated with running this project ourselves, and although they're
             not huge, they're not zero either. [add tip link here maybe?]{" "}
@@ -120,7 +120,7 @@ const Transcript = ({ assistantProps }: any) => {
 
         <TransitionWrapper show={showTranscript} delay={5 * DELAY_UNIT}>
           <p>
-            <span className={s.transcriptHeader}>Privacy </span>
+            <span className={s.transcriptHeader}>✳︎ Privacy </span>
             We don't store any data about you or your conversations with Irmai.
             We don't use cookies or any tracking mechanisms. We don't even know
             how many people are using Irmai right now. We're not interested in
@@ -131,7 +131,7 @@ const Transcript = ({ assistantProps }: any) => {
 
         <TransitionWrapper show={showTranscript} delay={6 * DELAY_UNIT}>
           <p>
-            <span className={s.transcriptHeader}>Talk to us! </span>
+            <span className={s.transcriptHeader}>✳︎ Talk to us! </span>
             AI is a rapidly evolving field, and we enjoy talking about any and
             every thing related to AI. If you have any feedback, questions, or
             just want to chat, reach us through our socials.
@@ -145,7 +145,7 @@ const Transcript = ({ assistantProps }: any) => {
               textAlign: "center",
             }}
           >
-            irmai © whatever rights reserved. 2024
+            ✳︎ irmai © whatever rights reserved. 2024 ✳
           </p>
           <br />
         </TransitionWrapper>
