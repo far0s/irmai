@@ -5,7 +5,8 @@ function sleep(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-export async function GET(req: NextRequest): Promise<NextResponse> {
+/* export async function GET(req: NextRequest): Promise<NextResponse> {
+  // FIXME: puppeteer is not working on the edge
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
   await page.goto("https://irmai.vercel.app/aura", {
@@ -28,3 +29,4 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     },
   });
 }
+ */
