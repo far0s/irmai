@@ -11,6 +11,7 @@ import convertTextToSpeech from "@/utils/text-to-speech";
 import useRecorder from "@/hooks/use-recorder";
 import { useDebounce } from "@/hooks/use-debounce";
 import useTranscript from "@/hooks/use-transcript";
+import useScrollToBottom from "@/hooks/use-scroll-to-bottom";
 
 import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
 import { Screen } from "@/components/Stage/Stage";
@@ -62,6 +63,7 @@ const ChatScreen = ({
   const [tempSelectedCards, setTempSelectedCards] = useState<any[]>([]);
   const { messages, append }: any = assistantProps;
   const transcript = useTranscript(messages, lastMessage);
+  const wrapperRef = useScrollToBottom();
 
   const {
     startRecording,
@@ -257,6 +259,7 @@ const ChatScreen = ({
         <section
           className={s.screenPartWrapper}
           data-interactive={partToShow === "transcript"}
+          ref={wrapperRef}
         >
           <TransitionWrapper
             show={partToShow === "transcript" && firstQuestion.length > 0}

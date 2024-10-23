@@ -12,7 +12,7 @@
 
 - [x] BUGFIX: cardStack does not scale properly on mobile and desktop
 - [x] BUGFIX: going to OutroScreen crashes the app on mobile
-- [ ] UI: autoscroll transcript on new transcript messages
+- [x] UI: autoscroll transcript on new transcript messages
 - [x] FEATURE/UI: add hide app button in the header (needs to be persistent) (to see the aura in full)\
 - [x] UI: hide scrollbars in Transcript and ChatScreen
 
