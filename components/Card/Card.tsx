@@ -109,7 +109,10 @@ const Card = ({
         perspective={2000}
         trackOnWindow={true}
         transitionSpeed={2000}
-        gyroscope={true}
+        gyroscope={false}
+        // FIXME: there's a bug where the position doesn't reset
+        // relative to the phone's position when opening the lightbox
+        // see github discussion here: https://github.com/mkosir/react-parallax-tilt/discussions/75
         glareEnable={true}
         glareMaxOpacity={0.5}
         glareColor="#fffbf2"
