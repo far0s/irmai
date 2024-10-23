@@ -3,10 +3,13 @@
 ## Todo's in order of importance (move these to releases when in progress or done)
 
 - [ ] FEATURE/UI: outro screen (including a shareable image recapping the reading)
-- [ ] CHORE: update metatags and SEO
 - [ ] BUGFIX/SAFARI: logo filter blur not working
 
 ## Releases
+
+### 0.8.2 - released 23/10/2024
+
+- [x] CHORE: update metatags and SEO
 
 ### 0.8.1 - released 23/10/2024
 
