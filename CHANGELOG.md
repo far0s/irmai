@@ -2,10 +2,17 @@
 
 ## Todo's in order of importance (move these to releases when in progress or done)
 
-- [ ] FEATURE/UI: outro screen (including a shareable image recapping the reading)
 - [ ] BUGFIX/SAFARI: logo filter blur not working
 
 ## Releases
+
+### 0.9.0 - WIP
+
+- [ ] FEATURE/UI: cleanup outro screen
+- [ ] FEATURE/UI: create a shareable image from the reading (and share it) on the fly with @vercel/og
+- [ ] FEATURE/UI: improve card stack animations (esp. intro and outro)
+- [ ] FEATURE/UI: replace cards with custom ones
+- [ ] FEATURE/UI: tie card colours to the aura
 
 ### 0.8.2 - released 23/10/2024
 

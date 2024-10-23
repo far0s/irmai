@@ -4,6 +4,8 @@ import Logo from "@/components/Logo/Logo";
 import UserAudioFeedback from "@/components/UserAudioFeedback/UserAudioFeedback";
 import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
 
+// import shareImage from "@/utils/share-image";
+
 import s from "./header.module.css";
 
 const Header = () => {
@@ -30,6 +32,10 @@ const Header = () => {
         <div className={s.logoWrapper}>
           <Logo />
         </div>
+
+        {/* <button onClick={() => shareImage("/api/dynamic-image?title=seb")}>
+          test image button
+        </button> */}
         <HideToggle />
         <TranscriptToggle />
       </div>
