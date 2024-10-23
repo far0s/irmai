@@ -9,6 +9,7 @@ import { HighlightBlock } from "@/components/Transcript/Transcript.utils";
 
 import s from "./screens.module.css";
 import FadeInWrapper from "@/components/TransitionWrapper/TransitionWrapper";
+import ShareImageCTA from "@/components/ShareImageCTA/ShareImageCTA";
 
 const DELAY_UNIT = 400;
 
@@ -55,6 +56,11 @@ const OutroScreen = ({
     window.location.reload();
   };
 
+  const handleBackToReading = () => {
+    setPartToShow(null);
+    setGlobalState("chat");
+  };
+
   return (
     <Screen isActive={isActive}>
       <div className={s.wrapper}>
@@ -91,19 +97,30 @@ const OutroScreen = ({
               </p>
             </HighlightBlock>
           </FadeInWrapper>
+          <FadeInWrapper
+            show={partToShow === "outro" && conclusion.length > 0}
+            delay={DELAY_UNIT * 3}
+          >
+            <div className={s.ctaRow}>
+              <ShareImageCTA />
+            </div>
+          </FadeInWrapper>
+          <FadeInWrapper
+            show={partToShow === "outro" && conclusion.length > 0}
+            delay={DELAY_UNIT * 4}
+          >
+            <div className={s.ctaRow}>
+              <PressCTA
+                label="Back to my reading"
+                onPress={handleBackToReading}
+              />
+              <PressCTA label="New Reading" onPress={handleReset} />
+            </div>
+          </FadeInWrapper>
         </section>
       </div>
 
-      <footer className={s.footer}>
-        <PressCTA
-          label="Back to my reading"
-          onPress={() => {
-            setPartToShow(null);
-            setGlobalState("chat");
-          }}
-        />
-        <PressCTA label="New Reading" onPress={handleReset} />
-      </footer>
+      <footer className={s.footer}></footer>
     </Screen>
   );
 };

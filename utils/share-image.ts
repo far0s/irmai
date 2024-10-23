@@ -1,10 +1,24 @@
-export default async function shareImage(imageUrl: string): Promise<void> {
-  const fetchedImage = await fetch(imageUrl);
+import { ImageTemplateProps } from "@/utils/shared-types";
+
+export default async function shareImage({
+  firstQuestion,
+  conclusion,
+}: ImageTemplateProps): Promise<void> {
+  const fetchedImage = await fetch("/api/dynamic-image", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      firstQuestion: firstQuestion,
+      conclusion: conclusion,
+    }),
+  });
   const blobImage = await fetchedImage.blob();
-  const fileName = "irmai.jpg";
+  const fileName = "irmai.png";
   const filesArray = [
     new File([blobImage], fileName, {
-      type: "image/jpg",
+      type: "image/png",
       lastModified: Date.now(),
     }),
   ];
@@ -14,8 +28,15 @@ export default async function shareImage(imageUrl: string): Promise<void> {
     files: filesArray,
     url: document.location.origin,
   };
+
   if (navigator.canShare && navigator.canShare(shareData)) {
     await navigator.share(shareData);
+  } else {
+    const url = URL.createObjectURL(blobImage);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = fileName;
+    a.click();
+    URL.revokeObjectURL(url);
   }
-  // TODO: implements a fallback to download the file
 }

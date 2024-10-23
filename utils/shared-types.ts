@@ -39,3 +39,9 @@ export type TConvertedSTTResponse = {
     end: number;
   }[];
 };
+
+export interface ImageTemplateProps {
+  firstQuestion: string;
+  conclusion: string;
+  [k: string]: string;
+}

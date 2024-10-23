@@ -58,8 +58,6 @@ export default function Chat() {
           };
         })
         .catch((error) => console.log("Something went wrong!", error));
-    } else {
-      console.log("getUserMedia is not supported");
     }
   };
 

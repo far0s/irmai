@@ -1,6 +1,6 @@
 "use client";
 
-import FadeInWrapper from "@/components/TransitionWrapper/TransitionWrapper";
+import TransitionWrapper from "@/components/TransitionWrapper/TransitionWrapper";
 
 import s from "./stage.module.css";
 
@@ -12,13 +12,13 @@ export const Screen = ({
   children?: React.ReactNode;
 }) => {
   return (
-    <FadeInWrapper
+    <TransitionWrapper
       show={isActive}
       delay={isActive ? 500 : 0}
       className={s.screen}
     >
       {children}
-    </FadeInWrapper>
+    </TransitionWrapper>
   );
 };
 

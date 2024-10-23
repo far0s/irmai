@@ -99,7 +99,6 @@ const ChatScreen = ({
       convertSpeechToText({
         audioFile: audioFile,
         errorCallback: (error) => {
-          console.log("error", error);
           window.alert(error);
           setIsThinking(false);
           setPartToShow(messages.length > 1 ? "transcript" : "idle");
@@ -156,14 +155,13 @@ const ChatScreen = ({
   };
 
   const handleGoToOutro = () => {
-    console.log("go to outro");
-
     setGlobalState("outro");
     setIsListening(false);
     resetRecording?.();
   };
 
   useEffect(() => {
+    if (!isActive) return;
     if (selectedCards.length === 3) {
       window.setTimeout(() => {
         setPartToShow("transcript");
