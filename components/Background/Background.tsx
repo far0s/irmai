@@ -54,7 +54,13 @@ const Background = ({
 
   return (
     <div className={s.background} onClick={() => hideApp && setHideApp(false)}>
-      <Canvas style={{ width: "100vw", height: "100vh" }} dpr={2}>
+      <Canvas
+        style={{ width: "100vw", height: "100vh" }}
+        dpr={2}
+        gl={{
+          preserveDrawingBuffer: true,
+        }}
+      >
         <Suspense fallback={null}>
           {selectedShader && vertex && fragment && (
             <selectedShader.Component

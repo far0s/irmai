@@ -3,6 +3,7 @@ import { ImageTemplateProps } from "@/utils/shared-types";
 export default async function shareImage({
   firstQuestion,
   conclusion,
+  auraImage,
 }: ImageTemplateProps): Promise<void> {
   const fetchedImage = await fetch("/api/dynamic-image", {
     method: "POST",
@@ -12,6 +13,7 @@ export default async function shareImage({
     body: JSON.stringify({
       firstQuestion: firstQuestion,
       conclusion: conclusion,
+      auraImage: auraImage,
     }),
   });
   const blobImage = await fetchedImage.blob();
@@ -33,10 +35,6 @@ export default async function shareImage({
     await navigator.share(shareData);
   } else {
     const url = URL.createObjectURL(blobImage);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = fileName;
-    a.click();
-    URL.revokeObjectURL(url);
+    window.open(url, "_blank");
   }
 }

@@ -5,7 +5,11 @@ import { ImageTemplateProps } from "@/utils/shared-types";
 
 export const runtime = "edge";
 
-const imageTemplate = ({ firstQuestion, conclusion }: ImageTemplateProps) => {
+const imageTemplate = ({
+  firstQuestion,
+  conclusion,
+  auraImage,
+}: ImageTemplateProps) => {
   return (
     <div
       style={{
@@ -23,53 +27,55 @@ const imageTemplate = ({ firstQuestion, conclusion }: ImageTemplateProps) => {
         flexWrap: "nowrap",
       }}
     >
+      {auraImage && (
+        <img
+          src={auraImage}
+          alt="Aura background"
+          style={{ position: "relative", width: "100%" }}
+        />
+      )}
       <div
         style={{
+          position: "absolute",
+          width: "100%",
+          height: "100%",
           display: "flex",
           alignItems: "center",
-          alignContent: "center",
           justifyContent: "center",
-          justifyItems: "center",
+          flexDirection: "column",
+          flexWrap: "nowrap",
         }}
       >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          alt="Vercel"
-          height={200}
-          src="data:image/svg+xml,%3Csvg width='116' height='100' fill='white' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M57.5 0L115 100H0L57.5 0z' /%3E%3C/svg%3E"
-          style={{ margin: "0 30px" }}
-          width={232}
-        />
-      </div>
-      <div
-        style={{
-          fontSize: 60,
-          fontFamily: "Cirka",
-          fontStyle: "normal",
-          letterSpacing: "-0.025em",
-          color: "white",
-          marginTop: 30,
-          padding: "0 10%",
-          lineHeight: 1.4,
-          whiteSpace: "pre-wrap",
-        }}
-      >
-        {firstQuestion?.length > 0 && firstQuestion}
-      </div>
-      <div
-        style={{
-          fontSize: 40,
-          fontFamily: "Poppins",
-          fontStyle: "normal",
-          letterSpacing: "-0.025em",
-          color: "white",
-          marginTop: 30,
-          padding: "0 10%",
-          lineHeight: 1.4,
-          whiteSpace: "pre-wrap",
-        }}
-      >
-        {conclusion?.length > 0 && conclusion}
+        <div
+          style={{
+            fontSize: 60,
+            fontFamily: "Cirka",
+            fontStyle: "normal",
+            letterSpacing: "-0.025em",
+            color: "white",
+            marginTop: 30,
+            padding: "0 10%",
+            lineHeight: 1.4,
+            whiteSpace: "pre-wrap",
+          }}
+        >
+          {firstQuestion?.length > 0 && firstQuestion}
+        </div>
+        <div
+          style={{
+            fontSize: 40,
+            fontFamily: "Poppins",
+            fontStyle: "normal",
+            letterSpacing: "-0.025em",
+            color: "white",
+            marginTop: 30,
+            padding: "0 10%",
+            lineHeight: 1.4,
+            whiteSpace: "pre-wrap",
+          }}
+        >
+          {conclusion?.length > 0 && conclusion}
+        </div>
       </div>
     </div>
   );
