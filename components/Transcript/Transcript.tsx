@@ -145,7 +145,7 @@ const Transcript = ({ assistantProps }: any) => {
               textAlign: "center",
             }}
           >
-            ✳︎ irmai © whatever rights reserved. 2024 ✳
+            ✳︎ irmai © whatever rights reserved. 2024 ✳︎
           </p>
           <br />
         </TransitionWrapper>
