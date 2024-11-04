@@ -1,5 +1,13 @@
 // Author blog: https://www.abjt.dev/lab/card-stack
 
+const MAX_CARD_ON_ONE_SIDE = 5;
+const CARD_TRANSLATE_X = 136;
+const PERSPECTIVE_BASE = 200;
+const PERSPECTIVE_FACTOR = 20;
+const CARD_MAX_ROTATE_Y = 75;
+const CARD_ACTIVE_MAX_ROTATE_Y = 90;
+const CARD_SCALE_DOWN_FACTOR = 0.05;
+
 class CardStack {
   constructor() {
     this.scrollableContainer = document.querySelector("#scrollable-container");
@@ -16,6 +24,10 @@ class CardStack {
       this.handleScroll.bind(this)
     );
     this.createVisibleCards();
+    this.activeIndex = Math.floor(this.cardCount / 2);
+    this.globalScrollProgress = this.activeIndex / (this.cardCount - 1);
+    this.scrollableContainer.scrollLeft =
+      this.scrollableContainer.scrollWidth * this.globalScrollProgress;
     this.update();
     this.visibleCards.forEach((card) => {
       card.update(this.globalScrollProgress, this.activeIndex);
@@ -86,7 +98,7 @@ class VisibleCard {
     this.activeIndex = activeIndex;
     this.index = index;
     // the maximum number of cards that can be visible on either side of the active card
-    this.maxCardsOnOneSide = 5;
+    this.maxCardsOnOneSide = MAX_CARD_ON_ONE_SIDE;
 
     this.update();
   }
@@ -96,12 +108,12 @@ class VisibleCard {
       this.activeIndex === this.index
         ? this.absoluteCardScrollProgress < 0.5
           ? // we translate the card by 136% of its width when it is active and the scroll distance is less than half if its width
-            -136 * this.cardScrollProgress
+            -CARD_TRANSLATE_X * this.cardScrollProgress
           : // we translate the card by 136% of its width when it is active and the scroll distance is more than half if its width
             // we also add a slight offset to the translation so that when the card reaches the final position,
             // it is not completely centered, rather takes its final position as the card next or previous to the new active card
-            -136 * Math.sign(this.cardScrollProgress) +
-            136 * this.cardScrollProgress +
+            -CARD_TRANSLATE_X * Math.sign(this.cardScrollProgress) +
+            CARD_TRANSLATE_X * this.cardScrollProgress +
             -((1 - this.absoluteCardScrollProgress / this.cardCount / 4) * 10) *
               (this.absoluteCardScrollProgress - 0.5) *
               2 *
@@ -116,7 +128,8 @@ class VisibleCard {
     // translateZ adds a slight perspective effect to the cards when they are being rotated
     // the parent has it's own perspective value, so we need to adjust the translateZ value based on the scroll progress
     // to make the cards look like they are being rotated in a 3D space
-    this.translateZ = 200 - this.absoluteCardScrollProgress * 20;
+    this.translateZ =
+      PERSPECTIVE_BASE - this.absoluteCardScrollProgress * PERSPECTIVE_FACTOR;
   }
 
   calculateRotateY() {
@@ -128,11 +141,11 @@ class VisibleCard {
     rotateY =
       this.index === this.activeIndex
         ? this.absoluteCardScrollProgress < 0.5
-          ? this.absoluteCardScrollProgress * -90
-          : (1 - this.absoluteCardScrollProgress) * -90
+          ? this.absoluteCardScrollProgress * -CARD_ACTIVE_MAX_ROTATE_Y
+          : (1 - this.absoluteCardScrollProgress) * -CARD_ACTIVE_MAX_ROTATE_Y
         : this.absoluteActiveCardScrollProgress < 0.5
-        ? this.absoluteActiveCardScrollProgress * -75
-        : (1 - this.absoluteActiveCardScrollProgress) * -75;
+        ? this.absoluteActiveCardScrollProgress * -CARD_MAX_ROTATE_Y
+        : (1 - this.absoluteActiveCardScrollProgress) * -CARD_MAX_ROTATE_Y;
 
     // the further the card is from the active card, the less it rotates
     rotateY *=
@@ -148,7 +161,7 @@ class VisibleCard {
 
   calculateScale() {
     // cards scale down as they move away from the active card
-    let scale = 1 - this.absoluteCardScrollProgress * 0.05;
+    let scale = 1 - this.absoluteCardScrollProgress * CARD_SCALE_DOWN_FACTOR;
 
     // the active card scales down more than the other cards when it is away from the center
     scale =
@@ -207,14 +220,15 @@ class VisibleCard {
 
   applyStyles() {
     const noElement = !this.element;
-    const invalidStyles =
-      this.translateX === undefined ||
-      this.translateZ === undefined ||
-      this.rotateY === undefined ||
-      this.rotateZ === undefined ||
-      this.scale === undefined ||
-      this.zIndex === undefined ||
-      this.opacity === undefined;
+    const invalidStyles = [
+      this.translateX,
+      this.translateZ,
+      this.rotateY,
+      this.rotateZ,
+      this.scale,
+      this.zIndex,
+      this.opacity,
+    ].some((style) => style === undefined);
     if (noElement || invalidStyles) return;
 
     this.element.style.transform = `translateX(${

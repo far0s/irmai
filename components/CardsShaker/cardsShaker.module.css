@@ -55,6 +55,11 @@
   height: 100%;
   scroll-snap-align: start;
   scroll-snap-stop: always;
+  cursor: pointer;
+
+  &[data-is-selected="true"] {
+    cursor: initial;
+  }
 }
 
 .cardsGrid {

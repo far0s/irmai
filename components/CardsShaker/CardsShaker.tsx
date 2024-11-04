@@ -21,6 +21,7 @@ const CardsShaker = ({
   const { allCards, setSelectedCards } = useIrmaiStore((s) => s);
   const [randomizedCards, setRandomizedCards] = useState(allCards);
   const [cardStack, setCardStack] = useState<any>(null);
+  const [hoveredCardIndex, setHoveredCardIndex] = useState<number | null>(null);
 
   useEffect(() => {
     if (show) {
@@ -30,7 +31,7 @@ const CardsShaker = ({
   }, [show]);
 
   useEffect(() => {
-    if (allCards?.length > 0) {
+    if (show && allCards?.length > 0) {
       randomizeCards();
       if (!cardStack) {
         setCardStack(true);
@@ -39,7 +40,7 @@ const CardsShaker = ({
         }, 500);
       }
     }
-  }, [allCards]);
+  }, [show, allCards]);
 
   useEffect(() => {
     if (tempSelectedCards.length === 3) {
@@ -64,15 +65,25 @@ const CardsShaker = ({
     setTempSelectedCards([...tempSelectedCards, card]);
   };
 
+  const handleMouseEnter = (index: number) => setHoveredCardIndex(index);
+  const handleMouseLeave = () => setHoveredCardIndex(null);
+
   return (
     <div className={s.cardsShaker}>
       <div className={s.shakerSpace}>
         <div className={s.scrollableContainer} id="scrollable-container">
-          {randomizedCards.map((card) => (
+          {randomizedCards.map((card, i) => (
             <div
               key={card.name_short}
               className="scrollable-card"
+              {...(tempSelectedCards.includes(card) && {
+                "data-is-selected": true,
+              })}
               onClick={() => handleAddCardToTempSelectedCards(card)}
+              onMouseEnter={() =>
+                !tempSelectedCards.includes(card) && handleMouseEnter(i)
+              }
+              onMouseLeave={handleMouseLeave}
             />
           ))}
         </div>
@@ -83,6 +94,7 @@ const CardsShaker = ({
               card={card}
               hidden={!tempSelectedCards.includes(card)}
               reverse={card.reverse}
+              isHovered={hoveredCardIndex === randomizedCards.indexOf(card)}
               onClick={() => handleAddCardToTempSelectedCards(card)}
             />
           ))}

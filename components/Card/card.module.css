@@ -14,6 +14,7 @@
   box-shadow: 0 10px 15px 3px rgba(0, 0, 0, 0.1),
     0 4px 6px 2px rgba(0, 0, 0, 0.05);
   transform-style: preserve-3d;
+  transition: box-shadow var(--transition-fast-out);
 
   @media screen and (max-width: 768px) {
     --size: min(230px, 45vw);
@@ -32,6 +33,11 @@
   --spacing-1: 0.75rem;
   --spacing-2: 1.5rem;
   --font-size: 18px;
+}
+
+.card[data-is-hovered="true"] {
+  box-shadow: 0 20px 30px 5px rgba(0, 0, 0, 0.15),
+    0 8px 12px 3px rgba(0, 0, 0, 0.1);
 }
 
 .cardBack h1:nth-of-type(2) {

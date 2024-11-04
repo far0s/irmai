@@ -49,6 +49,7 @@ const Card = ({
   onClick,
   variant = "default",
   enableLightbox = false,
+  isHovered,
 }: {
   card: ITarotCard;
   hidden: boolean;
@@ -56,6 +57,7 @@ const Card = ({
   onClick?: any;
   variant?: "default" | "small";
   enableLightbox?: boolean;
+  isHovered?: boolean;
 }) => {
   const handleCardClick = () => {
     if (onClick) {
@@ -69,6 +71,7 @@ const Card = ({
       data-is-hidden={hidden}
       data-is-reverse={reverse}
       data-variant={variant}
+      data-is-hovered={isHovered}
       onClick={handleCardClick}
       whileHover={{ scale: 1.05 }}
       transition={{ type: "spring", stiffness: 200, damping: 17 }}

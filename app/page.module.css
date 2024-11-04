@@ -16,6 +16,8 @@
   justify-content: center;
   backdrop-filter: blur(60px);
   transition: backdrop-filter var(--transition-slow-flow);
+  background: radial-gradient(rgba(11, 2, 22, 0) 60%, rgba(11, 2, 22, 0.9) 98%);
+  background-size: cover;
 }
 
 .pageContainer:has(
