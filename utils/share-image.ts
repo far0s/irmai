@@ -2,6 +2,7 @@ import { ImageTemplateProps } from "@/utils/shared-types";
 
 export default async function shareImage({
   firstQuestion,
+  selectedCards,
   conclusion,
   auraImage,
 }: ImageTemplateProps): Promise<void> {
@@ -12,6 +13,7 @@ export default async function shareImage({
     },
     body: JSON.stringify({
       firstQuestion: firstQuestion,
+      selectedCards: selectedCards,
       conclusion: conclusion,
       auraImage: auraImage,
     }),

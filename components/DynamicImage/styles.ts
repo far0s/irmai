@@ -1,3 +1,5 @@
+import { textAlign } from "html2canvas/dist/types/css/property-descriptors/text-align";
+
 const styles = {
   container: {
     position: "relative",
@@ -30,18 +32,41 @@ const styles = {
     flexDirection: "column",
     flexWrap: "nowrap",
   },
-  logo: {
+  header: {
     position: "absolute",
-    top: "262px",
+    top: "200px",
     left: "36px",
+    right: "36px",
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  headline: {
+    textAlign: "right",
+    fontFamily: "Cirka",
+    fontStyle: "normal",
+    letterSpacing: "-0.025em",
+    fontSize: 50,
+    lineHeight: 1,
   },
   headerSep: {
     position: "absolute",
-    top: "348px",
+    top: "286px",
     left: "36px",
     width: "100%",
     height: "1px",
     backgroundColor: "#fffbf2",
+  },
+  content: {
+    position: "absolute",
+    top: "322px",
+    left: "36px",
+    right: "36px",
+    height: "auto",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "flex-start",
   },
   firstQuestion: {
     fontSize: 60,

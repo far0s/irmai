@@ -6,7 +6,7 @@ import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStorePro
 import shareImage from "@/utils/share-image";
 
 const ShareImageCTA = () => {
-  const { firstQuestion, conclusion } = useIrmaiStore((s) => s);
+  const { firstQuestion, selectedCards, conclusion } = useIrmaiStore((s) => s);
 
   const handleShareImage = async () => {
     const bgCanvas: HTMLCanvasElement | null = document.querySelector("canvas");
@@ -17,6 +17,7 @@ const ShareImageCTA = () => {
 
     shareImage({
       firstQuestion: firstQuestion || "What is the meaning of life?",
+      selectedCards: selectedCards || [],
       conclusion: conclusion || "42",
       auraImage: img,
     });

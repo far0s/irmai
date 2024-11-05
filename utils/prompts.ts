@@ -20,6 +20,6 @@ export const prepareConclusionPrompt = (append: any) => {
   append({
     role: "user",
     content:
-      "Provide a conclusion to the reading (max 40 words) that summarizes the conversation. Don't mention the cards. Precede your answer with `*CONCLUSION`",
+      "Provide a conclusion to the reading (max 30 words) that summarizes the conversation. Don't mention the cards. Precede your answer with `*CONCLUSION`",
   } as any);
 };

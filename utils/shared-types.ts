@@ -43,8 +43,9 @@ export type TConvertedSTTResponse = {
 
 export interface ImageTemplateProps {
   firstQuestion: string;
+  selectedCards?: ITarotCard[] | [];
   conclusion: string;
   auraImage?: string | null;
   debug?: boolean;
-  [k: string]: boolean | string | null | undefined;
+  [k: string]: ITarotCard[] | boolean | string | null | undefined;
 }
