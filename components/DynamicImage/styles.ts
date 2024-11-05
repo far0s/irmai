@@ -35,6 +35,14 @@ const styles = {
     top: "262px",
     left: "36px",
   },
+  headerSep: {
+    position: "absolute",
+    top: "348px",
+    left: "36px",
+    width: "100%",
+    height: "1px",
+    backgroundColor: "#fffbf2",
+  },
   firstQuestion: {
     fontSize: 60,
     fontFamily: "Cirka",
