@@ -53,12 +53,16 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: var(--purple);
+  background: var(--card-color);
   border-radius: var(--spacing-2);
   overflow: hidden;
   backface-visibility: hidden;
   transition: 0.8s ease-out;
   will-change: transform;
+}
+
+.cardBack {
+  background: var(--purple);
 }
 
 .cardFront {
@@ -118,12 +122,12 @@
 }
 
 .cardFront::before {
-  box-shadow: 0 0 var(--spacing-1) var(--spacing-2) var(--purple) inset;
+  box-shadow: 0 0 var(--spacing-1) var(--spacing-2) var(--card-color) inset;
   z-index: 1;
 }
 
 .cardFront::after {
-  background: var(--purple);
+  background: var(--card-color);
   mix-blend-mode: color;
 }
 

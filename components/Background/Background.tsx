@@ -67,6 +67,7 @@ const Background = ({
               vertex={vertex}
               fragment={fragment}
               transcriptLength={transcriptLength}
+              randomSeed={(Math.random() * Date.now()) / 10000000000}
             />
           )}
         </Suspense>

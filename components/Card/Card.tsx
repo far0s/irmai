@@ -1,4 +1,5 @@
 "use client";
+import { CSSProperties } from "react";
 import Image from "next/image";
 import { Drawer } from "vaul";
 import Tilt from "react-parallax-tilt";
@@ -59,11 +60,7 @@ const Card = ({
   enableLightbox?: boolean;
   isHovered?: boolean;
 }) => {
-  const handleCardClick = () => {
-    if (onClick) {
-      onClick();
-    }
-  };
+  const handleCardClick = () => onClick && onClick();
 
   const cardContent = (
     <motion.div
@@ -74,7 +71,11 @@ const Card = ({
       data-is-hovered={isHovered}
       onClick={handleCardClick}
       whileHover={{ scale: 1.05 }}
-      transition={{ type: "spring", stiffness: 200, damping: 17 }}
+      style={
+        {
+          "--card-color": card.color || "var(--purple)",
+        } as CSSProperties
+      }
     >
       <div className={s.cardBack}>
         <Logo />
@@ -122,7 +123,14 @@ const Card = ({
         glareBorderRadius="1rem"
         glareReverse={true}
       >
-        <div className={s.card} data-is-hidden={false} data-variant="lightbox">
+        <div
+          className={s.card}
+          data-is-hidden={false}
+          data-variant="lightbox"
+          style={
+            { "--card-color": card.color || "var(--purple)" } as CSSProperties
+          }
+        >
           <div className={s.cardBack}>
             <Logo />
             <Logo />

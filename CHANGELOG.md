@@ -6,13 +6,17 @@
 
 ## Releases
 
-### 0.9.0 - WIP
+### 0.10.0 - WIP
 
 - [ ] FEATURE/UI: cleanup outro screen
 - [ ] FEATURE/UI: create a shareable image from the reading (and share it) on the fly with @vercel/og
-- [ ] FEATURE/UI: improve card stack animations (esp. intro and outro)
 - [ ] FEATURE/UI: replace cards with custom ones
-- [ ] FEATURE/UI: tie card colours to the aura
+
+### 0.9.0 - released 05/11/2024
+
+- [x] FEATURE/UI: improve card stack animations (esp. intro and outro)
+- [x] FEATURE/UI: tie card colours to the aura
+- [x] FEATURE/AURA: add random seed for variation
 
 ### 0.8.2 - released 23/10/2024
 

@@ -48,3 +48,11 @@ export const fetchGLSL = async (
 export const lerp = (start: number, end: number, t: number = 0.1) => {
   return MathUtils.lerp(start, end, t);
 };
+
+export const lerpVec3 = (current: Vector3, target: Vector3, alpha: number) => {
+  return new Vector3(
+    lerp(current.x, target.x, alpha),
+    lerp(current.y, target.y, alpha),
+    lerp(current.z, target.z, alpha)
+  );
+};

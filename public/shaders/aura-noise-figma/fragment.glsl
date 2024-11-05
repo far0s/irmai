@@ -16,6 +16,7 @@ uniform float u_bloom;
 uniform float u_center_size;
 uniform float u_complexity;
 uniform float u_audioLevels[20];
+uniform float u_randomSeed;
 varying vec2 vUv;
 
 /*
@@ -27,11 +28,11 @@ mat2 m(float a) {
 }
 
 float map(vec3 p) {
-  float t = u_time * u_speed;
+  float t = u_time * u_speed + u_randomSeed;
   p.xz *= m(t * 0.4);
   p.xy *= m(t * 0.1);
   vec3 q = p * u_complexity + t;
-  return length(p+vec3(sin((t*0.6) * 0.1))) * log(length(p) + 0.9) + cos(q.x + sin(q.z + cos(q.y))) * 0.5 - u_distance;
+  return length(p + vec3(sin((t * 0.6) * 0.1))) * log(length(p) + 0.9) + cos(q.x + sin(q.z + cos(q.y))) * 0.5 - u_distance;
 }
 
 void mainImage ( out vec4 fragColor, in vec2 fragCoord ) {

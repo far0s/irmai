@@ -5,7 +5,7 @@ import { useControls } from "leva";
 
 import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
 
-import { convertHexToVec3, lerp } from "@/utils";
+import { convertHexToVec3, lerp, lerpVec3 } from "@/utils";
 import useAudioLevels from "@/hooks/use-audio-levels";
 
 const initControls = {
@@ -66,14 +66,15 @@ const Aura = ({
   vertex,
   fragment,
   transcriptLength,
+  randomSeed,
 }: {
   vertex: string;
   fragment: string;
   transcriptLength: number;
+  randomSeed: number;
 }) => {
-  const { isMicReady, isListening, isThinking, isSpeaking } = useIrmaiStore(
-    (s) => s
-  );
+  const { isMicReady, isListening, isThinking, isSpeaking, auraColors } =
+    useIrmaiStore((s) => s);
   const meshRef = useRef<THREE.Mesh>(null!);
   const [dimensions, setDimensions] = useState({
     width: window.innerWidth,
@@ -109,9 +110,23 @@ const Aura = ({
     uniforms.u_resolution.value.set(dimensions.width, dimensions.height);
     uniforms.u_speed.value = lerp(uniforms.u_speed.value, u_speed, 0.1);
     uniforms.u_detail.value = u_detail;
-    uniforms.u_startColor.value = convertHexToVec3(u_startColor);
-    uniforms.u_midColor.value = convertHexToVec3(u_midColor);
-    uniforms.u_endColor.value = convertHexToVec3(u_endColor);
+    uniforms.u_startColor.value = lerpVec3(
+      uniforms.u_startColor.value,
+      convertHexToVec3(auraColors.startColor || u_startColor),
+      0.1
+    );
+
+    uniforms.u_midColor.value = lerpVec3(
+      uniforms.u_midColor.value,
+      convertHexToVec3(auraColors.midColor || u_midColor),
+      0.1
+    );
+
+    uniforms.u_endColor.value = lerpVec3(
+      uniforms.u_endColor.value,
+      convertHexToVec3(auraColors.endColor || u_endColor),
+      0.1
+    );
     uniforms.u_scale.value = lerp(
       uniforms.u_scale.value,
       u_scale,
@@ -167,6 +182,7 @@ const Aura = ({
       u_center_size: { value: u_center_size },
       u_complexity: { value: 0.0 },
       u_audioLevels: { value: new Uint8Array(20) },
+      u_randomSeed: { value: randomSeed },
     };
   }, []);
 

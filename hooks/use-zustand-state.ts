@@ -36,6 +36,17 @@ interface IStore {
   // Orb debugging
   hideApp: boolean;
   setHideApp: (hideApp: boolean) => void;
+
+  auraColors: {
+    startColor?: string;
+    midColor?: string;
+    endColor?: string;
+  };
+  setAuraColors: (colors: {
+    startColor?: string;
+    midColor?: string;
+    endColor?: string;
+  }) => void;
 }
 
 export type State = {
@@ -55,6 +66,12 @@ export type State = {
   conclusion: string;
 
   hideApp: boolean;
+
+  auraColors: {
+    startColor?: string;
+    midColor?: string;
+    endColor?: string;
+  };
 };
 
 export type Actions = {
@@ -75,6 +92,12 @@ export type Actions = {
   reset: () => void;
 
   setHideApp: (hideApp: boolean) => void;
+
+  setAuraColors: (colors: {
+    startColor?: string;
+    midColor?: string;
+    endColor?: string;
+  }) => void;
 };
 
 export type Store = State & Actions;
@@ -97,6 +120,8 @@ export const initStore = (): State => {
     conclusion: "",
 
     hideApp: false,
+
+    auraColors: {},
   };
 };
 
@@ -117,6 +142,8 @@ export const defaultInitState: State = {
   conclusion: "",
 
   hideApp: false,
+
+  auraColors: {},
 };
 
 export const createZStore = (initState: State = defaultInitState) => {
@@ -152,6 +179,15 @@ export const createZStore = (initState: State = defaultInitState) => {
             }),
 
           setHideApp: (hideApp: boolean) => set({ hideApp }),
+
+          setAuraColors: (colors: {
+            startColor?: string;
+            midColor?: string;
+            endColor?: string;
+          }) =>
+            set((state: State) => ({
+              auraColors: { ...state.auraColors, ...colors },
+            })),
         }),
         {
           name: "irmai-store",

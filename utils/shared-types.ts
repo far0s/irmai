@@ -25,6 +25,7 @@ export type ITarotCard = {
   desc: string;
   image: string;
   reverse: boolean;
+  color: string;
 };
 
 export type TConvertedSTTResponse = {

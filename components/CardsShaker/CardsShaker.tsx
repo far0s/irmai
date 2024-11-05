@@ -18,7 +18,7 @@ const CardsShaker = ({
   tempSelectedCards: any[];
   setTempSelectedCards: any;
 }) => {
-  const { allCards, setSelectedCards } = useIrmaiStore((s) => s);
+  const { allCards, setSelectedCards, setAuraColors } = useIrmaiStore((s) => s);
   const [randomizedCards, setRandomizedCards] = useState(allCards);
   const [cardStack, setCardStack] = useState<any>(null);
   const [hoveredCardIndex, setHoveredCardIndex] = useState<number | null>(null);
@@ -61,8 +61,24 @@ const CardsShaker = ({
   const handleAddCardToTempSelectedCards = (card: ITarotCard) => {
     if (!show) return;
     if (tempSelectedCards.length === 3) return;
-    if (tempSelectedCards.includes(card)) return;
-    setTempSelectedCards([...tempSelectedCards, card]);
+    if (tempSelectedCards.includes(card)) {
+      // remove card from tempSelectedCards
+      const newTempSelectedCards = tempSelectedCards.filter(
+        (c) => c.name_short !== card.name_short
+      );
+      return setTempSelectedCards(newTempSelectedCards);
+    }
+    const newTempSelectedCards = [...tempSelectedCards, card];
+    setTempSelectedCards(newTempSelectedCards);
+
+    // Set the colors for the Aura shader
+    if (newTempSelectedCards.length === 1) {
+      setAuraColors({ startColor: card.color });
+    } else if (newTempSelectedCards.length === 2) {
+      setAuraColors({ midColor: card.color });
+    } else if (newTempSelectedCards.length === 3) {
+      setAuraColors({ endColor: card.color });
+    }
   };
 
   const handleMouseEnter = (index: number) => setHoveredCardIndex(index);
