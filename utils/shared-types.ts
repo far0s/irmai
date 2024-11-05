@@ -45,5 +45,6 @@ export interface ImageTemplateProps {
   firstQuestion: string;
   conclusion: string;
   auraImage?: string | null;
-  [k: string]: string | null | undefined;
+  debug?: boolean;
+  [k: string]: boolean | string | null | undefined;
 }
