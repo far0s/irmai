@@ -8,6 +8,9 @@ import shareImage from "@/utils/share-image";
 const ShareImageCTA = () => {
   const { firstQuestion, selectedCards, conclusion } = useIrmaiStore((s) => s);
 
+  // TODO: add a loading/pending state to the CTA
+  // as well as a success/error state
+
   const handleShareImage = async () => {
     const bgCanvas: HTMLCanvasElement | null = document.querySelector("canvas");
     if (!bgCanvas) return window.alert("Error: aura not found");
