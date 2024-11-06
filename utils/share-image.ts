@@ -48,6 +48,10 @@ export default async function shareImage({
     if (navigator.canShare(shareData)) {
       successCallback && successCallback();
       await navigator.share(shareData);
+    } else {
+      successCallback && successCallback();
+      const url = URL.createObjectURL(blobImage);
+      window.open(url, "_blank");
     }
   } else {
     successCallback && successCallback();
