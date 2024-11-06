@@ -47,5 +47,5 @@ export interface ImageTemplateProps {
   conclusion: string;
   auraImage?: string | null;
   debug?: boolean;
-  [k: string]: ITarotCard[] | boolean | string | null | undefined;
+  [k: string]: any;
 }

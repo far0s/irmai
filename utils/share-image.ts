@@ -2,8 +2,8 @@ import { ImageTemplateProps } from "@/utils/shared-types";
 
 type ShareImageProps = {
   isMobile?: boolean;
-  successCallback?: () => void;
-  errorCallBack?: () => void;
+  successCallback?: any;
+  errorCallBack?: any;
 };
 
 export default async function shareImage({
