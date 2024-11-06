@@ -61,7 +61,7 @@ const OutroScreen = ({
       <div className={s.wrapper}>
         <section
           className={s.screenPartWrapper}
-          data-interactive={partToShow === "outro"}
+          data-interactive={isActive && partToShow === "outro"}
         >
           <FadeInWrapper
             show={partToShow === "outro" && conclusion.length === 0}
@@ -76,7 +76,7 @@ const OutroScreen = ({
         </section>
         <section
           className={s.screenPartWrapper}
-          data-interactive={partToShow === "outro"}
+          data-interactive={isActive && partToShow === "outro"}
         >
           <FadeInWrapper
             show={partToShow === "outro" && conclusion.length > 0}

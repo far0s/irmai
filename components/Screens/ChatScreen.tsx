@@ -233,7 +233,7 @@ const ChatScreen = ({
       <div className={s.wrapper}>
         <section
           className={s.screenPartWrapper}
-          data-interactive={partToShow === "idle"}
+          data-interactive={isActive && partToShow === "idle"}
         >
           <TransitionWrapper
             show={partToShow === "idle"}
@@ -256,7 +256,7 @@ const ChatScreen = ({
         </section>
         <section
           className={s.screenPartWrapper}
-          data-interactive={partToShow === "transcript"}
+          data-interactive={isActive && partToShow === "transcript"}
           ref={wrapperRef}
         >
           <TransitionWrapper
@@ -362,7 +362,7 @@ const ChatScreen = ({
 
         <section
           className={s.screenPartWrapper}
-          data-interactive={partToShow === "cards"}
+          data-interactive={isActive && partToShow === "cards"}
         >
           <TransitionWrapper show={partToShow === "cards"} className={s.copy}>
             <p>

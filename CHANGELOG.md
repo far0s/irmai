@@ -2,14 +2,17 @@
 
 ## Todo's in order of importance (move these to releases when in progress or done)
 
+- [ ] BUGFIX/AI: irmai sometimes speaks over itself (double tts)
+- [ ] BUGFIX/AI: properly save transcript and display on plage load if already present (to continue the reading)
 - [ ] FEATURE/UI: replace cards with custom ones
+- [ ] FEATURE/UI: update about copy and links
+- [ ] BUGFIX/UI: fix record CTA "blinking" when thinking
 - [ ] BUGFIX/SAFARI: logo filter blur not working
 
 ## Releases
 
-### 0.10.0 - WIP
+### 0.10.0 - released 06/11/2024
 
-- [ ] BUGFIX/AI: properly save transcript and display on plage load if already present (to continue the reading)
 - [x] FEATURE/UI: cleanup outro screen
 - [x] FEATURE/UI: create a shareable image from the reading (and share it) on the fly with @vercel/og
 
