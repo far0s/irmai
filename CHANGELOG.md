@@ -2,15 +2,16 @@
 
 ## Todo's in order of importance (move these to releases when in progress or done)
 
+- [ ] FEATURE/UI: replace cards with custom ones
 - [ ] BUGFIX/SAFARI: logo filter blur not working
 
 ## Releases
 
 ### 0.10.0 - WIP
 
-- [ ] FEATURE/UI: cleanup outro screen
-- [ ] FEATURE/UI: create a shareable image from the reading (and share it) on the fly with @vercel/og
-- [ ] FEATURE/UI: replace cards with custom ones
+- [ ] BUGFIX/AI: properly save transcript and display on plage load if already present (to continue the reading)
+- [x] FEATURE/UI: cleanup outro screen
+- [x] FEATURE/UI: create a shareable image from the reading (and share it) on the fly with @vercel/og
 
 ### 0.9.0 - released 05/11/2024
 

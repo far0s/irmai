@@ -7,9 +7,17 @@ import DynamicImage from "@/components/DynamicImage/DynamicImage";
 export const runtime = "edge";
 
 export async function GET(request: NextRequest) {
+  if (request.headers.get("host") !== "localhost:3000") {
+    return new Response(null, { status: 404 });
+  }
+
   const searchParams = new URLSearchParams(request.nextUrl.search);
-  const firstQuestion = searchParams.get("firstQuestion") || "first question?";
-  const conclusion = searchParams.get("conclusion") || "conclusion!";
+  const firstQuestion =
+    searchParams.get("firstQuestion") ||
+    "I want to know if I'm going to find a job that makes me happy next year";
+  const conclusion =
+    searchParams.get("conclusion") ||
+    "If I keep my heart open and watch out for the signs around me, I will find a job that makes me happy next year.";
   const debug = searchParams.get("debug") === "true";
 
   const fonts: any[] = await loadFontsOnTheEdge();
