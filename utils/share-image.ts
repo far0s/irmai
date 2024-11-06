@@ -1,10 +1,20 @@
 import { ImageTemplateProps } from "@/utils/shared-types";
 
+type ShareImageProps = {
+  isMobile?: boolean;
+  successCallback?: any;
+  errorCallBack?: any;
+};
+
 export default async function shareImage({
   firstQuestion,
+  selectedCards,
   conclusion,
   auraImage,
-}: ImageTemplateProps): Promise<void> {
+  isMobile,
+  successCallback,
+  errorCallBack,
+}: ImageTemplateProps & ShareImageProps): Promise<void> {
   const fetchedImage = await fetch("/api/dynamic-image", {
     method: "POST",
     headers: {
@@ -12,10 +22,13 @@ export default async function shareImage({
     },
     body: JSON.stringify({
       firstQuestion: firstQuestion,
+      selectedCards: selectedCards,
       conclusion: conclusion,
       auraImage: auraImage,
     }),
-  });
+  }).catch(() => errorCallBack && errorCallBack());
+  if (!fetchedImage) return errorCallBack && errorCallBack();
+
   const blobImage = await fetchedImage.blob();
   const fileName = "irmai.png";
   const filesArray = [
@@ -31,9 +44,13 @@ export default async function shareImage({
     url: document.location.origin,
   };
 
-  if (navigator.canShare && navigator.canShare(shareData)) {
-    await navigator.share(shareData);
+  if (isMobile && navigator.canShare) {
+    if (navigator.canShare(shareData)) {
+      successCallback && successCallback();
+      await navigator.share(shareData);
+    }
   } else {
+    successCallback && successCallback();
     const url = URL.createObjectURL(blobImage);
     window.open(url, "_blank");
   }

@@ -36,7 +36,7 @@ const IntroScreen = ({
       <div className={s.wrapper} data-show={partToShow}>
         <section
           className={s.screenPartWrapper}
-          data-interactive={partToShow === "intro"}
+          data-interactive={isActive && partToShow === "intro"}
         >
           <FadeInWrapper
             show={partToShow === "intro"}

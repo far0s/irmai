@@ -10,7 +10,7 @@ import { HighlightBlock } from "@/components/Transcript/Transcript.utils";
 import s from "./screens.module.css";
 import FadeInWrapper from "@/components/TransitionWrapper/TransitionWrapper";
 import ShareImageCTA from "@/components/ShareImageCTA/ShareImageCTA";
-
+import { CardsOverviewBlock } from "@/components/Transcript/Transcript.utils";
 const DELAY_UNIT = 400;
 
 const handleMessagesChange = (messages: any, setConclusion: any) => {
@@ -31,13 +31,8 @@ const OutroScreen = ({
   isActive: boolean;
   assistantProps: any;
 }) => {
-  const {
-    reset,
-    setShowTranscript,
-    setGlobalState,
-    conclusion,
-    setConclusion,
-  } = useIrmaiStore((s) => s);
+  const { reset, setGlobalState, selectedCards, conclusion, setConclusion } =
+    useIrmaiStore((s) => s);
   const [partToShow, setPartToShow] = useState<null | "outro">(null);
 
   const { messages, append }: any = assistantProps;
@@ -66,7 +61,7 @@ const OutroScreen = ({
       <div className={s.wrapper}>
         <section
           className={s.screenPartWrapper}
-          data-interactive={partToShow === "outro"}
+          data-interactive={isActive && partToShow === "outro"}
         >
           <FadeInWrapper
             show={partToShow === "outro" && conclusion.length === 0}
@@ -81,7 +76,7 @@ const OutroScreen = ({
         </section>
         <section
           className={s.screenPartWrapper}
-          data-interactive={partToShow === "outro"}
+          data-interactive={isActive && partToShow === "outro"}
         >
           <FadeInWrapper
             show={partToShow === "outro" && conclusion.length > 0}
@@ -96,6 +91,15 @@ const OutroScreen = ({
                 </em>
               </p>
             </HighlightBlock>
+          </FadeInWrapper>
+          <FadeInWrapper
+            className={s.copy}
+            show={partToShow === "outro" && conclusion.length > 0}
+            delay={3 * DELAY_UNIT}
+          >
+            {selectedCards.length > 0 && (
+              <CardsOverviewBlock cards={selectedCards} />
+            )}
           </FadeInWrapper>
           <FadeInWrapper
             show={partToShow === "outro" && conclusion.length > 0}

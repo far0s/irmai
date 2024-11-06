@@ -68,14 +68,6 @@ export const loadFontsOnTheEdge = async (): Promise<
     "https://irmai.vercel.app/fonts/Poppins-Italic.ttf"
   );
 
-  const poppinsBold = await fetchWithCache(
-    "https://irmai.vercel.app/fonts/Poppins-Bold.ttf"
-  );
-
-  const poppinsBoldItalic = await fetchWithCache(
-    "https://irmai.vercel.app/fonts/Poppins-BoldItalic.ttf"
-  );
-
   const poppinsLight = await fetchWithCache(
     "https://irmai.vercel.app/fonts/Poppins-Light.ttf"
   );
@@ -114,18 +106,6 @@ export const loadFontsOnTheEdge = async (): Promise<
       data: poppinsItalic,
       style: "italic",
       weight: "400",
-    },
-    {
-      name: "Poppins",
-      data: poppinsBold,
-      style: "normal",
-      weight: "600",
-    },
-    {
-      name: "Poppins",
-      data: poppinsBoldItalic,
-      style: "italic",
-      weight: "600",
     },
     {
       name: "Poppins",

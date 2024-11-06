@@ -2,99 +2,34 @@ import { ImageResponse } from "@vercel/og";
 import { NextRequest } from "next/server";
 import { loadFontsOnTheEdge } from "@/utils/fonts";
 import { ImageTemplateProps } from "@/utils/shared-types";
+import DynamicImage from "@/components/DynamicImage/DynamicImage";
 
 export const runtime = "edge";
 
-const imageTemplate = ({
-  firstQuestion,
-  conclusion,
-  auraImage,
-}: ImageTemplateProps) => {
-  return (
-    <div
-      style={{
-        position: "relative",
-        backgroundColor: "#0b0216",
-        color: "#fffbf2",
-        fontFamily: "Poppins",
-        width: "100%",
-        height: "100%",
-        display: "flex",
-        textAlign: "center",
-        alignItems: "center",
-        justifyContent: "center",
-        flexDirection: "column",
-        flexWrap: "nowrap",
-      }}
-    >
-      {auraImage && (
-        <img
-          src={auraImage}
-          alt="Aura background"
-          style={{ position: "relative", width: "100%" }}
-        />
-      )}
-      <div
-        style={{
-          position: "absolute",
-          width: "100%",
-          height: "100%",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          flexDirection: "column",
-          flexWrap: "nowrap",
-        }}
-      >
-        <div
-          style={{
-            fontSize: 60,
-            fontFamily: "Cirka",
-            fontStyle: "normal",
-            letterSpacing: "-0.025em",
-            color: "white",
-            marginTop: 30,
-            padding: "0 10%",
-            lineHeight: 1.4,
-            whiteSpace: "pre-wrap",
-          }}
-        >
-          {firstQuestion?.length > 0 && firstQuestion}
-        </div>
-        <div
-          style={{
-            fontSize: 40,
-            fontFamily: "Poppins",
-            fontStyle: "normal",
-            letterSpacing: "-0.025em",
-            color: "white",
-            marginTop: 30,
-            padding: "0 10%",
-            lineHeight: 1.4,
-            whiteSpace: "pre-wrap",
-          }}
-        >
-          {conclusion?.length > 0 && conclusion}
-        </div>
-      </div>
-    </div>
-  );
-};
-
 export async function GET(request: NextRequest) {
+  if (request.headers.get("host") !== "localhost:3000") {
+    return new Response(null, { status: 404 });
+  }
+
   const searchParams = new URLSearchParams(request.nextUrl.search);
-  const firstQuestion = searchParams.get("firstQuestion") || "";
-  const conclusion = searchParams.get("conclusion") || "";
+  const firstQuestion =
+    searchParams.get("firstQuestion") ||
+    "I want to know if I'm going to find a job that makes me happy next year";
+  const conclusion =
+    searchParams.get("conclusion") ||
+    "If I keep my heart open and watch out for the signs around me, I will find a job that makes me happy next year.";
+  const debug = searchParams.get("debug") === "true";
 
   const fonts: any[] = await loadFontsOnTheEdge();
   const imageConfig = {
     width: 1080,
     height: 1920,
     fonts: fonts,
+    debug: debug,
   };
 
   return new ImageResponse(
-    imageTemplate({
+    DynamicImage({
       firstQuestion: firstQuestion,
       conclusion: conclusion,
     }),
@@ -111,5 +46,5 @@ export async function POST(request: NextRequest) {
     fonts: fonts,
   };
 
-  return new ImageResponse(imageTemplate({ ...body }), imageConfig);
+  return new ImageResponse(DynamicImage({ ...body }), imageConfig);
 }
