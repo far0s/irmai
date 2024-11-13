@@ -4,12 +4,14 @@ const SpeakOrThinkIndicator = ({
   role,
   isSpeaking,
   isThinking,
+  isLastMessage,
 }: {
   role: string;
   isSpeaking: boolean;
   isThinking: boolean;
+  isLastMessage: boolean;
 }) => {
-  if (role !== "assistant") return null;
+  if (role !== "assistant" || !isLastMessage) return null;
   return (
     <motion.span
       initial={{

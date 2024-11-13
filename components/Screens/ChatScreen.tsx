@@ -102,13 +102,14 @@ const ChatScreen = ({
         errorCallback: (error) => {
           window.alert(error);
           setIsThinking(false);
-          setPartToShow(messages.length > 1 ? "transcript" : "idle");
+          setPartToShow(messages.length > 0 ? "transcript" : "idle");
         },
         successCallback: (res: TConvertedSTTResponse) => {
           if (!res?.text) {
             window.alert("Sorry, I didn't catch that. Can you repeat?");
             resetRecording?.();
-            setPartToShow("idle");
+            setIsThinking(false);
+            setPartToShow(messages.length > 0 ? "transcript" : "idle");
             return;
           }
           if (!firstQuestion) {
@@ -166,8 +167,7 @@ const ChatScreen = ({
     if (selectedCards.length === 3) {
       window.setTimeout(() => {
         setPartToShow("transcript");
-        const hasIrmaiAnswered = checkIfIrmaiHasAlreadyAnswered();
-        if (!hasIrmaiAnswered) handleSendFirstQuestion();
+        handleSendFirstQuestion();
       }, 1300);
     }
   }, [selectedCards]);
@@ -322,27 +322,29 @@ const ChatScreen = ({
                     >
                       <div className={s.transcriptItemRole}>
                         {item.role === "assistant" ? "irmai" : "you"}
-                        {i === transcript.length - 1 && (
-                          <SpeakOrThinkIndicator
-                            role={item.role}
-                            isSpeaking={isSpeaking}
-                            isThinking={isThinking}
-                          />
-                        )}
+                        <SpeakOrThinkIndicator
+                          role={item.role}
+                          isSpeaking={isSpeaking}
+                          isThinking={isThinking}
+                          isLastMessage={i === transcript.length - 1}
+                        />
                       </div>
                       <Markdown className={s.markdown}>{item.content}</Markdown>
                     </li>
                   ))}
 
-                {(transcript.length === 0 || isThinking) && (
+                {(transcript.length === 0 ||
+                  (transcript[transcript.length - 1].role === "assistant" &&
+                    isThinking)) && (
                   <li className={s.transcriptItemAi}>
                     <div className={s.trancriptItemRole}>
                       <div className={s.transcriptItemRole}>
-                        irmai{" "}
+                        irmai
                         <SpeakOrThinkIndicator
                           role="assistant"
-                          isSpeaking={isSpeaking}
+                          isSpeaking={false}
                           isThinking={isThinking}
+                          isLastMessage={true}
                         />
                       </div>
                     </div>

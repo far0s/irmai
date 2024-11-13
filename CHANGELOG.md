@@ -4,6 +4,7 @@
 
 - [ ] BUGFIX/TTS: on mobile, the volume doesn't respond to device controls
 - [ ] FEATURE/AI: protect AI API routes from being abused (spam, etc.)
+- [ ] BUGFIX/UI: think/speak indicator shows twice after first message
 - [ ] BUGFIX/AI: properly save transcript and display on plage load if already present (to continue the reading)
 - [ ] FEATURE/UI: replace cards with custom ones
 - [ ] FEATURE/UI: update about copy and links
