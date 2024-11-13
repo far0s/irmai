@@ -18,6 +18,7 @@ import { Screen } from "@/components/Stage/Stage";
 import PressCTA from "@/components/PressCTA/PressCTA";
 import PressAndHoldCTA from "@/components/PressAndHoldCTA/PressAndHoldCTA";
 import TransitionWrapper from "@/components/TransitionWrapper/TransitionWrapper";
+import SpeakOrThinkIndicator from "@/components/SpeakOrThinkIndicator/SpeakOrThinkIndicator";
 
 import s from "./screens.module.css";
 import {
@@ -165,7 +166,8 @@ const ChatScreen = ({
     if (selectedCards.length === 3) {
       window.setTimeout(() => {
         setPartToShow("transcript");
-        handleSendFirstQuestion();
+        const hasIrmaiAnswered = checkIfIrmaiHasAlreadyAnswered();
+        if (!hasIrmaiAnswered) handleSendFirstQuestion();
       }, 1300);
     }
   }, [selectedCards]);
@@ -203,6 +205,7 @@ const ChatScreen = ({
     const lastMessage = messages?.[messages.length - 1];
 
     const timer = setTimeout(() => {
+      if (isSpeaking) return;
       if (lastMessage?.role === "assistant") {
         setIsThinking(true);
         convertTextToSpeech({
@@ -320,26 +323,11 @@ const ChatScreen = ({
                       <div className={s.transcriptItemRole}>
                         {item.role === "assistant" ? "irmai" : "you"}
                         {i === transcript.length - 1 && (
-                          <motion.span
-                            initial={{
-                              opacity: 0,
-                              filter: "blur(10px)",
-                            }}
-                            animate={{
-                              opacity: isThinking || isSpeaking ? 1 : 0,
-                              filter:
-                                isThinking || isSpeaking
-                                  ? "blur(0)"
-                                  : "blur(10px)",
-                            }}
-                          >
-                            {item.role === "assistant" &&
-                              isThinking &&
-                              " is thinking..."}
-                            {item.role === "assistant" &&
-                              isSpeaking &&
-                              " is speaking..."}
-                          </motion.span>
+                          <SpeakOrThinkIndicator
+                            role={item.role}
+                            isSpeaking={isSpeaking}
+                            isThinking={isThinking}
+                          />
                         )}
                       </div>
                       <Markdown className={s.markdown}>{item.content}</Markdown>
@@ -350,7 +338,12 @@ const ChatScreen = ({
                   <li className={s.transcriptItemAi}>
                     <div className={s.trancriptItemRole}>
                       <div className={s.transcriptItemRole}>
-                        irmai is thinking...
+                        irmai{" "}
+                        <SpeakOrThinkIndicator
+                          role="assistant"
+                          isSpeaking={isSpeaking}
+                          isThinking={isThinking}
+                        />
                       </div>
                     </div>
                   </li>

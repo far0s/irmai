@@ -2,7 +2,8 @@
 
 ## Todo's in order of importance (move these to releases when in progress or done)
 
-- [ ] BUGFIX/AI: irmai sometimes speaks over itself (double tts)
+- [ ] BUGFIX/TTS: on mobile, the volume doesn't respond to device controls
+- [ ] FEATURE/AI: protect AI API routes from being abused (spam, etc.)
 - [ ] BUGFIX/AI: properly save transcript and display on plage load if already present (to continue the reading)
 - [ ] FEATURE/UI: replace cards with custom ones
 - [ ] FEATURE/UI: update about copy and links
@@ -10,6 +11,10 @@
 - [ ] BUGFIX/SAFARI: logo filter blur not working
 
 ## Releases
+
+### 0.10.2 - WIP
+
+- [x] BUGFIX/AI: irmai sometimes speaks over itself (double tts)
 
 ### 0.10.0 - released 06/11/2024
 
@@ -52,7 +57,7 @@
 
 ### 0.6.0 - released 10/06/2024
 
-- [X] BUGFIX/CARDS: fix cards crashing the app (we now limit to 50 cards loaded at a time)
+- [x] BUGFIX/CARDS: fix cards crashing the app (we now limit to 50 cards loaded at a time)
 - [x] FEATURE/AI: "Chaos Mode" – based on trigger X in the conversation, the AI will become more chaotic, sarcastic, humourous, unhinged, etc.
 
 ### 0.5.3 - released 27/05/2024
