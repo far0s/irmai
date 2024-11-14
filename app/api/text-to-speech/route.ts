@@ -30,6 +30,10 @@ export async function POST(req: Request) {
 
 // This is just a test route to make sure the API is working
 export async function GET(req: Request) {
+  if (req.headers.get("host") !== "localhost:3000") {
+    return new Response(null, { status: 404 });
+  }
+
   const mp3 = await openai.audio.speech.create({
     model: "tts-1",
     voice: "nova",

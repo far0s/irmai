@@ -40,6 +40,10 @@ export async function POST(req: Request) {
 
 // This is just a test route to make sure the API is working
 export async function GET(req: Request) {
+  if (req.headers.get("host") !== "localhost:3000") {
+    return new Response(null, { status: 404 });
+  }
+
   const input = await fetch(
     "https://a.storyblok.com/f/75124/x/165f536c4b/sample.mp3"
   );

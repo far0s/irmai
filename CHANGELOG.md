@@ -2,7 +2,6 @@
 
 ## Todo's in order of importance (move these to releases when in progress or done)
 
-- [ ] FEATURE/AI: protect AI API routes from being abused (spam, etc.)
 - [ ] BUGFIX/AI: properly save transcript and display on plage load if already present (to continue the reading)
 - [ ] FEATURE/UI: replace cards with custom ones
 - [ ] FEATURE/UI: update about copy and links
@@ -12,6 +11,8 @@
 ## Releases
 
 ### 0.10.3 - WIP
+
+- [x] FEATURE/AI: protect AI API routes from being abused (spam, etc.)
 
 ### 0.10.2 - released 14/11/2024
 
