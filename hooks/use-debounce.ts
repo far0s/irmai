@@ -26,7 +26,6 @@ export const useDebounceCallback = <CallbackArgs extends any[]>(
   );
 
   return React.useCallback(function () {
-    // eslint-disable-next-line prefer-rest-params
     const args = arguments;
     const { current } = timeout;
     // Calls on leading edge
@@ -34,7 +33,6 @@ export const useDebounceCallback = <CallbackArgs extends any[]>(
       timeout.current = setTimeout(() => {
         timeout.current = void 0;
       }, wait);
-      // eslint-disable-next-line prefer-spread
       return storedCallback.current.apply(null, args as any);
     }
     // Clear the timeout every call and start waiting again
