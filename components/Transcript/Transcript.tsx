@@ -12,7 +12,7 @@ const Transcript = ({ assistantProps }: any) => {
   const { showTranscript, setShowTranscript, reset } = useIrmaiStore((s) => s);
   const transcriptInnerElem = useRef<HTMLDivElement | null>(null);
 
-  useScrollToTop(transcriptInnerElem);
+  useScrollToTop(transcriptInnerElem, true);
 
   useEffect(() => {
     setShowTranscript(false);

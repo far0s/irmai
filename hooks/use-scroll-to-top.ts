@@ -1,10 +1,13 @@
 "use client";
 import { useEffect } from "react";
 
-const useScrollToTop = (ref: React.RefObject<HTMLDivElement | null>) => {
+const useScrollToTop = (
+  ref: React.RefObject<HTMLDivElement | null>,
+  condition?: boolean
+) => {
   useEffect(() => {
-    ref.current?.scrollTo(0, 0);
-  }, []);
+    condition && ref.current?.scrollIntoView(false);
+  }, [condition]);
 };
 
 export default useScrollToTop;

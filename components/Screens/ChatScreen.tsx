@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import Markdown from "markdown-to-jsx";
 
 import { withoutTrailingPeriod } from "@/utils";
@@ -11,6 +11,7 @@ import useRecorder from "@/hooks/use-recorder";
 import { useDebounce } from "@/hooks/use-debounce";
 import useTranscript from "@/hooks/use-transcript";
 import useScrollToBottom from "@/hooks/use-scroll-to-bottom";
+import useScrollToTop from "@/hooks/use-scroll-to-top";
 
 import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
 import { Screen } from "@/components/Stage/Stage";
@@ -61,8 +62,13 @@ const ChatScreen = ({
   const [lastMessage, setLastMessage] = useState(null);
   const [tempSelectedCards, setTempSelectedCards] = useState<any[]>([]);
   const { messages, append }: any = assistantProps;
+
   const transcript = useTranscript(messages, lastMessage);
-  const wrapperRef = useScrollToBottom();
+  const questionWrapperRef = useRef<HTMLDivElement | null>(null);
+  const cardsWrapperRef = useRef<HTMLDivElement | null>(null);
+  const trancriptWrapperRef = useScrollToBottom({
+    readyToScroll: isActive && partToShow === "transcript",
+  });
 
   const {
     startRecording,
@@ -229,16 +235,12 @@ const ChatScreen = ({
     return () => clearTimeout(timer);
   }, [messages]);
 
-  useEffect(() => {
-    if (isActive && wrapperRef.current) {
-      // scroll to top
-      wrapperRef.current.scrollIntoView(false);
-    }
-  }, [isActive, partToShow]);
-
   const showPlaceholderTranscriptItem =
     transcript.length === 0 ||
     (transcript[transcript.length - 1].role === "assistant" && isThinking);
+
+  useScrollToTop(questionWrapperRef, isActive && partToShow === "idle");
+  useScrollToTop(cardsWrapperRef, isActive && partToShow === "cards");
 
   return (
     <Screen isActive={isActive}>
@@ -246,6 +248,7 @@ const ChatScreen = ({
         <section
           className={s.screenPartWrapper}
           data-interactive={isActive && partToShow === "idle"}
+          ref={questionWrapperRef}
         >
           <TransitionWrapper
             show={partToShow === "idle"}
@@ -269,7 +272,7 @@ const ChatScreen = ({
         <section
           className={s.screenPartWrapper}
           data-interactive={isActive && partToShow === "transcript"}
-          ref={wrapperRef}
+          ref={trancriptWrapperRef}
         >
           <TransitionWrapper
             show={partToShow === "transcript" && firstQuestion.length > 0}
@@ -368,6 +371,7 @@ const ChatScreen = ({
         <section
           className={s.screenPartWrapper}
           data-interactive={isActive && partToShow === "cards"}
+          ref={cardsWrapperRef}
         >
           <TransitionWrapper show={partToShow === "cards"} className={s.copy}>
             <p>

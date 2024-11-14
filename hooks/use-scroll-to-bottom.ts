@@ -1,16 +1,21 @@
 import { useEffect, useRef } from "react";
 
-const useScrollToBottom = () => {
+const useScrollToBottom = ({
+  readyToScroll = true,
+}: {
+  readyToScroll: boolean;
+}) => {
   const elementRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (!readyToScroll) return;
     const windowHeight = window.innerHeight;
     const elementHeight = elementRef.current?.scrollHeight;
     if (!elementHeight) return;
 
-    return elementRef?.current?.scrollIntoView({
+    elementRef?.current?.scrollIntoView({
       behavior: "smooth",
-      block: elementHeight > windowHeight ? "end" : "start",
+      block: elementHeight <= windowHeight ? "start" : "end",
     });
   }, [elementRef.current?.scrollHeight]);
 
