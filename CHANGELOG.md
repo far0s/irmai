@@ -2,7 +2,6 @@
 
 ## Todo's in order of importance (move these to releases when in progress or done)
 
-- [ ] BUGFIX/AI: properly save transcript and display on plage load if already present (to continue the reading)
 - [ ] FEATURE/UI: replace cards with custom ones
 - [ ] FEATURE/UI: update about copy and links
 - [ ] FEATURE/UI: final favicon (bugged on Safari)
@@ -13,6 +12,8 @@
 ### 0.10.3 - WIP
 
 - [x] FEATURE/AI: protect AI API routes from being abused (spam, etc.)
+- [x] BUGFIX/UI: various style improvements
+- [ ] BUGFIX/AI: properly save transcript and display on plage load if already present (to continue the reading)
 
 ### 0.10.2 - released 14/11/2024
 

@@ -40,7 +40,7 @@
 .transcriptInner {
   position: relative;
   width: 100%;
-  min-height: 100cqw;
+  height: fit-content;
   display: flex;
   flex-flow: column nowrap;
   padding: var(--padding-s) 0;

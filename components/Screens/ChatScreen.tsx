@@ -256,7 +256,7 @@ const ChatScreen = ({
             className={s.copy}
           >
             <p>
-              <span data-header="true">Question</span>
+              <span data-header="true">Your Question</span>
               Now is the time to ask your question to irmai. This will guide the
               type of conversation you would like to have.
             </p>
