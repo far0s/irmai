@@ -4,9 +4,13 @@ const useScrollToBottom = () => {
   const elementRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const windowHeight = window.innerHeight;
+    const elementHeight = elementRef.current?.scrollHeight;
+    if (!elementHeight) return;
+
     return elementRef?.current?.scrollIntoView({
       behavior: "smooth",
-      block: "end",
+      block: elementHeight > windowHeight ? "end" : "start",
     });
   }, [elementRef.current?.scrollHeight]);
 

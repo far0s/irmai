@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import Markdown from "markdown-to-jsx";
-import { motion } from "framer-motion";
 
 import { withoutTrailingPeriod } from "@/utils";
 import { prepareFirstPrompt } from "@/utils/prompts";
-import { ChatMessage } from "@/utils/shared-types";
+import { ChatMessage, TConvertedSTTResponse } from "@/utils/shared-types";
 import convertSpeechToText from "@/utils/speech-to-text";
 import convertTextToSpeech from "@/utils/text-to-speech";
 
@@ -19,15 +18,14 @@ import PressCTA from "@/components/PressCTA/PressCTA";
 import PressAndHoldCTA from "@/components/PressAndHoldCTA/PressAndHoldCTA";
 import TransitionWrapper from "@/components/TransitionWrapper/TransitionWrapper";
 import SpeakOrThinkIndicator from "@/components/SpeakOrThinkIndicator/SpeakOrThinkIndicator";
-
-import s from "./screens.module.css";
 import {
   CardsOverviewBlock,
   HighlightBlock,
   TextBlock,
 } from "@/components/Transcript/Transcript.utils";
 import CardsShaker from "@/components/CardsShaker/CardsShaker";
-import { TConvertedSTTResponse } from "@/utils/shared-types";
+
+import s from "./screens.module.css";
 
 type TPartToShow =
   | null
@@ -231,6 +229,17 @@ const ChatScreen = ({
     return () => clearTimeout(timer);
   }, [messages]);
 
+  useEffect(() => {
+    if (isActive && wrapperRef.current) {
+      // scroll to top
+      wrapperRef.current.scrollIntoView(false);
+    }
+  }, [isActive, partToShow]);
+
+  const showPlaceholderTranscriptItem =
+    transcript.length === 0 ||
+    (transcript[transcript.length - 1].role === "assistant" && isThinking);
+
   return (
     <Screen isActive={isActive}>
       <div className={s.wrapper}>
@@ -326,16 +335,17 @@ const ChatScreen = ({
                           role={item.role}
                           isSpeaking={isSpeaking}
                           isThinking={isThinking}
-                          isLastMessage={i === transcript.length - 1}
+                          isLastMessage={
+                            i === transcript.length - 1 &&
+                            !showPlaceholderTranscriptItem
+                          }
                         />
                       </div>
                       <Markdown className={s.markdown}>{item.content}</Markdown>
                     </li>
                   ))}
 
-                {(transcript.length === 0 ||
-                  (transcript[transcript.length - 1].role === "assistant" &&
-                    isThinking)) && (
+                {showPlaceholderTranscriptItem && (
                   <li className={s.transcriptItemAi}>
                     <div className={s.trancriptItemRole}>
                       <div className={s.transcriptItemRole}>
@@ -389,7 +399,10 @@ const ChatScreen = ({
                 partToShow === "recording" ||
                 (partToShow === "transcript" && messages.length > 1))
             }
-            delay={4 * DELAY_UNIT}
+            delay={
+              (partToShow === "transcript" && messages.length > 1 ? 1 : 4) *
+              DELAY_UNIT
+            }
           >
             <PressAndHoldCTA
               onBeginPress={() => handleStartRecording()}
@@ -403,7 +416,7 @@ const ChatScreen = ({
           <TransitionWrapper
             className={s.footerPart}
             show={partToShow === "transcript"}
-            delay={100}
+            delay={partToShow === "transcript" && messages.length > 1 ? 1 : 4}
           >
             {selectedCards.length === 0 && (
               <PressCTA onPress={handleGoToCards} label="Pull your cards" />

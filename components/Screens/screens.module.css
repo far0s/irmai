@@ -61,7 +61,7 @@
 
 .splashCopy {
   text-align: center;
-  margin-top: var(--header-safe-zone);
+  margin-top: calc(var(--header-safe-zone) + max(1rem, 5svh));
   max-width: 90vw;
   text-wrap: balance;
   font-size: var(--text-size-m);
@@ -69,10 +69,10 @@
 
 .footer {
   position: fixed !important;
-  bottom: -5rem;
-  padding-bottom: 5rem;
+  bottom: -2.2rem;
+  padding-bottom: 10rem;
   width: 100vw;
-  height: calc(var(--header-safe-zone) + var(--footer-margin) * 2 + 5rem);
+  /* height: calc(var(--header-safe-zone) + var(--footer-margin) * 2 + 5rem); */
   margin-top: auto;
   display: flex;
   flex-direction: row;
@@ -93,7 +93,7 @@
     bottom: 0;
     left: 0;
     width: 100%;
-    height: calc(var(--header-safe-zone) + 8rem);
+    height: calc(var(--header-safe-zone) + 10rem);
     background: linear-gradient(
       to bottom,
       rgba(11, 2, 22, 0) 0%,

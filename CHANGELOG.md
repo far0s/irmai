@@ -2,9 +2,7 @@
 
 ## Todo's in order of importance (move these to releases when in progress or done)
 
-- [ ] BUGFIX/TTS: on mobile, the volume doesn't respond to device controls
 - [ ] FEATURE/AI: protect AI API routes from being abused (spam, etc.)
-- [ ] BUGFIX/UI: think/speak indicator shows twice after first message
 - [ ] BUGFIX/AI: properly save transcript and display on plage load if already present (to continue the reading)
 - [ ] FEATURE/UI: replace cards with custom ones
 - [ ] FEATURE/UI: update about copy and links
@@ -13,9 +11,12 @@
 
 ## Releases
 
-### 0.10.2 - WIP
+### 0.10.2 - released 14/11/2024
 
 - [x] BUGFIX/AI: irmai sometimes speaks over itself (double tts)
+- [x] BUGFIX/UI: adjust height of footer and splash copy
+- [x] BUGFIX/UI: think/speak indicator shows twice after first message
+- [ ] BUGFIX/TTS: on mobile, the volume doesn't respond to device controls
 
 ### 0.10.0 - released 06/11/2024
 
