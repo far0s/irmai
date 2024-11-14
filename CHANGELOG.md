@@ -6,7 +6,6 @@
 - [ ] BUGFIX/AI: properly save transcript and display on plage load if already present (to continue the reading)
 - [ ] FEATURE/UI: replace cards with custom ones
 - [ ] FEATURE/UI: update about copy and links
-- [ ] BUGFIX/UI: fix record CTA "blinking" when thinking
 - [ ] BUGFIX/SAFARI: logo filter blur not working
 
 ## Releases
@@ -18,6 +17,7 @@
 - [x] BUGFIX/UI: think/speak indicator shows twice after first message
 - [x] BUGFIX/TTS: on mobile, the volume doesn't respond to device controls (this is because the browser only has access to the volume if the audio element exists in the DOM)
 - [x] BUGFIX/UI/SAFARI: screen scrolls to bottom when it shouldn't
+- [x] BUGFIX/UI: fix record CTA "blinking" when thinking
 
 ### 0.10.0 - released 06/11/2024
 
