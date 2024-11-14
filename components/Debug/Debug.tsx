@@ -63,12 +63,6 @@ const Debug = () => {
     };
     window.addEventListener("keydown", handleKeyDown);
 
-    const audioElement = document.getElementById("audio") as HTMLAudioElement;
-    audioElement.onvolumechange = () => {
-      console.log("Volume changed to: ", audioElement.volume);
-      handleSelectThreeRandomCards();
-    };
-
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
