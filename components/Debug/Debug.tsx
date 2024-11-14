@@ -30,6 +30,50 @@ const Debug = () => {
     window.location.reload();
   };
 
+  const handleSelectThreeRandomCards = async () => {
+    if (!(allCards && allCards.length > 0)) {
+      await fetch("/api/tarot?n=50")
+        .then((res) => res.json())
+        .then((data) => {
+          const randomCards = data.sort(() => 0.5 - Math.random()).slice(0, 3);
+          setAuraColors({
+            startColor: randomCards[0].color,
+            midColor: randomCards[1].color,
+            endColor: randomCards[2].color,
+          });
+        })
+        .catch((err) => console.error(err));
+    } else {
+      const randomCards = allCards.sort(() => 0.5 - Math.random()).slice(0, 3);
+      if (randomCards.length > 0) {
+        setAuraColors({
+          startColor: randomCards[0].color,
+          midColor: randomCards[1].color,
+          endColor: randomCards[2].color,
+        });
+      }
+    }
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      e.preventDefault();
+      (e.key === "PageUp" || e.key === "PageDown") &&
+        handleSelectThreeRandomCards();
+    };
+    window.addEventListener("keydown", handleKeyDown);
+
+    const audioElement = document.getElementById("audio") as HTMLAudioElement;
+    audioElement.onvolumechange = () => {
+      console.log("Volume changed to: ", audioElement.volume);
+      handleSelectThreeRandomCards();
+    };
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
+
   useEffect(() => {
     setDebug(hasDebugParam && searchParams.get("debug") === "true");
   }, [searchParams]);
@@ -71,34 +115,7 @@ const Debug = () => {
         }
       },
     },
-    "Random Cards/Colors": button(async () => {
-      if (!(allCards && allCards.length > 0)) {
-        await fetch("/api/tarot?n=50")
-          .then((res) => res.json())
-          .then((data) => {
-            const randomCards = data
-              .sort(() => 0.5 - Math.random())
-              .slice(0, 3);
-            setAuraColors({
-              startColor: randomCards[0].color,
-              midColor: randomCards[1].color,
-              endColor: randomCards[2].color,
-            });
-          })
-          .catch((err) => console.error(err));
-      } else {
-        const randomCards = allCards
-          .sort(() => 0.5 - Math.random())
-          .slice(0, 3);
-        if (randomCards.length > 0) {
-          setAuraColors({
-            startColor: randomCards[0].color,
-            midColor: randomCards[1].color,
-            endColor: randomCards[2].color,
-          });
-        }
-      }
-    }),
+    "Random Cards/Colors": button(() => handleSelectThreeRandomCards()),
   });
 
   return (
