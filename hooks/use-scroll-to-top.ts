@@ -6,7 +6,12 @@ const useScrollToTop = (
   condition?: boolean
 ) => {
   useEffect(() => {
-    condition && ref.current?.scrollIntoView(false);
+    const isTranscript = ref.current?.classList.contains("transcriptInner");
+    condition &&
+      ref.current?.scrollTo({
+        top: isTranscript ? 16 : 48,
+        left: 0,
+      });
   }, [condition]);
 };
 

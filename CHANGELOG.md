@@ -6,6 +6,7 @@
 - [ ] BUGFIX/AI: properly save transcript and display on plage load if already present (to continue the reading)
 - [ ] FEATURE/UI: replace cards with custom ones
 - [ ] FEATURE/UI: update about copy and links
+- [ ] FEATURE/UI: final favicon (bugged on Safari)
 - [ ] BUGFIX/SAFARI: logo filter blur not working
 
 ## Releases

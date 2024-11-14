@@ -9,18 +9,14 @@ import useScrollToTop from "@/hooks/use-scroll-to-top";
 import s from "./transcript.module.css";
 
 const Transcript = ({ assistantProps }: any) => {
-  const { showTranscript, setShowTranscript, reset } = useIrmaiStore((s) => s);
+  const { showTranscript, setShowTranscript } = useIrmaiStore((s) => s);
   const transcriptInnerElem = useRef<HTMLDivElement | null>(null);
 
-  useScrollToTop(transcriptInnerElem, true);
+  useScrollToTop(transcriptInnerElem, showTranscript);
 
   useEffect(() => {
     setShowTranscript(false);
   }, []);
-
-  const handleReset = () => {
-    reset();
-  };
 
   const DELAY_UNIT = 300;
 
