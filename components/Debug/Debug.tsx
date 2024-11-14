@@ -20,6 +20,7 @@ const Debug = () => {
     hideApp,
     setHideApp,
     allCards,
+    setAllCards,
     setAuraColors,
   } = useIrmaiStore((s) => s);
   const searchParams = useSearchParams();
@@ -33,7 +34,11 @@ const Debug = () => {
   const handleSelectThreeRandomCards = async () => {
     if (!(allCards && allCards.length > 0)) {
       await fetch("/api/tarot?n=50")
-        .then((res) => res.json())
+        .then((res) => {
+          const cards: any = res.json();
+          setAllCards(cards || []);
+          return cards;
+        })
         .then((data) => {
           const randomCards = data.sort(() => 0.5 - Math.random()).slice(0, 3);
           setAuraColors({

@@ -11,6 +11,8 @@
 
 ## Releases
 
+### 0.10.3 - WIP
+
 ### 0.10.2 - released 14/11/2024
 
 - [x] BUGFIX/AI: irmai sometimes speaks over itself (double tts)
