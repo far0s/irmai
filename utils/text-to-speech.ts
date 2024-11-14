@@ -46,14 +46,20 @@ const convertWhisperToAudioSource = async (
   stream: MediaStream
 ) => {
   const audioContext = new AudioContext();
-  const audioBuffer = await audioContext.decodeAudioData(
-    await whisper.arrayBuffer()
-  );
-  const audioSource = audioContext.createBufferSource();
-  audioSource.buffer = audioBuffer;
-  audioSource.connect(audioContext.destination);
-  audioSource.start();
-  audioSource.onended = () => {
+  const audioElement = document.createElement("audio");
+  const gainNode = audioContext.createGain();
+  audioElement.src = URL.createObjectURL(await whisper.blob());
+  const source = audioContext.createMediaElementSource(audioElement);
+  source.connect(gainNode);
+  gainNode.connect(audioContext.destination);
+
+  audioElement.play();
+
+  audioElement.addEventListener("input", (event) => {
+    gainNode.gain.value = (event.target as any).value;
+  });
+
+  audioElement.onended = () => {
     stream.getTracks().forEach((track: any) => track.stop());
     endSpeakCallback();
   };

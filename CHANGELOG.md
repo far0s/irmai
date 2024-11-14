@@ -16,7 +16,7 @@
 - [x] BUGFIX/AI: irmai sometimes speaks over itself (double tts)
 - [x] BUGFIX/UI: adjust height of footer and splash copy
 - [x] BUGFIX/UI: think/speak indicator shows twice after first message
-- [ ] BUGFIX/TTS: on mobile, the volume doesn't respond to device controls
+- [x] BUGFIX/TTS: on mobile, the volume doesn't respond to device controls (this is because the browser only has access to the volume if the audio element exists in the DOM)
 
 ### 0.10.0 - released 06/11/2024
 
