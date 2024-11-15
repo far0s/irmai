@@ -10,7 +10,10 @@ export async function GET(req: Request) {
 
   if (!n || n === "all") {
     return new Response(JSON.stringify(tarot.cards), {
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        "Cache-Control": "max-age=0, s-maxage=0",
+      },
       status: 200,
     });
   }

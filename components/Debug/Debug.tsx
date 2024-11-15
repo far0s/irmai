@@ -17,10 +17,10 @@ const Debug = () => {
     setIsThinking,
     globalState,
     setGlobalState,
-    hideApp,
-    setHideApp,
     allCards,
     setAllCards,
+    hideApp,
+    setHideApp,
     setAuraColors,
   } = useIrmaiStore((s) => s);
   const searchParams = useSearchParams();
@@ -31,40 +31,32 @@ const Debug = () => {
     window.location.reload();
   };
 
+  useEffect(() => {
+    fetch("/api/tarot")
+      .then((res) => res.json())
+      .then((data) => {
+        setAllCards(data);
+      });
+  }, []);
+
   const handleSelectThreeRandomCards = async () => {
-    if (!(allCards && allCards.length > 0)) {
-      await fetch("/api/tarot?n=50")
-        .then((res) => {
-          const cards: any = res.json();
-          setAllCards(cards || []);
-          return cards;
-        })
-        .then((data) => {
-          const randomCards = data.sort(() => 0.5 - Math.random()).slice(0, 3);
-          setAuraColors({
-            startColor: randomCards[0].color,
-            midColor: randomCards[1].color,
-            endColor: randomCards[2].color,
-          });
-        })
-        .catch((err) => console.error(err));
-    } else {
-      const randomCards = allCards.sort(() => 0.5 - Math.random()).slice(0, 3);
-      if (randomCards.length > 0) {
-        setAuraColors({
-          startColor: randomCards[0].color,
-          midColor: randomCards[1].color,
-          endColor: randomCards[2].color,
-        });
-      }
-    }
+    const randomCards =
+      allCards?.length > 0
+        ? allCards.sort(() => 0.5 - Math.random()).slice(0, 3)
+        : await fetch("/api/tarot?n-3").then((res) => res.json());
+    setAuraColors({
+      startColor: randomCards[0].color,
+      midColor: randomCards[1].color,
+      endColor: randomCards[2].color,
+    });
   };
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      e.preventDefault();
-      (e.key === "PageUp" || e.key === "PageDown") &&
+      if (e.key === "PageUp" || e.key === "PageDown") {
+        e.preventDefault();
         handleSelectThreeRandomCards();
+      }
     };
     window.addEventListener("keydown", handleKeyDown);
 
