@@ -43,7 +43,7 @@ const Debug = () => {
     const randomCards =
       allCards?.length > 0
         ? allCards.sort(() => 0.5 - Math.random()).slice(0, 3)
-        : await fetch("/api/tarot?n-3").then((res) => res.json());
+        : await fetch("/api/tarot?n=3").then((res) => res.json());
     setAuraColors({
       startColor: randomCards[0].color,
       midColor: randomCards[1].color,
@@ -53,7 +53,11 @@ const Debug = () => {
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "PageUp" || e.key === "PageDown") {
+      if (
+        e.key === "PageUp" ||
+        e.key === "PageDown" ||
+        e.key.includes("Arrow")
+      ) {
         e.preventDefault();
         handleSelectThreeRandomCards();
       }
