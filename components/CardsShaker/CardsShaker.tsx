@@ -61,13 +61,13 @@ const CardsShaker = ({
   const handleAddCardToTempSelectedCards = (card: ITarotCard) => {
     if (!show) return;
     if (tempSelectedCards.length === 3) return;
-    if (tempSelectedCards.includes(card)) {
+    /* if (tempSelectedCards.includes(card)) {
       // remove card from tempSelectedCards
       const newTempSelectedCards = tempSelectedCards.filter(
         (c) => c.name_short !== card.name_short
       );
       return setTempSelectedCards(newTempSelectedCards);
-    }
+    } */
     const newTempSelectedCards = [...tempSelectedCards, card];
     setTempSelectedCards(newTempSelectedCards);
 
