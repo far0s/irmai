@@ -99,6 +99,14 @@ const ChatScreen = ({
   };
 
   useEffect(() => {
+    // select the DOM element with a class containing "pageContainer"
+    const pageContainer = document.querySelector("[class*='pageContainer']");
+    partToShow === "cards"
+      ? pageContainer?.classList.add("cards-visible")
+      : pageContainer?.classList.remove("cards-visible");
+  }, [partToShow]);
+
+  useEffect(() => {
     if (isActive && audioURL && audioFile) {
       setIsThinking(true);
       convertSpeechToText({

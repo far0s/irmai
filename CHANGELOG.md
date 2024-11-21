@@ -2,6 +2,10 @@
 
 ## Todo's in order of importance (move these to releases when in progress or done)
 
+
+- [ ] FEATURE/CARDS: add card minis to represent cards being picked
+- [ ] FEATURE/CARDS: range slider synced to card index (maybe)
+- [ ] BUGFIX: crashes on mobile, when trying to pull cards (on AJ's phone)
 - [ ] FEATURE/UI: replace cards with custom ones
 - [ ] FEATURE/UI: update about copy and links
 - [ ] FEATURE/UI: final favicon (bugged on Safari)
@@ -12,7 +16,9 @@
 ### 0.10.3 - WIP
 
 - [x] FEATURE/AI: protect AI API routes from being abused (spam, etc.)
+- [x] FEATURE/AURA: when pulling cards, aura should be blurred and scaled up
 - [x] BUGFIX/UI: various style improvements
+- [ ] BUGFIX/AI: fix the thinking indicator not showing up directly after coming back from cards screen
 - [ ] BUGFIX/AI: properly save transcript and display on plage load if already present (to continue the reading)
 
 ### 0.10.2 - released 14/11/2024

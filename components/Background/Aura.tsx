@@ -67,6 +67,10 @@ const Aura = ({
     if (!meshRef.current) return;
     let time = state.clock.getElapsedTime();
     const isReady = time > 15;
+    const cardsAreVisible =
+      document.querySelectorAll(
+        "[class*='pageContainer'][class*='cards-visible']"
+      ).length > 0;
     const { uniforms } = meshRef.current.material as THREE.ShaderMaterial;
 
     uniforms.u_time.value = time + 1;
@@ -91,10 +95,14 @@ const Aura = ({
     );
     uniforms.u_scale.value = lerp(
       uniforms.u_scale.value,
-      u_scale,
+      cardsAreVisible ? 0.25 : u_scale,
       isReady ? 0.01 : 0.002
     );
-    uniforms.u_bloom.value = lerp(uniforms.u_bloom.value, u_bloom, 0.1);
+    uniforms.u_bloom.value = lerp(
+      uniforms.u_bloom.value,
+      cardsAreVisible ? 7.5 : u_bloom,
+      0.1
+    );
     uniforms.u_center_size.value = lerp(
       uniforms.u_center_size.value,
       isSpeaking ? 2.0 : 0.0,
