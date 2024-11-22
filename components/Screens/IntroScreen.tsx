@@ -44,25 +44,6 @@ const IntroScreen = ({
             delay={4 * DELAY_UNIT}
           >
             <p>
-              <span>Welcome</span>
-              irmai is your audio-visual spiritual guide, and will guide you on
-              a journey of self discovery and inner peace.
-            </p>
-          </FadeInWrapper>
-          <FadeInWrapper
-            show={partToShow === "intro"}
-            className={s.copy}
-            delay={5 * DELAY_UNIT}
-          >
-            <p style={{ textAlign: "center" }}>✳︎✳︎✳︎</p>
-          </FadeInWrapper>
-
-          <FadeInWrapper
-            show={partToShow === "intro"}
-            className={s.copy}
-            delay={6 * DELAY_UNIT}
-          >
-            <p>
               <span>Question</span>
               To form an intention for a tarot reading, reflect on your current
               situation and distill it into a clear, specific question or
@@ -72,7 +53,7 @@ const IntroScreen = ({
           <FadeInWrapper
             show={partToShow === "intro"}
             className={s.copy}
-            delay={7 * DELAY_UNIT}
+            delay={5 * DELAY_UNIT}
           >
             <p>
               Phrase your question carefully to invite actionable guidance and
@@ -86,7 +67,7 @@ const IntroScreen = ({
           <FadeInWrapper
             className={s.footerPart}
             show={partToShow === "intro"}
-            delay={8 * DELAY_UNIT}
+            delay={6 * DELAY_UNIT}
           >
             <PressCTA onPress={handleNextScreen} label="Start" />
           </FadeInWrapper>

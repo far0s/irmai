@@ -17,6 +17,7 @@
 
 - [x] FEATURE/AI: protect AI API routes from being abused (spam, etc.)
 - [x] FEATURE/AURA: when pulling cards, aura should be blurred and scaled up
+- [x] FEATURE/UX: move intro text to splashScreen to streamline the experience
 - [x] BUGFIX/UI: various style improvements
 - [ ] BUGFIX/AI: fix the thinking indicator not showing up directly after coming back from cards screen
 - [ ] BUGFIX/AI: properly save transcript and display on plage load if already present (to continue the reading)

@@ -61,10 +61,15 @@
 
 .splashCopy {
   text-align: center;
-  margin-top: calc(var(--header-safe-zone) + max(1rem, 5svh));
-  max-width: 90vw;
+  margin-top: max(var(--header-safe-zone), 1rem, 5svh);
+  width: min(90vw, 40rem);
+  height: fit-content;
   text-wrap: balance;
   font-size: var(--text-size-m);
+}
+
+.splashCopy > * {
+  height: 0;
 }
 
 .footer {

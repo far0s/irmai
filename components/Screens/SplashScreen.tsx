@@ -16,16 +16,25 @@ const SplashScreen = ({ isActive }: { isActive: boolean }) => {
     setHasSeenSplash,
   } = useIrmaiStore((s) => s);
   const [showSplash, setShowSplash] = useState(false);
+  const [partToShow, setPartToShow] = useState<null | "intro" | "permissions">(
+    null
+  );
 
   useEffect(() => {
     // this is called on load
     if (globalState !== "splash") return;
-    if (hasSeenSplash) return setGlobalState("intro");
+    setHasSeenSplash(false);
     setShowSplash(true);
+    setPartToShow("intro");
+
+    window.setTimeout(() => {
+      setPartToShow("permissions");
+    }, 4000);
 
     window.setTimeout(() => {
       setIsReadyToAskForMic(true);
-    }, 4000);
+      setPartToShow(null);
+    }, 7000);
   }, [globalState]);
 
   useEffect(() => {
@@ -34,24 +43,48 @@ const SplashScreen = ({ isActive }: { isActive: boolean }) => {
     if (!isMicReady) return;
 
     window.setTimeout(() => {
-      setShowSplash(false);
-      setGlobalState("intro");
-      setHasSeenSplash(true);
+      setShowSplash(true);
+      setPartToShow("intro");
+
+      window.setTimeout(() => {
+        setPartToShow(null);
+        setGlobalState("intro");
+        setHasSeenSplash(true);
+      }, 3000);
     }, 500);
   }, [isMicReady, globalState]);
 
   return (
     <Screen isActive={isActive}>
       <div className={s.splashCopy}>
-        <TransitionWrapper show={showSplash && !hasSeenSplash} delay={1500}>
-          <p>
-            Irmai uses the microphone to <em>hear</em> and <em>speak</em> to
-            you.
-          </p>
-        </TransitionWrapper>
-        <TransitionWrapper show={showSplash && !hasSeenSplash} delay={2000}>
-          <p>Please allow us to use it to proceed.</p>
-        </TransitionWrapper>
+        <div>
+          <TransitionWrapper
+            show={showSplash && partToShow === "intro"}
+            delay={1500}
+          >
+            <p>
+              irmai is your spiritual tarot guide, leading you on a journey of
+              self-discovery and inner peace.
+            </p>
+          </TransitionWrapper>
+        </div>
+        <div>
+          <TransitionWrapper
+            show={showSplash && !hasSeenSplash && partToShow === "permissions"}
+            delay={500}
+          >
+            <p>
+              irmai uses the microphone to <em>hear</em> and <em>speak</em> to
+              you.
+            </p>
+          </TransitionWrapper>
+          <TransitionWrapper
+            show={showSplash && !hasSeenSplash && partToShow === "permissions"}
+            delay={1000}
+          >
+            <p>Please allow us to use it to proceed.</p>
+          </TransitionWrapper>
+        </div>
       </div>
     </Screen>
   );
