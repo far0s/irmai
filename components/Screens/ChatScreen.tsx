@@ -177,10 +177,11 @@ const ChatScreen = ({
   useEffect(() => {
     if (!isActive) return;
     if (selectedCards.length === 3) {
+      setIsThinking(true);
+      handleSendFirstQuestion();
       window.setTimeout(() => {
         setPartToShow("transcript");
-        handleSendFirstQuestion();
-      }, 1300);
+      }, 300);
     }
   }, [selectedCards]);
 
@@ -234,7 +235,6 @@ const ChatScreen = ({
           },
         });
       } else if (lastMessage?.role === "user") {
-        setIsThinking(false);
         setIsSpeaking(false);
         setLastMessage(lastMessage);
       }

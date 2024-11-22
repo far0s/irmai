@@ -2,10 +2,10 @@
 
 ## Todo's in order of importance (move these to releases when in progress or done)
 
-
 - [ ] FEATURE/CARDS: add card minis to represent cards being picked
 - [ ] FEATURE/CARDS: range slider synced to card index (maybe)
 - [ ] BUGFIX: crashes on mobile, when trying to pull cards (on AJ's phone)
+- [ ] BUGFIX/AI: properly save transcript and display on plage load if already present (to continue the reading)
 - [ ] FEATURE/UI: replace cards with custom ones
 - [ ] FEATURE/UI: update about copy and links
 - [ ] FEATURE/UI: final favicon (bugged on Safari)
@@ -19,8 +19,7 @@
 - [x] FEATURE/AURA: when pulling cards, aura should be blurred and scaled up
 - [x] FEATURE/UX: move intro text to splashScreen to streamline the experience
 - [x] BUGFIX/UI: various style improvements
-- [ ] BUGFIX/AI: fix the thinking indicator not showing up directly after coming back from cards screen
-- [ ] BUGFIX/AI: properly save transcript and display on plage load if already present (to continue the reading)
+- [x] BUGFIX/AI: fix the thinking indicator not showing up directly after coming back from cards screen
 
 ### 0.10.2 - released 14/11/2024
 
@@ -97,8 +96,8 @@
 
 - [x] CHORE/AI: move API key to project API key in OpenAI. Same for Project and Assistant
 - [x] FEATURE/AI: replace useChat for useAssistant
-  - [x] create assistant in OpenAI (figure out system prompts etc.)
-  - [x] update UI to use the new helpers
+- [x] create assistant in OpenAI (figure out system prompts etc.)
+- [x] update UI to use the new helpers
 
 ### 0.3.0 - released 13/05/2024
 
@@ -139,4 +138,4 @@
 ### 0.1.0 - released 26/11/2023
 
 - [x] initial POC release
-- [ ] CHORE/AI: move API key to project API key in OpenAI. Same for Project and Assistant
+- [x] CHORE/AI: move API key to project API key in OpenAI. Same for Project and Assistant
