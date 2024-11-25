@@ -61,19 +61,39 @@ const Transcript = ({ assistantProps }: any) => {
           <p>
             <span className={s.transcriptHeader}>✳︎ The team </span>
             irmai was imagined, designed, and built by{" "}
-            <a className={s.link} href="https://www.instagram.com/hypercampina">
+            <a
+              className={s.link}
+              target="_blank"
+              rel="nofollow"
+              href="https://www.instagram.com/hypercampina"
+            >
               Sunniva Ottestad
             </a>
             ,{" "}
-            <a className={s.link} href="https://ajmarshall.ca">
+            <a
+              className={s.link}
+              target="_blank"
+              rel="nofollow"
+              href="https://ajmarshall.ca"
+            >
               AJ Marshall
             </a>
             ,{" "}
-            <a className={s.link} href="https://zeldacolombo.com">
+            <a
+              className={s.link}
+              target="_blank"
+              rel="nofollow"
+              href="https://zeldacolombo.com"
+            >
               Zelda Colombo
             </a>{" "}
             and{" "}
-            <a className={s.link} href="https://seb.cat">
+            <a
+              className={s.link}
+              target="_blank"
+              rel="nofollow"
+              href="https://seb.cat"
+            >
               Seb Dancer-Michel
             </a>
             . We started talking about this project in November 2023, when
@@ -90,7 +110,12 @@ const Transcript = ({ assistantProps }: any) => {
             irmai is a Next.js web application powered by gpt-4o and whisper,
             and hosted on Vercel. That's about it really! You can inspect the
             source code on{" "}
-            <a className={s.link} href="https://github.com/far0s/irmai">
+            <a
+              className={s.link}
+              target="_blank"
+              rel="nofollow"
+              href="https://github.com/far0s/irmai"
+            >
               Github
             </a>
             .
@@ -103,13 +128,17 @@ const Transcript = ({ assistantProps }: any) => {
             <span className={s.transcriptHeader}>✳︎ Forever Free </span>
             irmai is free to use and will always be. We're paying for every cost
             associated with running this project ourselves, and although they're
-            not huge, they're not zero either. [add tip link here maybe?]{" "}
-            {/* If you want to support us and
+            not huge, they're not zero either. If you want to support us and
             keep the lights on, you can{" "}
-            <a className={s.link} href="/">
+            <a
+              className={s.link}
+              target="_blank"
+              rel="nofollow"
+              href="https://buymeacoffee.com/far0s"
+            >
               tip us here
             </a>{" "}
-            🤍 */}
+            ❤︎
           </p>
           <br />
         </TransitionWrapper>
