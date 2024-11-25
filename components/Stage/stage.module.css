@@ -8,9 +8,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: calc(
-    100dvh - var(--header-safe-zone) - calc(var(--footer-margin)) / 2
-  );
+  height: calc(100dvh - var(--header-safe-zone));
 }
 
 .screen {

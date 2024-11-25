@@ -140,7 +140,6 @@
 }
 
 .card[data-is-reverse="true"] .cardImage {
-  transform: rotateZ(180deg);
   filter: invert(1);
 }
 

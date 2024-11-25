@@ -118,7 +118,7 @@ const Card = ({
         // see github discussion here: https://github.com/mkosir/react-parallax-tilt/discussions/75
         glareEnable={true}
         glareMaxOpacity={0.5}
-        glareColor="#fffbf2"
+        glareColor={reverse ? "#0b0216" : "#fffbf2"}
         glarePosition="all"
         glareBorderRadius="1rem"
         glareReverse={true}
@@ -126,6 +126,7 @@ const Card = ({
         <div
           className={s.card}
           data-is-hidden={false}
+          data-is-reverse={reverse}
           data-variant="lightbox"
           style={
             { "--card-color": card.color || "var(--purple)" } as CSSProperties
