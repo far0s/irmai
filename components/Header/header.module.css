@@ -5,7 +5,7 @@
   padding: 0 var(--padding-s);
   display: flex;
   flex-flow: column nowrap;
-  gap: calc(var(--padding-s) * 2);
+  gap: var(--padding-s);
   z-index: 2;
   --header-transition-delay: 100s;
 

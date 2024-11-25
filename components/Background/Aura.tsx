@@ -96,7 +96,7 @@ const Aura = ({
     uniforms.u_scale.value = lerp(
       uniforms.u_scale.value,
       cardsAreVisible ? 0.25 : u_scale,
-      isReady ? 0.01 : 0.002
+      isReady ? 0.01 : 0.005
     );
     uniforms.u_bloom.value = lerp(
       uniforms.u_bloom.value,

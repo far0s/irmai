@@ -112,7 +112,6 @@ const ChatScreen = ({
       convertSpeechToText({
         audioFile: audioFile,
         errorCallback: (error) => {
-          window.alert(error);
           setIsThinking(false);
           setPartToShow(messages.length > 0 ? "transcript" : "idle");
         },
@@ -307,14 +306,7 @@ const ChatScreen = ({
               <TextBlock>
                 <span data-header="true">Cards</span> Each card has symbolic
                 meanings that represent different aspects of your life, such as
-                relationships, career, emotions, and more. As you choose the
-                cards, I will interpret the symbols and archetypes to provide
-                you with personalized insights and guidance. The cards are not
-                meant to predict the future, but rather to offer a fresh
-                perspective on your current situation and potential paths
-                forward. My role is to be an intuitive guide, and we will work
-                together to explore the messages the cards reveal and how they
-                apply to your life.
+                relationships, career, emotions, and more.
               </TextBlock>
             )}
           </TransitionWrapper>

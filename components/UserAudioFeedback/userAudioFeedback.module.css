@@ -1,7 +1,7 @@
 .audioFeedback {
   width: 100%;
   height: 2px;
-  background-color: currentColor;
+  /* background-color: currentColor; */
   transition: var(--transition-fast-out);
   pointer-events: none;
   transform-origin: left center;

@@ -10,7 +10,7 @@
   --header-margin: 36px;
   --header-height: 32px;
   --header-safe-zone: calc(
-    var(--header-margin) + var(--padding-s) * 2 + var(--header-height)
+    var(--header-margin) + var(--padding-s) + var(--header-height)
   );
   --footer-margin: calc(55px + 1svh);
 
