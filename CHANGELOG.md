@@ -7,14 +7,14 @@
 - [ ] BUGFIX: crashes on mobile, when trying to pull cards (on AJ's phone)
 - [ ] BUGFIX/AI: properly save transcript and display on plage load if already present (to continue the reading)
 - [ ] FEATURE/UI: replace cards with custom ones
-- [ ] FEATURE/UI: update about copy and links
 - [ ] FEATURE/UI: final favicon (bugged on Safari)
 - [ ] BUGFIX/SAFARI: logo filter blur not working
 
 ## Releases
 
-### 0.10.3 - WIP
+### 0.10.3 - released 26/11/2024
 
+- [x] FEATURE/UI: update about copy and links
 - [x] FEATURE/AI: protect AI API routes from being abused (spam, etc.)
 - [x] FEATURE/AURA: when pulling cards, aura should be blurred and scaled up
 - [x] FEATURE/UX: move intro text to splashScreen to streamline the experience
