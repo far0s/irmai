@@ -13,7 +13,7 @@
 
 ## Releases
 
-### 0.10.3 - WIP
+### 0.10.3 - released 26/11/2024
 
 - [x] FEATURE/AI: protect AI API routes from being abused (spam, etc.)
 - [x] FEATURE/AURA: when pulling cards, aura should be blurred and scaled up
