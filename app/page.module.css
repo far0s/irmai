@@ -16,14 +16,41 @@
   justify-content: center;
   backdrop-filter: blur(60px);
   transition: backdrop-filter var(--transition-slow-flow);
-  background: radial-gradient(rgba(11, 2, 22, 0) 60%, rgba(11, 2, 22, 0.9) 98%);
   background-size: cover;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background: linear-gradient(
+      to bottom,
+      rgba(11, 2, 22, 1),
+      rgba(11, 2, 22, 0)
+    );
+    opacity: 0;
+    transition: opacity var(--transition-slow-flow) 0.2s;
+  }
+
+  &::after {
+    top: auto;
+    bottom: 0;
+    background: linear-gradient(to top, rgba(11, 2, 22, 1), rgba(11, 2, 22, 0));
+  }
 }
 
 .pageContainer:has(
     > [class*="_stage"] > [class*="_screen"]:first-of-type[data-show="false"]
   ) {
   backdrop-filter: blur(0);
+
+  &::before,
+  &::after {
+    opacity: 1;
+  }
 }
 
 .pageContainer[class*="cards-visible"],
