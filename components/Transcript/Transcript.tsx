@@ -26,11 +26,11 @@ const Transcript = ({ assistantProps }: any) => {
       data-show={showTranscript}
       initial={{
         opacity: 0,
-        y: "1rem",
+        y: 16,
       }}
       animate={{
         opacity: showTranscript ? 1 : 0,
-        y: showTranscript ? 0 : "1rem",
+        y: showTranscript ? 0 : 16,
       }}
       transition={{ type: "spring", duration: 0.4 }}
     >
@@ -38,10 +38,10 @@ const Transcript = ({ assistantProps }: any) => {
         className={s.transcriptInner}
         ref={transcriptInnerElem}
         initial={{
-          y: "-2rem",
+          y: -32,
         }}
         animate={{
-          y: showTranscript ? "0" : "-2rem",
+          y: showTranscript ? 0 : -32,
         }}
         transition={{ type: "spring", duration: 0.4 }}
       >
@@ -168,9 +168,10 @@ const Transcript = ({ assistantProps }: any) => {
           <p
             style={{
               textAlign: "center",
+              maxWidth: "100%",
             }}
           >
-            ✳︎ irmai © whatever rights reserved. 2024 ✳︎
+            ✳︎ irmai © 2024 – where human imagination neets AI's execution ✳︎
           </p>
           <br />
         </TransitionWrapper>

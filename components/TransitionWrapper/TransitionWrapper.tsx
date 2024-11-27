@@ -19,17 +19,17 @@ const TransitionWrapper = ({
       data-show={show}
       initial={{
         opacity: 0,
-        y: "2rem",
+        y: 32,
         filter: "blur(10px)",
       }}
       animate={{
         opacity: show ? 1 : 0,
-        y: show ? "0rem" : "2rem",
+        y: show ? 0 : 32,
         filter: show ? "blur(0px)" : "blur(10px)",
       }}
       exit={{
         opacity: 0,
-        y: "2rem",
+        y: 32,
         filter: "blur(10px)",
       }}
       transition={{

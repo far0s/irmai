@@ -4,13 +4,17 @@
 
 - [ ] FEATURE/CARDS: add card minis to represent cards being picked
 - [ ] FEATURE/CARDS: range slider synced to card index (maybe)
-- [ ] BUGFIX: crashes on mobile, when trying to pull cards (on AJ's phone)
 - [ ] BUGFIX/AI: properly save transcript and display on plage load if already present (to continue the reading)
 - [ ] FEATURE/UI: replace cards with custom ones
 - [ ] FEATURE/UI: final favicon (bugged on Safari)
 - [ ] BUGFIX/SAFARI: logo filter blur not working
 
 ## Releases
+
+### 0.10.5 - WIP
+
+- [ ] BUGFIX: crashes on mobile, when trying to pull cards (on AJ's phone)
+- [ ] BUGFIX: performance improvements
 
 ### 0.10.4 - released 27/11/2024
 

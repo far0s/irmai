@@ -49,6 +49,11 @@
     background: var(--cream);
     color: var(--purple);
   }
+
+  & p {
+    text-wrap: pretty;
+    max-width: 920px;
+  }
 }
 
 .link {
