@@ -12,6 +12,10 @@
 
 ## Releases
 
+### 0.10.4 - released 27/11/2024
+
+- [x] CHORE: new and shiny production URL! [https://irmai.cards](https://irmai.cards)
+
 ### 0.10.3 - released 26/11/2024
 
 - [x] FEATURE/UI: update about copy and links

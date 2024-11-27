@@ -1,4 +1,4 @@
-# irmai
+# [irmai](https://irmai.cards)
 
 > irmai is a tarot-reading webapp experience, using AI in lieu of a human reader.
 

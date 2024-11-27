@@ -39,7 +39,7 @@ export const loadFontsOnTheEdge = async (): Promise<
     weight: "300" | "400" | "600";
   }[]
 > => {
-  const cirka = await fetch("https://irmai.vercel.app/fonts/PPCirka.woff").then(
+  const cirka = await fetch("https://irmai.cards/fonts/PPCirka.woff").then(
     (res) => res.arrayBuffer()
   );
 
@@ -53,27 +53,27 @@ export const loadFontsOnTheEdge = async (): Promise<
   };
 
   const cirkaLight = await fetchWithCache(
-    "https://irmai.vercel.app/fonts/PPCirka-Light.woff"
+    "https://irmai.cards/fonts/PPCirka-Light.woff"
   );
 
   const cirkaBold = await fetchWithCache(
-    "https://irmai.vercel.app/fonts/PPCirka-Bold.woff"
+    "https://irmai.cards/fonts/PPCirka-Bold.woff"
   );
 
   const poppins = await fetchWithCache(
-    "https://irmai.vercel.app/fonts/Poppins-Regular.ttf"
+    "https://irmai.cards/fonts/Poppins-Regular.ttf"
   );
 
   const poppinsItalic = await fetchWithCache(
-    "https://irmai.vercel.app/fonts/Poppins-Italic.ttf"
+    "https://irmai.cards/fonts/Poppins-Italic.ttf"
   );
 
   const poppinsLight = await fetchWithCache(
-    "https://irmai.vercel.app/fonts/Poppins-Light.ttf"
+    "https://irmai.cards/fonts/Poppins-Light.ttf"
   );
 
   const poppinsLightItalic = await fetchWithCache(
-    "https://irmai.vercel.app/fonts/Poppins-LightItalic.ttf"
+    "https://irmai.cards/fonts/Poppins-LightItalic.ttf"
   );
 
   return [
