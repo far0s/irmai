@@ -4,7 +4,7 @@
 // '/api/tarot?n=3' returns 3 random tarot cards
 import tarot from "./tarot-cards";
 
-export async function GET(req: Request) {
+export async function GET(req: Request): Promise<Response> {
   const url = new URL(req.url);
   const n: string | null = url.searchParams.get("n");
 

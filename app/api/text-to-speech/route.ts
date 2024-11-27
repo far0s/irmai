@@ -9,7 +9,7 @@ const openai = new OpenAI({
 // IMPORTANT! Set the runtime to edge
 export const runtime = "edge";
 
-export async function POST(req: Request) {
+export async function POST(req: Request): Promise<Response> {
   const { input, voice = "nova" } = await req.json();
 
   const mp3 = await openai.audio.speech.create({
@@ -29,7 +29,7 @@ export async function POST(req: Request) {
 }
 
 // This is just a test route to make sure the API is working
-export async function GET(req: Request) {
+export async function GET(req: Request): Promise<Response> {
   if (req.headers.get("host") !== "localhost:3000") {
     return new Response(null, { status: 404 });
   }

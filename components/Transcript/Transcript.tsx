@@ -6,6 +6,8 @@ import TransitionWrapper from "@/components/TransitionWrapper/TransitionWrapper"
 
 import useScrollToTop from "@/hooks/use-scroll-to-top";
 
+import { DELAY_UNIT_SHORT as DELAY_UNIT } from "@/utils";
+
 import s from "./transcript.module.css";
 
 const Transcript = ({ assistantProps }: any) => {
@@ -17,8 +19,6 @@ const Transcript = ({ assistantProps }: any) => {
   useEffect(() => {
     setShowTranscript(false);
   }, []);
-
-  const DELAY_UNIT = 300;
 
   return (
     <motion.div
@@ -169,9 +169,12 @@ const Transcript = ({ assistantProps }: any) => {
             style={{
               textAlign: "center",
               maxWidth: "100%",
+              paddingBottom: "2rem",
+              textWrap: "balance",
             }}
           >
-            ✳︎ irmai © 2024 – where human imagination neets AI's execution ✳︎
+            ✳︎ irmai © 2024 – where human imagination meets artifical
+            hallucination ✳︎
           </p>
           <br />
         </TransitionWrapper>

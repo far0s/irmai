@@ -6,15 +6,46 @@ type ShareImageProps = {
   errorCallBack?: any;
 };
 
-export default async function shareImage({
+interface ShareData {
+  title: string;
+  files: File[];
+  url: string;
+}
+
+interface PreparedShareData {
+  blobImage: Blob;
+  shareData: ShareData;
+}
+
+const prepareShareData = async (
+  image: Response
+): Promise<PreparedShareData> => {
+  const blobImage = await image.blob();
+  const fileName = "irmai.png";
+  const filesArray = [
+    new File([blobImage], fileName, {
+      type: "image/png",
+      lastModified: Date.now(),
+    }),
+  ];
+
+  return {
+    blobImage: blobImage,
+    shareData: {
+      title: fileName,
+      files: filesArray,
+      url: document.location.origin,
+    },
+  };
+};
+
+async function fetchImageData({
   firstQuestion,
   selectedCards,
   conclusion,
   auraImage,
-  isMobile,
-  successCallback,
   errorCallBack,
-}: ImageTemplateProps & ShareImageProps): Promise<void> {
+}: ImageTemplateProps & ShareImageProps): Promise<Response | void> {
   const fetchedImage = await fetch("/api/dynamic-image", {
     method: "POST",
     headers: {
@@ -28,22 +59,15 @@ export default async function shareImage({
     }),
   }).catch(() => errorCallBack && errorCallBack());
   if (!fetchedImage) return errorCallBack && errorCallBack();
+  return fetchedImage;
+}
 
-  const blobImage = await fetchedImage.blob();
-  const fileName = "irmai.png";
-  const filesArray = [
-    new File([blobImage], fileName, {
-      type: "image/png",
-      lastModified: Date.now(),
-    }),
-  ];
-
-  const shareData = {
-    title: fileName,
-    files: filesArray,
-    url: document.location.origin,
-  };
-
+async function handleShare({
+  blobImage,
+  shareData,
+  isMobile,
+  successCallback,
+}: PreparedShareData & ShareImageProps): Promise<void> {
   if (isMobile && navigator.canShare) {
     if (navigator.canShare(shareData)) {
       successCallback && successCallback();
@@ -58,4 +82,32 @@ export default async function shareImage({
     const url = URL.createObjectURL(blobImage);
     window.open(url, "_blank");
   }
+}
+
+export default async function shareImage({
+  firstQuestion,
+  selectedCards,
+  conclusion,
+  auraImage,
+  isMobile,
+  successCallback,
+  errorCallBack,
+}: ImageTemplateProps & ShareImageProps): Promise<void> {
+  const fetchedImage = await fetchImageData({
+    firstQuestion,
+    selectedCards,
+    conclusion,
+    auraImage,
+    errorCallBack,
+  });
+  if (!fetchedImage) return;
+
+  const { blobImage, shareData } = await prepareShareData(fetchedImage);
+
+  await handleShare({
+    blobImage,
+    shareData,
+    isMobile,
+    successCallback,
+  });
 }

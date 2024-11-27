@@ -2,6 +2,9 @@ import { Vector3, MathUtils } from "three";
 
 import { type ChatMessage } from "./shared-types";
 
+export const DELAY_UNIT = 400;
+export const DELAY_UNIT_SHORT = 300;
+
 export const dateDDMMYYYY = () =>
   new Date().toLocaleDateString("fr-FR", {
     month: "2-digit",

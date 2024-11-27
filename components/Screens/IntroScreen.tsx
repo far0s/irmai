@@ -7,11 +7,11 @@ import PressCTA from "@/components/PressCTA/PressCTA";
 import { Screen } from "@/components/Stage/Stage";
 import FadeInWrapper from "@/components/TransitionWrapper/TransitionWrapper";
 
+import { DELAY_UNIT } from "@/utils";
+
 import s from "./screens.module.css";
 
 type TPartToShow = null | "intro";
-
-const DELAY_UNIT = 400;
 
 const IntroScreen = ({
   isActive,

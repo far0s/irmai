@@ -1,12 +1,14 @@
+interface SpeechToTextResponse {
+  audioFile: any;
+  errorCallback?: (error: any) => void;
+  successCallback: (data: any) => void;
+}
+
 export const convertSpeechToText = async ({
   audioFile,
   errorCallback,
   successCallback,
-}: {
-  audioFile: any;
-  errorCallback?: (error: any) => void;
-  successCallback: (data: any) => void;
-}) => {
+}: SpeechToTextResponse) => {
   const formData = new FormData();
   formData.append("file", audioFile);
 

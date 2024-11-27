@@ -26,6 +26,7 @@
   backdrop-filter: blur(0);
 }
 
-.pageContainer[class*="cards-visible"] {
+.pageContainer[class*="cards-visible"],
+.pageContainer:has(> [class*="_transcript"][data-show="true"]) {
   backdrop-filter: blur(40px) !important;
 }

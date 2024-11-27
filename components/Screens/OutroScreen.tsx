@@ -1,17 +1,19 @@
 import { useEffect, useState } from "react";
 
-import { prepareConclusionPrompt } from "@/utils/prompts";
-
 import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
-import { Screen } from "@/components/Stage/Stage";
 import PressCTA from "@/components/PressCTA/PressCTA";
-import { HighlightBlock } from "@/components/Transcript/Transcript.utils";
+import ShareImageCTA from "@/components/ShareImageCTA/ShareImageCTA";
+import { Screen } from "@/components/Stage/Stage";
+import {
+  HighlightBlock,
+  CardsOverviewBlock,
+} from "@/components/Transcript/Transcript.utils";
+import FadeInWrapper from "@/components/TransitionWrapper/TransitionWrapper";
 
 import s from "./screens.module.css";
-import FadeInWrapper from "@/components/TransitionWrapper/TransitionWrapper";
-import ShareImageCTA from "@/components/ShareImageCTA/ShareImageCTA";
-import { CardsOverviewBlock } from "@/components/Transcript/Transcript.utils";
-const DELAY_UNIT = 400;
+
+import { prepareConclusionPrompt } from "@/utils/prompts";
+import { DELAY_UNIT } from "@/utils";
 
 const handleMessagesChange = (messages: any, setConclusion: any) => {
   if (messages?.length === 0) return;
@@ -95,7 +97,7 @@ const OutroScreen = ({
           <FadeInWrapper
             className={s.copy}
             show={partToShow === "outro" && conclusion.length > 0}
-            delay={3 * DELAY_UNIT}
+            delay={DELAY_UNIT * 3}
           >
             {selectedCards.length > 0 && (
               <CardsOverviewBlock cards={selectedCards} />

@@ -25,6 +25,7 @@ import {
   TextBlock,
 } from "@/components/Transcript/Transcript.utils";
 import CardsShaker from "@/components/CardsShaker/CardsShaker";
+import { DELAY_UNIT } from "@/utils";
 
 import s from "./screens.module.css";
 
@@ -35,8 +36,6 @@ type TPartToShow =
   | "transcript"
   | "cards"
   | "thinking";
-
-const DELAY_UNIT = 400;
 
 const ChatScreen = ({
   isActive,

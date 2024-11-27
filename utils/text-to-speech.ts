@@ -1,16 +1,18 @@
 import { ChatMessage } from "./shared-types";
 
+interface TextToSpeechProps {
+  mediaDevices: MediaDevices;
+  message: ChatMessage;
+  startSpeakCallback: () => void;
+  endSpeakCallback: () => void;
+}
+
 export const convertTextToSpeech = async ({
   mediaDevices,
   message,
   startSpeakCallback,
   endSpeakCallback,
-}: {
-  mediaDevices: MediaDevices;
-  message: ChatMessage;
-  startSpeakCallback: () => void;
-  endSpeakCallback: () => void;
-}) => {
+}: TextToSpeechProps): Promise<void> => {
   if (mediaDevices && mediaDevices.getUserMedia) {
     mediaDevices.getUserMedia({ audio: true }).then(async (stream) => {
       await fetch("/api/text-to-speech", {

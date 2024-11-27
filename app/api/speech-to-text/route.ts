@@ -7,7 +7,7 @@ const openai = new OpenAI({
 
 export const runtime = "edge";
 
-export async function POST(req: Request) {
+export async function POST(req: Request): Promise<Response> {
   const formData = await req.formData();
   const input: any = formData.get("file");
 
@@ -39,7 +39,7 @@ export async function POST(req: Request) {
 }
 
 // This is just a test route to make sure the API is working
-export async function GET(req: Request) {
+export async function GET(req: Request): Promise<Response> {
   if (req.headers.get("host") !== "localhost:3000") {
     return new Response(null, { status: 404 });
   }

@@ -71,6 +71,10 @@ const Aura = ({
       document.querySelectorAll(
         "[class*='pageContainer'][class*='cards-visible']"
       ).length > 0;
+    const overlayIsVisible =
+      document.querySelectorAll(
+        "[class*='pageContainer']:has(> [class*='_transcript'][data-show='true'])"
+      ).length > 0;
     const { uniforms } = meshRef.current.material as THREE.ShaderMaterial;
 
     uniforms.u_time.value = time + 1;
@@ -95,12 +99,12 @@ const Aura = ({
     );
     uniforms.u_scale.value = lerp(
       uniforms.u_scale.value,
-      cardsAreVisible ? 0.25 : u_scale,
+      cardsAreVisible || overlayIsVisible ? 0.25 : u_scale,
       isReady ? 0.01 : 0.005
     );
     uniforms.u_bloom.value = lerp(
       uniforms.u_bloom.value,
-      cardsAreVisible ? 7.5 : u_bloom,
+      cardsAreVisible || overlayIsVisible ? 7.5 : u_bloom,
       0.1
     );
     uniforms.u_center_size.value = lerp(

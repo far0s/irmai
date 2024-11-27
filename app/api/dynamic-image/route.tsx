@@ -6,7 +6,7 @@ import DynamicImage from "@/components/DynamicImage/DynamicImage";
 
 export const runtime = "edge";
 
-export async function GET(request: NextRequest) {
+export async function GET(request: NextRequest): Promise<ImageResponse> {
   if (request.headers.get("host") !== "localhost:3000") {
     return new Response(null, { status: 404 });
   }
@@ -37,7 +37,7 @@ export async function GET(request: NextRequest) {
   );
 }
 
-export async function POST(request: NextRequest) {
+export async function POST(request: NextRequest): Promise<ImageResponse> {
   const body: ImageTemplateProps = await request.json();
   const fonts: any[] = await loadFontsOnTheEdge();
   const imageConfig = {
