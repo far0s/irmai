@@ -92,6 +92,13 @@ class VisibleCard {
     this.element = document.querySelectorAll("#visible-cards-container > *")[
       index
     ];
+    this.transforms = {
+      translateX: 0,
+      translateZ: 0,
+      rotateY: 0,
+      rotateZ: 0,
+      scale: 1,
+    };
 
     this.cardCount = cardCount;
     this.globalScrollProgress = globalScrollProgress;
@@ -104,7 +111,7 @@ class VisibleCard {
   }
 
   calculateTranslateX() {
-    this.translateX =
+    this.transforms.translateX =
       this.activeIndex === this.index
         ? this.absoluteCardScrollProgress < 0.5
           ? // we translate the card by 136% of its width when it is active and the scroll distance is less than half if its width
@@ -128,7 +135,7 @@ class VisibleCard {
     // translateZ adds a slight perspective effect to the cards when they are being rotated
     // the parent has it's own perspective value, so we need to adjust the translateZ value based on the scroll progress
     // to make the cards look like they are being rotated in a 3D space
-    this.translateZ =
+    this.transforms.translateZ =
       PERSPECTIVE_BASE - this.absoluteCardScrollProgress * PERSPECTIVE_FACTOR;
   }
 
@@ -152,11 +159,11 @@ class VisibleCard {
       Math.sign(this.activeCardScrollProgress) *
       (1 - Math.abs(this.activeIndex - this.index) / this.cardCount);
 
-    this.rotateY = rotateY;
+    this.transforms.rotateY = rotateY;
   }
 
   calculateRotateZ() {
-    this.rotateZ = this.cardScrollProgress * 0.5 * -1;
+    this.transforms.rotateZ = this.cardScrollProgress * 0.5 * -1;
   }
 
   calculateScale() {
@@ -177,7 +184,7 @@ class VisibleCard {
       scale = 0;
     }
 
-    this.scale = scale;
+    this.transforms.scale = scale;
   }
 
   calculateZIndex() {
@@ -219,23 +226,18 @@ class VisibleCard {
   }
 
   applyStyles() {
-    const noElement = !this.element;
-    const invalidStyles = [
-      this.translateX,
-      this.translateZ,
-      this.rotateY,
-      this.rotateZ,
-      this.scale,
-      this.zIndex,
-      this.opacity,
-    ].some((style) => style === undefined);
-    if (noElement || invalidStyles) return;
+    if (!this.element) return;
 
-    this.element.style.transform = `translateX(${
-      this.translateX - 50
-    }%) translateY(-50%) translateZ(${this.translateZ}px) rotateY(${
-      this.rotateY
-    }deg) rotateZ(${this.rotateZ}deg) scale(${this.scale})`;
+    // Apply all transforms in one operation
+    const transform = `translateX(${
+      this.transforms.translateX - 50
+    }%) translateY(-50%) translateZ(${this.transforms.translateZ}px) rotateY(${
+      this.transforms.rotateY
+    }deg) rotateZ(${this.transforms.rotateZ}deg) scale(${
+      this.transforms.scale
+    })`;
+
+    this.element.style.transform = transform;
     this.element.style.zIndex = this.zIndex;
     this.element.style.opacity = this.opacity;
   }

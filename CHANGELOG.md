@@ -13,8 +13,8 @@
 
 ### 0.10.5 - WIP
 
-- [ ] BUGFIX: crashes on mobile, when trying to pull cards (on AJ's phone)
-- [ ] BUGFIX: performance improvements
+- [x] BUGFIX: crashes on mobile, when trying to pull cards (on AJ's phone)
+- [x] BUGFIX: performance improvements
 
 ### 0.10.4 - released 27/11/2024
 
