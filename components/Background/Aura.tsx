@@ -67,15 +67,18 @@ const Aura = ({
     if (!meshRef.current) return;
     let time = state.clock.getElapsedTime();
     const isReady = time > 15;
-    const cardsAreVisible =
+    const cardsAreVisible: boolean =
       document.querySelectorAll(
         "[class*='pageContainer'][class*='cards-visible']"
-      ).length > 0;
-    const overlayIsVisible =
+      )?.length > 0 || false;
+
+    const overlayIsVisible: boolean =
       document.querySelectorAll(
         "[class*='pageContainer']:has(> [class*='_transcript'][data-show='true'])"
-      ).length > 0;
+      )?.length > 0 || false;
+
     const { uniforms } = meshRef.current.material as THREE.ShaderMaterial;
+    if (!uniforms) return;
 
     uniforms.u_time.value = time + 1;
     uniforms.u_resolution.value.set(dimensions.width, dimensions.height);
@@ -124,7 +127,11 @@ const Aura = ({
 
   useEffect(() => {
     const handleResize = () => {
-      setDimensions({ width: window.innerWidth, height: window.innerHeight });
+      setDimensions(
+        window
+          ? { width: window.innerWidth, height: window.innerHeight }
+          : { width: 0, height: 0 }
+      );
     };
 
     window.addEventListener("resize", handleResize);

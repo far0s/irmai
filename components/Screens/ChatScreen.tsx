@@ -179,7 +179,7 @@ const ChatScreen = ({
       handleSendFirstQuestion();
       window.setTimeout(() => {
         setPartToShow("transcript");
-      }, 300);
+      }, 600);
     }
   }, [selectedCards]);
 

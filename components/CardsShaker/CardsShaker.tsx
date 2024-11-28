@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, memo } from "react";
 
 import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
 import Card from "@/components/Card/Card";
@@ -38,8 +38,16 @@ const CardsShaker = ({
         window.setTimeout(() => {
           setCardStack(new CardStack());
         }, 500);
+
+        window.addEventListener("beforeunload", () => cardStack.destroy());
       }
     }
+
+    return () => {
+      if (cardStack) {
+        cardStack.destroy();
+      }
+    };
   }, [show, allCards]);
 
   useEffect(() => {
@@ -120,4 +128,4 @@ const CardsShaker = ({
   );
 };
 
-export default CardsShaker;
+export default memo(CardsShaker);
