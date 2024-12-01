@@ -86,19 +86,19 @@ const Aura = ({
     uniforms.u_startColor.value = lerpVec3(
       uniforms.u_startColor.value,
       convertHexToVec3(auraColors.startColor || "#194c66"),
-      0.1
+      0.05
     );
 
     uniforms.u_midColor.value = lerpVec3(
       uniforms.u_midColor.value,
       convertHexToVec3(auraColors.midColor || "#6a13a4"),
-      0.1
+      0.05
     );
 
     uniforms.u_endColor.value = lerpVec3(
       uniforms.u_endColor.value,
       convertHexToVec3(auraColors.endColor || "#7f3f4c"),
-      0.1
+      0.05
     );
     uniforms.u_scale.value = lerp(
       uniforms.u_scale.value,
