@@ -32,7 +32,11 @@ const Transcript = ({ assistantProps }: any) => {
         opacity: showTranscript ? 1 : 0,
         y: showTranscript ? 0 : 16,
       }}
-      transition={{ type: "spring", duration: 0.4 }}
+      transition={{
+        type: "spring",
+        duration: 0.4,
+        delay: showTranscript ? 0 : 0.4,
+      }}
     >
       <motion.main
         className={s.transcriptInner}
