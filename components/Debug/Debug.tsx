@@ -53,11 +53,8 @@ const Debug = () => {
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (
-        e.key === "PageUp" ||
-        e.key === "PageDown" ||
-        e.key.includes("Arrow")
-      ) {
+      const keys = ["PageUp", "PageDown", "ArrowUp", "ArrowDown"];
+      if (keys.includes(e.key)) {
         e.preventDefault();
         handleSelectThreeRandomCards();
       }

@@ -48,6 +48,8 @@ class CardStack {
     this.visibleCards.forEach((card) => {
       card.update(this.globalScrollProgress, this.activeIndex);
     });
+
+    document.addEventListener("keydown", this.handleKeydown.bind(this));
   }
 
   private createVisibleCards(): void {
@@ -96,6 +98,27 @@ class CardStack {
   private update(): void {
     this.visibleCards.forEach((card) => {
       card.update(this.globalScrollProgress, this.activeIndex);
+    });
+  }
+
+  private handleKeydown(event: KeyboardEvent): void {
+    if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+    event.preventDefault();
+
+    const isLeft = event.key === "ArrowLeft";
+    const newIndex = this.activeIndex + (isLeft ? -1 : 1);
+
+    if (newIndex < 0 || newIndex >= this.cardCount) return;
+
+    const relativeScrollPerCard = 1 / (this.cardCount - 1);
+    const newScrollPosition =
+      (this.scrollableContainer.scrollWidth -
+        this.scrollableContainer.clientWidth) *
+      (relativeScrollPerCard * newIndex);
+
+    this.scrollableContainer.scrollTo({
+      left: newScrollPosition,
+      behavior: "smooth",
     });
   }
 }
