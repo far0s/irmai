@@ -59,8 +59,7 @@ const CardsShaker = ({
     window.setTimeout(() => {
       setCardStack(new CardStack());
     }, 500);
-
-    window.addEventListener("beforeunload", () => cardStack.destroy());
+    window.addEventListener("beforeunload", () => cardStack?.destroy());
   };
 
   const handleAddCardToTempSelectedCards = (card: ITarotCard) => {
@@ -88,6 +87,15 @@ const CardsShaker = ({
 
   const handleMouseEnter = (index: number) => setHoveredCardIndex(index);
   const handleMouseLeave = () => setHoveredCardIndex(null);
+
+  const handleRangeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const index = parseInt(e.target.value);
+    setHoveredCardIndex(index);
+    if (cardStack) {
+      const progress = index / (randomizedCards.length - 1);
+      cardStack.setGlobalScrollProgress(progress);
+    }
+  };
 
   return (
     <div className={s.cardsShaker}>
@@ -119,6 +127,19 @@ const CardsShaker = ({
               onClick={() => handleAddCardToTempSelectedCards(card)}
             />
           ))}
+        </div>
+        <div className={s.cardsSlider}>
+          <input
+            type="range"
+            min={0}
+            max={randomizedCards.length - 1}
+            step={1}
+            value={hoveredCardIndex !== null ? hoveredCardIndex : 0}
+            onChange={handleRangeChange}
+            style={{
+              pointerEvents: "none",
+            }}
+          />
         </div>
       </div>
     </div>

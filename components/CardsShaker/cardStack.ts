@@ -52,6 +52,17 @@ class CardStack {
     document.addEventListener("keydown", this.handleKeydown.bind(this));
   }
 
+  destroy(): void {
+    this.scrollableContainer.removeEventListener(
+      "scroll",
+      this.handleScroll.bind(this)
+    );
+    document.removeEventListener("keydown", this.handleKeydown.bind(this));
+    this.visibleCards.forEach((card) => {
+      card.update(0, 0);
+    });
+  }
+
   private createVisibleCards(): void {
     const children = document.querySelectorAll("#visible-cards-container > *");
 
@@ -120,6 +131,14 @@ class CardStack {
       left: newScrollPosition,
       behavior: "smooth",
     });
+  }
+
+  public setGlobalScrollProgress(progress: number): void {
+    this.globalScrollProgress = progress;
+    this.scrollableContainer.scrollLeft =
+      this.scrollableContainer.scrollWidth * this.globalScrollProgress;
+    this.handleActiveIndex();
+    this.update();
   }
 }
 
