@@ -6,7 +6,7 @@ import Card from "@/components/Card/Card";
 
 import { ITarotCard } from "@/utils/shared-types";
 
-import CardStack from "./cardStack.js";
+import CardStack from "./cardStack";
 import s from "./cardsShaker.module.css";
 
 const CardsShaker = ({
@@ -34,19 +34,7 @@ const CardsShaker = ({
   useEffect(() => {
     if (show && allCards?.length > 0) {
       randomizeCards();
-      if (!cardStack) {
-        setCardStack(true);
-        window.setTimeout(() => {
-          setCardStack(new CardStack());
-        }, 500);
-
-        window.addEventListener("beforeunload", () => cardStack.destroy());
-      }
     }
-
-    return () => {
-      cardStack && cardStack.destroy();
-    };
   }, [show, allCards]);
 
   useEffect(() => {
@@ -62,7 +50,17 @@ const CardsShaker = ({
       ...card,
       reverse: Math.random() < 0.25, // the card has a 25% chance of being reversed
     }));
-    return setRandomizedCards(randomized);
+    setRandomizedCards(randomized);
+    initCardStack();
+  };
+
+  const initCardStack = () => {
+    setCardStack(true);
+    window.setTimeout(() => {
+      setCardStack(new CardStack());
+    }, 500);
+
+    window.addEventListener("beforeunload", () => cardStack.destroy());
   };
 
   const handleAddCardToTempSelectedCards = (card: ITarotCard) => {

@@ -1,5 +1,13 @@
 // Author blog: https://www.abjt.dev/lab/card-stack
 
+interface Transforms {
+  translateX: number;
+  translateZ: number;
+  rotateY: number;
+  rotateZ: number;
+  scale: number;
+}
+
 const MAX_CARD_ON_ONE_SIDE = 5;
 const CARD_TRANSLATE_X = 136;
 const PERSPECTIVE_BASE = 200;
@@ -9,8 +17,16 @@ const CARD_ACTIVE_MAX_ROTATE_Y = 90;
 const CARD_SCALE_DOWN_FACTOR = 0.05;
 
 class CardStack {
+  private scrollableContainer: HTMLElement;
+  private activeIndex: number;
+  private globalScrollProgress: number;
+  private cardCount: number;
+  private visibleCards: VisibleCard[];
+
   constructor() {
-    this.scrollableContainer = document.querySelector("#scrollable-container");
+    this.scrollableContainer = document.querySelector(
+      "#scrollable-container"
+    ) as HTMLElement;
     this.activeIndex = 0;
     this.globalScrollProgress = 0;
     this.cardCount = document.querySelectorAll(".scrollable-card").length;
@@ -18,7 +34,7 @@ class CardStack {
     this.init();
   }
 
-  init() {
+  private init(): void {
     this.scrollableContainer.addEventListener(
       "scroll",
       this.handleScroll.bind(this)
@@ -34,7 +50,7 @@ class CardStack {
     });
   }
 
-  createVisibleCards() {
+  private createVisibleCards(): void {
     const children = document.querySelectorAll("#visible-cards-container > *");
 
     for (let i = 0; i < children.length; i++) {
@@ -49,23 +65,20 @@ class CardStack {
     }
   }
 
-  handleScroll() {
+  private handleScroll(): void {
     const { scrollLeft, scrollWidth, clientWidth } = this.scrollableContainer;
-    const newScrollProgress = scrollLeft / (scrollWidth - clientWidth); // normalized to a value between 0 and 1
+    const newScrollProgress = scrollLeft / (scrollWidth - clientWidth);
     this.globalScrollProgress = newScrollProgress;
     this.handleActiveIndex();
     this.update();
   }
 
-  handleActiveIndex() {
-    const relativeScrollPerCard = 1 / (this.cardCount - 1); // scroll amount per card normalized to a value between 0 and 1
-
-    // the relative and normalized scroll position where the previous and next card starts
+  private handleActiveIndex(): void {
+    const relativeScrollPerCard = 1 / (this.cardCount - 1);
     const previousScrollSnapPoint =
       relativeScrollPerCard * (this.activeIndex - 1);
     const nextScrollSnapPoint = relativeScrollPerCard * (this.activeIndex + 1);
 
-    // increment or decrement the active index when the scroll position reaches the previous or the next card
     const shouldDecrement =
       this.globalScrollProgress <= previousScrollSnapPoint &&
       this.activeIndex > 0;
@@ -80,7 +93,7 @@ class CardStack {
       : this.activeIndex;
   }
 
-  update() {
+  private update(): void {
     this.visibleCards.forEach((card) => {
       card.update(this.globalScrollProgress, this.activeIndex);
     });
@@ -88,13 +101,34 @@ class CardStack {
 }
 
 class VisibleCard {
-  constructor(cardCount, globalScrollProgress, activeIndex, index) {
+  private element: HTMLElement;
+  private transforms: Transforms;
+  private cardCount: number;
+  private globalScrollProgress: number;
+  private activeIndex: number;
+  private index: number;
+  private maxCardsOnOneSide: number;
+  private zIndex: number;
+  private opacity: number;
+  private relativeScrollPerCard: number;
+  private cardRelativeScrollStart: number;
+  private cardScrollProgress: number;
+  private absoluteCardScrollProgress: number;
+  private activeCardScrollProgress: number;
+  private absoluteActiveCardScrollProgress: number;
+
+  constructor(
+    cardCount: number,
+    globalScrollProgress: number,
+    activeIndex: number,
+    index: number
+  ) {
     this.element = document.querySelectorAll("#visible-cards-container > *")[
       index
-    ];
+    ] as HTMLElement;
     this.transforms = {
-      translateX: 0,
-      translateZ: 0,
+      translateX: -50,
+      translateZ: -50,
       rotateY: 0,
       rotateZ: 0,
       scale: 1,
@@ -104,47 +138,42 @@ class VisibleCard {
     this.globalScrollProgress = globalScrollProgress;
     this.activeIndex = activeIndex;
     this.index = index;
-    // the maximum number of cards that can be visible on either side of the active card
     this.maxCardsOnOneSide = MAX_CARD_ON_ONE_SIDE;
+    this.zIndex = 0;
+    this.opacity = 1;
+    this.relativeScrollPerCard = 0;
+    this.cardRelativeScrollStart = 0;
+    this.cardScrollProgress = 0;
+    this.absoluteCardScrollProgress = 0;
+    this.activeCardScrollProgress = 0;
+    this.absoluteActiveCardScrollProgress = 0;
 
-    this.update();
+    this.update(this.globalScrollProgress, this.activeIndex);
   }
 
-  calculateTranslateX() {
+  private calculateTranslateX(): void {
     this.transforms.translateX =
       this.activeIndex === this.index
         ? this.absoluteCardScrollProgress < 0.5
-          ? // we translate the card by 136% of its width when it is active and the scroll distance is less than half if its width
-            -CARD_TRANSLATE_X * this.cardScrollProgress
-          : // we translate the card by 136% of its width when it is active and the scroll distance is more than half if its width
-            // we also add a slight offset to the translation so that when the card reaches the final position,
-            // it is not completely centered, rather takes its final position as the card next or previous to the new active card
-            -CARD_TRANSLATE_X * Math.sign(this.cardScrollProgress) +
+          ? -CARD_TRANSLATE_X * this.cardScrollProgress
+          : -CARD_TRANSLATE_X * Math.sign(this.cardScrollProgress) +
             CARD_TRANSLATE_X * this.cardScrollProgress +
             -((1 - this.absoluteCardScrollProgress / this.cardCount / 4) * 10) *
               (this.absoluteCardScrollProgress - 0.5) *
               2 *
               Math.sign(this.cardScrollProgress)
-        : // if the card is not active, we translate it away from the center
-          // based on the relative and normalized scroll distance from the active card
-          this.cardScrollProgress *
+        : this.cardScrollProgress *
           -((1 - this.absoluteCardScrollProgress / this.cardCount / 4) * 10);
   }
 
-  calculateTranslateZ() {
-    // translateZ adds a slight perspective effect to the cards when they are being rotated
-    // the parent has it's own perspective value, so we need to adjust the translateZ value based on the scroll progress
-    // to make the cards look like they are being rotated in a 3D space
+  private calculateTranslateZ(): void {
     this.transforms.translateZ =
       PERSPECTIVE_BASE - this.absoluteCardScrollProgress * PERSPECTIVE_FACTOR;
   }
 
-  calculateRotateY() {
+  private calculateRotateY(): void {
     let rotateY = 0;
 
-    // we rotate the card based on the relative and normalized scroll distance from the active card
-    // the maximum rotation is 75 degrees
-    // the active card rotates more than the other cards when it moves away from the center
     rotateY =
       this.index === this.activeIndex
         ? this.absoluteCardScrollProgress < 0.5
@@ -154,7 +183,6 @@ class VisibleCard {
         ? this.absoluteActiveCardScrollProgress * -CARD_MAX_ROTATE_Y
         : (1 - this.absoluteActiveCardScrollProgress) * -CARD_MAX_ROTATE_Y;
 
-    // the further the card is from the active card, the less it rotates
     rotateY *=
       Math.sign(this.activeCardScrollProgress) *
       (1 - Math.abs(this.activeIndex - this.index) / this.cardCount);
@@ -162,15 +190,13 @@ class VisibleCard {
     this.transforms.rotateY = rotateY;
   }
 
-  calculateRotateZ() {
+  private calculateRotateZ(): void {
     this.transforms.rotateZ = this.cardScrollProgress * 0.5 * -1;
   }
 
-  calculateScale() {
-    // cards scale down as they move away from the active card
+  private calculateScale(): void {
     let scale = 1 - this.absoluteCardScrollProgress * CARD_SCALE_DOWN_FACTOR;
 
-    // the active card scales down more than the other cards when it is away from the center
     scale =
       this.index === this.activeIndex
         ? scale < 0.75
@@ -187,13 +213,10 @@ class VisibleCard {
     this.transforms.scale = scale;
   }
 
-  calculateZIndex() {
-    const distanceIndex = Math.abs(this.activeIndex - this.index); // the distance of the card from the active card in terms of index
-    let zIndex = this.cardCount - distanceIndex; // the further the card is from the active card, the less the z-index
+  private calculateZIndex(): void {
+    const distanceIndex = Math.abs(this.activeIndex - this.index);
+    let zIndex = this.cardCount - distanceIndex;
 
-    // normally the cards at equal distance from the active card should have the same z-index
-    // so we switch the z-index of the cards based on the scroll direction
-    // this is so that the cards that are visible when the active card is moved in either direction need to be on top
     const activeScrollDirection = Math.sign(this.activeCardScrollProgress);
     if (activeScrollDirection === -1 && this.index < this.activeIndex) {
       zIndex += 1;
@@ -217,18 +240,14 @@ class VisibleCard {
     this.zIndex = zIndex;
   }
 
-  calculateOpacity() {
-    // the further the card is from the active card, the less the opacity
-    // the cards with index difference of more than maxCardsOnOneSide from the center have 0 opacity
-    // they fade in as they move towards the center, and fade out as they move away from the center
+  private calculateOpacity(): void {
     let opacity = this.maxCardsOnOneSide - this.absoluteCardScrollProgress;
     this.opacity = opacity < 0 ? 0 : opacity > 1 ? 1 : opacity;
   }
 
-  applyStyles() {
+  private applyStyles(): void {
     if (!this.element) return;
 
-    // Apply all transforms in one operation
     const transform = `translateX(${
       this.transforms.translateX - 50
     }%) translateY(-50%) translateZ(${this.transforms.translateZ}px) rotateY(${
@@ -238,26 +257,26 @@ class VisibleCard {
     })`;
 
     this.element.style.transform = transform;
-    this.element.style.zIndex = this.zIndex;
-    this.element.style.opacity = this.opacity;
+    this.element.style.zIndex = this.zIndex.toString();
+    this.element.style.opacity = this.opacity.toString();
   }
 
-  update(globalScrollProgress, activeIndex) {
+  public update(globalScrollProgress: number, activeIndex: number): void {
     this.globalScrollProgress = globalScrollProgress;
     this.activeIndex = activeIndex;
 
     this.relativeScrollPerCard =
-      this.cardCount > 1 ? 1 / (this.cardCount - 1) : 1; // scroll amount per card normalized to a value between 0 and 1
-    this.cardRelativeScrollStart = this.relativeScrollPerCard * this.index; // the relative and normalized scroll position where the card starts
+      this.cardCount > 1 ? 1 / (this.cardCount - 1) : 1;
+    this.cardRelativeScrollStart = this.relativeScrollPerCard * this.index;
     this.cardScrollProgress =
       (this.globalScrollProgress - this.cardRelativeScrollStart) /
-      this.relativeScrollPerCard; // normalized relative scroll progress of the card
-    this.absoluteCardScrollProgress = Math.abs(this.cardScrollProgress); // absolute version of the card scroll progress
+      this.relativeScrollPerCard;
+    this.absoluteCardScrollProgress = Math.abs(this.cardScrollProgress);
     this.activeCardScrollProgress =
-      this.globalScrollProgress / this.relativeScrollPerCard - this.activeIndex; // normalized relative scroll progress of the active card
+      this.globalScrollProgress / this.relativeScrollPerCard - this.activeIndex;
     this.absoluteActiveCardScrollProgress = Math.abs(
       this.activeCardScrollProgress
-    ); // absolute version of the active card scroll progress
+    );
 
     this.calculateZIndex();
     this.calculateTranslateX();
