@@ -1,5 +1,5 @@
 import { memo, useEffect, useRef } from "react";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 
 import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
 import TransitionWrapper from "@/components/TransitionWrapper/TransitionWrapper";

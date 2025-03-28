@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, Suspense, useState } from "react";
-import { useAssistant } from "ai/react";
-import { motion } from "framer-motion";
+import { useAssistant } from "@ai-sdk/react";
+import { motion } from "motion/react";
 
 import Header from "@/components/Header/Header";
 import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";

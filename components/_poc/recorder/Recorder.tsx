@@ -38,7 +38,7 @@ const Recorder = ({ setTranscript }: any) => {
     <div>
       {!isRecording && (
         <button
-          className="w-full z-1 border border-gray-300 rounded p-2 hover:bg-gray-100"
+          className="w-full z-1 border border-gray-300 rounded-sm p-2 hover:bg-gray-100"
           onClick={startRecording}
         >
           Record
@@ -46,7 +46,7 @@ const Recorder = ({ setTranscript }: any) => {
       )}
       {isRecording && (
         <button
-          className="w-full z-1 border border-gray-300 rounded p-2 hover:bg-gray-100"
+          className="w-full z-1 border border-gray-300 rounded-sm p-2 hover:bg-gray-100"
           onClick={stopRecording}
         >
           Stop

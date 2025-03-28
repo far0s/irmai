@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { useChat } from "ai/react";
+import { useChat } from "@ai-sdk/react";
 import Recorder from "@/components/_poc/recorder/Recorder";
 
 export default function Chat() {
@@ -145,7 +145,7 @@ export default function Chat() {
       <div className="fixed bottom-0 w-full max-w-xl p-2 mb-8 flex flex-col gap-2">
         <button
           onClick={pickTarotCards}
-          className="w-full max-w-xl p-2 border border-gray-300 rounded hover:bg-gray-100"
+          className="w-full max-w-xl p-2 border border-gray-300 rounded-sm hover:bg-gray-100"
         >
           {tarotCards.length === 0 ? "Pull three cards" : "Pick again"}
         </button>
@@ -155,7 +155,7 @@ export default function Chat() {
           className="relative flex flex-row align-center"
         >
           <input
-            className="w-full p-2 pr-20 border border-gray-300 rounded"
+            className="w-full p-2 pr-20 border border-gray-300 rounded-sm"
             value={input}
             placeholder="Say something..."
             onChange={handleInputChange}
@@ -163,13 +163,13 @@ export default function Chat() {
           {input.length > 5 && (
             <input
               type="submit"
-              className="absolute right-0 w-30 p-1 m-1 border border-gray-300 rounded hover:bg-gray-100 cursor z-1"
+              className="absolute right-0 w-30 p-1 m-1 border border-gray-300 rounded-sm hover:bg-gray-100 cursor z-1"
             />
           )}
           {input.length === 0 && tarotCards.length > 0 && (
             <button
               onClick={composeInput}
-              className="absolute right-0 w-30 p-1 m-1 border border-gray-300 rounded hover:bg-gray-100 cursor z-1"
+              className="absolute right-0 w-30 p-1 m-1 border border-gray-300 rounded-sm hover:bg-gray-100 cursor z-1"
             >
               Compose Prompt
             </button>

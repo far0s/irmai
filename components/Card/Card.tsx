@@ -3,7 +3,7 @@ import { CSSProperties } from "react";
 import Image from "next/image";
 import { Drawer } from "vaul";
 import Tilt from "react-parallax-tilt";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 
 import Logo from "@/components/Logo/Logo";
 import TransitionWrapper from "@/components/TransitionWrapper/TransitionWrapper";
