@@ -182,6 +182,14 @@ const Transcript = ({ assistantProps }: any) => {
           </p>
           <br />
         </TransitionWrapper>
+
+        <a
+          rel="me"
+          href="https://mastodon.social/@far0s"
+          style={{ display: "none", visibility: "hidden" }}
+        >
+          Mastodon
+        </a>
       </motion.main>
     </motion.div>
   );

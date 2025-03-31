@@ -45,6 +45,7 @@ export default function RootLayout({
         <link rel="icon" href="/images/irmai-favicon.png" sizes="any" />
         <link rel="apple-touch-icon" href="/images/irmai-favicon.png" />
         <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="fediverse:creator" content="@far0s@mastodon.social" />
       </head>
       <body>
         <StoreProvider>{children}</StoreProvider>
