@@ -108,6 +108,17 @@ const Debug = () => {
       },
     },
     "Random Cards/Colors": button(() => handleSelectThreeRandomCards()),
+    Screenshot: button(() => {
+      // from <canvas> element already on the page
+      const canvas = document.querySelector("canvas");
+      if (canvas) {
+        const dataUrl = canvas.toDataURL("image/png");
+        const a = document.createElement("a");
+        a.href = dataUrl;
+        a.download = "irmai-screenshot.png";
+        a.click();
+      }
+    }),
   });
 
   return (
