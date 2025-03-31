@@ -1,5 +1,6 @@
 // ./app/api/text-to-speech/route.ts
 import OpenAI from "openai";
+import { TVoice } from "@/utils/shared-types";
 
 // Create an OpenAI API client (that's edge friendly!)
 const openai = new OpenAI({
@@ -9,13 +10,25 @@ const openai = new OpenAI({
 // IMPORTANT! Set the runtime to edge
 export const runtime = "edge";
 
+const DEFAULT_VOICE: TVoice = "fable";
+
+const INSTRUCTIONS: string = `
+Voice Affect: Soft, gentle, soothing; embody tranquility.
+Tone: Calm, reassuring, peaceful; convey genuine warmth and serenity.
+Pacing: Slow, deliberate, and unhurried; pause gently after instructions to allow the listener time to relax and follow along.
+Emotion: Deeply soothing and comforting; express genuine kindness and care.
+Pronunciation: Smooth, soft articulation, slightly elongating vowels to create a sense of ease.
+Pauses: Use thoughtful pauses, especially between breathing instructions and visualization guidance, enhancing relaxation and mindfulness.
+`;
+
 export async function POST(req: Request): Promise<Response> {
-  const { input, voice = "nova" } = await req.json();
+  const { input, voice = DEFAULT_VOICE } = await req.json();
 
   const mp3 = await openai.audio.speech.create({
-    model: "tts-1",
+    model: "gpt-4o-mini-tts",
     voice: voice,
     input: input,
+    instructions: INSTRUCTIONS,
   });
 
   const buffer = await Buffer.from(await mp3.arrayBuffer());
@@ -35,10 +48,11 @@ export async function GET(req: Request): Promise<Response> {
   }
 
   const mp3 = await openai.audio.speech.create({
-    model: "tts-1",
-    voice: "nova",
+    model: "gpt-4o-mini-tts",
+    voice: DEFAULT_VOICE,
     input:
       "Hi!, I'm irmai, and this is a test message. Beep! Sorry, I'm not a message machine. I'm a robot. I mean no, I'm not a robot, I'm an AI assistant. Anyway, talk to you soon!",
+    instructions: INSTRUCTIONS,
   });
 
   const buffer = await Buffer.from(await mp3.arrayBuffer());

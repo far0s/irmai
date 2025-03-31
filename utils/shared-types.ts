@@ -39,3 +39,16 @@ export interface ImageTemplateProps {
   debug?: boolean;
   [k: string]: any;
 }
+
+export type TVoice =
+  | "alloy"
+  | "ash"
+  | "ballad"
+  | "coral"
+  | "echo"
+  | "fable"
+  | "onyx"
+  | "nova"
+  | "sage"
+  | "shimmer"
+  | "verse";

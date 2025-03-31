@@ -13,8 +13,10 @@
 
 ### 0.10.5 - WIP
 
+- [x] FEATURE/AI: update to new OpenAI model and change voice parameters
 - [x] BUGFIX: crashes on mobile, when trying to pull cards (on AJ's phone)
 - [x] BUGFIX: performance improvements
+- [x] CHORE: dependency updates
 
 ### 0.10.4 - released 27/11/2024
 

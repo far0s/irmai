@@ -18,8 +18,7 @@ export function generateMetadata(): Metadata {
       shortcut: "/images/irmai-favicon.png",
     },
     appleWebApp: {
-      title: "irmai",
-      statusBarStyle: "black-translucent",
+      title: "irmai.cards",
     },
   };
 }
@@ -44,6 +43,7 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/images/irmai-favicon.png" sizes="any" />
         <link rel="apple-touch-icon" href="/images/irmai-favicon.png" />
+        <meta name="mobile-web-app-capable" content="yes" />
       </head>
       <body>
         <StoreProvider>{children}</StoreProvider>
