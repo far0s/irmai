@@ -19,6 +19,7 @@ export function generateMetadata(): Metadata {
     },
     appleWebApp: {
       title: "irmai.cards",
+      statusBarStyle: "default",
     },
   };
 }
