@@ -137,8 +137,8 @@
 [data-variant="small-square"] .btn span {
   padding-inline: 0.5em;
   padding-block: 0.5em;
-  width: 48px;
-  height: 48px;
+  width: 36px;
+  height: 36px;
   aspect-ratio: 1/1;
   display: flex;
   justify-content: center;
