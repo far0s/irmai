@@ -1,6 +1,6 @@
 {
   "name": "irmai",
-  "version": "0.11.0",
+  "version": "0.11.1",
   "private": true,
   "scripts": {
     "dev": "next dev --turbo --experimental-https",
@@ -14,7 +14,7 @@
     "@react-three/fiber": "^8.18.0",
     "@types/three": "^0.175.0",
     "@vercel/analytics": "^1.5.0",
-    "@vercel/og": "^0.6.5",
+    "@vercel/og": "^0.6.4",
     "ai": "4.2.9",
     "html2canvas": "^1.4.1",
     "leva": "^0.10.0",
@@ -25,6 +25,7 @@
     "react": "18.3.1",
     "react-dom": "18.3.1",
     "react-parallax-tilt": "^1.7.288",
+    "remove": "^0.1.5",
     "three": "^0.175.0",
     "usehooks-ts": "^3.1.1",
     "vaul": "^1.1.2",
