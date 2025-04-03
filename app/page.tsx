@@ -1,22 +1,30 @@
 "use client";
-import { useEffect, Suspense, useState } from "react";
+import { useEffect, Suspense, useState, useMemo, memo } from "react";
 import { useAssistant } from "@ai-sdk/react";
 import { motion } from "motion/react";
+import dynamic from "next/dynamic";
 
 import Header from "@/components/Header/Header";
 import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
 import Stage from "@/components/Stage/Stage";
-import Debug from "@/components/Debug/Debug";
 import Transcript from "@/components/Transcript/Transcript";
 import SplashScreen from "@/components/Screens/SplashScreen";
 import IntroScreen from "@/components/Screens/IntroScreen";
 import ChatScreen from "@/components/Screens/ChatScreen";
 import OutroScreen from "@/components/Screens/OutroScreen";
-import Background from "@/components/Background/Background";
 
 import useTranscript from "@/hooks/use-transcript";
 
 import s from "./page.module.css";
+
+// Dynamically import heavy components
+const Background = dynamic(() => import("@/components/Background/Background"), {
+  ssr: false,
+});
+
+const Debug = dynamic(() => import("@/components/Debug/Debug"), {
+  ssr: false,
+});
 
 const Screens = {
   splash: SplashScreen,
@@ -24,6 +32,11 @@ const Screens = {
   chat: ChatScreen,
   outro: OutroScreen,
 };
+
+// Pre-memoize screen components
+const MemoizedScreens = Object.fromEntries(
+  Object.entries(Screens).map(([key, Component]) => [key, memo(Component)])
+);
 
 const IrmaiHome = () => {
   const { globalState, setIsThinking, setAllCards, hideApp, setHideApp } =
@@ -38,7 +51,7 @@ const IrmaiHome = () => {
   }, []);
 
   const fetchAllTarotCards = async () =>
-    await fetch("/api/tarot?n=50") // FIXME: above 50 cards, the page crashes after we select 3 cards
+    await fetch("/api/tarot?n=50")
       .then((res) => res.json())
       .then((data) => setAllCards(data))
       .catch((err) => console.error(err));
@@ -56,6 +69,22 @@ const IrmaiHome = () => {
       setTranscriptLength(transcript.length);
   }, [transcript]);
 
+  // Memoize stage content to prevent unnecessary re-renders
+  const stageContent = useMemo(
+    () => (
+      <Stage>
+        {Object.entries(MemoizedScreens).map(([key, Component]) => (
+          <Component
+            key={key}
+            isActive={globalState === key}
+            assistantProps={assistantProps}
+          />
+        ))}
+      </Stage>
+    ),
+    [globalState, assistantProps]
+  );
+
   return (
     <main className={s.page}>
       <Suspense>
@@ -71,24 +100,21 @@ const IrmaiHome = () => {
           }}
           onClick={() => hideApp && setHideApp(false)}
         >
-          <Stage>
-            {Object.entries(Screens).map(([key, Component]) => (
-              <Component
-                key={key}
-                isActive={globalState === key}
-                assistantProps={assistantProps}
-              />
-            ))}
-          </Stage>
+          {stageContent}
           <Header />
-          <Transcript assistantProps={assistantProps} />
+          <Transcript />
         </motion.div>
 
-        <Debug />
-        <Background transcriptLength={transcriptLength} />
+        {/* Separate suspense boundaries for non-critical components */}
+        <Suspense fallback={null}>
+          <Debug />
+        </Suspense>
+        <Suspense fallback={null}>
+          <Background transcriptLength={transcriptLength} />
+        </Suspense>
       </Suspense>
     </main>
   );
 };
 
-export default IrmaiHome;
+export default memo(IrmaiHome);

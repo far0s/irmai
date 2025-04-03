@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useDebounce } from "@/hooks/use-debounce";
 
 import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
-import PressCTA from "@/components/PressCTA/PressCTA";
+import GlassyButton from "@/components/GlassyButton/GlassyButton";
 import { Screen } from "@/components/Stage/Stage";
 import FadeInWrapper from "@/components/TransitionWrapper/TransitionWrapper";
 
@@ -69,7 +69,7 @@ const IntroScreen = ({
             show={partToShow === "intro"}
             delay={6 * DELAY_UNIT}
           >
-            <PressCTA onPress={handleNextScreen} label="Start" />
+            <GlassyButton onClick={handleNextScreen}>Start</GlassyButton>
           </FadeInWrapper>
         </footer>
       </div>

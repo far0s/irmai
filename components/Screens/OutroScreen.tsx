@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
-import PressCTA from "@/components/PressCTA/PressCTA";
+import GlassyButton from "@/components/GlassyButton/GlassyButton";
 import ShareImageCTA from "@/components/ShareImageCTA/ShareImageCTA";
 import { Screen } from "@/components/Stage/Stage";
 import {
@@ -79,6 +79,11 @@ const OutroScreen = ({
         <section
           className={s.screenPartWrapper}
           data-interactive={isActive && partToShow === "outro"}
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "1rem 2rem",
+          }}
         >
           <FadeInWrapper
             show={partToShow === "outro" && conclusion.length > 0}
@@ -116,11 +121,10 @@ const OutroScreen = ({
             delay={DELAY_UNIT * 4}
           >
             <div className={s.ctaRow}>
-              <PressCTA
-                label="Back to my reading"
-                onPress={handleBackToReading}
-              />
-              <PressCTA label="New Reading" onPress={handleReset} />
+              <GlassyButton onClick={handleBackToReading}>
+                Back to my reading
+              </GlassyButton>
+              <GlassyButton onClick={handleReset}>New reading</GlassyButton>
             </div>
           </FadeInWrapper>
         </section>

@@ -10,7 +10,7 @@ import { DELAY_UNIT_SHORT as DELAY_UNIT } from "@/utils";
 
 import s from "./transcript.module.css";
 
-const Transcript = ({ assistantProps }: any) => {
+const Transcript = () => {
   const { showTranscript, setShowTranscript } = useIrmaiStore((s) => s);
   const transcriptInnerElem = useRef<HTMLDivElement | null>(null);
 
@@ -102,8 +102,6 @@ const Transcript = ({ assistantProps }: any) => {
             </a>
             . We started talking about this project in November 2023, when
             OpenAI released the first ever preview of their voice capabilities.
-            irmai 1.0 was released one year later, after many prototypes and
-            iterations.
           </p>
           <br />
         </TransitionWrapper>
@@ -111,9 +109,9 @@ const Transcript = ({ assistantProps }: any) => {
         <TransitionWrapper show={showTranscript} delay={3 * DELAY_UNIT}>
           <p>
             <span className={s.transcriptHeader}>✳︎ Under the hood </span>
-            irmai is a Next.js web application powered by gpt-4o and whisper,
-            and hosted on Vercel. That's about it really! You can inspect the
-            source code on{" "}
+            irmai is a Next.js web application powered by gpt-4o-mini and its
+            TTS equivalent, and hosted on Vercel. That's about it really! You
+            can inspect the source code on{" "}
             <a
               className={s.link}
               target="_blank"
@@ -177,8 +175,8 @@ const Transcript = ({ assistantProps }: any) => {
               textWrap: "balance",
             }}
           >
-            ✳︎ irmai © 2024 – where human imagination meets artifical
-            hallucination ✳︎
+            ✳︎ irmai © {new Date().getFullYear()} – where human imagination
+            meets artificial hallucination ✳︎
           </p>
           <br />
         </TransitionWrapper>

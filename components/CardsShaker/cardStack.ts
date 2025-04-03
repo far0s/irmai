@@ -22,6 +22,8 @@ class CardStack {
   private globalScrollProgress: number;
   private cardCount: number;
   private visibleCards: VisibleCard[];
+  private rafId: number | null = null;
+  private isUpdating: boolean = false;
 
   constructor() {
     this.scrollableContainer = document.querySelector(
@@ -44,15 +46,14 @@ class CardStack {
     this.globalScrollProgress = this.activeIndex / (this.cardCount - 1);
     this.scrollableContainer.scrollLeft =
       this.scrollableContainer.scrollWidth * this.globalScrollProgress;
-    this.update();
-    this.visibleCards.forEach((card) => {
-      card.update(this.globalScrollProgress, this.activeIndex);
-    });
-
+    this.scheduleUpdate();
     document.addEventListener("keydown", this.handleKeydown.bind(this));
   }
 
   destroy(): void {
+    if (this.rafId) {
+      cancelAnimationFrame(this.rafId);
+    }
     this.scrollableContainer.removeEventListener(
       "scroll",
       this.handleScroll.bind(this)
@@ -78,12 +79,19 @@ class CardStack {
     }
   }
 
+  private scheduleUpdate(): void {
+    if (!this.isUpdating) {
+      this.isUpdating = true;
+      this.rafId = requestAnimationFrame(() => this.update());
+    }
+  }
+
   private handleScroll(): void {
     const { scrollLeft, scrollWidth, clientWidth } = this.scrollableContainer;
     const newScrollProgress = scrollLeft / (scrollWidth - clientWidth);
     this.globalScrollProgress = newScrollProgress;
     this.handleActiveIndex();
-    this.update();
+    this.scheduleUpdate();
   }
 
   private handleActiveIndex(): void {
@@ -110,6 +118,7 @@ class CardStack {
     this.visibleCards.forEach((card) => {
       card.update(this.globalScrollProgress, this.activeIndex);
     });
+    this.isUpdating = false;
   }
 
   private handleKeydown(event: KeyboardEvent): void {
@@ -158,6 +167,7 @@ class VisibleCard {
   private absoluteCardScrollProgress: number;
   private activeCardScrollProgress: number;
   private absoluteActiveCardScrollProgress: number;
+  private lastTransform: string = "";
 
   constructor(
     cardCount: number,
@@ -298,9 +308,16 @@ class VisibleCard {
       this.transforms.scale
     })`;
 
-    this.element.style.transform = transform;
-    this.element.style.zIndex = this.zIndex.toString();
-    this.element.style.opacity = this.opacity.toString();
+    // Only update styles if they've changed
+    if (transform !== this.lastTransform) {
+      this.lastTransform = transform;
+      // Batch DOM updates
+      requestAnimationFrame(() => {
+        this.element.style.transform = transform;
+        this.element.style.zIndex = this.zIndex.toString();
+        this.element.style.opacity = this.opacity.toString();
+      });
+    }
   }
 
   public update(globalScrollProgress: number, activeIndex: number): void {

@@ -1,5 +1,5 @@
-@import 'tailwindcss/theme' layer(theme);
-@import 'tailwindcss/preflight' layer(base);
+@import "tailwindcss/theme" layer(theme);
+@import "tailwindcss/preflight" layer(base);
 
 @theme {
   --font-poppins: var(--font-poppins);
@@ -26,9 +26,10 @@
 
 :root {
   /* colours */
-  --black: #0b0216;
-  --cream: #fffbf2;
-  --purple: #281595;
+  --black: #0b0216; /* rgb(11, 2, 22) */
+  --cream: #fffbf2; /* rgb(255, 251, 242) */
+  --purple-light: #4124e6; /* rgb(65, 36, 230) */
+  --purple: #281595; /* rgb(40, 21, 149) */
 
   /* header */
   --header-margin: 36px;
@@ -36,7 +37,6 @@
   --header-safe-zone: calc(
     var(--header-margin) + var(--padding-s) + var(--header-height)
   );
-  --footer-margin: calc(55px + 1svh);
 
   /* spacing */
   --padding-s: 14px;

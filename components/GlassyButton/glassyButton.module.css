@@ -1,0 +1,284 @@
+/* inspired by "Glass Button", a CodePen from Petr Knoll - https://codepen.io/Petr-Knoll/pen/QwWLZdx */
+
+/* Defs */
+@property --angle-1 {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: -75deg;
+}
+
+@property --angle-2 {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: -45deg;
+}
+
+.btnWrapper {
+  --global--size: clamp(1rem, 2vw, 1.25rem);
+  --anim--hover-time: 400ms;
+  --anim--hover-ease: cubic-bezier(0.25, 1, 0.5, 1);
+  --border-radius: 0.75rem;
+  font-size: var(--global--size);
+  position: relative;
+  z-index: 2;
+  border-radius: var(--border-radius);
+  background: transparent;
+  pointer-events: none;
+  transition: all var(--anim--hover-time) var(--anim--hover-ease);
+}
+
+.btnShadow {
+  --shadow-cuttoff-fix: 1em;
+  position: absolute;
+  width: calc(100% + var(--shadow-cuttoff-fix));
+  height: calc(100% + var(--shadow-cuttoff-fix));
+  top: calc(0% - var(--shadow-cuttoff-fix) / 2);
+  left: calc(0% - var(--shadow-cuttoff-fix) / 2);
+  filter: blur(clamp(2px, 0.125em, 12px));
+  -webkit-filter: blur(clamp(2px, 0.125em, 12px));
+  -moz-filter: blur(clamp(2px, 0.125em, 12px));
+  -ms-filter: blur(clamp(2px, 0.125em, 12px));
+  overflow: visible;
+  pointer-events: none;
+}
+
+.btnShadow::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  border-radius: var(--border-radius);
+  background: linear-gradient(
+    180deg,
+    rgba(11, 2, 22, 0.2),
+    rgba(11, 2, 22, 0.1)
+  );
+  width: calc(100% - var(--shadow-cuttoff-fix) - 0.25em);
+  height: calc(100% - var(--shadow-cuttoff-fix) - 0.25em);
+  top: calc(var(--shadow-cuttoff-fix) - 0.5em);
+  left: calc(var(--shadow-cuttoff-fix) - 0.875em);
+  padding: 0.125em;
+  box-sizing: border-box;
+  mask: linear-gradient(var(--black) 0 0) content-box,
+    linear-gradient(var(--black) 0 0);
+  mask-composite: exclude;
+  transition: all var(--anim--hover-time) var(--anim--hover-ease);
+  overflow: visible;
+  opacity: 1;
+  pointer-events: none;
+}
+
+.btn {
+  /* Basic Styling */
+  --border-width: clamp(2px, 0.0625em, 4px);
+  all: unset;
+  cursor: pointer;
+  position: relative;
+  -webkit-tap-highlight-color: rgba(11, 2, 22, 0);
+  pointer-events: auto;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  z-index: 3;
+  background: linear-gradient(
+    -75deg,
+    rgba(40, 21, 149, 0.1),
+    rgba(40, 21, 149, 0.4),
+    rgba(40, 21, 149, 0.1)
+  );
+  border-radius: var(--border-radius);
+  box-shadow: inset 0 0.125em 0.125em rgba(11, 2, 22, 0.05),
+    inset 0 -0.125em 0.125em rgba(40, 21, 149, 0.5),
+    0 0.25em 0.125em -0.125em rgba(11, 2, 22, 0.2),
+    0 0 0.1em 0.25em inset rgba(40, 21, 149, 0.2), 0 0 0 0 rgba(40, 21, 149, 1);
+  backdrop-filter: blur(clamp(1px, 0.125em, 4px));
+  -webkit-backdrop-filter: blur(clamp(1px, 0.125em, 4px));
+  -moz-backdrop-filter: blur(clamp(1px, 0.125em, 4px));
+  -ms-backdrop-filter: blur(clamp(1px, 0.125em, 4px));
+  transition: all var(--anim--hover-time) var(--anim--hover-ease);
+}
+
+.btn:hover {
+  transform: scale(0.975);
+  backdrop-filter: blur(0.01em);
+  -webkit-backdrop-filter: blur(0.01em);
+  -moz-backdrop-filter: blur(0.01em);
+  -ms-backdrop-filter: blur(0.01em);
+  box-shadow: inset 0 0.125em 0.125em rgba(11, 2, 22, 0.05),
+    inset 0 -0.125em 0.125em rgba(40, 21, 149, 0.5),
+    0 0.15em 0.05em -0.1em rgba(11, 2, 22, 0.25),
+    0 0 0.05em 0.1em inset rgba(40, 21, 149, 0.5), 0 0 0 0 rgba(40, 21, 149, 1);
+}
+
+/* .btn Text */
+.btn span {
+  position: relative;
+  display: block;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  color: var(--cream);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-shadow: 0 0.25em 0.05em rgba(11, 2, 22, 0.1);
+  transition: all var(--anim--hover-time) var(--anim--hover-ease);
+  white-space: nowrap;
+  padding-inline: 3.5em;
+  padding-block: 1em;
+  max-width: 90vw;
+}
+
+.btn:hover span {
+  text-shadow: 0.025em 0.025em 0.025em rgba(11, 2, 22, 0.12);
+}
+
+[data-variant="small-square"] .btn span {
+  padding-inline: 0.5em;
+  padding-block: 0.5em;
+  width: 48px;
+  height: 48px;
+  aspect-ratio: 1/1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Text */
+.btn span::after {
+  content: "";
+  display: block;
+  position: absolute;
+  width: calc(100% - var(--border-width)); /* Prevent overlapping border */
+  height: calc(100% - var(--border-width));
+  top: calc(0% + var(--border-width) / 2);
+  left: calc(0% + var(--border-width) / 2);
+  box-sizing: border-box;
+  border-radius: var(--border-radius);
+  overflow: clip;
+  background: linear-gradient(
+    var(--angle-2),
+    rgba(255, 251, 242, 0) 0%,
+    rgba(255, 251, 242, 0.2) 40% 50%,
+    rgba(255, 251, 242, 0) 55%
+  );
+  z-index: 3;
+  mix-blend-mode: screen;
+  pointer-events: none;
+  background-size: 200% 200%;
+  background-position: 0% 50%;
+  background-repeat: no-repeat;
+  transition: background-position calc(var(--anim--hover-time) * 1.25)
+      var(--anim--hover-ease),
+    --angle-2 calc(var(--anim--hover-time) * 1.25) var(--anim--hover-ease);
+}
+
+.btn:hover span::after {
+  background-position: 25% 50%;
+}
+
+.btn:active span::after {
+  background-position: 50% 15%;
+  --angle-2: -15deg;
+}
+
+/* Touch Devices */
+@media (hover: none) and (pointer: coarse) {
+  .btn span::after,
+  .btn:active span::after {
+    --angle-2: -45deg;
+  }
+}
+
+/* Outline */
+.btn::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  border-radius: var(--border-radius);
+  width: calc(100% + var(--border-width));
+  height: calc(100% + var(--border-width));
+  top: calc(0% - var(--border-width) / 2);
+  left: calc(0% - var(--border-width) / 2);
+  padding: var(--border-width);
+  box-sizing: border-box;
+  background: conic-gradient(
+      from var(--angle-1) at 50% 50%,
+      rgba(11, 2, 22, 0.5),
+      rgba(11, 2, 22, 0) 5% 40%,
+      rgba(11, 2, 22, 0.5) 50%,
+      rgba(11, 2, 22, 0) 60% 95%,
+      rgba(11, 2, 22, 0.5)
+    ),
+    linear-gradient(180deg, rgba(255, 251, 242, 0.5), rgba(255, 251, 242, 0.5));
+  mask: linear-gradient(var(--black) 0 0) content-box,
+    linear-gradient(var(--black) 0 0);
+  mask-composite: exclude;
+  transition: all var(--anim--hover-time) var(--anim--hover-ease),
+    --angle-1 500ms ease;
+  box-shadow: inset 0 0 0 calc(var(--border-width) / 2) rgba(255, 251, 242, 0.5);
+  pointer-events: none;
+}
+
+.btn:hover::after {
+  --angle-1: -125deg;
+}
+
+.btn:active::after {
+  --angle-1: -75deg;
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .btn::after,
+  .btn:hover::after,
+  .btn:active::after {
+    --angle-1: -75deg;
+  }
+}
+
+/* Shadow Hover */
+.btnWrapper:has(.btn:hover) .btn-shadow {
+  filter: blur(clamp(2px, 0.0625em, 6px));
+  -webkit-filter: blur(clamp(2px, 0.0625em, 6px));
+  -moz-filter: blur(clamp(2px, 0.0625em, 6px));
+  -ms-filter: blur(clamp(2px, 0.0625em, 6px));
+  transition: filter var(--anim--hover-time) var(--anim--hover-ease);
+}
+
+.btnWrapper:has(.btn:hover) .btn-shadow::after {
+  top: calc(var(--shadow-cuttoff-fix) - 0.875em);
+  opacity: 1;
+}
+
+/* Rotation */
+.btnWrapper:has(.btn:active) {
+  transform: rotate3d(1, 0, 0, 25deg);
+}
+
+.btnWrapper:has(.btn:active) .btn {
+  box-shadow: inset 0 0.125em 0.125em rgba(11, 2, 22, 0.05),
+    inset 0 -0.125em 0.125em rgba(255, 251, 242, 0.5),
+    0 0.125em 0.125em -0.125em rgba(11, 2, 22, 0.2),
+    0 0 0.1em 0.25em inset rgba(255, 251, 242, 0.2),
+    0 0.225em 0.05em 0 rgba(11, 2, 22, 0.05),
+    0 0.25em 0 0 rgba(255, 251, 242, 0.75),
+    inset 0 0.25em 0.05em 0 rgba(11, 2, 22, 0.15);
+}
+
+.btnWrapper:has(.btn:active) .btn-shadow {
+  filter: blur(clamp(2px, 0.125em, 12px));
+  -webkit-filter: blur(clamp(2px, 0.125em, 12px));
+  -moz-filter: blur(clamp(2px, 0.125em, 12px));
+  -ms-filter: blur(clamp(2px, 0.125em, 12px));
+}
+
+.btnWrapper:has(.btn:active) .btn-shadow::after {
+  top: calc(var(--shadow-cuttoff-fix) - 0.5em);
+  opacity: 0.75;
+}
+
+.btnWrapper:has(.btn:active) span {
+  text-shadow: 0.025em 0.25em 0.05em rgba(11, 2, 22, 0.12);
+}

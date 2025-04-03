@@ -1,7 +1,7 @@
 import html2canvas from "html2canvas";
 import { useState } from "react";
 
-import PressCTA from "@/components/PressCTA/PressCTA";
+import GlassyButton from "@/components/GlassyButton/GlassyButton";
 import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
 
 import { useIsMobile } from "@/hooks/use-is-mobile";
@@ -46,10 +46,9 @@ const ShareImageCTA = () => {
   };
 
   return (
-    <PressCTA
-      onPress={handleShareImage}
-      label={isLoading ? "Creating image..." : "Share my reading"}
-    />
+    <GlassyButton onClick={handleShareImage}>
+      {isLoading ? "Creating image..." : "Share my reading"}
+    </GlassyButton>
   );
 };
 

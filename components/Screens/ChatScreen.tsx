@@ -5,7 +5,7 @@ import { withoutTrailingPeriod } from "@/utils";
 import { prepareFirstPrompt } from "@/utils/prompts";
 import { ChatMessage, TConvertedSTTResponse } from "@/utils/shared-types";
 import convertSpeechToText from "@/utils/speech-to-text";
-import convertTextToSpeech from "@/utils/text-to-speech";
+import convertTextToSpeech, { updateAudioVolume } from "@/utils/text-to-speech";
 
 import useRecorder from "@/hooks/use-recorder";
 import { useDebounce } from "@/hooks/use-debounce";
@@ -15,8 +15,8 @@ import useScrollToTop from "@/hooks/use-scroll-to-top";
 
 import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
 import { Screen } from "@/components/Stage/Stage";
-import PressCTA from "@/components/PressCTA/PressCTA";
-import PressAndHoldCTA from "@/components/PressAndHoldCTA/PressAndHoldCTA";
+import GlassyButton from "@/components/GlassyButton/GlassyButton";
+import GlassyHoldButton from "@/components/GlassyButton/GlassyHoldButton";
 import TransitionWrapper from "@/components/TransitionWrapper/TransitionWrapper";
 import SpeakOrThinkIndicator from "@/components/SpeakOrThinkIndicator/SpeakOrThinkIndicator";
 import {
@@ -56,6 +56,7 @@ const ChatScreen = ({
     setIsSpeaking,
     isSpeaking,
     isThinking,
+    isMuted, // Add the isMuted state from the store
   } = useIrmaiStore((s) => s);
   const [partToShow, setPartToShow] = useDebounce<TPartToShow>(null, 100);
   const [lastMessage, setLastMessage] = useState(null);
@@ -231,6 +232,7 @@ const ChatScreen = ({
             setIsSpeaking(false);
             setLastMessage(null);
           },
+          isMuted: isMuted, // Pass the isMuted state to control audio volume
         });
       } else if (lastMessage?.role === "user") {
         setIsSpeaking(false);
@@ -240,6 +242,11 @@ const ChatScreen = ({
 
     return () => clearTimeout(timer);
   }, [messages]);
+
+  // Add effect to update audio volume when isMuted changes
+  useEffect(() => {
+    updateAudioVolume(isMuted);
+  }, [isMuted]);
 
   const showPlaceholderTranscriptItem =
     transcript.length === 0 ||
@@ -393,48 +400,55 @@ const ChatScreen = ({
         </section>
 
         <footer className={s.footer} data-show-backdrop={messages.length > 1}>
-          <TransitionWrapper
-            className={s.footerPart}
-            show={
-              !isThinking &&
-              !isSpeaking &&
-              (partToShow === "idle" ||
-                partToShow === "recording" ||
-                (partToShow === "transcript" && messages.length > 1))
-            }
-            delay={
-              (partToShow === "transcript" && messages.length > 1 ? 1 : 4) *
-              DELAY_UNIT
-            }
-          >
-            <PressAndHoldCTA
-              onBeginPress={() => handleStartRecording()}
-              onEndPress={() => handleStopRecording()}
-              onRelease={() => handleStopRecording()}
-              pressDuration={360000}
-              idleChildren="Press & hold to record"
-              activeChildren="Release to stop"
-            />
-          </TransitionWrapper>
-          <TransitionWrapper
-            className={s.footerPart}
-            show={partToShow === "transcript"}
-            delay={partToShow === "transcript" && messages.length > 1 ? 1 : 4}
-          >
-            {selectedCards.length === 0 && (
-              <PressCTA onPress={handleGoToCards} label="Pull your cards" />
+          {!isThinking &&
+            !isSpeaking &&
+            (partToShow === "idle" ||
+              partToShow === "recording" ||
+              (partToShow === "transcript" && messages.length > 1)) && (
+              <TransitionWrapper
+                show={
+                  !isThinking &&
+                  !isSpeaking &&
+                  (partToShow === "idle" ||
+                    partToShow === "recording" ||
+                    (partToShow === "transcript" && messages.length > 1))
+                }
+                delay={
+                  (partToShow === "transcript" && messages.length > 1 ? 1 : 4) *
+                  DELAY_UNIT
+                }
+              >
+                <GlassyHoldButton
+                  onBeginPress={() => handleStartRecording()}
+                  onEndPress={() => handleStopRecording()}
+                  onRelease={() => handleStopRecording()}
+                  pressDuration={360000}
+                >
+                  Press & hold to record
+                </GlassyHoldButton>
+              </TransitionWrapper>
             )}
-
-            {!isThinking &&
-              !isSpeaking &&
-              partToShow === "transcript" &&
-              messages.length > 2 && (
-                <PressCTA
-                  label="Or end the reading"
-                  onPress={handleGoToOutro}
-                />
+          {partToShow === "transcript" && (
+            <TransitionWrapper
+              show={partToShow === "transcript"}
+              delay={partToShow === "transcript" && messages.length > 1 ? 1 : 4}
+            >
+              {selectedCards.length === 0 && (
+                <GlassyButton onClick={handleGoToCards}>
+                  Pull your cards
+                </GlassyButton>
               )}
-          </TransitionWrapper>
+
+              {!isThinking &&
+                !isSpeaking &&
+                partToShow === "transcript" &&
+                messages.length > 2 && (
+                  <GlassyButton onClick={handleGoToOutro}>
+                    Or end the reading
+                  </GlassyButton>
+                )}
+            </TransitionWrapper>
+          )}
         </footer>
       </div>
     </Screen>

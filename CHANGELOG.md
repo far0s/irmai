@@ -11,11 +11,14 @@
 
 ## Releases
 
-### 0.10.5 - WIP
+### 0.11.0 - released 03/04/2025
 
 - [x] FEATURE/AI: update to new OpenAI model and change voice parameters
+- [x] FEATURE/UI: new glassy buttons
+- [x] FEATURE/UI: new mute button
 - [x] BUGFIX: crashes on mobile, when trying to pull cards (on AJ's phone)
 - [x] BUGFIX: performance improvements
+- [x] META: update metadata
 - [x] CHORE: dependency updates
 
 ### 0.10.4 - released 27/11/2024

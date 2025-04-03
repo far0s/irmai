@@ -31,6 +31,8 @@ interface IStore {
   setShowTranscript: (showTranscript: boolean) => void;
   conclusion: string;
   setConclusion: (conclusion: string) => void;
+  isMuted: boolean;
+  setIsMuted: (isMuted: boolean) => void;
   reset: () => void;
 
   // Orb debugging
@@ -64,6 +66,7 @@ export type State = {
   allCards: ITarotCard[];
   selectedCards: any[];
   conclusion: string;
+  isMuted: boolean;
 
   hideApp: boolean;
 
@@ -89,6 +92,7 @@ export type Actions = {
   setAllCards: (cards: string[]) => void;
   setSelectedCards: (cards: string[]) => void;
   setConclusion: (conclusion: string) => void;
+  setIsMuted: (isMuted: boolean) => void;
   reset: () => void;
 
   setHideApp: (hideApp: boolean) => void;
@@ -118,6 +122,7 @@ export const initStore = (): State => {
     allCards: [],
     selectedCards: [],
     conclusion: "",
+    isMuted: false,
 
     hideApp: false,
 
@@ -140,6 +145,7 @@ export const defaultInitState: State = {
   allCards: [],
   selectedCards: [],
   conclusion: "",
+  isMuted: false,
 
   hideApp: false,
 
@@ -169,6 +175,7 @@ export const createZStore = (initState: State = defaultInitState) => {
           setAllCards: (cards: any[]) => set({ allCards: cards }),
           setSelectedCards: (cards: any[]) => set({ selectedCards: cards }),
           setConclusion: (conclusion: string) => set({ conclusion }),
+          setIsMuted: (isMuted: boolean) => set({ isMuted }),
           reset: () =>
             set({
               ...initState,
