@@ -145,6 +145,10 @@
   align-items: center;
 }
 
+[data-variant="small-square"] .btn svg {
+  flex: 0 0 auto;
+}
+
 /* Text */
 .btn span::after {
   content: "";
