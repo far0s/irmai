@@ -14,6 +14,7 @@
 ### 0.11.1 - WIP
 
 - [x] BUGFIX: share card no background
+- [x] BUGFIX: performance improvements
 - [] BUGFIX: crashes on mobile, when trying to pull cards
 - [] BUGFIX/UI: add recording indicator to the glassy button
 

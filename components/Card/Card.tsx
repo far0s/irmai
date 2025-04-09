@@ -4,7 +4,6 @@ import Image from "next/image";
 import { motion } from "motion/react";
 
 import Logo from "@/components/Logo/Logo";
-import TransitionWrapper from "@/components/TransitionWrapper/TransitionWrapper";
 import { useCardDrawer } from "@/components/CardDrawer/CardDrawer";
 
 import { ITarotCard } from "@/utils/shared-types";
@@ -70,10 +69,25 @@ const Card = ({
         )}
       </div>
 
-      <TransitionWrapper className={s.cardName} show={!hidden} delay={200}>
+      <motion.div
+        className={s.cardName}
+        initial={{
+          opacity: 0,
+          y: 20,
+        }}
+        animate={{
+          opacity: hidden ? 0 : 1,
+          y: hidden ? 20 : 0,
+        }}
+        transition={{
+          duration: 0.3,
+          delay: !hidden ? 0.3 : 0,
+          ease: "easeOut",
+        }}
+      >
         <span>{card.name}</span>
         {reverse === true && <span>(reverse)</span>}
-      </TransitionWrapper>
+      </motion.div>
     </motion.div>
   );
 };
