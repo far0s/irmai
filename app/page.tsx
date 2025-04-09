@@ -12,6 +12,7 @@ import SplashScreen from "@/components/Screens/SplashScreen";
 import IntroScreen from "@/components/Screens/IntroScreen";
 import ChatScreen from "@/components/Screens/ChatScreen";
 import OutroScreen from "@/components/Screens/OutroScreen";
+import { CardDrawerProvider } from "@/components/CardDrawer/CardDrawer";
 
 import useTranscript from "@/hooks/use-transcript";
 
@@ -86,34 +87,36 @@ const IrmaiHome = () => {
   );
 
   return (
-    <main className={s.page}>
-      <Suspense>
-        <motion.div
-          className={s.pageContainer}
-          animate={{
-            opacity: hideApp ? 0 : 1,
-          }}
-          transition={{
-            type: "spring",
-            stiffness: 600,
-            damping: 100,
-          }}
-          onClick={() => hideApp && setHideApp(false)}
-        >
-          {stageContent}
-          <Header />
-          <Transcript />
-        </motion.div>
+    <CardDrawerProvider>
+      <main className={s.page}>
+        <Suspense>
+          <motion.div
+            className={s.pageContainer}
+            animate={{
+              opacity: hideApp ? 0 : 1,
+            }}
+            transition={{
+              type: "spring",
+              stiffness: 600,
+              damping: 100,
+            }}
+            onClick={() => hideApp && setHideApp(false)}
+          >
+            {stageContent}
+            <Header />
+            <Transcript />
+          </motion.div>
 
-        {/* Separate suspense boundaries for non-critical components */}
-        <Suspense fallback={null}>
-          <Debug />
+          {/* Separate suspense boundaries for non-critical components */}
+          <Suspense fallback={null}>
+            <Debug />
+          </Suspense>
+          <Suspense fallback={null}>
+            <Background transcriptLength={transcriptLength} />
+          </Suspense>
         </Suspense>
-        <Suspense fallback={null}>
-          <Background transcriptLength={transcriptLength} />
-        </Suspense>
-      </Suspense>
-    </main>
+      </main>
+    </CardDrawerProvider>
   );
 };
 
