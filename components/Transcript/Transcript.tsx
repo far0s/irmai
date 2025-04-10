@@ -11,7 +11,9 @@ import { DELAY_UNIT_SHORT as DELAY_UNIT } from "@/utils";
 import s from "./transcript.module.css";
 
 const Transcript = () => {
-  const { showTranscript, setShowTranscript } = useIrmaiStore((s) => s);
+  const showTranscript = useIrmaiStore((s) => s.showTranscript);
+  const setShowTranscript = useIrmaiStore((s) => s.setShowTranscript);
+
   const transcriptInnerElem = useRef<HTMLDivElement | null>(null);
 
   useScrollToTop(transcriptInnerElem, showTranscript);

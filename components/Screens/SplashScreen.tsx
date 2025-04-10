@@ -7,14 +7,13 @@ import TransitionWrapper from "@/components/TransitionWrapper/TransitionWrapper"
 import s from "./screens.module.css";
 
 const SplashScreen = ({ isActive }: { isActive: boolean }) => {
-  const {
-    globalState,
-    setGlobalState,
-    setIsReadyToAskForMic,
-    isMicReady,
-    hasSeenSplash,
-    setHasSeenSplash,
-  } = useIrmaiStore((s) => s);
+  const globalState = useIrmaiStore((s) => s.globalState);
+  const setGlobalState = useIrmaiStore((s) => s.setGlobalState);
+  const setIsReadyToAskForMic = useIrmaiStore((s) => s.setIsReadyToAskForMic);
+  const isMicReady = useIrmaiStore((s) => s.isMicReady);
+  const hasSeenSplash = useIrmaiStore((s) => s.hasSeenSplash);
+  const setHasSeenSplash = useIrmaiStore((s) => s.setHasSeenSplash);
+
   const [showSplash, setShowSplash] = useState(false);
   const [partToShow, setPartToShow] = useState<null | "intro" | "permissions">(
     null

@@ -3,8 +3,10 @@ import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStorePro
 import GlassyButton from "@/components/GlassyButton/GlassyButton";
 
 const TranscriptToggle = () => {
-  const { globalState, showTranscript, setShowTranscript, firstQuestion } =
-    useIrmaiStore((s) => s);
+  const globalState = useIrmaiStore((s) => s.globalState);
+  const showTranscript = useIrmaiStore((s) => s.showTranscript);
+  const setShowTranscript = useIrmaiStore((s) => s.setShowTranscript);
+  const firstQuestion = useIrmaiStore((s) => s.firstQuestion);
 
   const isNotSplash = globalState !== "splash";
   const show = firstQuestion.length > 0;

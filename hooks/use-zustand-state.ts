@@ -1,5 +1,5 @@
 import { createStore } from "zustand";
-import { devtools, persist, createJSONStorage } from "zustand/middleware";
+import { persist, createJSONStorage } from "zustand/middleware";
 import { TGlobalState, ITarotCard } from "@/utils/shared-types";
 
 interface IStore {
@@ -154,53 +154,50 @@ export const defaultInitState: State = {
 
 export const createZStore = (initState: State = defaultInitState) => {
   return createStore<IStore>()(
-    devtools(
-      persist(
-        (set: any) => ({
-          ...initState,
-          setDebug: (debug: boolean) => set({ debug }),
-          setGlobalState: (state: TGlobalState) => set({ globalState: state }),
-          setIsReadyToAskForMic: (isReadyToAskForMic: boolean) =>
-            set({ isReadyToAskForMic }),
-          setIsMicReady: (isMicReady: boolean) => set({ isMicReady }),
-          setHasSeenSplash: (hasSeenSplash: boolean) => set({ hasSeenSplash }),
-          setIsSpeaking: (isSpeaking: boolean) => set({ isSpeaking }),
-          setIsListening: (isListening: boolean) => set({ isListening }),
-          setIsThinking: (isThinking: boolean) => set({ isThinking }),
-          setTranscript: (transcript: any[]) => set({ transcript }),
-          setFirstQuestion: (question: string) =>
-            set({ firstQuestion: question }),
-          setShowTranscript: (showTranscript: boolean) =>
-            set({ showTranscript }),
-          setAllCards: (cards: any[]) => set({ allCards: cards }),
-          setSelectedCards: (cards: any[]) => set({ selectedCards: cards }),
-          setConclusion: (conclusion: string) => set({ conclusion }),
-          setIsMuted: (isMuted: boolean) => set({ isMuted }),
-          reset: () =>
-            set({
-              ...initState,
-              globalState: "splash",
-              hasSeenSplash: true,
-              isReadyToAskForMic: true,
-              isMicReady: true,
-            }),
+    persist(
+      (set: any) => ({
+        ...initState,
+        setDebug: (debug: boolean) => set({ debug }),
+        setGlobalState: (state: TGlobalState) => set({ globalState: state }),
+        setIsReadyToAskForMic: (isReadyToAskForMic: boolean) =>
+          set({ isReadyToAskForMic }),
+        setIsMicReady: (isMicReady: boolean) => set({ isMicReady }),
+        setHasSeenSplash: (hasSeenSplash: boolean) => set({ hasSeenSplash }),
+        setIsSpeaking: (isSpeaking: boolean) => set({ isSpeaking }),
+        setIsListening: (isListening: boolean) => set({ isListening }),
+        setIsThinking: (isThinking: boolean) => set({ isThinking }),
+        setTranscript: (transcript: any[]) => set({ transcript }),
+        setFirstQuestion: (question: string) =>
+          set({ firstQuestion: question }),
+        setShowTranscript: (showTranscript: boolean) => set({ showTranscript }),
+        setAllCards: (cards: any[]) => set({ allCards: cards }),
+        setSelectedCards: (cards: any[]) => set({ selectedCards: cards }),
+        setConclusion: (conclusion: string) => set({ conclusion }),
+        setIsMuted: (isMuted: boolean) => set({ isMuted }),
+        reset: () =>
+          set({
+            ...initState,
+            globalState: "splash",
+            hasSeenSplash: true,
+            isReadyToAskForMic: true,
+            isMicReady: true,
+          }),
 
-          setHideApp: (hideApp: boolean) => set({ hideApp }),
+        setHideApp: (hideApp: boolean) => set({ hideApp }),
 
-          setAuraColors: (colors: {
-            startColor?: string;
-            midColor?: string;
-            endColor?: string;
-          }) =>
-            set((state: State) => ({
-              auraColors: { ...state.auraColors, ...colors },
-            })),
-        }),
-        {
-          name: "irmai-store",
-          storage: createJSONStorage(() => sessionStorage),
-        }
-      )
+        setAuraColors: (colors: {
+          startColor?: string;
+          midColor?: string;
+          endColor?: string;
+        }) =>
+          set((state: State) => ({
+            auraColors: { ...state.auraColors, ...colors },
+          })),
+      }),
+      {
+        name: "irmai-store",
+        storage: createJSONStorage(() => sessionStorage),
+      }
     )
   );
 };

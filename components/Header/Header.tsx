@@ -8,9 +8,11 @@ import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStorePro
 import s from "./header.module.css";
 
 const Header = () => {
-  const { globalState, isReadyToAskForMic, isMicReady, reset } = useIrmaiStore(
-    (s) => s
-  );
+  const globalState = useIrmaiStore((s) => s.globalState);
+  const isReadyToAskForMic = useIrmaiStore((s) => s.isReadyToAskForMic);
+  const isMicReady = useIrmaiStore((s) => s.isMicReady);
+  const reset = useIrmaiStore((s) => s.reset);
+
   const isSplash = globalState === "splash";
 
   const handleReset = () => {

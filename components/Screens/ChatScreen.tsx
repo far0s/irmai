@@ -44,20 +44,18 @@ const ChatScreen = ({
   isActive: boolean;
   assistantProps: any;
 }) => {
-  const {
-    setGlobalState,
-    isListening,
-    setIsListening,
-    setIsThinking,
-    firstQuestion,
-    setFirstQuestion,
-    selectedCards,
-    setSelectedCards,
-    setIsSpeaking,
-    isSpeaking,
-    isThinking,
-    isMuted, // Add the isMuted state from the store
-  } = useIrmaiStore((s) => s);
+  const setGlobalState = useIrmaiStore((s) => s.setGlobalState);
+  const setIsListening = useIrmaiStore((s) => s.setIsListening);
+  const setIsThinking = useIrmaiStore((s) => s.setIsThinking);
+  const firstQuestion = useIrmaiStore((s) => s.firstQuestion);
+  const setFirstQuestion = useIrmaiStore((s) => s.setFirstQuestion);
+  const selectedCards = useIrmaiStore((s) => s.selectedCards);
+  const setSelectedCards = useIrmaiStore((s) => s.setSelectedCards);
+  const setIsSpeaking = useIrmaiStore((s) => s.setIsSpeaking);
+  const isSpeaking = useIrmaiStore((s) => s.isSpeaking);
+  const isThinking = useIrmaiStore((s) => s.isThinking);
+  const isMuted = useIrmaiStore((s) => s.isMuted);
+
   const [partToShow, setPartToShow] = useDebounce<TPartToShow>(null, 100);
   const [lastMessage, setLastMessage] = useState(null);
   const [tempSelectedCards, setTempSelectedCards] = useState<any[]>([]);

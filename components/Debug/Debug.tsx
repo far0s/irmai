@@ -8,21 +8,20 @@ import s from "./debug.module.css";
 
 const Debug = () => {
   const debugRef = useRef<HTMLDivElement | null>(null);
-  const {
-    reset,
-    debug,
-    setDebug,
-    setIsSpeaking,
-    setIsListening,
-    setIsThinking,
-    globalState,
-    setGlobalState,
-    allCards,
-    setAllCards,
-    hideApp,
-    setHideApp,
-    setAuraColors,
-  } = useIrmaiStore((s) => s);
+  const reset = useIrmaiStore((s) => s.reset);
+  const debug = useIrmaiStore((s) => s.debug);
+  const setDebug = useIrmaiStore((s) => s.setDebug);
+  const setIsSpeaking = useIrmaiStore((s) => s.setIsSpeaking);
+  const setIsListening = useIrmaiStore((s) => s.setIsListening);
+  const setIsThinking = useIrmaiStore((s) => s.setIsThinking);
+  const globalState = useIrmaiStore((s) => s.globalState);
+  const setGlobalState = useIrmaiStore((s) => s.setGlobalState);
+  const allCards = useIrmaiStore((s) => s.allCards);
+  const setAllCards = useIrmaiStore((s) => s.setAllCards);
+  const hideApp = useIrmaiStore((s) => s.hideApp);
+  const setHideApp = useIrmaiStore((s) => s.setHideApp);
+  const setAuraColors = useIrmaiStore((s) => s.setAuraColors);
+
   const searchParams = useSearchParams();
   const hasDebugParam = searchParams.get("debug") !== null;
 

@@ -40,8 +40,10 @@ const MemoizedScreens = Object.fromEntries(
 );
 
 const IrmaiHome = () => {
-  const { globalState, setIsThinking, setAllCards, hideApp, setHideApp } =
-    useIrmaiStore((s) => s);
+  const globalState = useIrmaiStore((s) => s.globalState);
+  const setAllCards = useIrmaiStore((s) => s.setAllCards);
+  const hideApp = useIrmaiStore((s) => s.hideApp);
+  const setHideApp = useIrmaiStore((s) => s.setHideApp);
 
   const assistantProps = useAssistant({
     api: "/api/assistant",

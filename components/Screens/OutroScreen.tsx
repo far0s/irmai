@@ -33,8 +33,12 @@ const OutroScreen = ({
   isActive: boolean;
   assistantProps: any;
 }) => {
-  const { reset, setGlobalState, selectedCards, conclusion, setConclusion } =
-    useIrmaiStore((s) => s);
+  const reset = useIrmaiStore((s) => s.reset);
+  const setGlobalState = useIrmaiStore((s) => s.setGlobalState);
+  const selectedCards = useIrmaiStore((s) => s.selectedCards);
+  const conclusion = useIrmaiStore((s) => s.conclusion);
+  const setConclusion = useIrmaiStore((s) => s.setConclusion);
+
   const [partToShow, setPartToShow] = useState<null | "outro">(null);
 
   const { messages, append }: any = assistantProps;

@@ -46,8 +46,11 @@ const Aura = ({
   transcriptLength: number;
   randomSeed: number;
 }) => {
-  const { isMicReady, isListening, isThinking, isSpeaking, auraColors } =
-    useIrmaiStore((s) => s);
+  const isMicReady = useIrmaiStore((s) => s.isMicReady);
+  const isListening = useIrmaiStore((s) => s.isListening);
+  const isSpeaking = useIrmaiStore((s) => s.isSpeaking);
+  const auraColors = useIrmaiStore((s) => s.auraColors);
+
   const meshRef = useRef<THREE.Mesh>(null!);
   const [dimensions, setDimensions] = useState({
     width: window.innerWidth,

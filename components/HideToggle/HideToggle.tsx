@@ -5,9 +5,10 @@ import GlassyButton from "@/components/GlassyButton/GlassyButton";
 import s from "../TranscriptToggle/transcriptToggle.module.css";
 
 const HideToggle = () => {
-  const { globalState, firstQuestion, hideApp, setHideApp } = useIrmaiStore(
-    (s) => s
-  );
+  const globalState = useIrmaiStore((s) => s.globalState);
+  const firstQuestion = useIrmaiStore((s) => s.firstQuestion);
+  const hideApp = useIrmaiStore((s) => s.hideApp);
+  const setHideApp = useIrmaiStore((s) => s.setHideApp);
 
   const isNotSplash = globalState !== "splash";
   const show = firstQuestion.length > 0;

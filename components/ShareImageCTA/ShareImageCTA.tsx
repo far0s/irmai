@@ -9,7 +9,10 @@ import { useIsMobile } from "@/hooks/use-is-mobile";
 import shareImage from "@/utils/share-image";
 
 const ShareImageCTA = () => {
-  const { firstQuestion, selectedCards, conclusion } = useIrmaiStore((s) => s);
+  const firstQuestion = useIrmaiStore((s) => s.firstQuestion);
+  const selectedCards = useIrmaiStore((s) => s.selectedCards);
+  const conclusion = useIrmaiStore((s) => s.conclusion);
+
   const [isLoading, setIsLoading] = useState(false);
   const isMobile = useIsMobile();
 

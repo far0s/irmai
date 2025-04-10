@@ -34,7 +34,8 @@ const Background = ({
   const [selectedShader, setSelectedShader] = useState<any>(shaders[0]);
   const [vertex, setVertex] = useState("");
   const [fragment, setFragment] = useState("");
-  const { hideApp, setHideApp } = useIrmaiStore((s) => s);
+  const hideApp = useIrmaiStore((s) => s.hideApp);
+  const setHideApp = useIrmaiStore((s) => s.setHideApp);
 
   useEffect(() => {
     setVertex("");

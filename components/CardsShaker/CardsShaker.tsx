@@ -15,8 +15,11 @@ const CardsShaker = ({
   tempSelectedCards: any[];
   setTempSelectedCards: any;
 }) => {
-  const { allCards, setSelectedCards, setAuraColors, auraColors } =
-    useIrmaiStore((s) => s);
+  const allCards = useIrmaiStore((s) => s.allCards);
+  const setSelectedCards = useIrmaiStore((s) => s.setSelectedCards);
+  const setAuraColors = useIrmaiStore((s) => s.setAuraColors);
+  const auraColors = useIrmaiStore((s) => s.auraColors);
+
   const [randomizedCards, setRandomizedCards] = useState(allCards);
   const [cardStack, setCardStack] = useState<any>(null);
   const [hoveredCardIndex, setHoveredCardIndex] = useState<number | null>(null);
