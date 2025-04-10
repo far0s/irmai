@@ -53,11 +53,13 @@ const OutroScreen = ({
   }, [messages]);
 
   const handleReset = () => {
+    if (!isActive) return;
     reset();
     window.location.reload();
   };
 
   const handleBackToReading = () => {
+    if (!isActive) return;
     setPartToShow(null);
     setGlobalState("chat");
   };

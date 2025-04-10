@@ -25,6 +25,7 @@
 
 .screenPartWrapper[data-interactive="false"] {
   pointer-events: none;
+  z-index: -1;
 }
 
 .screenPartWrapper > div:first-of-type > article {

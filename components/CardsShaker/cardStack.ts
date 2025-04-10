@@ -204,26 +204,46 @@ class VisibleCard {
   }
 
   private calculateTranslateX(): void {
-    this.transforms.translateX =
-      this.activeIndex === this.index
-        ? this.absoluteCardScrollProgress < 0.5
-          ? -CARD_TRANSLATE_X * this.cardScrollProgress
-          : -CARD_TRANSLATE_X * Math.sign(this.cardScrollProgress) +
-            CARD_TRANSLATE_X * this.cardScrollProgress +
-            -((1 - this.absoluteCardScrollProgress / this.cardCount / 4) * 10) *
-              (this.absoluteCardScrollProgress - 0.5) *
-              2 *
-              Math.sign(this.cardScrollProgress)
-        : this.cardScrollProgress *
-          -((1 - this.absoluteCardScrollProgress / this.cardCount / 4) * 10);
+    let translateX: number;
+    if (this.activeIndex === this.index) {
+      if (this.absoluteCardScrollProgress < 0.5) {
+        translateX = -CARD_TRANSLATE_X * this.cardScrollProgress;
+      } else {
+        translateX =
+          -CARD_TRANSLATE_X * Math.sign(this.cardScrollProgress) +
+          CARD_TRANSLATE_X * this.cardScrollProgress +
+          -((1 - this.absoluteCardScrollProgress / this.cardCount / 4) * 10) *
+            (this.absoluteCardScrollProgress - 0.5) *
+            2 *
+            Math.sign(this.cardScrollProgress);
+      }
+    } else {
+      translateX = Math.min(
+        Math.max(
+          this.cardScrollProgress *
+            -((1 - this.absoluteCardScrollProgress / this.cardCount / 4) * 10),
+          -50
+        ),
+        50
+      );
+    }
+
+    this.transforms.translateX = translateX;
   }
 
   private calculateTranslateZ(): void {
-    this.transforms.translateZ =
+    let translateZ =
       PERSPECTIVE_BASE - this.absoluteCardScrollProgress * PERSPECTIVE_FACTOR;
+    translateZ = Math.min(Math.max(translateZ, 100), 200);
+    this.transforms.translateZ = translateZ;
   }
 
   private calculateRotateY(): void {
+    // Don't apply rotation if the card is beyond the maximum cards on one side
+    if (this.absoluteCardScrollProgress > this.maxCardsOnOneSide) {
+      return;
+    }
+
     let rotateY = 0;
 
     rotateY =
@@ -243,7 +263,10 @@ class VisibleCard {
   }
 
   private calculateRotateZ(): void {
-    this.transforms.rotateZ = this.cardScrollProgress * 0.5 * -1;
+    this.transforms.rotateZ = Math.min(
+      Math.max(this.cardScrollProgress * 0.5 * -1, -2),
+      2
+    );
   }
 
   private calculateScale(): void {
@@ -262,7 +285,7 @@ class VisibleCard {
       scale = 0;
     }
 
-    this.transforms.scale = scale;
+    this.transforms.scale = Math.min(Math.max(0.8, scale), 1);
   }
 
   private calculateZIndex(): void {
@@ -301,19 +324,28 @@ class VisibleCard {
     if (!this.element) return;
 
     const transform = `translateX(${
-      this.transforms.translateX - 50
-    }%) translateY(-50%) translateZ(${this.transforms.translateZ}px) rotateY(${
-      this.transforms.rotateY
-    }deg) rotateZ(${this.transforms.rotateZ}deg) scale(${
-      this.transforms.scale
-    })`;
+      parseFloat(this.transforms.translateX.toFixed(2)) - 50
+    }%) translateY(-50%) translateZ(${this.transforms.translateZ.toFixed(
+      2
+    )}px) rotateY(${this.transforms.rotateY.toFixed(
+      2
+    )}deg) rotateZ(${this.transforms.rotateZ.toFixed(
+      2
+    )}deg) scale(${this.transforms.scale.toFixed(2)})`;
 
     // Only update styles if they've changed
     if (transform !== this.lastTransform) {
       this.lastTransform = transform;
       // Batch DOM updates
       requestAnimationFrame(() => {
-        this.element.style.transform = transform;
+        // this.element.style.transform = transform;
+        this.element.style.translate = `${(
+          this.transforms.translateX - 50
+        ).toFixed(2)}% -50% ${this.transforms.translateZ.toFixed(2)}px`;
+        this.element.style.transform = `rotateY(${this.transforms.rotateY.toFixed(
+          2
+        )}deg) rotateZ(${this.transforms.rotateZ.toFixed(2)}deg)`;
+        this.element.style.scale = `${this.transforms.scale.toFixed(2)}`;
         this.element.style.zIndex = this.zIndex.toString();
         this.element.style.opacity = this.opacity.toString();
       });

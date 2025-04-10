@@ -99,7 +99,6 @@ const CardsShaker = ({
           hidden={!tempSelectedCards.includes(card)}
           reverse={card.reverse}
           isHovered={hoveredCardIndex === randomizedCards.indexOf(card)}
-          onClick={() => handleAddCardToTempSelectedCards(card)}
         />
       )),
     [randomizedCards, tempSelectedCards, hoveredCardIndex]
@@ -116,7 +115,10 @@ const CardsShaker = ({
               {...(tempSelectedCards.includes(card) && {
                 "data-is-selected": true,
               })}
-              onClick={() => handleAddCardToTempSelectedCards(card)}
+              onClick={() =>
+                !tempSelectedCards.includes(card) &&
+                handleAddCardToTempSelectedCards(card)
+              }
               onMouseEnter={() =>
                 !tempSelectedCards.includes(card) && handleMouseEnter(i)
               }

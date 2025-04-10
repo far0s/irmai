@@ -4,6 +4,7 @@
 
 - [ ] FEATURE/CARDS: add card minis to represent cards being picked
 - [ ] FEATURE/CARDS: range slider synced to card index (maybe)
+- [ ] FEATURE/UI: add recording indicator to the glassy button
 - [ ] BUGFIX/AI: properly save transcript and display on plage load if already present (to continue the reading)
 - [ ] FEATURE/UI: replace cards with custom ones
 - [ ] FEATURE/UI: final favicon (bugged on Safari)
@@ -11,12 +12,11 @@
 
 ## Releases
 
-### 0.11.1 - WIP
+### 0.11.1 - released 10/04/2025
 
 - [x] BUGFIX: share card no background
 - [x] BUGFIX: performance improvements
-- [] BUGFIX: crashes on mobile, when trying to pull cards
-- [] BUGFIX/UI: add recording indicator to the glassy button
+- [x] BUGFIX: crashes on mobile, when trying to pull cards
 
 ### 0.11.0 - released 03/04/2025
 
