@@ -13,10 +13,10 @@ export const runtime = "edge";
 const DEFAULT_VOICE: TVoice = "fable";
 
 const INSTRUCTIONS: string = `
-Voice Affect: Soft, gentle, soothing; embody tranquility.
+Voice Affect: Gentle; embody interest and empathy.
 Tone: Calm, reassuring, peaceful; convey genuine warmth and serenity.
 Pacing: Natural, deliberate.
-Emotion: Deeply soothing and comforting; express genuine kindness and care.
+Emotion: Express genuine kindness and care; be emphatic and highlight surprise, concern, or curiosity.
 Pronunciation: Smooth, soft articulation, slightly elongating vowels to create a sense of ease.
 `;
 
