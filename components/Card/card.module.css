@@ -31,7 +31,7 @@
   cursor: pointer;
 
   @media screen and (max-width: 768px) {
-    --size: min(230px, 45vw);
+    --size: min(230px, 25vw);
     --font-size: 12px;
   }
 }
