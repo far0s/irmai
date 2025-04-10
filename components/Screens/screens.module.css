@@ -121,7 +121,7 @@
 }
 
 .footerPart {
-  position: absolute;
+  /* position: absolute; */
 
   &[data-show="true"] ~ [data-show="true"] {
     transform: translateX(calc(100% + var(--text-size-m))) !important;
