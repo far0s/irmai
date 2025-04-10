@@ -17,6 +17,7 @@
 - [x] BUGFIX: share card no background
 - [x] BUGFIX: performance improvements
 - [x] BUGFIX: crashes on mobile, when trying to pull cards
+- [x] FEATURE/UI: improve card name style
 
 ### 0.11.0 - released 03/04/2025
 

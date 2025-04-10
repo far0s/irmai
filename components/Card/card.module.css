@@ -2,7 +2,7 @@
   --size: min(230px, 50vw);
   --spacing-1: 0.5rem;
   --spacing-2: 1rem;
-  --font-size: 14px;
+  --font-size: 18px;
   position: relative;
   flex: 0 0 var(--size);
   width: var(--size);
@@ -19,6 +19,7 @@
 
   @media screen and (max-width: 768px) {
     --size: min(230px, 45vw);
+    --font-size: 14px;
   }
 }
 
@@ -26,7 +27,13 @@
   --size: min(120px, 25vw);
   --spacing-1: 0.125rem;
   --spacing-2: 0.25rem;
-  --font-size: 12px;
+  --font-size: 16px;
+  cursor: pointer;
+
+  @media screen and (max-width: 768px) {
+    --size: min(230px, 45vw);
+    --font-size: 12px;
+  }
 }
 
 .card[data-variant="lightbox"] {
@@ -92,7 +99,7 @@
 
 .cardName {
   position: absolute;
-  bottom: calc(-1 * var(--padding-s));
+  bottom: calc(-1 * var(--padding-m));
   width: 100%;
   height: 0;
   display: flex;
@@ -105,10 +112,18 @@
 }
 
 .cardName > * {
-  font-family: var(--font-poppins);
+  font-family: var(--font-cirka);
   font-size: var(--font-size);
-  font-style: italic;
+  text-transform: uppercase;
+  font-weight: 600;
   text-align: center;
+}
+
+.card[data-variant="small"] .cardName > * {
+  font-family: var(--font-poppins);
+  text-transform: none;
+  font-weight: 400;
+  font-style: italic;
 }
 
 .cardFront::before,
