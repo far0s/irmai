@@ -68,7 +68,7 @@ async function handleShare({
   isMobile,
   successCallback,
 }: PreparedShareData & ShareImageProps): Promise<void> {
-  if (isMobile) {
+  /* if (isMobile) {
     if (navigator && navigator.canShare(shareData)) {
       successCallback && successCallback();
       await navigator.share(shareData);
@@ -77,11 +77,11 @@ async function handleShare({
       const url = URL.createObjectURL(blobImage);
       window.open(url, "_blank");
     }
-  } else {
-    successCallback && successCallback();
-    const url = URL.createObjectURL(blobImage);
-    window.open(url, "_blank");
-  }
+  } else { */
+  successCallback && successCallback();
+  const url = URL.createObjectURL(blobImage);
+  window.open(url, "_blank");
+  // }
 }
 
 export default async function shareImage({
