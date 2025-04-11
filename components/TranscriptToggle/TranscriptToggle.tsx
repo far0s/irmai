@@ -13,9 +13,6 @@ const TranscriptToggle = () => {
 
   return (
     <motion.div
-      style={{
-        marginTop: "-0.5rem",
-      }}
       animate={{
         pointerEvents: isNotSplash && show ? "auto" : "none",
         opacity: isNotSplash && show ? 1 : 0,
