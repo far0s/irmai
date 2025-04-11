@@ -68,8 +68,8 @@ async function handleShare({
   isMobile,
   successCallback,
 }: PreparedShareData & ShareImageProps): Promise<void> {
-  if (isMobile && navigator.canShare) {
-    if (navigator.canShare(shareData)) {
+  if (isMobile) {
+    if (navigator && navigator.canShare(shareData)) {
       successCallback && successCallback();
       await navigator.share(shareData);
     } else {
