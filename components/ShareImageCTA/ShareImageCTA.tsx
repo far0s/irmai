@@ -31,8 +31,10 @@ const ShareImageCTA = () => {
     if (!bgCanvas) return window.alert("Error: aura not found");
     const img = await html2canvas(bgCanvas)
       .then((canvas) => canvas.toDataURL("image/png"))
-      .catch(() => {
-        window.alert("Error: could not create an image of your reading");
+      .catch((err) => {
+        window.alert(
+          `Error: could not create an image of your reading. ${err}`
+        );
         setIsLoading(false);
       });
 
