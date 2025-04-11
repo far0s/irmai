@@ -54,7 +54,7 @@ const IrmaiHome = () => {
   }, []);
 
   const fetchAllTarotCards = async () =>
-    await fetch("/api/tarot?n=50")
+    await fetch("/api/tarot?n=all")
       .then((res) => res.json())
       .then((data) => setAllCards(data))
       .catch((err) => console.error(err));

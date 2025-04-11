@@ -21,6 +21,7 @@
   position: absolute;
   width: 100%;
   padding: 0 var(--padding-s) 4rem;
+  text-shadow: 0 0 4px rgba(40, 21, 149, 0.5);
 }
 
 .screenPartWrapper[data-interactive="false"] {
