@@ -7,10 +7,16 @@
 - [ ] FEATURE/UI: add recording indicator to the glassy button
 - [ ] BUGFIX/AI: properly save transcript and display on plage load if already present (to continue the reading)
 - [ ] FEATURE/UI: replace cards with custom ones
-- [ ] FEATURE/UI: final favicon (bugged on Safari)
 - [ ] BUGFIX/SAFARI: logo filter blur not working
 
 ## Releases
+
+### 1.0.0 - released 11/04/2025
+
+Calling this one ready to ship, awaiting final review and testing.
+
+- [x] FEATURE/UI: final favicon (bugged on Safari)
+- [x] BUGFIX: bunch more fixes and perf imrpovements
 
 ### 0.11.1 - released 10/04/2025
 
