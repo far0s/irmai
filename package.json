@@ -43,5 +43,8 @@
   },
   "browser": {
     "crypto": false
+  },
+  "overrides": {
+    "jsondiffpatch": "^0.7.2"
   }
 }
