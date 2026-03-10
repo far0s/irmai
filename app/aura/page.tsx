@@ -1,10 +1,17 @@
 "use client";
 import { Suspense, useEffect } from "react";
-import Background from "@/components/Background/Background";
-import Debug from "@/components/Debug/Debug";
+import dynamic from "next/dynamic";
 import { useIrmaiStore } from "@/components/ZustandStoreProvider/ZustandStoreProvider";
 
 import s from "../page.module.css";
+
+const Background = dynamic(() => import("@/components/Background/Background"), {
+  ssr: false,
+});
+
+const Debug = dynamic(() => import("@/components/Debug/Debug"), {
+  ssr: false,
+});
 
 const AuraPage = () => {
   const { setAllCards } = useIrmaiStore((s) => s);
